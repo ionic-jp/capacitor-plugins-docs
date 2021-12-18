@@ -2,13 +2,12 @@
   display: block;
   background: #1a2638; // zncと同色
   border-radius: 8px;
-  padding: 0 16px 0;
   height: calc(var(--vh, 1vh) * 100 - 16px);
   max-height: calc(var(--vh, 1vh) * 100 - 16px);
 
   .segment {
     border-bottom: 1px solid #000000;
-    padding: 20px 8px 16px;
+    padding: 20px 24px 16px;
 
     button {
       border-radius: 16px;
@@ -26,6 +25,7 @@
   }
 
   .znc {
+    padding: 0 16px 0;
     & > div {
       display: none;
       &.active {
@@ -33,6 +33,7 @@
       }
 
       pre {
+        box-shadow: none !important;
         max-height: calc(var(--vh, 1vh) * 100 - 45px - 34px);
       }
     }
