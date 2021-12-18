@@ -1,0 +1,7 @@
+@import "normalize";
+
+body {
+  //margin: 0;
+  /* iOSでは下部に隠れてしまうため、高さいっぱいに表示されません */
+  min-height: 100vh;
+}

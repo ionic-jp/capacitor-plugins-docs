@@ -1,0 +1,16 @@
+.app-home {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+
+  > * {
+    flex: 1;
+    max-width: 100%;
+    min-width:0;
+  }
+
+  app-codes {
+    position: sticky;
+    top: 8px;
+  }
+}
