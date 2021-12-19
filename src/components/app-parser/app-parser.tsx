@@ -54,7 +54,9 @@ export class AppParser {
   render() {
     return (
       <Host>
-        <div class="znc" innerHTML={this.markdownContent.hypertext}>
+        <div class="znc">
+          <h1 innerHTML={this.markdownContent.title}></h1>
+          <div innerHTML={this.markdownContent.hypertext}></div>
         </div>
       </Host>
     );

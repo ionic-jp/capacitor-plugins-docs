@@ -1,0 +1,13 @@
+{
+  "lifecycle": [
+    {
+      "title": "lifecycle1",
+      "filePath": "/assets/docs/stripe/lifecycle2.json"
+    },
+    {
+      "title": "lifecycle2",
+      "filePath": "/assets/docs/stripe/lifecycle2.json"
+    }
+  ]
+}
+

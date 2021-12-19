@@ -1,0 +1,29 @@
+@import url(~sanitize.css);
+
+:host {
+  display: block;
+  padding-top: 6px;
+
+  h2 {
+    font-size: 1rem;
+    font-family: 'Cairo', sans-serif;
+    padding: 20px 4px 4px 16px ;
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li a {
+      display: block;
+      margin: 0;
+      padding: 10px 0 8px 32px;
+
+      &:hover {
+        background-color: rgba(92, 147, 187, 0.17);
+      }
+    }
+  }
+}

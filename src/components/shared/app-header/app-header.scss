@@ -1,0 +1,41 @@
+@import url(~sanitize.css);
+
+:host {
+  border-bottom: solid 1px rgba(92, 147, 187, 0.17);
+  margin-bottom: 16px;
+  display: flex;
+  justify-content:space-between;
+  align-items: stretch;
+
+  h1 {
+    font-size: 1.5rem;
+    font-family: 'Cairo', sans-serif;
+    margin: 10px 16px 8px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    text-decoration: none;
+    padding: 4px 32px 0;
+    color: #000000;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.4rem;
+    border-left: solid 1px rgba(92, 147, 187, 0.17);
+
+    &:hover {
+      background-color: rgba(92, 147, 187, 0.17);
+    }
+
+    span {
+      svg {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        margin-top: -8px;
+      }
+    }
+  }
+}

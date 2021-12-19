@@ -1,5 +1,6 @@
 import {Component, h, Listen, State} from '@stencil/core';
 import {MarkdownCode, MarkdownContent} from '../../../global/definitions';
+import sideMenu from '../../../../docs/sidemenu.json'
 
 @Component({
   tag: 'app-home',
@@ -45,7 +46,7 @@ export class AppHome {
     return (
       <div class="app-home">
         <app-parser markdownContent={this.markdownContent}></app-parser>
-        <app-codes codes={this.codes} activeLine={this.activeLine}></app-codes>
+        {this.codes !== {} ? <app-codes codes={this.codes} activeLine={this.activeLine}></app-codes> : ''}
       </div>
     );
   }

@@ -1,4 +1,7 @@
+@import url(~sanitize.css);
+
 :host {
+  all: initial;
   display: block;
   background: #1a2638; // zncと同色
   border-radius: 8px;

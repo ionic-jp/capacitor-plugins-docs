@@ -1,4 +1,9 @@
+@import url(~sanitize.css);
+
 :host {
+  all: initial;
+  display: block;
+
   padding: 16px;
   /**
    * import from '~zenn-content-css/lib/index.css' .

@@ -11,7 +11,11 @@ export namespace Components {
         "activeLine": Record<string, number[]>;
         "codes": Record<string, string>;
     }
+    interface AppHeader {
+    }
     interface AppHome {
+    }
+    interface AppMenu {
     }
     interface AppParser {
         "markdownContent": MarkdownContent;
@@ -29,11 +33,23 @@ declare global {
         prototype: HTMLAppCodesElement;
         new (): HTMLAppCodesElement;
     };
+    interface HTMLAppHeaderElement extends Components.AppHeader, HTMLStencilElement {
+    }
+    var HTMLAppHeaderElement: {
+        prototype: HTMLAppHeaderElement;
+        new (): HTMLAppHeaderElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
+    };
+    interface HTMLAppMenuElement extends Components.AppMenu, HTMLStencilElement {
+    }
+    var HTMLAppMenuElement: {
+        prototype: HTMLAppMenuElement;
+        new (): HTMLAppMenuElement;
     };
     interface HTMLAppParserElement extends Components.AppParser, HTMLStencilElement {
     }
@@ -55,7 +71,9 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-codes": HTMLAppCodesElement;
+        "app-header": HTMLAppHeaderElement;
         "app-home": HTMLAppHomeElement;
+        "app-menu": HTMLAppMenuElement;
         "app-parser": HTMLAppParserElement;
         "app-root": HTMLAppRootElement;
         "app-scroll": HTMLAppScrollElement;
@@ -66,7 +84,11 @@ declare namespace LocalJSX {
         "activeLine"?: Record<string, number[]>;
         "codes"?: Record<string, string>;
     }
+    interface AppHeader {
+    }
     interface AppHome {
+    }
+    interface AppMenu {
     }
     interface AppParser {
         "markdownContent"?: MarkdownContent;
@@ -79,7 +101,9 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-codes": AppCodes;
+        "app-header": AppHeader;
         "app-home": AppHome;
+        "app-menu": AppMenu;
         "app-parser": AppParser;
         "app-root": AppRoot;
         "app-scroll": AppScroll;
@@ -90,7 +114,9 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-codes": LocalJSX.AppCodes & JSXBase.HTMLAttributes<HTMLAppCodesElement>;
+            "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
+            "app-menu": LocalJSX.AppMenu & JSXBase.HTMLAttributes<HTMLAppMenuElement>;
             "app-parser": LocalJSX.AppParser & JSXBase.HTMLAttributes<HTMLAppParserElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-scroll": LocalJSX.AppScroll & JSXBase.HTMLAttributes<HTMLAppScrollElement>;
