@@ -17,6 +17,7 @@ export class AppMenu {
       <Host>
         {Object.keys(sideMenu).map(key =>
           <div>
+            <h2>Guide</h2>
             <ul>
               <li><a {...href('/')} class={'/' === activePath ? 'active' : ''}>はじめに</a></li>
             </ul>
