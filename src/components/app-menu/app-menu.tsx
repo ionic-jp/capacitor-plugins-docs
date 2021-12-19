@@ -2,6 +2,7 @@ import { Component, Host, h } from '@stencil/core';
 import { href } from 'stencil-router-v2';
 
 import sideMenu from '../../docs/sidemenu.json'
+import {Router} from '../shared/router';
 
 @Component({
   tag: 'app-menu',
@@ -11,6 +12,7 @@ import sideMenu from '../../docs/sidemenu.json'
 export class AppMenu {
 
   render() {
+    const activePath = Router.activePath;
     return (
       <Host>
         {Object.keys(sideMenu).map(key =>
@@ -19,7 +21,7 @@ export class AppMenu {
             <ul>
               {
                 sideMenu[key].map(item =>
-                  <li><a {...href('/docs/' + item.path)}>{item.title}</a></li>
+                  <li><a {...href('/docs/' + item.path)} class={'/docs/' + item.path === activePath ? 'active' : ''}>{item.title}</a></li>
                 )
               }
             </ul>

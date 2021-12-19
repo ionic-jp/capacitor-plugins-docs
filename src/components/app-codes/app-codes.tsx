@@ -12,7 +12,6 @@ export class AppCodes {
   renderCodes: Record<string, string> = {};
 
   componentWillLoad() {
-    console.log('呼び出された？？')
     this.activeTab = Object.keys(this.codes)[0];
   }
 
@@ -61,7 +60,6 @@ export class AppCodes {
   selectTab = (event) => {
     event.preventDefault();
     this.activeTab = event.path[0].innerText;
-    console.log(this.activeTab);
   }
 
   render() {

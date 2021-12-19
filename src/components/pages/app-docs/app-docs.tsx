@@ -15,7 +15,6 @@ export class AppDocs {
 
   @Listen('changedActiveLine')
   activeLineHandler(event: CustomEvent<Record<string, number[]>>) {
-    console.log(event.detail);
     this.activeLine = event.detail;
   }
 
@@ -54,7 +53,6 @@ export class AppDocs {
     if (firstSet) {
       this.activeLine = firstSet.activeLine;
     }
-    console.log(this.codes);
   }
 
   render() {
