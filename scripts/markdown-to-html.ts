@@ -9,7 +9,7 @@ import { MarkdownContent } from '../src/global/definitions';
 const globAsync = promisify(glob);
 
 const DESTINATION_DIR = './src/assets/docs';
-const SOURCE_DIR = './docs';
+const SOURCE_DIR = './src/docs';
 
 (async function () {
   const files = await globAsync(`${SOURCE_DIR}/**/*.md`, {});

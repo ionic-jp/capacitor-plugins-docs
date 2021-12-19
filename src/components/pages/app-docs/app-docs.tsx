@@ -1,6 +1,6 @@
 import {Component, h, State, Listen, Prop, Watch} from '@stencil/core';
 import {MarkdownCode, MarkdownContent} from '../../../global/definitions';
-import sideMenu from '../../../../docs/sidemenu.json'
+import sideMenu from '../../../docs/sidemenu.json'
 
 @Component({
   tag: 'app-docs',

@@ -1,7 +1,7 @@
 import { Component, Host, h } from '@stencil/core';
 import { href } from 'stencil-router-v2';
 
-import sideMenu from '../../../docs/sidemenu.json'
+import sideMenu from '../../docs/sidemenu.json'
 
 @Component({
   tag: 'app-menu',
