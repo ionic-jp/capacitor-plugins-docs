@@ -1,5 +1,6 @@
 import {Component, Host, h, Prop, Element, Event, EventEmitter} from '@stencil/core';
 import {MarkdownContent} from '../../global/definitions';
+import { Build } from '@stencil/core';
 
 @Component({
   tag: 'app-parser',
@@ -41,10 +42,12 @@ export class AppParser {
         if (!item.id) {
           return;
         }
-        const target = this.el.shadowRoot.getElementById(item.id.toLowerCase().replace(' ', '-'));
-        if (target) {
-          const observer = new IntersectionObserver(callback, options);
-          observer.observe(target);
+        if (Build.isBrowser) {
+          const target = this.el.shadowRoot.getElementById(item.id.toLowerCase().replace(' ', '-'));
+          if (target) {
+            const observer = new IntersectionObserver(callback, options);
+            observer.observe(target);
+          }
         }
       });
 
