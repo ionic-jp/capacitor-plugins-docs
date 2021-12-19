@@ -10,6 +10,7 @@ import { Build } from '@stencil/core';
 export class AppParser {
   @Element() el: HTMLElement;
   @Prop() markdownContent: MarkdownContent;
+  @Prop() hideCodeBlock: boolean;
   @Event({
     eventName: 'changedActiveLine',
   }) changedActiveLine: EventEmitter<Record<string, number[]>>;
@@ -57,7 +58,7 @@ export class AppParser {
   render() {
     return (
       <Host>
-        <div class="znc">
+        <div class={this.hideCodeBlock ? 'znc hideCodeBlock' : 'znc'}>
           <h1 innerHTML={this.markdownContent.title}></h1>
           <div innerHTML={this.markdownContent.hypertext}></div>
         </div>

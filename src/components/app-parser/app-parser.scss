@@ -6,8 +6,10 @@
   padding: 16px;
 
   @media screen and (min-width: 960px) {
-    div.code-block-container {
-      display: none;
+    .hideCodeBlock {
+      div.code-block-container {
+        display: none;
+      }
     }
   }
 

@@ -21,6 +21,7 @@ export namespace Components {
     interface AppMenu {
     }
     interface AppParser {
+        "hideCodeBlock": boolean;
         "markdownContent": MarkdownContent;
     }
     interface AppRoot {
@@ -95,6 +96,7 @@ declare namespace LocalJSX {
     interface AppMenu {
     }
     interface AppParser {
+        "hideCodeBlock"?: boolean;
         "markdownContent"?: MarkdownContent;
         "onChangedActiveLine"?: (event: CustomEvent<Record<string, number[]>>) => void;
     }

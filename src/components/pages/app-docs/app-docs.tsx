@@ -60,7 +60,7 @@ export class AppDocs {
   render() {
     return (
       <div class="app-docs">
-        <app-parser markdownContent={this.markdownContent}></app-parser>
+        <app-parser markdownContent={this.markdownContent} hideCodeBlock={Object.keys(this.codes).length > 0}></app-parser>
         {Object.keys(this.codes).length > 0 ? <app-codes codes={this.codes} activeLine={this.activeLine}></app-codes> : ''}
       </div>
     );
