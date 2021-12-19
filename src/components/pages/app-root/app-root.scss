@@ -7,13 +7,12 @@
 
     app-menu {
       width: 200px;
-      padding-top: 16px;
       margin-right: 20px;
       align-self: flex-start;
       z-index: 10;
 
       position: sticky;
-      top: 8px;
+      top: 0;
 
       // モバイル時の開閉用
       @media screen and (max-width: 1200px) {
