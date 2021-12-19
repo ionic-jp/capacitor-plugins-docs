@@ -1,6 +1,7 @@
 import { Component, h, Host } from '@stencil/core';
-import { Route } from 'stencil-router-v2';
-import { Router } from '../router';
+import {match, Route} from 'stencil-router-v2';
+import { Router } from '../../shared/router';
+import {InternalRouterState} from 'stencil-router-v2/dist/types';
 
 @Component({
   tag: 'app-root',
@@ -12,6 +13,12 @@ export class AppRoot {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
+    Router.onChange('url', (newValue: InternalRouterState['url'], _oldValue: InternalRouterState['url']) => {
+      if (newValue !== _oldValue) {
+        window.scrollTo(0, 0);
+      }
+    });
+
     return (
       <Host>
         <app-header></app-header>
@@ -22,6 +29,10 @@ export class AppRoot {
               <Route path="/">
                 <app-home></app-home>
               </Route>
+              <Route
+                path={match('/docs/:path')}
+                render={({path}) => <app-docs path={path}></app-docs>}
+              />
             </Router.Switch>
           </main>
         </div>

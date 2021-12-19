@@ -11,6 +11,9 @@ export namespace Components {
         "activeLine": Record<string, number[]>;
         "codes": Record<string, string>;
     }
+    interface AppDocs {
+        "path": string;
+    }
     interface AppHeader {
     }
     interface AppHome {
@@ -32,6 +35,12 @@ declare global {
     var HTMLAppCodesElement: {
         prototype: HTMLAppCodesElement;
         new (): HTMLAppCodesElement;
+    };
+    interface HTMLAppDocsElement extends Components.AppDocs, HTMLStencilElement {
+    }
+    var HTMLAppDocsElement: {
+        prototype: HTMLAppDocsElement;
+        new (): HTMLAppDocsElement;
     };
     interface HTMLAppHeaderElement extends Components.AppHeader, HTMLStencilElement {
     }
@@ -71,6 +80,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-codes": HTMLAppCodesElement;
+        "app-docs": HTMLAppDocsElement;
         "app-header": HTMLAppHeaderElement;
         "app-home": HTMLAppHomeElement;
         "app-menu": HTMLAppMenuElement;
@@ -83,6 +93,9 @@ declare namespace LocalJSX {
     interface AppCodes {
         "activeLine"?: Record<string, number[]>;
         "codes"?: Record<string, string>;
+    }
+    interface AppDocs {
+        "path"?: string;
     }
     interface AppHeader {
     }
@@ -101,6 +114,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-codes": AppCodes;
+        "app-docs": AppDocs;
         "app-header": AppHeader;
         "app-home": AppHome;
         "app-menu": AppMenu;
@@ -114,6 +128,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-codes": LocalJSX.AppCodes & JSXBase.HTMLAttributes<HTMLAppCodesElement>;
+            "app-docs": LocalJSX.AppDocs & JSXBase.HTMLAttributes<HTMLAppDocsElement>;
             "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-menu": LocalJSX.AppMenu & JSXBase.HTMLAttributes<HTMLAppMenuElement>;

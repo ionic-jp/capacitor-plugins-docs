@@ -12,6 +12,7 @@ export class AppCodes {
   renderCodes: Record<string, string> = {};
 
   componentWillLoad() {
+    console.log('呼び出された？？')
     this.activeTab = Object.keys(this.codes)[0];
   }
 

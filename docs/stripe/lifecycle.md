@@ -1,6 +1,6 @@
 ---
-title: "[翻訳]Ionic6がやってきた。最新のiOS/Androidのデザインを取り込んでどう変わったかを解説！"
-code: ["docs/stripe/lifecycle/app-codes.md", "docs/stripe/lifecycle/announcement-bar.md"]
+title: "Ionic6がやってきた。"
+code: ["/docs/stripe/lifecycle/app-codes.md", "/docs/stripe/lifecycle/announcement-bar.md"]
 scrollActiveLine: [{id: "", activeLine: {}}, {id: "Bottom Sheet", activeLine: {['app-codes.ts']: [5, 6, 7, 8, 9]}}, {id: "Popover", activeLine: {['app-codes.ts']: [1, 2, 3, 4]}}]
 ---
 

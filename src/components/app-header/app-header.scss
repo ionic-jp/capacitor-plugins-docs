@@ -11,9 +11,13 @@
     font-size: 1.5rem;
     font-family: 'Cairo', sans-serif;
     margin: 10px 16px 8px;
+    a {
+      all: unset;
+      display: revert;
+    }
   }
 
-  a {
+  a.link-github {
     display: flex;
     align-items: center;
     justify-items: center;
