@@ -2,20 +2,79 @@
 
 :host {
   border-bottom: solid 1px rgba(92, 147, 187, 0.17);
-  margin-bottom: 16px;
   display: flex;
   justify-content:space-between;
   align-items: stretch;
 
-  h1 {
-    font-size: 1.5rem;
-    font-family: 'Cairo', sans-serif;
-    margin: 10px 16px 8px;
-    a {
-      all: unset;
-      display: revert;
+  header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    /*=============================
+    .btn-trigger
+    =============================*/
+    .btn-trigger {
+      @media screen and (min-width: 1200px) {
+        display: none !important;
+      }
+      position: relative;
+      width: 16px;
+      height: 12px;
+      cursor: pointer;
+      margin-left: 16px;
+    }
+    .btn-trigger span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #000000;
+      border-radius: 4px;
+    }
+    .btn-trigger, .btn-trigger span {
+      display: inline-block;
+      transition: all .5s;
+      box-sizing: border-box;
+    }
+    .btn-trigger span:nth-of-type(1) {
+      top: 0;
+    }
+    .btn-trigger span:nth-of-type(2) {
+      top: 5px;
+    }
+    .btn-trigger span:nth-of-type(3) {
+      bottom: 0;
+    }
+
+    .btn-trigger.active span:nth-of-type(1) {
+      -webkit-transform: translateY(5px) rotate(-45deg);
+      transform: translateY(5px) rotate(-45deg);
+    }
+    .btn-trigger.active span:nth-of-type(2) {
+      opacity: 0;
+    }
+    .btn-trigger.active span:nth-of-type(3) {
+      -webkit-transform: translateY(-5px) rotate(45deg);
+      transform: translateY(-5px) rotate(45deg);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-family: 'Cairo', sans-serif;
+      margin: 8px 16px;
+      a {
+        all: unset;
+        display: revert;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
     }
   }
+
 
   a.link-github {
     display: flex;
@@ -40,6 +99,16 @@
         margin-right: 8px;
         margin-top: -8px;
       }
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    h1 {
+      font-size: 1.3rem;
+    }
+
+    a.link-github {
+      font-size: 1.2rem;
     }
   }
 }

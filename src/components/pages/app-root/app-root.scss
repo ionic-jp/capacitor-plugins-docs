@@ -3,20 +3,45 @@
 :host {
   .wrapper {
     display: flex;
+    position: relative;
 
     app-menu {
       width: 200px;
+      padding-top: 16px;
       margin-right: 20px;
       align-self: flex-start;
+      z-index: 10;
 
       position: sticky;
       top: 8px;
+
+      // モバイル時の開閉用
+      @media screen and (max-width: 1200px) {
+        position: absolute;
+        background: #ffffff;
+        box-shadow: 8px 0 3px -3px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        left: 0;
+        top: 0;
+        transform: translateX(-103%);
+        will-change: transform;
+        transition: all 200ms ease-in;
+
+        &.slide-in {
+          transform: none;
+          transition: all 200ms ease-in;
+        }
+      }
     }
 
     main {
-      //flex-basis: auto;
       max-width: calc(100% - 200px - 20px);
       padding-right: 16px;
+      margin-top: 16px;
+
+      @media screen and (max-width: 1200px) {
+        max-width: 100%;
+      }
     }
   }
 }

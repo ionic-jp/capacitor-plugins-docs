@@ -1,4 +1,4 @@
-import { Component, h, Host } from '@stencil/core';
+import {Component, h, Host, Listen, State} from '@stencil/core';
 import {match, Route} from 'stencil-router-v2';
 import { Router } from '../../shared/router';
 import {InternalRouterState} from 'stencil-router-v2/dist/types';
@@ -9,6 +9,12 @@ import {InternalRouterState} from 'stencil-router-v2/dist/types';
   styleUrl: 'app-root.scss'
 })
 export class AppRoot {
+  @State() isActiveMenu = false;
+  @Listen('changeMenuState')
+  changeMenuStateHandler(event: CustomEvent<boolean>) {
+    this.isActiveMenu = event.detail;
+  }
+
   render() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -23,7 +29,7 @@ export class AppRoot {
       <Host>
         <app-header></app-header>
         <div class="wrapper">
-          <app-menu></app-menu>
+          <app-menu class={this.isActiveMenu ? 'slide-in' : 'slide-out'}></app-menu>
           <main>
             <Router.Switch>
               <Route path="/">

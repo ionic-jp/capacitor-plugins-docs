@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
 import { href } from 'stencil-router-v2';
 
 @Component({
@@ -7,11 +7,27 @@ import { href } from 'stencil-router-v2';
   shadow: true,
 })
 export class AppHeader {
+  @State() isBtnActive = false;
+  @Event({
+    eventName: 'changeMenuState',
+  }) changeMenuState: EventEmitter<boolean>;
+
+  private btnHandler = (_) => {
+    this.isBtnActive = !this.isBtnActive;
+    this.changeMenuState.emit(this.isBtnActive)
+  }
 
   render() {
     return (
       <Host>
-        <h1><a {...href('/')}>@capacitor-community/stripe</a></h1>
+        <header>
+          <div class={this.isBtnActive ? 'btn-trigger active' : 'btn-trigger'} onClick={this.btnHandler}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <h1><a {...href('/')}>@capacitor-community/stripe</a></h1>
+        </header>
         <a class="link-github" href="https://github.com/capacitor-community/stripe">
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>Logo Github</title><path

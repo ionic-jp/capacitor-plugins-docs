@@ -3,8 +3,14 @@
 :host {
   all: initial;
   display: block;
-
   padding: 16px;
+
+  @media screen and (min-width: 800px) {
+    div.code-block-container {
+      display: none;
+    }
+  }
+
   /**
    * import from '~zenn-content-css/lib/index.css' .
    * * @import '~zenn-content-css/lib/index.css' is not work

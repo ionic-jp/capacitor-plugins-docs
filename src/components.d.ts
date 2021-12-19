@@ -98,6 +98,7 @@ declare namespace LocalJSX {
         "path"?: string;
     }
     interface AppHeader {
+        "onChangeMenuState"?: (event: CustomEvent<boolean>) => void;
     }
     interface AppHome {
     }

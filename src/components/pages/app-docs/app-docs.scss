@@ -13,4 +13,10 @@
     position: sticky;
     top: 8px;
   }
+
+  @media screen and (max-width: 800px) {
+    app-codes {
+      display: none;
+    }
+  }
 }
