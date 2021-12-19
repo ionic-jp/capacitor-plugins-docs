@@ -25,9 +25,6 @@ export namespace Components {
     }
     interface AppRoot {
     }
-    interface AppScroll {
-        "activeLine": string;
-    }
 }
 declare global {
     interface HTMLAppCodesElement extends Components.AppCodes, HTMLStencilElement {
@@ -72,12 +69,6 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
-    interface HTMLAppScrollElement extends Components.AppScroll, HTMLStencilElement {
-    }
-    var HTMLAppScrollElement: {
-        prototype: HTMLAppScrollElement;
-        new (): HTMLAppScrollElement;
-    };
     interface HTMLElementTagNameMap {
         "app-codes": HTMLAppCodesElement;
         "app-docs": HTMLAppDocsElement;
@@ -86,7 +77,6 @@ declare global {
         "app-menu": HTMLAppMenuElement;
         "app-parser": HTMLAppParserElement;
         "app-root": HTMLAppRootElement;
-        "app-scroll": HTMLAppScrollElement;
     }
 }
 declare namespace LocalJSX {
@@ -110,9 +100,6 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
-    interface AppScroll {
-        "activeLine"?: string;
-    }
     interface IntrinsicElements {
         "app-codes": AppCodes;
         "app-docs": AppDocs;
@@ -121,7 +108,6 @@ declare namespace LocalJSX {
         "app-menu": AppMenu;
         "app-parser": AppParser;
         "app-root": AppRoot;
-        "app-scroll": AppScroll;
     }
 }
 export { LocalJSX as JSX };
@@ -135,7 +121,6 @@ declare module "@stencil/core" {
             "app-menu": LocalJSX.AppMenu & JSXBase.HTMLAttributes<HTMLAppMenuElement>;
             "app-parser": LocalJSX.AppParser & JSXBase.HTMLAttributes<HTMLAppParserElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "app-scroll": LocalJSX.AppScroll & JSXBase.HTMLAttributes<HTMLAppScrollElement>;
         }
     }
 }
