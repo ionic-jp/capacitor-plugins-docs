@@ -1,6 +1,6 @@
 ---
 title: "Google Pay"
-code: []
+code: ["/docs/stripe/google-pay/strings.xml.md", "/docs/stripe/google-pay/android-manifest.xml.md", "/docs/stripe/google-pay/google-pay.ts.md"]
 scrollActiveLine: []
 ---
 

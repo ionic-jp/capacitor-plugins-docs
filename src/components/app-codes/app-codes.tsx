@@ -8,6 +8,7 @@ import {Component, Host, h, Prop, State, Watch} from '@stencil/core';
 export class AppCodes {
   @Prop() codes: Record<string, string> = {};
   @Prop() activeLine: Record<string, number[]> = {}
+  @State() activeCode: Record<string, string> = {};
   @State() activeTab: string;
   renderCodes: Record<string, string> = {};
 
@@ -22,6 +23,7 @@ export class AppCodes {
   @Watch('codes')
   changeCodes(newValue: string) {
     this.activeTab = Object.keys(newValue)[0];
+    this.activeCode = Object.assign(this.codes);
   }
 
   private effectActiveLine() {
