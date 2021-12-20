@@ -28,7 +28,7 @@ const SOURCE_DIR = './src/docs';
     const markdownContents = await readFile(filePath, { encoding: 'utf8' });
     try {
       let parsedMarkdown = frontMatter<any>(markdownContents);
-      const hypertext = markdownToHtml(parsedMarkdown.body);
+      const hypertext = markdownToHtml(parsedMarkdown.body.replace(/(<\/?docgen-index>|<\/?docgen-api>)/g, ''));
 
       await mkdirp(path.join(DESTINATION_DIR, path.dirname(jsonFileName)));
       await writeFile(destinationFileName, JSON.stringify({

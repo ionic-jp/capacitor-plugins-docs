@@ -1,14 +1,36 @@
 {
-  "lifecycle": [
+  "Install": [
     {
-      "title": "lifecycle1",
-      "path": "lifecycle1",
-      "filePath": "/assets/docs/stripe/lifecycle.json"
+      "title": "Configuration",
+      "path": "configuration",
+      "filePath": "/assets/docs/stripe/configuration.json"
     },
     {
-      "title": "lifecycle2",
-      "path": "lifecycle2",
-      "filePath": "/assets/docs/stripe/lifecycle2.json"
+      "title": "Initialize",
+      "path": "initialize",
+      "filePath": "/assets/docs/stripe/initialize.json"
+    }
+  ],
+  "Method": [
+    {
+      "title": "PaymentSheet",
+      "path": "payment-sheet",
+      "filePath": "/assets/docs/stripe/payment-sheet.json"
+    },
+    {
+      "title": "PaymentFlow",
+      "path": "payment-flow",
+      "filePath": "/assets/docs/stripe/payment-flow.json"
+    },
+    {
+      "title": "ApplePay",
+      "path": "apple-pay",
+      "filePath": "/assets/docs/stripe/apple-pay.json"
+    },
+    {
+      "title": "GooglePay",
+      "path": "google-pay",
+      "filePath": "/assets/docs/stripe/google-pay.json"
     }
   ]
 }

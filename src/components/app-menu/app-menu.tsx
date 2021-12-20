@@ -15,12 +15,12 @@ export class AppMenu {
     const activePath = Router.activePath;
     return (
       <Host>
+        <h2>Guide</h2>
+        <ul>
+          <li><a {...href('/')} class={'/' === activePath ? 'active' : ''}>はじめに</a></li>
+        </ul>
         {Object.keys(sideMenu).map(key =>
           <div>
-            <h2>Guide</h2>
-            <ul>
-              <li><a {...href('/')} class={'/' === activePath ? 'active' : ''}>はじめに</a></li>
-            </ul>
             <h2>{key}</h2>
             <ul>
               {
