@@ -2,7 +2,7 @@
 file: "strings.xml"
 ---
 
-```xml: strings.xml
+```xml
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">capacitor-stripe</string>
