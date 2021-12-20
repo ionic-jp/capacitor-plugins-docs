@@ -8,9 +8,9 @@ import sideMenu from '../../../docs/sidemenu.json'
   shadow: true,
 })
 export class AppDocs {
+  @State() activeLine: Record<string, number[]> = {};
   @State() markdownContent: MarkdownContent;
   @State() codes: Record<string, string> = {};
-  @State() activeLine: Record<string, number[]> = {};
   @Prop() path: string;
 
   @Listen('changedActiveLine')
@@ -18,40 +18,53 @@ export class AppDocs {
     this.activeLine = event.detail;
   }
 
-  @Watch('path')
-  watchPathHandler() {
-    this.componentWillLoad();
+  async componentWillLoad(): Promise<void> {
+    const { markdownContent, codes, activeLine } = await this.initialize(this.path);
+    this.markdownContent = markdownContent;
+    this.codes = codes;
+    this.activeLine = activeLine;
   }
 
-  async componentWillLoad(): Promise<void> {
-    const docs = Object.keys(sideMenu).map(key => sideMenu[key]);
-    const doc = docs.flat().find(d => d.path === this.path);
+  @Watch('path')
+  async watchPathHandler() {
+    const { markdownContent, codes, activeLine } = await this.initialize(this.path);
+    this.markdownContent = markdownContent;
+    this.codes = codes;
+    this.activeLine = activeLine;
+  }
 
-    const data: MarkdownContent = await fetch(doc.filePath)
+  private async initialize(path: string): Promise<{
+    markdownContent: MarkdownContent,
+    codes: Record<string, string>,
+    activeLine: Record<string, number[]>,
+  }> {
+    const docs = Object.keys(sideMenu).map(key => sideMenu[key]);
+    const doc = docs.flat().find(d => d.path === path);
+
+    const markdownContent: MarkdownContent = await fetch(doc.filePath)
       .then(response => response.json())
       .catch(e => console.log(e));
-    this.markdownContent = data;
-
-    if (data.code?.length === 0) {
-      this.codes = {};
-      this.activeLine = {};
-    }
 
     const codes: MarkdownCode[] = await Promise.all(
-      data.code.map(url => {
+      markdownContent.code.map(url => {
           return fetch('/assets/' + url.replace('.md', '.json'))
             .then(response => response.json())
-            .catch(e => console.log(e))
+            .catch(e => console.log([e, url]))
         }
       ));
-    codes.map(code => this.codes = Object.assign(this.codes, {
+
+    let returnCode = {}
+    codes.map(code => returnCode = Object.assign(returnCode, {
       [code.file]: code.hypertext,
     }));
 
     // idが空の要素があればセット
-    const firstSet = data.scrollActiveLine.find(d => !d.id);
-    if (firstSet) {
-      this.activeLine = firstSet.activeLine;
+    const firstSet = markdownContent.scrollActiveLine.find(d => !d.id);
+
+    return {
+      markdownContent,
+      codes: returnCode,
+      activeLine: firstSet?.activeLine || {},
     }
   }
 

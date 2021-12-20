@@ -1,6 +1,6 @@
 ---
 title: "ApplePay"
-code: []
+code: ["/docs/stripe/apple-pay/apple-pay.ts.md"]
 scrollActiveLine: []
 ---
 

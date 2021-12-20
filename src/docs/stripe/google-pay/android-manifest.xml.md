@@ -1,5 +1,5 @@
 ---
-file: "google-pay.ts"
+file: "android-manifest.xml"
 ---
 
 ```xml: android/app/src/main/AndroidManifest.xml

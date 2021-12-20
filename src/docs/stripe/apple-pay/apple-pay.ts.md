@@ -1,5 +1,5 @@
 ---
-file: "google-pay.ts"
+file: "apple-pay.ts"
 ---
 
 ```ts
