@@ -11,16 +11,18 @@ export class AppHome {
       <div class="app-home">
         <div class="hero">
           <section>
-            <h1>Web技術でアプリ上から収益を得るためのプラグイン</h1>
+            <h1>Plugin for earning revenue on mobile app with web technologies</h1>
             <p>
-              あなたのプロダクトの価値には、ブラウザからでしかアクセスできないものでしょうか。
+              Is the value of your product that can only be accessed through a browser?
             </p>
             <p>
-              ブラウザを使ってGoogle検索で自分にあった商品を探すのと同じぐらい、アプリストアでモバイルアプリを探す人はいます。<br />そういったお客様に向けて、モバイルアプリとStripeを使った決済機能を実装してみませんか？？Webサイトをつくることができるなら、Capacitorとこのプラグインを利用すればもうあなたはアプリをリリースすることができます！
+              People search for mobile apps in app stores just as much as they search for products that suit them in Google search using a browser.
+              For those customers, why don't you implement a mobile app and payment function using Stripe? <br />
+              If you can build a website, then with Capacitor and this plugin, you can release your app!
             </p>
             <div class="hero-link">
-              <a href="https://capacitorjs.jp/" class="btn capacitor">Capacitorを学ぶ</a>
-              <a href="https://capacitorjs.jp/" class="btn">プラグインをはじめる</a>
+              <a href="https://capacitorjs.jp/" class="btn capacitor">Learn Capacitor</a>
+              <a href="https://capacitorjs.jp/" class="btn">Start Plugin</a>
             </div>
           </section>
           <img src="./assets/images/capacitor-image.png" alt="capacitor" decoding="async" />
