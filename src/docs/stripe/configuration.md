@@ -1,8 +1,10 @@
 ---
-title: "configuration"
+title: "Configuration platform"
 code: []
 scrollActiveLine: []
 ---
+
+No special settings are required to install the plugin. Just install it from npm like any other plugin, and run `sync`.
 
 ```bash
 npm install @capacitor-community/stripe
@@ -30,7 +32,7 @@ In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to t
 
 ## iOS configuration
 
-not need.
+In ios, the plugin will be loaded automatically without any configuration.
 
 
 ## Web configuration
@@ -50,4 +52,8 @@ And `defineCustomElements()` called once during the bootstrapping of your applic
 + defineCustomElements();
 ```
 
-`@stripe-elements/stripe-elements` is created with StencilJS. If you can't understand where defined, please check https://stenciljs.com/docs/angular/
+`@stripe-elements/stripe-elements` is created with StencilJS. If you can't understand where defined, please check these docs:
+
+- Angular: https://stenciljs.com/docs/angular/
+- React: https://stenciljs.com/docs/react
+- Vue: https://stenciljs.com/docs/vue

@@ -4,8 +4,7 @@ code: []
 scrollActiveLine: []
 ---
 
-You can import `Stripe` object from `@capacitor-community/stripe`. After that, you should use initialize method with your publishableKey.
-Don't you have the key? In that case, first register as a member and acquire it.
+You can import `Stripe` object from `@capacitor-community/stripe`. After that, you should do initialize method with your publishableKey. 
 
 ```diff ts
 + import { Stripe } from '@capacitor-community/stripe';
@@ -17,7 +16,12 @@ Don't you have the key? In that case, first register as a member and acquire it.
 + }
 ```
 
+Don't you have the key? In that case, first register as a member and acquire it.
+
+https://dashboard.stripe.com/register
+
 ## Example: Each JavaScript Framework
+
 These are implementation examples of each JavaScript framework.
 
 ### Angular

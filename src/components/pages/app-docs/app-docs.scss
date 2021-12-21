@@ -9,6 +9,10 @@
     min-width:0;
   }
 
+  app-parser {
+    max-width: 800px;
+  }
+
   app-codes {
     position: sticky;
     top: 8px;

@@ -18,9 +18,7 @@ export async function createPaymentSheet(): Promise<void> {
   Stripe.createPaymentSheet({
     paymentIntentClientSecret: paymentIntent,
     customerId: customer,
-    // merchantDisplayName: 'Your App Name or Company Name',
-    // customerEphemeralKeySecret: ephemeralKey,
-    // style: 'alwaysDark',
+    customerEphemeralKeySecret: ephemeralKey,
   });
 }
 
