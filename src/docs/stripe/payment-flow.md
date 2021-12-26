@@ -4,9 +4,9 @@ code: ["/docs/stripe/payment-flow/payment-flow.ts.md"]
 scrollActiveLine: []
 ---
 
-With PaymentFlow, you can make payments in two steps flow. And you can use setupIntent.
+With PaymentFlow, you can make payments in two steps flow. When the user presses the submit button, the system only gets the card information, and puts it in a pending state. After that, when the program executes the confirmation method, the payment is executed. In most cases, it is used in a flow that is interrupted by a final confirmation screen.
 
-This method can be used for both immediate payment with `PaymentIntent`, and recurring payments with `SetupIntent`.
+This method can be used for both immediate payment with `PaymentIntent`, and future payments with `SetupIntent`.
 
 Don't know what these Intent is? Learn it first at the official Stripe website.
 
@@ -16,52 +16,104 @@ https://stripe.com/docs/payments/payment-intents
 __SetupIntent:__
 https://stripe.com/docs/payments/save-and-reuse?platform=web
 
-## 1.  createPaymentFlow
 
-You should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you can use `HTTPClient` , `Axios` , `Ajax` , and so on.
-Backend structure is here: https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoint
+## 🐾 Implements
+### 1.  createPaymentFlow
 
-You will need to prepare either paymentIntentClientSecret or setupIntentClientSecret and set it in the method.
+This method is settings for PaymentFlow. Before use, you should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you will use `HTTPClient` , `Axios` , `Ajax` , and so on. Here is example of Angular HttpClient. This method will get `paymentIntent`, `ephemeralKey`, and `ephemeralKey`.
+
+Stripe provide how to implement backend:
+https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoint
+
+After that, you set these key to `createPaymentFlow` method. You will need to prepare either paymentIntentClientSecret or setupIntentClientSecret and set it in the method.
 
 ```ts
-import { PaymentSheetEventsEnum, Stripe } from '@capacitor-community/stripe';
+import { PaymentFlowEventsEnum, Stripe } from '@capacitor-community/stripe';
 
-export async function create(): Promise<void> {
-  /**
-   * Connect to your backend endpoint, and get every key.
-   */
-  const { paymentIntent, ephemeralKey, customer } = await this.http.post<{
+(async () => {
+  // Connect to your backend endpoint, and get every key.
+  const {paymentIntent, ephemeralKey, customer} = await this.http.post<{
     paymentIntent: string;
     ephemeralKey: string;
     customer: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
-  
+
+  // Prepare PaymentFlow with CreatePaymentFlowOption.
   Stripe.createPaymentFlow({
     paymentIntentClientSecret: paymentIntent,
-    customerId: customer,
     // setupIntentClientSecret: setupIntent,
-    // merchantDisplayName: 'Your App Name or Company Name',
-    // customerEphemeralKeySecret: ephemeralKey,
-    // style: 'alwaysDark',
+    customerEphemeralKeySecret: ephemeralKey,
+    customerId: customer,
   });
-}
+})();
 ```
 
-## 2. presentPaymentFlow
+You can use options of `CreatePaymentFlowOption` on `createPaymentFlow`.
 
-present in `presentPaymentFlow` is not submit method. You need to confirm method.
+!::createPaymentFlow::
+
+Props `paymentIntentClientSecret` or `setupIntentClientSecret`, and `customerId`, `customerEphemeralKeySecret` are __required__. And be able to [set style](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller) `alwaysLight` or `alwaysDark`, prepare [ApplePay](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-apple-pay) and [GooglePay](https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-google-pay) on PaymentFlow.
+
+!::CreatePaymentFlowOption::
+
+### 2. presentPaymentFlow
+
+When you do `presentPaymentFlow` method, plugin present PaymentFlow and get card information. This method must do after `createPaymentFlow`.
 
 ```ts
-export async function present(): Promise<void> {
-  const result = await Stripe.presentPaymentFlow();
+(async () => {
+  // Present PaymentFlow. **Not completed yet.**
+  const presentResult = await Stripe.presentPaymentFlow();
   console.log(result); // { cardNumber: "●●●● ●●●● ●●●● ****" }
-}
+})();
 ```
 
-## 3. confirmPaymentFlow
+You can get `{ cardNumber: string; }` from `presentPaymentFlow`.
+
+!::presentPaymentFlow::
+
+In do PaymentSheet, `presentPaymentSheet` method get result. __But in PaymentFlow, `presentPaymentFlow` method is progress.__
+
+### 3. confirmPaymentFlow
 
 ```ts
-export async function present(): Promise<void> {
-  const result = await Stripe.confirmPaymentFlow();
-}
+(async () => {
+  // Confirm PaymentFlow. Completed.
+  const confirmResult = await Stripe.confirmPaymentFlow();
+  if (result.paymentResult === PaymentFlowEventsEnum.Completed) {
+    // Happy path
+  }
+})();
 ```
+
+`PaymentFlowResultInterface` is created from Enum of `PaymentFlowEventsEnum`. So you should import and check result.
+
+!::PaymentFlowResultInterface::
+
+### 4. addListener
+
+Method of PaymentFlow notify any listeners. If you want to get event of payment process is 'Completed', you should add `PaymentFlowEventsEnum.Completed` listener to `Stripe` object:
+
+```ts
+// be able to get event of PaymentFlow
+Stripe.addListener(PaymentFlowEventsEnum.Completed, () => {
+  console.log('PaymentFlowEventsEnum.Completed');
+});
+```
+
+The event name you can use is `PaymentFlowEventsEnum`.
+
+!::PaymentFlowEventsEnum::
+
+## 📖 Reference
+See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
+
+### Complete the payment in your own UI(iOS)
+This plugin use PaymentFlow on `pod 'Stripe'`:
+
+https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller
+
+### Complete the payment in your own UI(Android)
+This plugin use PaymentFlow on `com.stripe:stripe-android`:
+
+https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-flowcontroller
