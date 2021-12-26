@@ -1,7 +1,7 @@
 ---
 title: "PaymentSheet"
 code: ["/docs/stripe/payment-sheet/payment-sheet.ts.md"]
-scrollActiveLine: [{id: "", activeLine: {}}, {id: "1.-createpaymentsheet", activeLine: {['payment-sheet.ts']: [9, 19]}}, {id: "2.-presentpaymentsheet", activeLine: {['payment-sheet.ts']: [20, 24]}}, {id: "3.-addlistener", activeLine: {['payment-sheet.ts']: [4, 8]}}]
+scrollActiveLine: [{id: "", activeLine: {}}, {id: "1.-createpaymentsheet", activeLine: {['payment-sheet.ts']: [7, 15]}}, {id: "2.-presentpaymentsheet", activeLine: {['payment-sheet.ts']: [16, 20]}}, {id: "3.-addlistener", activeLine: {['payment-sheet.ts']: [3, 6]}}]
 ---
 
 With PaymentSheet, you can make payments in a single flow. As soon as the User presses the payment button, the payment is completed. (If you want user have some flow after that, please use `paymentFlow` method)
@@ -27,18 +27,14 @@ After that, you set these key to `createPaymentSheet` method.
 import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
 
 (async () => {
-  /**
-   * Connect to your backend endpoint, and get every key.
-   */
+  // Connect to your backend endpoint, and get every key.
   const { paymentIntent, ephemeralKey, customer } = await this.http.post<{
     paymentIntent: string;
     ephemeralKey: string;
     customer: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
 
-  /**
-   * prepare PaymentSheet with CreatePaymentSheetOption.
-   */
+  // prepare PaymentSheet with CreatePaymentSheetOption.
   await Stripe.createPaymentSheet({
     paymentIntentClientSecret: paymentIntent,
     customerId: customer,
@@ -61,9 +57,7 @@ When you do `presentPaymentSheet` method, plugin present PaymentSheet and get re
 
 ```ts
 (async () => {
-  /**
-   * present PaymentSheet and get result.
-   */
+  // present PaymentSheet and get result.
   const result = await Stripe.presentPaymentSheet();
   if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
     // Happy path
@@ -84,9 +78,7 @@ You can get `PaymentSheetResultInterface` from `presentPaymentSheet`.
 Method of PaymentSheet notify any listeners. If you want to get event of payment process is 'Completed', you should add `PaymentSheetEventsEnum.Completed` listener to `Stripe` object:
 
 ```ts
-/**
- * be able to get event of PaymentSheet
- */
+// be able to get event of PaymentSheet
 Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
   console.log('PaymentSheetEventsEnum.Completed');
 });

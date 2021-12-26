@@ -40,6 +40,7 @@ export class AppParser {
         });
       };
 
+      
       this.markdownContent.scrollActiveLine.map(item => {
         if (Build.isBrowser) {
           const target = !item.id ?
