@@ -40,7 +40,7 @@ const SOURCE_DIR = './src/docs';
         }
         const markdown = docsArr.find(doc => doc?.id === result[1])?.markdown;
         if (markdown) {
-          return markdown;
+          return markdown.split('\n').map(d => '> ' + d).join('\n');
         }
         throw result[1] + 'is not fount';
       }).join('\n')

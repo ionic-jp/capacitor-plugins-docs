@@ -48,9 +48,9 @@ import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
 
 You can use options of `CreatePaymentSheetOption` on `createPaymentSheet`.
 
-Props `paymentIntentClientSecret`, `customerId`, `customerEphemeralKeySecret` are __required__. And be able to [set style](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller) `alwaysLight` or `alwaysDark`, prepare [ApplePay](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-apple-pay) and [GooglePay](https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-google-pay) on PaymentSheet.
-
 !::createPaymentSheet::
+
+Props `paymentIntentClientSecret`, `customerId`, `customerEphemeralKeySecret` are __required__. And be able to [set style](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller) `alwaysLight` or `alwaysDark`, prepare [ApplePay](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-apple-pay) and [GooglePay](https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-google-pay) on PaymentSheet.
 
 !::CreatePaymentSheetOption::
 
@@ -74,9 +74,9 @@ You can get `PaymentSheetResultInterface` from `presentPaymentSheet`.
 
 !::presentPaymentSheet::
 
-!::PaymentSheetResultInterface::
-
 `PaymentSheetResultInterface` is created from Enum of `PaymentSheetEventsEnum`. So you should import and check result.
+
+!::PaymentSheetResultInterface::
 
 ## 3. addListener
 
