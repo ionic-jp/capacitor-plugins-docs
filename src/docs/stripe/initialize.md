@@ -6,14 +6,14 @@ scrollActiveLine: []
 
 You can import `Stripe` object from `@capacitor-community/stripe`. After that, you should do initialize method with your publishableKey. 
 
-```diff ts
-+ import { Stripe } from '@capacitor-community/stripe';
+```ts
+import { Stripe } from '@capacitor-community/stripe';
 
-+ export async function initialize(): Promise<void> {
-+   Stripe.initialize({
-+     publishableKey: "Your Publishable Key",
-+   });
-+ }
+export async function initialize(): Promise<void> {
+  Stripe.initialize({
+    publishableKey: "Your Publishable Key",
+  });
+}
 ```
 
 Don't you have the key? If so, first register as a member and acquire it.
