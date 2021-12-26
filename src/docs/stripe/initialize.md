@@ -16,11 +16,17 @@ You can import `Stripe` object from `@capacitor-community/stripe`. After that, y
 + }
 ```
 
-Don't you have the key? In that case, first register as a member and acquire it.
+Don't you have the key? If so, first register as a member and acquire it.
 
 https://dashboard.stripe.com/register
 
-## Example: Each JavaScript Framework
+## Method Information
+
+!::initialize::
+
+!::StripeInitializationOptions::
+
+## Example: Each JavaScript Frameworks
 
 These are implementation examples of each JavaScript framework.
 
