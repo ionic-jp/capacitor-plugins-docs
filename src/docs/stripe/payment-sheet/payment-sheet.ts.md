@@ -15,7 +15,7 @@ export async function createPaymentSheet(): Promise<void> {
     customer: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
   
-  Stripe.createPaymentSheet({
+  await Stripe.createPaymentSheet({
     paymentIntentClientSecret: paymentIntent,
     customerId: customer,
     customerEphemeralKeySecret: ephemeralKey,
@@ -24,5 +24,12 @@ export async function createPaymentSheet(): Promise<void> {
 
 export async function present(): Promise<void> {
   const result = await Stripe.presentPaymentSheet();
+  if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
+    // Happy path
+  }
 }
+
+Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
+  console.log('PaymentSheetEventsEnum.Completed');
+});
 ```

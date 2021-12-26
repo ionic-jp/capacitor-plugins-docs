@@ -4,7 +4,7 @@ code: []
 scrollActiveLine: []
 ---
 
-You can import `Stripe` object from `@capacitor-community/stripe`. After that, you should do initialize method with your publishableKey. 
+First, you will import `Stripe` object from `@capacitor-community/stripe`. After that, you should do `initialize` method with `StripeInitializationOptions`. `StripeInitializationOptions` require your publishableKey.
 
 ```ts
 import { Stripe } from '@capacitor-community/stripe';
@@ -16,17 +16,16 @@ export async function initialize(): Promise<void> {
 }
 ```
 
-Don't you have the key? If so, first register as a member and acquire it.
-
-https://dashboard.stripe.com/register
-
-## Method Information
-
 !::initialize::
 
 !::StripeInitializationOptions::
 
-## Example: Each JavaScript Frameworks
+Don't you have the publishableKey? If so, first register as a member and acquire it.
+
+https://dashboard.stripe.com/register
+
+
+## Example
 
 These are implementation examples of each JavaScript framework.
 

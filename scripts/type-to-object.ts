@@ -12,6 +12,10 @@ const formatMethodSignature = (m: DocsInterfaceMethod): string =>  {
 }
 
 const createMethodParamTable = (data: DocsData, parameters: DocsMethodParam[]): string => {
+  if (parameters.length === 0) {
+    return '';
+  }
+
   const t = new MarkdownTable();
 
   t.addHeader([`Param`, `Type`, `Description`]);
@@ -24,6 +28,7 @@ const createMethodParamTable = (data: DocsData, parameters: DocsMethodParam[]): 
   });
 
   t.removeEmptyColumns();
+
   return codeToMarkdown(t.toMarkdown().join('\n'));
 }
 
@@ -51,7 +56,7 @@ const createMarkdown = (sources: TypeObject[], type: string) => {
       }${
         data.type ? data.type  + '\n' : ''
       }${
-        data.usage ? '```ts\n' + data.usage + '\n```'  + '\n' : ''
+        data.usage ? '`' + data.usage + '`'  + '\n' : ''
       }`
     });
   })
@@ -64,7 +69,8 @@ export const getTypeToObjects = (): Record<'methods' | 'interfaces' | 'typeAlias
     return {
       id: m.name,
       param: formatMethodSignature(m),
-      type: createMethodParamTable(source, m.parameters),
+      // type: createMethodParamTable(source, m.parameters),
+      type: '',
       description: formatDescription(source, m.docs),
       usage: `${m.name}${m.signature}`,
     };

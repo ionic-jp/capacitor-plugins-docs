@@ -6,6 +6,16 @@ scrollActiveLine: []
 
 With PaymentFlow, you can make payments in two steps flow. And you can use setupIntent.
 
+This method can be used for both immediate payment with `PaymentIntent`, and recurring payments with `SetupIntent`.
+
+Don't know what these Intent is? Learn it first at the official Stripe website.
+
+__PaymentIntent:__
+https://stripe.com/docs/payments/payment-intents
+
+__SetupIntent:__
+https://stripe.com/docs/payments/save-and-reuse?platform=web
+
 ## 1.  createPaymentFlow
 
 You should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you can use `HTTPClient` , `Axios` , `Ajax` , and so on.

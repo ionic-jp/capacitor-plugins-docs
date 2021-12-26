@@ -32,7 +32,7 @@ In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to t
 
 ## iOS configuration
 
-In ios, the plugin will be loaded automatically without any configuration.
+In iOS, the plugin will be loaded automatically without any configuration.
 
 
 ## Web configuration
@@ -54,6 +54,24 @@ And `defineCustomElements()` called once during the bootstrapping of your applic
 
 `@stripe-elements/stripe-elements` is created with StencilJS. If you can't understand where defined, please check these docs:
 
-- Angular: https://stenciljs.com/docs/angular/
-- React: https://stenciljs.com/docs/react
-- Vue: https://stenciljs.com/docs/vue
+https://stenciljs.com/docs/overview
+
+### Angular
+
+```diff ts:src/main.ts
+  import { enableProdMode } from '@angular/core';
+  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+  import { AppModule } from './app/app.module';
+  import { environment } from './environments/environment';
+
++ import { defineCustomElements } from '@stripe-elements/stripe-elements/loader';
+
+  if (environment.production) {
+    enableProdMode();
+  }
+
+  platformBrowserDynamic().bootstrapModule(AppModule)
++   .then(() => defineCustomElements(window))
+    .catch(err => console.log(err));
+```
