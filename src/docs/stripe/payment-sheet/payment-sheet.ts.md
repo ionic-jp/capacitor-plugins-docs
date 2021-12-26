@@ -38,5 +38,5 @@ import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
   if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
     // Happy path
   }
-})()
+})();
 ```

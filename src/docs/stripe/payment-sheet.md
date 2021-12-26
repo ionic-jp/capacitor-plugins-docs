@@ -43,7 +43,7 @@ import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
     customerId: customer,
     customerEphemeralKeySecret: ephemeralKey,
   });
-})()
+})();
 ```
 
 You can use options of `CreatePaymentSheetOption` on `createPaymentSheet`.

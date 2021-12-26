@@ -4,14 +4,14 @@
       "title": "Configuration",
       "path": "configuration",
       "filePath": "/assets/docs/stripe/configuration.json"
-    },
+    }
+  ],
+  "Method": [
     {
       "title": "Initialize",
       "path": "initialize",
       "filePath": "/assets/docs/stripe/initialize.json"
-    }
-  ],
-  "Method": [
+    },
     {
       "title": "PaymentSheet",
       "path": "payment-sheet",
