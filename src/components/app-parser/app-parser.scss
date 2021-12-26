@@ -3,7 +3,11 @@
 :host {
   all: initial;
   display: block;
-  padding: 16px;
+  padding: 6px 16px;
+
+  blockquote {
+    margin: 1.8rem 0 !important;
+  }
 
   @media screen and (min-width: 960px) {
     .hideCodeBlock {

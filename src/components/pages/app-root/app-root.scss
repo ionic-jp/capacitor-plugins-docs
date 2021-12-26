@@ -6,7 +6,7 @@
     position: relative;
 
     app-menu {
-      width: 200px;
+      width: 180px;
       margin-right: 20px;
       align-self: flex-start;
       z-index: 10;
@@ -34,7 +34,7 @@
     }
 
     main {
-      max-width: calc(100% - 200px - 20px);
+      max-width: calc(100% - 180px - 20px);
       margin: 16px auto 0;
       padding-right: 16px;
 

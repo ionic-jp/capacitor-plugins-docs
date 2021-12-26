@@ -44,10 +44,12 @@ export class AppCodes {
       // @ts-ignore
       for(let node of code.querySelector('pre code').childNodes) {
         if (node.textContent.includes('\n')) {
-          createNode.push(`<span class="line-${i} ${this.activeLine[fileName].includes(i) ? '' : 'disabled' }">` + line + '</span>');
+          const isActive = i > this.activeLine[fileName][0] && i < this.activeLine[fileName][1];
+          createNode.push(`<span class="line-${i} ${isActive ? '' : 'disabled' }">` + line + '</span>');
           line = '';
           i++;
         }
+
         line += new XMLSerializer().serializeToString(node);
       }
 

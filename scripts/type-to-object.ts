@@ -51,7 +51,7 @@ const codeToMarkdown = (text: string) => {
 const createMarkdown = (sources: TypeObject[], type: string) => {
   return sources.map(data => {
     return Object.assign(data, {
-      markdown: `### \`${type}\` ${data.param}\n${
+      markdown: `#### \`${type}\` ${data.param}\n${
         data.description ? data.description + '\n': ''
       }${
         data.type ? data.type  + '\n' : ''

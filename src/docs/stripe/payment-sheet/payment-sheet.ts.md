@@ -39,4 +39,5 @@ import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
     // Happy path
   }
 })();
+　
 ```

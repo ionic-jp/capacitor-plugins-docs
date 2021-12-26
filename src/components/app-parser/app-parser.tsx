@@ -19,14 +19,15 @@ export class AppParser {
     if (this.markdownContent.scrollActiveLine?.length > 0) {
       const options = {
         // root: document.querySelector('.root'),
-        rootMargin: "100px 20px",
-        threshold: [0, 0.5, 1.0]
+        rootMargin: "0px 0px -70% 0px",
+        threshold: 1.0
       };
       const callback = (entries, _) =>  {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
             return;
           }
+
           const { activeLine } = this.markdownContent.scrollActiveLine.find(item => {
             return item.id.toLowerCase().replace(' ', '-') === entries[0].target.id;
           })
@@ -40,11 +41,11 @@ export class AppParser {
       };
 
       this.markdownContent.scrollActiveLine.map(item => {
-        if (!item.id) {
-          return;
-        }
         if (Build.isBrowser) {
-          const target = this.el.shadowRoot.getElementById(item.id.toLowerCase().replace(' ', '-'));
+          const target = !item.id ?
+            this.el.shadowRoot.querySelector('h1') :
+            this.el.shadowRoot.getElementById(item.id.toLowerCase().replace(' ', '-'));
+          console.log(target);
           if (target) {
             const observer = new IntersectionObserver(callback, options);
             observer.observe(target);

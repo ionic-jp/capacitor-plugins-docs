@@ -1,7 +1,7 @@
 ---
 title: "Ionic6がやってきた。"
 code: ["/docs/stripe/lifecycle/app-codes.md", "/docs/stripe/lifecycle/announcement-bar.md"]
-scrollActiveLine: [{id: "", activeLine: {}}, {id: "Bottom Sheet", activeLine: {['app-codes.ts']: [5, 6, 7, 8, 9]}}, {id: "Popover", activeLine: {['app-codes.ts']: [1, 2, 3, 4]}}]
+scrollActiveLine: [{id: "", activeLine: {}}, {id: "Bottom Sheet", activeLine: {['app-codes.ts']: [5, 9]}}, {id: "Popover", activeLine: {['app-codes.ts']: [1, 2, 3, 4]}}]
 ---
 
 ![](/images/59278a50a7f0f7/ionic-6-feature-image-1-1536x845.png)

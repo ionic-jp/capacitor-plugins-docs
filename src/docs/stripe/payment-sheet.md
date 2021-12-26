@@ -1,7 +1,7 @@
 ---
 title: "PaymentSheet"
 code: ["/docs/stripe/payment-sheet/payment-sheet.ts.md"]
-scrollActiveLine: []
+scrollActiveLine: [{id: "", activeLine: {}}, {id: "1.-createpaymentsheet", activeLine: {['payment-sheet.ts']: [9, 19]}}, {id: "2.-presentpaymentsheet", activeLine: {['payment-sheet.ts']: [20, 24]}}, {id: "3.-addlistener", activeLine: {['payment-sheet.ts']: [4, 8]}}]
 ---
 
 With PaymentSheet, you can make payments in a single flow. As soon as the User presses the payment button, the payment is completed. (If you want user have some flow after that, please use `paymentFlow` method)
@@ -13,7 +13,8 @@ https://stripe.com/docs/payments/payment-intents
 
 This guide will show you an easy way to make instant payments.
 
-## 1. createPaymentSheet
+## 🐾 Implements
+### 1. createPaymentSheet
 
 This method is settings for PaymentSheet. Before use, you should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you will use `HTTPClient` , `Axios` , `Ajax` , and so on. Here is example of Angular HttpClient. This method will get `paymentIntent`, `ephemeralKey`, and `ephemeralKey`.
 
@@ -54,7 +55,7 @@ Props `paymentIntentClientSecret`, `customerId`, `customerEphemeralKeySecret` ar
 
 !::CreatePaymentSheetOption::
 
-## 2. presentPaymentSheet
+### 2. presentPaymentSheet
 
 When you do `presentPaymentSheet` method, plugin present PaymentSheet and get result. This method must do after `createPaymentSheet`.
 
@@ -78,7 +79,7 @@ You can get `PaymentSheetResultInterface` from `presentPaymentSheet`.
 
 !::PaymentSheetResultInterface::
 
-## 3. addListener
+### 3. addListener
 
 Method of PaymentSheet notify any listeners. If you want to get event of payment process is 'Completed', you should add `PaymentSheetEventsEnum.Completed` listener to `Stripe` object:
 
@@ -95,3 +96,15 @@ The event name you can use is `PaymentSheetEventsEnum`.
 
 !::PaymentSheetEventsEnum::
 
+## 📖 Reference
+See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
+
+### Accept a payment(iOS)
+This plugin use PaymentSheet on `pod 'Stripe'`:
+
+https://stripe.com/docs/payments/accept-a-payment?platform=ios
+
+### Accept a payment(Android)
+This plugin use PaymentSheet on `com.stripe:stripe-android`:
+
+https://stripe.com/docs/payments/accept-a-payment?platform=android
