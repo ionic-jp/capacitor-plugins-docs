@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import {Component, Host, h, Prop, Watch, State} from '@stencil/core';
 import { href } from 'stencil-router-v2';
 
 import sideMenu from '../../docs/sidemenu.json'
@@ -10,6 +10,13 @@ import {Router} from '../shared/router';
   shadow: true,
 })
 export class AppMenu {
+  @Prop() path: string;
+  @State() _path: string;
+
+  @Watch('path')
+  async watchPathHandler() {
+    this._path = this.path;
+  }
 
   render() {
     const activePath = Router.activePath;

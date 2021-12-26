@@ -29,7 +29,12 @@ export class AppRoot {
       <Host>
         <app-header></app-header>
         <div class="wrapper">
-          <app-menu class={this.isActiveMenu ? 'slide-in' : 'slide-out'}></app-menu>
+          <Router.Switch>
+            <Route
+              path={match('/docs/:path')}
+              render={({path}) => <app-menu class={this.isActiveMenu ? 'slide-in' : 'slide-out'} path={path}></app-menu>}
+            />
+          </Router.Switch>
           <main>
             <Router.Switch>
               <Route path="/">

@@ -19,6 +19,7 @@ export namespace Components {
     interface AppHome {
     }
     interface AppMenu {
+        "path": string;
     }
     interface AppParser {
         "hideCodeBlock": boolean;
@@ -94,6 +95,7 @@ declare namespace LocalJSX {
     interface AppHome {
     }
     interface AppMenu {
+        "path"?: string;
     }
     interface AppParser {
         "hideCodeBlock"?: boolean;
