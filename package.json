@@ -13,6 +13,7 @@
     "docs": "ts-node -P scripts/tsconfig.json scripts/markdown-to-html"
   },
   "dependencies": {
+    "@capacitor-community/stripe": "^3.4.1",
     "@stencil/core": "^2.12.0",
     "@stencil/sass": "^1.5.2",
     "sanitize.css": "^13.0.0",
@@ -20,6 +21,7 @@
     "zenn-content-css": "^0.1.100"
   },
   "devDependencies": {
+    "@capacitor/docgen": "^0.1.0",
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.2.0",
     "@types/jest": "^26.0.24",
