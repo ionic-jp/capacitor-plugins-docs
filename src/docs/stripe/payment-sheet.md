@@ -23,9 +23,9 @@ https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoi
 After that, you set these key to `createPaymentSheet` method.
 
 ```ts
-import { PaymentSheetEventsEnum, Stripe } from '@capacitor-community/stripe';
+import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
 
-export async function createPaymentSheet(): Promise<void> {
+(async () => {
   /**
    * Connect to your backend endpoint, and get every key.
    */
@@ -35,12 +35,15 @@ export async function createPaymentSheet(): Promise<void> {
     customer: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
 
+  /**
+   * prepare PaymentSheet with CreatePaymentSheetOption.
+   */
   await Stripe.createPaymentSheet({
     paymentIntentClientSecret: paymentIntent,
     customerId: customer,
     customerEphemeralKeySecret: ephemeralKey,
   });
-}
+})()
 ```
 
 You can use options of `CreatePaymentSheetOption` on `createPaymentSheet`.
@@ -56,12 +59,15 @@ Props `paymentIntentClientSecret`, `customerId`, `customerEphemeralKeySecret` ar
 When you do `presentPaymentSheet` method, plugin present PaymentSheet and get result. This method must do after `createPaymentSheet`.
 
 ```ts
-export async function present(): Promise<void> {
+(async () => {
+  /**
+   * present PaymentSheet and get result.
+   */
   const result = await Stripe.presentPaymentSheet();
   if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
     // Happy path
   }
-}
+})();
 ```
 
 You can get `PaymentSheetResultInterface` from `presentPaymentSheet`.
@@ -77,6 +83,9 @@ You can get `PaymentSheetResultInterface` from `presentPaymentSheet`.
 Method of PaymentSheet notify any listeners. If you want to get event of payment process is 'Completed', you should add `PaymentSheetEventsEnum.Completed` listener to `Stripe` object:
 
 ```ts
+/**
+ * be able to get event of PaymentSheet
+ */
 Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
   console.log('PaymentSheetEventsEnum.Completed');
 });
@@ -85,3 +94,4 @@ Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
 The event name you can use is `PaymentSheetEventsEnum`.
 
 !::PaymentSheetEventsEnum::
+

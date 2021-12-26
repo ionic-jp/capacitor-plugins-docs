@@ -3,9 +3,16 @@ file: "payment-sheet.ts"
 ---
 
 ```ts
-import { PaymentSheetEventsEnum, Stripe } from '@capacitor-community/stripe';
+import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
 
-export async function createPaymentSheet(): Promise<void> {
+(async () => {
+  /**
+   * be able to get event of PaymentSheet
+   */
+  Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
+    console.log('PaymentSheetEventsEnum.Completed');
+  });
+  
   /**
    * Connect to your backend endpoint, and get every key.
    */
@@ -14,22 +21,22 @@ export async function createPaymentSheet(): Promise<void> {
     ephemeralKey: string;
     customer: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
-  
+
+  /**
+   * prepare PaymentSheet with CreatePaymentSheetOption.
+   */
   await Stripe.createPaymentSheet({
     paymentIntentClientSecret: paymentIntent,
     customerId: customer,
     customerEphemeralKeySecret: ephemeralKey,
   });
-}
 
-export async function present(): Promise<void> {
+  /**
+   * present PaymentSheet and get result.
+   */
   const result = await Stripe.presentPaymentSheet();
   if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
     // Happy path
   }
-}
-
-Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
-  console.log('PaymentSheetEventsEnum.Completed');
-});
+})()
 ```
