@@ -1,4 +1,5 @@
 import {Component, h} from '@stencil/core';
+import { href } from 'stencil-router-v2';
 
 @Component({
   tag: 'app-home',
@@ -22,7 +23,7 @@ export class AppHome {
             </p>
             <div class="hero-link">
               <a href="https://capacitorjs.jp/" class="btn capacitor">Learn Capacitor</a>
-              <a href="https://capacitorjs.jp/" class="btn">Start Plugin</a>
+              <a {...href('/docs/configuration')} class="btn">Start Plugin</a>
             </div>
           </section>
           <img src="./assets/images/capacitor-image.png" alt="capacitor" decoding="async" />
