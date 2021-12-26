@@ -22,8 +22,8 @@ export class AppHome {
               If you can build a website, then with Capacitor and this plugin, you can release your app!
             </p>
             <div class="hero-link">
-              <a href="https://capacitorjs.jp/" class="btn capacitor">Learn Capacitor</a>
-              <a {...href('/docs/configuration')} class="btn">Start Plugin</a>
+              <a {...href('/docs/configuration')} class="btn inside">Start Plugin</a>
+              <a href="https://capacitorjs.jp/" class="btn">Learn Capacitor</a>
             </div>
           </section>
           <img src="./assets/images/capacitor-image.png" alt="capacitor" decoding="async" />
