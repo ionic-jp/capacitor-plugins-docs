@@ -1,6 +1,7 @@
 @import url(~sanitize.css);
 
 :host {
+  -webkit-text-size-adjust: 100%;
   all: initial;
   display: block;
   background: #1a2638; // zncと同色
