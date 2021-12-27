@@ -11,11 +11,19 @@ https://stripe.com/docs/google-pay
 ## 🐾 Implements
 
 ### Prepare settings
-And in Android App, you need some settings.
+For using GooglePay, you need some settings.
 
 #### strings.xml
 
-In file `android/app/src/main/res/values/strings.xml` add the following lines.
+In file `android/app/src/main/res/values/strings.xml` add the these value.
+
+- publishable_key(Stripe's publoshable key)
+- enable_google_pay
+- country_code
+- merchant_display_name
+- google_pay_is_testing
+
+These settings are used because GooglePay requires some processing to be done before initializing the plugin.
 
 ```xml
 <string name="publishable_key">Your Publishable Key</string>
@@ -27,7 +35,7 @@ In file `android/app/src/main/res/values/strings.xml` add the following lines.
 
 #### AndroidManifest.xml
 
-In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under <manifest><application>.
+In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `manifest > application`. These call the values set in strings.xml.
 
 ```xml
 <meta-data
@@ -55,7 +63,29 @@ In file `android/app/src/main/AndroidManifest.xml`, add the following XML elemen
   android:value="@bool/google_pay_is_testing"/>
 ```
 
-### 1. createGooglePay
+
+### 1. isGooglePayAvailable
+First, you should check to be able to use GooglePay on device. 
+
+```ts
+import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
+
+(async () => {
+  // Check to be able to use GooglePay on device
+  const isAvailable = Stripe.isGooglePayAvailable().catch(() => undefined);
+  if (isAvailable === undefined) {
+    // disable to use GooglePay
+    return;
+  }
+})();
+```
+
+This method return `resolve(): void` or `reject('Not implemented on Device.')`. 
+
+!::isGooglePayAvailable::
+
+
+### 2. createGooglePay
 
 You should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you can use `HTTPClient` , `Axios` , `Ajax` , and so on.
 
@@ -65,8 +95,6 @@ https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoi
 After that, you set these key to `createGooglePay` method.
 
 ```ts
-import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
-
 (async () => {
   // Connect to your backend endpoint, and get paymentIntent.
   const { paymentIntent } = await this.http.post<{
@@ -87,7 +115,7 @@ You can use options of `CreateGooglePayOption` on `createGooglePay`.
 
 !::CreateApplePayOption::
 
-### 2. presentGooglePay
+### 3. presentGooglePay
 
 present in `createGooglePay` is single flow. You don't need to confirm method.
 
@@ -108,7 +136,7 @@ present in `createGooglePay` is single flow. You don't need to confirm method.
 !::GooglePayResultInterface::
 
 
-### 3. addListener
+### 4. addListener
 
 Method of GooglePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `GooglePayEventsEnum.Completed` listener to `Stripe` object:
 

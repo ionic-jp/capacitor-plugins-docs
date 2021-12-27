@@ -6,6 +6,13 @@ file: "apple-pay.ts"
 import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
 
 (async() => {
+  // Check to be able to use ApplePay on device
+  const isAvailable = Stripe.isApplePayAvailable().catch(() => undefined);
+  if (isAvailable === undefined) {
+    // disable to use GooglePay
+    return;
+  }
+  
   // Connect to your backend endpoint, and get paymentIntent.
   const { paymentIntent } = await this.http.post<{
     paymentIntent: string;

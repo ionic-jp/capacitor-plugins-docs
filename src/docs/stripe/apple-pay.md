@@ -7,10 +7,44 @@ scrollActiveLine: []
 
 With ApplePay, you can make instant payments in a single flow. Please check settings:
 
-https://stripe.com/docs/apple-pay#merchantid
+https://stripe.com/docs/apple-pay
 
 ## 🐾 Implements
-### 1. createApplePay
+### Prepare settings
+For using ApplePay, you need some settings.
+
+- Register for an Apple Merchant ID
+- Create a new Apple Pay certificate
+- Integrate with Xcode
+
+Detail information is here: 
+
+https://stripe.com/docs/apple-pay#merchantid
+
+If these are not done correctly and are different from the options given to `createApplePay`, this method will not be able to run.
+
+### 1. isApplePayAvailable
+First, you should check to be able to use ApplePay on device.
+
+```ts
+import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
+
+(async() => {
+  // Check to be able to use ApplePay on device
+  const isAvailable = Stripe.isApplePayAvailable().catch(() => undefined);
+  if (isAvailable === undefined) {
+    // disable to use GooglePay
+    return;
+  }
+})();
+```
+
+This method return `resolve(): void` or `reject('Not implemented on Device.')`.
+
+!::isApplePayAvailable::
+
+
+### 2. createApplePay
 
 You should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you can use `HTTPClient` , `Axios` , `Ajax` , and so on.
 
@@ -20,8 +54,6 @@ https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoi
 After that, you set these key to `createApplePay` method.
 
 ```ts
-import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
-
 (async() => {
   // Connect to your backend endpoint, and get paymentIntent.
   const { paymentIntent } = await this.http.post<{
@@ -49,7 +81,7 @@ You can use options of `CreateApplePayOption` on `createApplePay`. `merchantIden
 
 !::CreateApplePayOption::
 
-### 2. presentApplePay
+### 3. presentApplePay
 
 present in `createApplePay` is single flow. You don't need to confirm method.
 
@@ -69,7 +101,7 @@ present in `createApplePay` is single flow. You don't need to confirm method.
 
 !::ApplePayResultInterface::
 
-### 3. addListener
+### 4. addListener
 
 Method of ApplePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `ApplePayEventsEnum.Completed` listener to `Stripe` object:
 
