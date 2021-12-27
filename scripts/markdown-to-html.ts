@@ -42,7 +42,7 @@ const SOURCE_DIR = './src/docs';
         if (markdown) {
           return markdown.split('\n').map(d => '> ' + d).join('\n');
         }
-        throw result[1] + 'is not fount';
+        throw result[1] + ' is not fount';
       }).join('\n')
 
       const hypertext = markdownToHtml(parsedBody);

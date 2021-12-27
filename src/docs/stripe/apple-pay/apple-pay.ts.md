@@ -3,16 +3,15 @@ file: "apple-pay.ts"
 ---
 
 ```ts
-import { PaymentSheetEventsEnum, Stripe } from '@capacitor-community/stripe';
+import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
 
-export async function createApplePay(): Promise<void> {
-  /**
-   * Connect to your backend endpoint, and get every key.
-   */
+(async() => {
+  // Connect to your backend endpoint, and get paymentIntent.
   const { paymentIntent } = await this.http.post<{
     paymentIntent: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
 
+  // Prepare ApplePay
   await Stripe.createApplePay({
     paymentIntentClientSecret: paymentIntent,
     paymentSummaryItems: [{
@@ -23,9 +22,12 @@ export async function createApplePay(): Promise<void> {
     countryCode: 'US',
     currency: 'USD',
   });
-}
 
-export async function present(): Promise<void> {
+  // Present ApplePay
   const result = await Stripe.presentApplePay();
-}
+  if (result.paymentResult === ApplePayEventsEnum.Completed) {
+    // Happy path
+  }
+})();
+　
 ```

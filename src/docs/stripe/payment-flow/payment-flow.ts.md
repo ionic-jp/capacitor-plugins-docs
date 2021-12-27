@@ -3,7 +3,7 @@ file: "payment-flow.ts"
 ---
 
 ```ts
-import { PaymentFlowEventsEnum, Stripe } from '@capacitor-community/stripe';
+import { Stripe, PaymentFlowEventsEnum } from '@capacitor-community/stripe';
 
 (async () => {
   // be able to get event of PaymentFlow

@@ -4,10 +4,19 @@ code: ["/docs/stripe/google-pay/strings.xml.md", "/docs/stripe/google-pay/androi
 scrollActiveLine: []
 ---
 
-With Google Pay, you can make instant payments in a single flow. Please check settings: https://stripe.com/docs/google-pay
+With Google Pay, you can make instant payments in a single flow. Please check settings:
+
+https://stripe.com/docs/google-pay
+
+## 🐾 Implements
+
+### Prepare settings
 And in Android App, you need some settings.
 
-In file android/app/src/main/res/values/strings.xml add the following lines :
+#### strings.xml
+
+In file `android/app/src/main/res/values/strings.xml` add the following lines.
+
 ```xml
 <string name="publishable_key">Your Publishable Key</string>
 <bool name="enable_google_pay">true</bool>
@@ -16,7 +25,10 @@ In file android/app/src/main/res/values/strings.xml add the following lines :
 <bool name="google_pay_is_testing">true</bool>
 ```
 
-In file android/app/src/main/AndroidManifest.xml, add the following XML elements under <manifest><application> :
+#### AndroidManifest.xml
+
+In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under <manifest><application>.
+
 ```xml
 <meta-data
   android:name="com.getcapacitor.community.stripe.publishable_key"
@@ -43,34 +55,79 @@ In file android/app/src/main/AndroidManifest.xml, add the following XML elements
   android:value="@bool/google_pay_is_testing"/>
 ```
 
-## 1. createGooglePay
+### 1. createGooglePay
 
 You should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you can use `HTTPClient` , `Axios` , `Ajax` , and so on.
-Backend structure is here: https://stripe.com/docs/payments/accept-a-payment?platform=android#add-server-endpoint
+
+Stripe provide how to implement backend:
+https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoint
+
+After that, you set these key to `createGooglePay` method.
 
 ```ts
-import { PaymentSheetEventsEnum, Stripe } from '@capacitor-community/stripe';
+import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
 
-export async function createGooglePay(): Promise<void> {
-  /**
-   * Connect to your backend endpoint, and get every key.
-   */
+(async () => {
+  // Connect to your backend endpoint, and get paymentIntent.
   const { paymentIntent } = await this.http.post<{
     paymentIntent: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
 
+  // Prepare GooglePay
   await Stripe.createGooglePay({
     paymentIntentClientSecret: paymentIntent,
   });
-}
+})();
 ```
 
-## 2. presentGooglePay
+!::createGooglePay::
+
+
+You can use options of `CreateGooglePayOption` on `createGooglePay`. 
+
+!::CreateApplePayOption::
+
+### 2. presentGooglePay
 
 present in `createGooglePay` is single flow. You don't need to confirm method.
 
 ```ts
-export async function present(): Promise<void> {
-  const result = await Stripe.presentApplePay();
-}
+(async () => {
+  // Present GooglePay
+  const result = await Stripe.presentGooglePay();
+  if (result.paymentResult === GooglePayEventsEnum.Completed) {
+    // Happy path
+  }
+})();
 ```
+
+!::presentGooglePay::
+
+`GooglePayResultInterface` is created from Enum of `GooglePayEventsEnum`. So you should import and check result.
+
+!::GooglePayResultInterface::
+
+
+### 3. addListener
+
+Method of GooglePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `GooglePayEventsEnum.Completed` listener to `Stripe` object:
+
+```ts
+// be able to get event of PaymentSheet
+Stripe.addListener(GooglePayEventsEnum.Completed, () => {
+  console.log('GooglePayEventsEnum.Completed');
+});
+```
+
+The event name you can use is `GooglePayEventsEnum`.
+
+!::GooglePayEventsEnum::
+
+
+## 📖 Reference
+See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
+
+### GooglePay(Android)
+This plugin use GooglePayLauncher on `com.stripe:stripe-android`:
+
+https://stripe.com/docs/google-pay

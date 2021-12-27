@@ -28,7 +28,7 @@ https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoi
 After that, you set these key to `createPaymentFlow` method. You will need to prepare either paymentIntentClientSecret or setupIntentClientSecret and set it in the method.
 
 ```ts
-import { PaymentFlowEventsEnum, Stripe } from '@capacitor-community/stripe';
+import { Stripe, PaymentFlowEventsEnum } from '@capacitor-community/stripe';
 
 (async () => {
   // Connect to your backend endpoint, and get every key.
@@ -109,11 +109,11 @@ The event name you can use is `PaymentFlowEventsEnum`.
 See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
 
 ### Complete the payment in your own UI(iOS)
-This plugin use PaymentFlow on `pod 'Stripe'`:
+This plugin use PaymentSheet.FlowController on `pod 'Stripe'`:
 
 https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller
 
 ### Complete the payment in your own UI(Android)
-This plugin use PaymentFlow on `com.stripe:stripe-android`:
+This plugin use PaymentSheet.FlowController on `com.stripe:stripe-android`:
 
 https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-flowcontroller
