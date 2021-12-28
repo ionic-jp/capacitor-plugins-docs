@@ -1,8 +1,8 @@
 import {Component, Host, h, Prop, Watch, State} from '@stencil/core';
 import { href } from 'stencil-router-v2';
 
-import sideMenu from '../../docs/sidemenu.json'
 import {Router} from '../shared/router';
+import {usePlugin} from '../shared/utils';
 
 @Component({
   tag: 'app-menu',
@@ -19,6 +19,8 @@ export class AppMenu {
   }
 
   render() {
+    const sideMenu = usePlugin();
+
     const activePath = Router.activePath;
     return (
       <Host>

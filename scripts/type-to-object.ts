@@ -1,5 +1,5 @@
 import {DocsData, DocsInterfaceMethod, DocsMethodParam, TypeObject} from '../src/global/definitions';
-import * as dataSource from '@capacitor-community/stripe/dist/docs.json';
+import * as Stripe from '@capacitor-community/stripe/dist/docs.json';
 import {formatDescription, formatType} from '@capacitor/docgen/dist/formatting';
 import {MarkdownTable} from '@capacitor/docgen/dist/markdown';
 import {DocsTagInfo} from '@capacitor/docgen';
@@ -63,7 +63,7 @@ const createMarkdown = (sources: TypeObject[], type: string) => {
 }
 
 export const getTypeToObjects = (): Record<'methods' | 'interfaces' | 'typeAliases' | 'enums', TypeObject[]> => {
-  const source = dataSource as DocsData;
+  const source = Stripe as DocsData;
 
   const methods: TypeObject[] = source!.api!.methods.map((m: DocsInterfaceMethod): TypeObject => {
     return {

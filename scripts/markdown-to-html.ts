@@ -4,7 +4,7 @@ import { glob } from 'glob';
 import path from 'path';
 import { readFile, writeFile, mkdirp, remove } from 'fs-extra';
 import frontMatter from 'front-matter';
-import {MarkdownContent, TypeObject} from '../src/global/definitions';
+import { MarkdownContent, TypeObject } from '../src/global/definitions';
 import { getTypeToObjects } from './type-to-object';
 
 const globAsync = promisify(glob);

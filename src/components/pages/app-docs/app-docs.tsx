@@ -1,6 +1,6 @@
 import {Component, h, State, Listen, Prop, Watch} from '@stencil/core';
 import {MarkdownCode, MarkdownContent} from '../../../global/definitions';
-import sideMenu from '../../../docs/sidemenu.json'
+import {usePlugin} from '../../shared/utils';
 
 @Component({
   tag: 'app-docs',
@@ -38,7 +38,7 @@ export class AppDocs {
     codes: Record<string, string>,
     activeLine: Record<string, number[]>,
   }> {
-    const docs = Object.keys(sideMenu).map(key => sideMenu[key]);
+    const docs = Object.keys(usePlugin()).map(key => usePlugin()[key]);
     const doc = docs.flat().find(d => d.path === path);
 
     const markdownContent: MarkdownContent = await fetch(doc.filePath)
