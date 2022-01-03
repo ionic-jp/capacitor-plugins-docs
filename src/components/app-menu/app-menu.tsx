@@ -34,7 +34,7 @@ export class AppMenu {
             <ul>
               {
                 sideMenu[key].map(item =>
-                  <li><a {...href('/docs/' + item.path)} class={'/docs/' + item.path === activePath ? 'active' : ''}>{item.title}</a></li>
+                  <li><a {...href('/docs/' + item.path)} class={item.path === activePath ? 'active' : ''}>{item.title}</a></li>
                 )
               }
             </ul>
