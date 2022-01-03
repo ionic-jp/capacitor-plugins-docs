@@ -1,4 +1,4 @@
-import {Component, Host, h, State, Event, EventEmitter} from '@stencil/core';
+import {Component, Host, h, State, Event, EventEmitter, Watch, Prop} from '@stencil/core';
 import { href } from 'stencil-router-v2';
 
 @Component({
@@ -7,7 +7,17 @@ import { href } from 'stencil-router-v2';
   shadow: true,
 })
 export class AppHeader {
-  @State() isBtnActive = false;
+  @Prop({
+    mutable: true,
+    reflect: true,
+  }) isBtnActive = false;
+  @State() _isBtnActive;
+
+  @Watch('isBtnActive')
+  async watchPathHandler() {
+    this._isBtnActive = this.isBtnActive;
+  }
+
   @Event({
     eventName: 'changeMenuState',
   }) changeMenuState: EventEmitter<boolean>;

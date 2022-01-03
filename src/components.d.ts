@@ -15,6 +15,7 @@ export namespace Components {
         "path": string;
     }
     interface AppHeader {
+        "isBtnActive": boolean;
     }
     interface AppHome {
     }
@@ -90,11 +91,13 @@ declare namespace LocalJSX {
         "path"?: string;
     }
     interface AppHeader {
+        "isBtnActive"?: boolean;
         "onChangeMenuState"?: (event: CustomEvent<boolean>) => void;
     }
     interface AppHome {
     }
     interface AppMenu {
+        "onChangeMenuState"?: (event: CustomEvent<boolean>) => void;
         "path"?: string;
     }
     interface AppParser {

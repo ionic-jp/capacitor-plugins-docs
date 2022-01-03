@@ -27,7 +27,7 @@ export class AppRoot {
 
     return (
       <Host>
-        <app-header></app-header>
+        <app-header isBtnActive={this.isActiveMenu}></app-header>
         <div class="wrapper">
           <Router.Switch>
             <Route
