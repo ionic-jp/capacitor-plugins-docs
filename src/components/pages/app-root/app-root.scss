@@ -7,6 +7,7 @@
 
     app-menu {
       width: 180px;
+      min-height: calc(var(--vh) * 100 - 61.8px);
       margin-right: 20px;
       align-self: flex-start;
       z-index: 10;
