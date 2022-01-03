@@ -37,6 +37,11 @@
       max-width: calc(100% - 180px - 20px);
       margin: 16px auto 0;
       padding-right: 16px;
+      transition: all 200ms;
+
+      &.slide-out {
+        opacity: 0.5;
+      }
 
       @media screen and (max-width: 1200px) {
         max-width: 100%;

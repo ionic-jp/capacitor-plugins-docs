@@ -34,10 +34,10 @@ export class AppRoot {
               path={(url) => {
                 return { path: url }
               }}
-              render={({path}) => <app-menu class={this.isActiveMenu ? 'slide-in' : 'slide-out'} path={path}></app-menu>}
+              render={({path}) => <app-menu class={this.isActiveMenu ? 'slide-in' : ''} path={path}></app-menu>}
             />
           </Router.Switch>
-          <main>
+          <main class={this.isActiveMenu ? 'slide-out' : ''}>
             <Router.Switch>
               <Route path="/">
                 <app-home></app-home>
