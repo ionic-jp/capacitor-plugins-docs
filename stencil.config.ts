@@ -25,7 +25,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
-      baseUrl: 'https://myapp.local/',
+      baseUrl: 'https://stripe.capacitorjs.jp/',
       prerenderConfig: './prerender.config.ts',
       serviceWorker: null,
     },
