@@ -11,7 +11,8 @@ export class AppCodes {
   @Prop() activeLine: Record<string, number[]> = {}
   @State() activeCode: Record<string, string> = {};
   @State() activeTab: string;
-  renderCodes: Record<string, string> = {};
+  private renderCodes: Record<string, string> = {};
+  private selectTabDisabled = false;
 
   componentWillLoad() {
     this.activeTab = Object.keys(this.codes)[0];
@@ -26,7 +27,7 @@ export class AppCodes {
     const scrollTop = firstHighlight.getBoundingClientRect().y - znc.getBoundingClientRect().y;
 
     let progress = 0;
-    const scrollTime = 20;
+    const scrollTime = 30;
     const step = () => {
       progress += scrollTop / scrollTime;
       if (progress > scrollTop) {
@@ -60,7 +61,10 @@ export class AppCodes {
       if (this.activeLine[fileName].length === 0) {
         return;
       }
-      if (index === 0) {
+      if (index === 0 && !this.selectTabDisabled) {
+        /**
+         * アクティブを指定
+         */
         this.activeTab = fileName;
       }
       const doc = new DOMParser().parseFromString(this.codes[fileName], "text/html");
@@ -91,11 +95,13 @@ export class AppCodes {
 
   selectTab = (event) => {
     event.preventDefault();
+    this.selectTabDisabled = true;
     this.activeTab = event.path[0].innerText;
   }
 
   render() {
     this.effectActiveLine();
+    this.selectTabDisabled = false;
     return (
       <Host>
         <div class="segment">
