@@ -1,6 +1,6 @@
 {
-  "name": "@capacitor-community/stripe Documentation",
-  "short_name": "@capacitor-community/stripe Documentation",
+  "name": "capacitor-community/stripe Documentation",
+  "short_name": "capacitor-community/stripe Documentation",
   "start_url": "/",
   "display": "standalone",
   "icons": [{
