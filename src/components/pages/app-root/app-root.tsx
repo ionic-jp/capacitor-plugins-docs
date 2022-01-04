@@ -49,6 +49,7 @@ export class AppRoot {
             </Router.Switch>
           </main>
         </div>
+        <footer><p>©2022 RELATION DESIGN LABO, GENERAL INC. ASSOCIATION. Released under MIT License</p></footer>
       </Host>
     );
   }

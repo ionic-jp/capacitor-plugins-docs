@@ -1,28 +1,49 @@
 .app-docs {
-  display: flex;
-  align-items: flex-start;
-  max-width: 100%;
-  padding-top: 48px;
-
-  > * {
-    flex: 1;
+  main {
+    display: flex;
+    align-items: flex-start;
     max-width: 100%;
-    min-width:0;
-    -webkit-text-size-adjust: 100%;
-  }
+    padding-top: 48px;
 
-  app-parser {
-    max-width: 800px;
-  }
+    > * {
+      flex: 1;
+      max-width: 100%;
+      min-width:0;
+      -webkit-text-size-adjust: 100%;
+    }
 
-  app-codes {
-    position: sticky;
-    top: 8px;
-  }
+    app-parser {
+      max-width: 800px;
+    }
 
-  @media screen and (max-width: 960px) {
     app-codes {
-      display: none;
+      position: sticky;
+      top: 8px;
+    }
+
+
+    @media screen and (max-width: 960px) {
+      app-codes {
+        display: none;
+      }
     }
   }
+
+  footer {
+    a.edit-page {
+      text-decoration: none;
+      color: #333333;
+      svg {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+        position: relative;
+        top: 4px;
+      }
+    }
+    padding-bottom: 60px;
+  }
+
 }
+
