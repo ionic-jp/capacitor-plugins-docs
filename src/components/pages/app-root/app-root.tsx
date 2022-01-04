@@ -49,7 +49,7 @@ export class AppRoot {
             </Router.Switch>
           </main>
         </div>
-        <footer><p>©2022 RELATION DESIGN LABO, GENERAL INC. ASSOCIATION. Released under MIT License</p></footer>
+        <footer><p>©2022 <a href="https://www.rdlabo.jp/" target="_blank">RELATION DESIGN LABO, GENERAL INC. ASSOCIATION</a>. Released under MIT License</p></footer>
       </Host>
     );
   }
