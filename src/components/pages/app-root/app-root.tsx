@@ -43,7 +43,9 @@ export class AppRoot {
                 <app-home></app-home>
               </Route>
               <Route
-                path={match('/docs/:path')}
+                path={(url) => {
+                  return { path: url }
+                }}
                 render={({path}) => <app-docs path={path}></app-docs>}
               />
             </Router.Switch>
