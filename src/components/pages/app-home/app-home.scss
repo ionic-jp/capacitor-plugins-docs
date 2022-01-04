@@ -9,7 +9,8 @@ img {
 
   section {
     h1 {
-      font-size: 2rem;
+      font-size: 4rem;
+      line-height: 4rem;
     }
     p {
       font-size: 1.2rem;
@@ -37,7 +38,6 @@ img {
         }
       }
     }
-
   }
   @media screen and (min-width: 960px) {
     display: flex;
@@ -46,6 +46,9 @@ img {
     section {
       width: 60%;
       flex-grow: 1;
+      & > * {
+        max-width: 600px;
+      }
     }
     img {
       max-width: 380px;
