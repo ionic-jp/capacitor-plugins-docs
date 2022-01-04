@@ -1,12 +1,12 @@
-import {Component, h, Host, Listen, State} from '@stencil/core';
-import {match, Route} from 'stencil-router-v2';
+import { Component, h, Host, Listen, State } from '@stencil/core';
+import { Route } from 'stencil-router-v2';
 import { Router } from '../../shared/router';
-import {InternalRouterState} from 'stencil-router-v2/dist/types';
+import { InternalRouterState } from 'stencil-router-v2/dist/types';
 
 @Component({
   tag: 'app-root',
   shadow: true,
-  styleUrl: 'app-root.scss'
+  styleUrl: 'app-root.scss',
 })
 export class AppRoot {
   @State() isActiveMenu = false;
@@ -32,9 +32,9 @@ export class AppRoot {
           <Router.Switch>
             <Route
               path={(url) => {
-                return { path: url }
+                return { path: url };
               }}
-              render={({path}) => <app-menu class={this.isActiveMenu ? 'slide-in' : ''} path={path}></app-menu>}
+              render={({ path }) => <app-menu class={this.isActiveMenu ? 'slide-in' : ''} path={path}></app-menu>}
             />
           </Router.Switch>
           <main class={this.isActiveMenu ? 'slide-out' : ''}>
@@ -44,14 +44,22 @@ export class AppRoot {
               </Route>
               <Route
                 path={(url) => {
-                  return { path: url }
+                  return { path: url };
                 }}
-                render={({path}) => <app-docs path={path}></app-docs>}
+                render={({ path }) => <app-docs path={path}></app-docs>}
               />
             </Router.Switch>
           </main>
         </div>
-        <footer><p>©2022 <a href="https://www.rdlabo.jp/" target="_blank">RELATION DESIGN LABO, GENERAL INC. ASSOCIATION</a>. Released under MIT License</p></footer>
+        <footer>
+          <p>
+            ©2022{' '}
+            <a href="https://www.rdlabo.jp/" target="_blank">
+              RELATION DESIGN LABO, GENERAL INC. ASSOCIATION
+            </a>
+            . Released under MIT License
+          </p>
+        </footer>
       </Host>
     );
   }

@@ -1,8 +1,8 @@
-import {Component, Host, h, Prop, Watch, State, Event, EventEmitter} from '@stencil/core';
+import { Component, Host, h, Prop, Watch, State, Event, EventEmitter } from '@stencil/core';
 import { href } from 'stencil-router-v2';
 
-import {Router} from '../shared/router';
-import {usePlugin} from '../shared/utils';
+import { Router } from '../shared/router';
+import { usePlugin } from '../shared/utils';
 
 @Component({
   tag: 'app-menu',
@@ -15,7 +15,8 @@ export class AppMenu {
 
   @Event({
     eventName: 'changeMenuState',
-  }) changeMenuState: EventEmitter<boolean>;
+  })
+  changeMenuState: EventEmitter<boolean>;
 
   @Watch('path')
   async watchPathHandler() {
@@ -23,8 +24,8 @@ export class AppMenu {
   }
 
   hideMenuHandle = (_) => {
-    this.changeMenuState.emit(false)
-  }
+    this.changeMenuState.emit(false);
+  };
 
   render() {
     const sideMenu = usePlugin();
@@ -32,20 +33,21 @@ export class AppMenu {
     const activePath = Router.activePath;
     return (
       <Host>
-        {Object.keys(sideMenu).map(key =>
+        {Object.keys(sideMenu).map((key) => (
           <div>
             <h2>{key}</h2>
             <ul onClick={this.hideMenuHandle}>
-              {
-                sideMenu[key].map(item =>
-                  <li><a {...href(item.path)} class={item.path === activePath ? 'active' : ''}>{item.title}</a></li>
-                )
-              }
+              {sideMenu[key].map((item) => (
+                <li>
+                  <a {...href(item.path)} class={item.path === activePath ? 'active' : ''}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-        )}
+        ))}
       </Host>
     );
   }
-
 }

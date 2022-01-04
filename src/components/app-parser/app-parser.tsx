@@ -1,5 +1,5 @@
-import {Component, Host, h, Prop, Element, Event, EventEmitter, State, Watch} from '@stencil/core';
-import {MarkdownContent} from '../../global/definitions';
+import { Component, Host, h, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
+import { MarkdownContent } from '../../global/definitions';
 import { Build } from '@stencil/core';
 
 @Component({
@@ -14,7 +14,8 @@ export class AppParser {
   @State() _markdownContent: MarkdownContent;
   @Event({
     eventName: 'changedActiveLine',
-  }) changedActiveLine: EventEmitter<Record<string, number[]>>;
+  })
+  changedActiveLine: EventEmitter<Record<string, number[]>>;
   private observers: IntersectionObserver[] = [];
 
   @Watch('markdownContent')
@@ -23,7 +24,7 @@ export class AppParser {
   }
 
   componentDidRender() {
-    this.observers.forEach(observer => observer.disconnect());
+    this.observers.forEach((observer) => observer.disconnect());
     this.observers = [];
     this.prepareIntersectionObserver();
   }
@@ -32,18 +33,18 @@ export class AppParser {
     if (this.markdownContent.scrollActiveLine?.length > 0) {
       const options = {
         // root: document.querySelector('.root'),
-        rootMargin: "0px 0px -70% 0px",
-        threshold: 1.0
+        rootMargin: '0px 0px -70% 0px',
+        threshold: 1.0,
       };
-      const callback = (entries, _) =>  {
+      const callback = (entries, _) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
             return;
           }
 
-          const { activeLine } = this.markdownContent.scrollActiveLine.find(item => {
+          const { activeLine } = this.markdownContent.scrollActiveLine.find((item) => {
             return item.id.toLowerCase().replace(' ', '-') === entries[0].target.id;
-          })
+          });
           if (activeLine) {
             this.changedActiveLine.emit(activeLine);
           }
@@ -53,16 +54,14 @@ export class AppParser {
         });
       };
 
-      const targets: HTMLElement[] = this.markdownContent.scrollActiveLine.map(item => {
+      const targets: HTMLElement[] = this.markdownContent.scrollActiveLine.map((item) => {
         if (Build.isBrowser) {
-          return !item.id ?
-            this.el.shadowRoot.querySelector('h1') :
-            this.el.shadowRoot.getElementById(item.id.toLowerCase().replace(' ', '-'));
+          return !item.id ? this.el.shadowRoot.querySelector('h1') : this.el.shadowRoot.getElementById(item.id.toLowerCase().replace(' ', '-'));
         }
       });
 
-      this.observers = targets.map(target => {
-        const observer = new IntersectionObserver(callback, options)
+      this.observers = targets.map((target) => {
+        const observer = new IntersectionObserver(callback, options);
         observer.observe(target);
         return observer;
       });
@@ -79,5 +78,4 @@ export class AppParser {
       </Host>
     );
   }
-
 }

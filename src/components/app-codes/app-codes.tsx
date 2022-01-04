@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, State, Watch, Element} from '@stencil/core';
+import { Component, Host, h, Prop, State, Watch, Element } from '@stencil/core';
 
 @Component({
   tag: 'app-codes',
@@ -8,7 +8,7 @@ import {Component, Host, h, Prop, State, Watch, Element} from '@stencil/core';
 export class AppCodes {
   @Element() el: Element;
   @Prop() codes: Record<string, string> = {};
-  @Prop() activeLine: Record<string, number[]> = {}
+  @Prop() activeLine: Record<string, number[]> = {};
   @State() activeCode: Record<string, string> = {};
   @State() activeTab: string;
   private renderCodes: Record<string, string> = {};
@@ -37,8 +37,8 @@ export class AppCodes {
       if (progress < scrollTop) {
         requestAnimationFrame(step);
       }
-    }
-    requestAnimationFrame(step)
+    };
+    requestAnimationFrame(step);
   }
 
   /**
@@ -67,17 +67,17 @@ export class AppCodes {
          */
         this.activeTab = fileName;
       }
-      const doc = new DOMParser().parseFromString(this.codes[fileName], "text/html");
+      const doc = new DOMParser().parseFromString(this.codes[fileName], 'text/html');
       const createNode = [];
       let i = 1;
       let line = '';
       const code: HTMLElement = doc.body;
 
       // @ts-ignore
-      for(let node of code.querySelector('pre code').childNodes) {
+      for (let node of code.querySelector('pre code').childNodes) {
         if (node.textContent.includes('\n')) {
           const isHighlight = i > this.activeLine[fileName][0] && i < this.activeLine[fileName][1];
-          createNode.push(`<span class="line-${i} ${isHighlight ? 'highlight' : 'disabled' }">` + line + '</span>');
+          createNode.push(`<span class="line-${i} ${isHighlight ? 'highlight' : 'disabled'}">` + line + '</span>');
           line = '';
           i++;
         }
@@ -97,7 +97,7 @@ export class AppCodes {
     event.preventDefault();
     this.selectTabDisabled = true;
     this.activeTab = event.path[0].innerText;
-  }
+  };
 
   render() {
     this.effectActiveLine();
@@ -105,14 +105,16 @@ export class AppCodes {
     return (
       <Host>
         <div class="segment">
-          {Object.keys(this.renderCodes).map(key =>
-            <button onClick={this.selectTab} class={this.activeTab === key ? 'active': '' }>{key}</button>
-          )}
+          {Object.keys(this.renderCodes).map((key) => (
+            <button onClick={this.selectTab} class={this.activeTab === key ? 'active' : ''}>
+              {key}
+            </button>
+          ))}
         </div>
         <div class="znc">
-          {Object.keys(this.renderCodes).map(key =>
-            <div class={this.activeTab === key ? 'active': '' } innerHTML={this.renderCodes[key]}></div>
-          )}
+          {Object.keys(this.renderCodes).map((key) => (
+            <div class={this.activeTab === key ? 'active' : ''} innerHTML={this.renderCodes[key]}></div>
+          ))}
         </div>
       </Host>
     );
