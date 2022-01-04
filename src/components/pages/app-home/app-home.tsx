@@ -12,9 +12,9 @@ export class AppHome {
       <div class="app-home">
         <div class="hero">
           <section>
-            <h1>For earning revenue on mobile app with web technologies</h1>
+            <h1>Earn on mobile app with web tech.</h1>
             <p>
-              Is the value of your product that can only be accessed through a browser?
+              Is the value of your product can only be accessed through browser?
             </p>
             <p>
               People search for mobile apps in app stores just as much as they search for products that suit them in Google search using a browser.
