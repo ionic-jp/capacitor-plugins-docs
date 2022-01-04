@@ -1,7 +1,13 @@
 ---
 title: "PaymentFlow"
 code: ["/docs/stripe/payment-flow/payment-flow.ts.md"]
-scrollActiveLine: [{id: "", activeLine: {}}, {id: "1.-createpaymentflow", activeLine: {['payment-flow.ts']: [7, 16]}}, {id: "2.-presentpaymentflow", activeLine: {['payment-flow.ts']: [16, 20]}}, {id: "3.-confirmpaymentflow", activeLine: {['payment-flow.ts']: [20, 25]}}, {id: "4.-addlistener", activeLine: {['payment-flow.ts']: [3, 6]}}]
+scrollActiveLine: [
+  {id: "", activeLine: {}},
+  {id: "1.-createpaymentflow", activeLine: {['payment-flow.ts']: [7, 16]}},
+  {id: "2.-presentpaymentflow", activeLine: {['payment-flow.ts']: [16, 20]}},
+  {id: "3.-confirmpaymentflow", activeLine: {['payment-flow.ts']: [20, 25]}},
+  {id: "4.-addlistener", activeLine: {['payment-flow.ts']: [3, 6]}}
+]
 ---
 
 With PaymentFlow, you can make payments in two steps flow. When the user presses the submit button, the system only gets the card information, and puts it in a pending state. After that, when the program executes the confirmation method, the payment is executed. In most cases, it is used in a flow that is interrupted by a final confirmation screen.

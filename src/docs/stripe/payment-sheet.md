@@ -1,7 +1,12 @@
 ---
 title: "PaymentSheet"
 code: ["/docs/stripe/payment-sheet/payment-sheet.ts.md"]
-scrollActiveLine: [{id: "", activeLine: {}}, {id: "1.-createpaymentsheet", activeLine: {['payment-sheet.ts']: [7, 15]}}, {id: "2.-presentpaymentsheet", activeLine: {['payment-sheet.ts']: [16, 20]}}, {id: "3.-addlistener", activeLine: {['payment-sheet.ts']: [3, 6]}}]
+scrollActiveLine: [
+  {id: "", activeLine: {}},
+  {id: "1.-createpaymentsheet", activeLine: {['payment-sheet.ts']: [7, 15]}},
+  {id: "2.-presentpaymentsheet", activeLine: {['payment-sheet.ts']: [16, 20]}},
+  {id: "3.-addlistener", activeLine: {['payment-sheet.ts']: [3, 6]}}
+]
 ---
 
 With PaymentSheet, you can make payments in a single flow. As soon as the User presses the payment button, the payment is completed. (If you want user have some flow after that, please use `paymentFlow` method)
