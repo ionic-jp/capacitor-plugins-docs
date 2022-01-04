@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop, State, Watch} from '@stencil/core';
+import {Component, Host, h, Prop, State, Watch, Element} from '@stencil/core';
 
 @Component({
   tag: 'app-codes',
@@ -6,6 +6,7 @@ import {Component, Host, h, Prop, State, Watch} from '@stencil/core';
   shadow: true,
 })
 export class AppCodes {
+  @Element() el: Element;
   @Prop() codes: Record<string, string> = {};
   @Prop() activeLine: Record<string, number[]> = {}
   @State() activeCode: Record<string, string> = {};
@@ -14,6 +15,29 @@ export class AppCodes {
 
   componentWillLoad() {
     this.activeTab = Object.keys(this.codes)[0];
+  }
+
+  componentDidRender() {
+    const znc = this.el.shadowRoot.querySelector('div.znc div.active pre');
+    const firstHighlight = this.el.shadowRoot.querySelector('div.znc div.active pre .highlight');
+    if (!firstHighlight) {
+      return;
+    }
+    const scrollTop = firstHighlight.getBoundingClientRect().y - znc.getBoundingClientRect().y;
+
+    let progress = 0;
+    const scrollTime = 20;
+    const step = () => {
+      progress += scrollTop / scrollTime;
+      if (progress > scrollTop) {
+        progress = scrollTop;
+      }
+      znc.scrollTop = progress;
+      if (progress < scrollTop) {
+        requestAnimationFrame(step);
+      }
+    }
+    requestAnimationFrame(step)
   }
 
   /**
@@ -44,13 +68,12 @@ export class AppCodes {
       let i = 1;
       let line = '';
       const code: HTMLElement = doc.body;
-      console.log(code);
 
       // @ts-ignore
       for(let node of code.querySelector('pre code').childNodes) {
         if (node.textContent.includes('\n')) {
-          const isActive = i > this.activeLine[fileName][0] && i < this.activeLine[fileName][1];
-          createNode.push(`<span class="line-${i} ${isActive ? '' : 'disabled' }">` + line + '</span>');
+          const isHighlight = i > this.activeLine[fileName][0] && i < this.activeLine[fileName][1];
+          createNode.push(`<span class="line-${i} ${isHighlight ? 'highlight' : 'disabled' }">` + line + '</span>');
           line = '';
           i++;
         }

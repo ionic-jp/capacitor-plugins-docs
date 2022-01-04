@@ -22,11 +22,7 @@ export class AppParser {
     this._markdownContent = this.markdownContent;
   }
 
-  componentDidLoad() {
-    this.prepareIntersectionObserver();
-  }
-
-  componentDidUpdate() {
+  componentDidRender() {
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
     this.prepareIntersectionObserver();
