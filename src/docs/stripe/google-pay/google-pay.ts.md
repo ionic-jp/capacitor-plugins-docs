@@ -13,6 +13,10 @@ import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
     return;
   }
   
+  Stripe.addListener(GooglePayEventsEnum.Completed, () => {
+    console.log('GooglePayEventsEnum.Completed');
+  });
+  
   // Connect to your backend endpoint, and get paymentIntent.
   const { paymentIntent } = await this.http.post<{
     paymentIntent: string;

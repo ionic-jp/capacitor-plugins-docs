@@ -1,5 +1,5 @@
 ---
-file: "android-manifest.xml"
+file: "AndroidManifest.xml"
 ---
 
 ```xml

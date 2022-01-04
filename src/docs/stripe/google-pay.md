@@ -1,7 +1,7 @@
 ---
 title: "Google Pay"
 code: ["/docs/stripe/google-pay/strings.xml.md", "/docs/stripe/google-pay/android-manifest.xml.md", "/docs/stripe/google-pay/google-pay.ts.md"]
-scrollActiveLine: []
+scrollActiveLine: [{id: "", activeLine: {}}, {id: "strings.xml", activeLine: {['strings.xml']: [6, 15]}}, {id: "androidmanifest.xml", activeLine: {['AndroidManifest.xml']: [17, 30]}}, {id: "1.-isgooglepayavailable", activeLine: {['google-pay.ts']: [3, 8]}}, {id: "2.-creategooglepay", activeLine: {['google-pay.ts']: [10, 18]}}, {id: "3.-presentgooglepay", activeLine: {['google-pay.ts']: [18, 24]}}, {id: "4.-addlistener", activeLine: {['google-pay.ts']: [8, 10]}}]
 ---
 
 With Google Pay, you can make instant payments in a single flow. Please check settings:

@@ -31,15 +31,20 @@ export class AppCodes {
       this.renderCodes = Object.assign({}, this.codes);
       return;
     }
-    Object.keys(this.activeLine).forEach(fileName => {
+
+    Object.keys(this.activeLine).forEach((fileName, index) => {
       if (this.activeLine[fileName].length === 0) {
         return;
+      }
+      if (index === 0) {
+        this.activeTab = fileName;
       }
       const doc = new DOMParser().parseFromString(this.codes[fileName], "text/html");
       const createNode = [];
       let i = 1;
       let line = '';
       const code: HTMLElement = doc.body;
+      console.log(code);
 
       // @ts-ignore
       for(let node of code.querySelector('pre code').childNodes) {
