@@ -147,13 +147,12 @@ present in `createGooglePay` is single flow. You don't need to confirm method.
 
 !::GooglePayResultInterface::
 
-
 ### 4. addListener
 
 Method of GooglePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `GooglePayEventsEnum.Completed` listener to `Stripe` object:
 
 ```ts
-// be able to get event of PaymentSheet
+// be able to get event of GooglePay
 Stripe.addListener(GooglePayEventsEnum.Completed, () => {
   console.log('GooglePayEventsEnum.Completed');
 });

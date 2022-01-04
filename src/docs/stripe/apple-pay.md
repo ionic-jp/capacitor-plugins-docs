@@ -1,7 +1,13 @@
 ---
 title: "ApplePay"
 code: ["/docs/stripe/apple-pay/apple-pay.ts.md"]
-scrollActiveLine: []
+scrollActiveLine: [
+{id: "", activeLine: {}},
+{id: "1.-isapplepayavailable", activeLine: {['apple-pay.ts']: [3, 8]}},
+{id: "2.-createapplepay", activeLine: {['apple-pay.ts']: [13, 26]}},
+{id: "3.-presentapplepay", activeLine: {['apple-pay.ts']: [26, 33]}},
+{id: "4.-addlistener", activeLine: {['apple-pay.ts']: [8, 13]}}
+]
 ---
 
 
@@ -106,7 +112,7 @@ present in `createApplePay` is single flow. You don't need to confirm method.
 Method of ApplePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `ApplePayEventsEnum.Completed` listener to `Stripe` object:
 
 ```ts
-// be able to get event of PaymentSheet
+// be able to get event of ApplePay
 Stripe.addListener(ApplePayEventsEnum.Completed, () => {
   console.log('ApplePayEventsEnum.Completed');
 });

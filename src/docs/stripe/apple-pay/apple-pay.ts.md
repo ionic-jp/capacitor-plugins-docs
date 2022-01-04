@@ -12,6 +12,11 @@ import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
     // disable to use GooglePay
     return;
   }
+
+  // be able to get event of ApplePay
+  Stripe.addListener(ApplePayEventsEnum.Completed, () => {
+    console.log('ApplePayEventsEnum.Completed');
+  });
   
   // Connect to your backend endpoint, and get paymentIntent.
   const { paymentIntent } = await this.http.post<{
