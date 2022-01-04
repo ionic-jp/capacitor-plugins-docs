@@ -1,10 +1,10 @@
 {
-  "name": "Stencil Starter",
-  "short_name": "Stencil",
+  "name": "@capacitor-community/stripe Documentation",
+  "short_name": "@capacitor-community/stripe Documentation",
   "start_url": "/",
   "display": "standalone",
   "icons": [{
-    "src": "assets/icon/icon.png",
+    "src": "assets/icon/favicon.png",
     "sizes": "512x512",
     "type": "image/png"
   }],
