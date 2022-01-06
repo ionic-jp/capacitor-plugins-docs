@@ -40,7 +40,7 @@ export class AppHeader {
           </div>
           <h1>
             <a {...href('/')}>
-              <img src="./assets/images/capacitor-logo.svg" alt="capacitor" decoding="async" />
+              <img src="/assets/images/capacitor-logo.svg" alt="capacitor" decoding="async" />
               capacitor-community/stripe
             </a>
           </h1>
