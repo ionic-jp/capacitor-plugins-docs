@@ -1,19 +1,19 @@
 {
-  "Guide": [
+  "ガイド": [
     {
       "title": "Introduction",
       "path": "/",
       "filePath": ""
     }
   ],
-  "Install": [
+  "インストール": [
     {
-      "title": "Configuration",
+      "title": "構成",
       "path": "/docs/configuration",
       "filePath": "/assets/docs/stripe/configuration.json"
     }
   ],
-  "Method": [
+  "メソッド": [
     {
       "title": "Initialize",
       "path": "/docs/initialize",

@@ -9,24 +9,24 @@ scrollActiveLine: [
 ]
 ---
 
-With PaymentSheet, you can make payments in a single flow. As soon as the User presses the payment button, the payment is completed. (If you want user have some flow after that, please use `paymentFlow` method)
+PaymentSheetを使えば、1つのフローで決済を行うことができます。ユーザーが支払いボタンを押せば、すぐに支払いが完了します。(もし、この後に何らかのフローが必要な場合は、`paymentFlow` メソッドを使用してください）。
 
-This method require `PaymentIntent`. Don't know what `PaymentIntent` is? Learn it first at the official Stripe website.
+このメソッドには `PaymentIntent` が必要です。 `PaymentIntent` が何であるかご存知ない場合は、まずはStripeの公式サイトで学んでください。
 
 __PaymentIntent:__
 https://stripe.com/docs/payments/payment-intents
 
-This guide will show you an easy way to make instant payments.
+このガイドでは、 `PaymentIntent` を簡単に取得できる方法を紹介します。
 
 ## 🐾 Implements
 ### 1. createPaymentSheet
 
-This method is settings for PaymentSheet. Before use, you should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you will use `HTTPClient` , `Axios` , `Ajax` , and so on. Here is example of Angular HttpClient. This method will get `paymentIntent`, `ephemeralKey`, and `ephemeralKey`.
+このメソッドはPaymentSheetのための設定です。使用する前に、バックエンドのエンドポイントに接続し、それぞれのキーを取得する必要があります。これは、このプラグインには「ない」機能です。そのため、 `HTTPClient` 、 `Axios` 、 `Ajax` などを使用することになります。以下は、AngularのHttpClientの例です。この例では、`paymentIntent`、`ephemeralKey`、`ephemeralKey`を取得しています。
 
-Stripe provide how to implement backend:
+Stripeはバックエンドの実装方法を提供しています:
 https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoint
 
-After that, you set these key to `createPaymentSheet` method.
+その後、これらのキーを `createPaymentSheet` メソッドで利用します。
 
 ```ts
 import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
@@ -48,17 +48,17 @@ import { Stripe, PaymentSheetEventsEnum } from '@capacitor-community/stripe';
 })();
 ```
 
-You can use options of `CreatePaymentSheetOption` on `createPaymentSheet`.
+`createPaymentSheet` は `CreatePaymentSheetOption` のオプションを使用することができます。
 
 !::createPaymentSheet::
 
-Props `paymentIntentClientSecret`, `customerId`, `customerEphemeralKeySecret` are __required__. And be able to [set style](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller) `alwaysLight` or `alwaysDark`, prepare [ApplePay](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-apple-pay) and [GooglePay](https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-google-pay) on PaymentSheet.
+プロパティ `paymentIntentClientSecret`, `customerId`, `customerEphemeralKeySecret` は __必須__ です。また、 [デザインを設定して](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller) `alwaysLight` か `alwaysDark` にすることもできます。 [ApplePay](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-apple-pay) や [GooglePay](https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-google-pay) を PaymentSheetで設定することもできます。
 
 !::CreatePaymentSheetOption::
 
 ### 2. presentPaymentSheet
 
-When you do `presentPaymentSheet` method, plugin present PaymentSheet and get result. This method must do after `createPaymentSheet`.
+`presentPaymentSheet` メソッドを実行すると、プラグインはPaymentSheetを提示し、結果を取得します。このメソッドは `createPaymentSheet` の後に実行する必要があります。
 
 ```ts
 (async () => {
@@ -70,17 +70,17 @@ When you do `presentPaymentSheet` method, plugin present PaymentSheet and get re
 })();
 ```
 
-You can get `PaymentSheetResultInterface` from `presentPaymentSheet`.
+`presentPaymentSheet` の返り値から `PaymentSheetResultInterface` を取得することができます。
 
 !::presentPaymentSheet::
 
-`PaymentSheetResultInterface` is created from Enum of `PaymentSheetEventsEnum`. So you should import and check result.
+`PaymentSheetResultInterface` は `PaymentSheetEventsEnum` から作成されています。したがって、インポートして結果を確認する必要があります。
 
 !::PaymentSheetResultInterface::
 
 ### 3. addListener
 
-Method of PaymentSheet notify any listeners. If you want to get event of payment process is 'Completed', you should add `PaymentSheetEventsEnum.Completed` listener to `Stripe` object:
+PaymentSheetのメソッドはリスナーを通知します。もし、支払い処理が完了したときのイベントを取得したい場合は、 `Stripe` オブジェクトに `PaymentSheetEventsEnum.Completed` リスナーを追加する必要があります。
 
 ```ts
 // be able to get event of PaymentSheet
@@ -89,19 +89,19 @@ Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
 });
 ```
 
-The event name you can use is `PaymentSheetEventsEnum`.
+使用できるイベント名は `PaymentSheetEventsEnum` です。
 
 !::PaymentSheetEventsEnum::
 
 ## 📖 Reference
-See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
+詳しくはStripeのドキュメントをご覧ください。このプラグインはラッパーなので、詳しい情報はStripeのドキュメンテーションが役立ちます。
 
-### Accept a payment(iOS)
-This plugin use PaymentSheet on `pod 'Stripe'`:
+### 支払いを受け付ける(iOS)
+このプラグインの PaymentSheet は `pod 'Stripe'` を利用しています。
 
 https://stripe.com/docs/payments/accept-a-payment?platform=ios
 
-### Accept a payment(Android)
-This plugin use PaymentSheet on `com.stripe:stripe-android`:
+### 支払いを受け付ける(Android)
+このプラグインの PaymentSheet は`com.stripe:stripe-android` を利用しています。
 
 https://stripe.com/docs/payments/accept-a-payment?platform=android

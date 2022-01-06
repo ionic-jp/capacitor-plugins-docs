@@ -1,10 +1,11 @@
 ---
-title: "Initialize to your project"
+title: "プロジェクトにインストール"
 code: []
 scrollActiveLine: []
 ---
 
-First, you will import `Stripe` object from `@capacitor-community/stripe`. After that, you should do `initialize` method with `StripeInitializationOptions`. `StripeInitializationOptions` require your publishableKey.
+まず、 `@capacitor-community/stripe` から `Stripe` をインポートして、そのあと `StripeInitializationOptions` をつかって `initialize` メソッドを実行します。
+`StripeInitializationOptions` はあなたの publishableKey が必須で必要です。
 
 ```ts
 import { Stripe } from '@capacitor-community/stripe';
@@ -20,14 +21,14 @@ export async function initialize(): Promise<void> {
 
 !::StripeInitializationOptions::
 
-Don't you have the publishableKey? If so, first register as a member and acquire it.
+publishableKey を持っていませんか？もしその場合、まずStripeでアカウント登録してこれを手に入れる必要があります。
 
 https://dashboard.stripe.com/register
 
 
 ## Example
 
-These are implementation examples of each JavaScript framework.
+JavaScriptフレームワークでの実装例をご紹介します。
 
 ### Angular
 
