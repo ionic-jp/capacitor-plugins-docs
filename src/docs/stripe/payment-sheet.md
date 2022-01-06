@@ -89,7 +89,7 @@ Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
 });
 ```
 
-使用できるイベント名は `PaymentSheetEventsEnum` です。
+使用できるイベント名は `PaymentSheetEventsEnum` にあります。
 
 !::PaymentSheetEventsEnum::
 

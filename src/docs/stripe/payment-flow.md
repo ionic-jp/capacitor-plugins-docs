@@ -10,11 +10,11 @@ scrollActiveLine: [
 ]
 ---
 
-With PaymentFlow, you can make payments in two steps flow. When the user presses the submit button, the system only gets the card information, and puts it in a pending state. After that, when the program executes the confirmation method, the payment is executed. In most cases, it is used in a flow that is interrupted by a final confirmation screen.
+PaymentFlowを使えば、2ステップのフローで決済が可能です。ユーザーが `submit` ボタンを押すと、システムはカード情報のみを取得し、保留状態にします。その後、プログラムが `confirm` メソッドを実行すると、決済が実行されます。多くの場合、クレジットカード情報入力後に最終確認画面が表示されるフローで使用されます。
 
-This method can be used for both immediate payment with `PaymentIntent`, and future payments with `SetupIntent`.
+このメソッドは `PaymentIntent` による即時決済と `SetupIntent` による将来の決済の両方に使用することができます。
 
-Don't know what these Intent is? Learn it first at the official Stripe website.
+これらのIntentが何なのかご存知ないですか？まずはStripeの公式サイトで学んでみてください。
 
 __PaymentIntent:__
 https://stripe.com/docs/payments/payment-intents
@@ -26,12 +26,12 @@ https://stripe.com/docs/payments/save-and-reuse?platform=web
 ## 🐾 Implements
 ### 1.  createPaymentFlow
 
-This method is settings for PaymentFlow. Before use, you should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you will use `HTTPClient` , `Axios` , `Ajax` , and so on. Here is example of Angular HttpClient. This method will get `paymentIntent`, `ephemeralKey`, and `ephemeralKey`.
+このメソッドはPaymentFlowのための設定です。使用する前に、バックエンドのエンドポイントに接続し、それぞれのキーを取得する必要があります。これは、このプラグインには「ない」機能です。そのため、 `HTTPClient` 、 `Axios` 、 `Ajax` などを使用することになります。以下は、AngularのHttpClientの例です。この例では、`paymentIntent`、`ephemeralKey`、`ephemeralKey`を取得しています。
 
-Stripe provide how to implement backend:
+Stripeはバックエンドの実装方法を提供しています:
 https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoint
 
-After that, you set these key to `createPaymentFlow` method. You will need to prepare either paymentIntentClientSecret or setupIntentClientSecret and set it in the method.
+その後、これらのキーを `createPaymentFlow` メソッドで利用します。 `paymentIntentClientSecret` または `setupIntentClientSecret` のいずれかを用意し、メソッドに設定する必要があります。
 
 ```ts
 import { Stripe, PaymentFlowEventsEnum } from '@capacitor-community/stripe';
@@ -54,17 +54,17 @@ import { Stripe, PaymentFlowEventsEnum } from '@capacitor-community/stripe';
 })();
 ```
 
-You can use options of `CreatePaymentFlowOption` on `createPaymentFlow`.
+`createPaymentFlow` は `CreatePaymentFlowOption` のオプションを使用することができます。
 
 !::createPaymentFlow::
 
-Props `paymentIntentClientSecret` or `setupIntentClientSecret`, and `customerId`, `customerEphemeralKeySecret` are __required__. And be able to [set style](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller) `alwaysLight` or `alwaysDark`, prepare [ApplePay](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-apple-pay) and [GooglePay](https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-google-pay) on PaymentFlow.
+プロパティ `paymentIntentClientSecret` と `setupIntentClientSecret` のどちらかと、 `customerId`, `customerEphemeralKeySecret` は __必須__ です。また、 [デザインを設定して](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller) `alwaysLight` か `alwaysDark` にすることもできます。 [ApplePay](https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-apple-pay) や [GooglePay](https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-google-pay) を PaymentFlowで設定することもできます。
 
 !::CreatePaymentFlowOption::
 
 ### 2. presentPaymentFlow
 
-When you do `presentPaymentFlow` method, plugin present PaymentFlow and get card information. This method must do after `createPaymentFlow`.
+`presentPaymentFlow` メソッドを実行すると、プラグインはPaymentFlowを提示し、結果を取得します。このメソッドは `createPaymentFlow` の後に実行する必要があります。
 
 ```ts
 (async () => {
@@ -74,11 +74,11 @@ When you do `presentPaymentFlow` method, plugin present PaymentFlow and get card
 })();
 ```
 
-You can get `{ cardNumber: string; }` from `presentPaymentFlow`.
+あなたはユーザが正常に承認した場合、 `presentPaymentFlow` の結果として  `{ cardNumber: string; }` を取得することができます。
 
 !::presentPaymentFlow::
 
-In do PaymentSheet, `presentPaymentSheet` method get result. __But in PaymentFlow, `presentPaymentFlow` method is progress.__
+PaymentSheetでは `presentPaymentSheet` メソッドでプロセスが終了します。 __しかしPaymentFlowでは `presentPaymentFlow` メソッドはまだ決済プロセスの途中です。__
 
 ### 3. confirmPaymentFlow
 
@@ -92,13 +92,13 @@ In do PaymentSheet, `presentPaymentSheet` method get result. __But in PaymentFlo
 })();
 ```
 
-`PaymentFlowResultInterface` is created from Enum of `PaymentFlowEventsEnum`. So you should import and check result.
+`PaymentFlowEventsEnum` の返り値から `PaymentFlowResultInterface` を取得することができます。
 
 !::PaymentFlowResultInterface::
 
 ### 4. addListener
 
-Method of PaymentFlow notify any listeners. If you want to get event of payment process is 'Completed', you should add `PaymentFlowEventsEnum.Completed` listener to `Stripe` object:
+PaymentFlowのメソッドはリスナーを通知します。もし、支払い処理が完了したときのイベントを取得したい場合は、 `Stripe` オブジェクトに `PaymentFlowEventsEnum.Completed` リスナーを追加する必要があります。
 
 ```ts
 // be able to get event of PaymentFlow
@@ -107,19 +107,19 @@ Stripe.addListener(PaymentFlowEventsEnum.Completed, () => {
 });
 ```
 
-The event name you can use is `PaymentFlowEventsEnum`.
+使用できるイベント名は `PaymentFlowEventsEnum` にあります。
 
 !::PaymentFlowEventsEnum::
 
 ## 📖 Reference
-See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
+詳しくはStripeのドキュメントをご覧ください。このプラグインはラッパーなので、詳しい情報はStripeのドキュメンテーションが役立ちます。
 
-### Complete the payment in your own UI(iOS)
-This plugin use PaymentSheet.FlowController on `pod 'Stripe'`:
+### 独自のUIで支払いを完了する(iOS)
+このプラグインの PaymentSheet は `pod 'Stripe'` を利用しています。
 
 https://stripe.com/docs/payments/accept-a-payment?platform=ios&ui=payment-sheet#ios-flowcontroller
 
-### Complete the payment in your own UI(Android)
-This plugin use PaymentSheet.FlowController on `com.stripe:stripe-android`:
+### 独自のUIで支払いを完了する(Android)
+このプラグインの PaymentSheet は`com.stripe:stripe-android` を利用しています。
 
 https://stripe.com/docs/payments/accept-a-payment?platform=android&ui=payment-sheet#android-flowcontroller
