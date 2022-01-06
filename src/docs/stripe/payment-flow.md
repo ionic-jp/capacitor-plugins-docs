@@ -23,7 +23,7 @@ __SetupIntent:__
 https://stripe.com/docs/payments/save-and-reuse?platform=web
 
 
-## 🐾 Implements Guide
+## 🐾 実装ガイド
 ### 1.  createPaymentFlow
 
 このメソッドはPaymentFlowのための設定です。使用する前に、バックエンドのエンドポイントに接続し、それぞれのキーを取得する必要があります。これは、このプラグインには「ない」機能です。そのため、 `HTTPClient` 、 `Axios` 、 `Ajax` などを使用することになります。以下は、AngularのHttpClientの例です。この例では、`paymentIntent`、`ephemeralKey`、`ephemeralKey`を取得しています。
