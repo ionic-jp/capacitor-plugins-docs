@@ -36,7 +36,7 @@ https://stripe.com/docs/apple-pay#merchantid
 import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
 
 (async() => {
-  // Check to be able to use ApplePay on device
+  // Check to be able to use Apple Pay on device
   const isAvailable = Stripe.isApplePayAvailable().catch(() => undefined);
   if (isAvailable === undefined) {
     // disable to use GooglePay

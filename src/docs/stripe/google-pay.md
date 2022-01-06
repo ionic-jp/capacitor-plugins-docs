@@ -83,7 +83,7 @@ Google Payを利用するためには、いくつかの設定が必要です。
 import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
 
 (async () => {
-  // Check to be able to use GooglePay on device
+  // Check to be able to use Google Pay on device
   const isAvailable = Stripe.isGooglePayAvailable().catch(() => undefined);
   if (isAvailable === undefined) {
     // disable to use GooglePay
