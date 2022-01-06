@@ -30,12 +30,12 @@
       "filePath": "/assets/docs/stripe/payment-flow.json"
     },
     {
-      "title": "ApplePay",
+      "title": "Apple Pay",
       "path": "/docs/apple-pay",
       "filePath": "/assets/docs/stripe/apple-pay.json"
     },
     {
-      "title": "GooglePay",
+      "title": "Google Pay",
       "path": "/docs/google-pay",
       "filePath": "/assets/docs/stripe/google-pay.json"
     }

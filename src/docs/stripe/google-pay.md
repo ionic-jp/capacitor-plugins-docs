@@ -23,7 +23,7 @@ https://stripe.com/docs/google-pay
 ## 🐾 Implements
 
 ### Prepare settings
-For using GooglePay, you need some settings.
+For using Google Pay, you need some settings.
 
 #### strings.xml
 
@@ -35,7 +35,7 @@ In file `android/app/src/main/res/values/strings.xml` add the these value.
 - merchant_display_name
 - google_pay_is_testing
 
-These settings are used because GooglePay requires some processing to be done before initializing the plugin.
+These settings are used because Google Pay requires some processing to be done before initializing the plugin.
 
 ```xml
 <string name="publishable_key">Your Publishable Key</string>
@@ -77,16 +77,16 @@ In file `android/app/src/main/AndroidManifest.xml`, add the following XML elemen
 
 
 ### 1. isGooglePayAvailable
-First, you should check to be able to use GooglePay on device. 
+First, you should check to be able to use Google Pay on device. 
 
 ```ts
 import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
 
 (async () => {
-  // Check to be able to use GooglePay on device
+  // Check to be able to use Google Pay on device
   const isAvailable = Stripe.isGooglePayAvailable().catch(() => undefined);
   if (isAvailable === undefined) {
-    // disable to use GooglePay
+    // disable to use Google Pay
     return;
   }
 })();
@@ -113,7 +113,7 @@ After that, you set these key to `createGooglePay` method.
     paymentIntent: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
 
-  // Prepare GooglePay
+  // Prepare Google Pay
   await Stripe.createGooglePay({
     paymentIntentClientSecret: paymentIntent,
   });
@@ -133,7 +133,7 @@ present in `createGooglePay` is single flow. You don't need to confirm method.
 
 ```ts
 (async () => {
-  // Present GooglePay
+  // Present Google Pay
   const result = await Stripe.presentGooglePay();
   if (result.paymentResult === GooglePayEventsEnum.Completed) {
     // Happy path
@@ -149,10 +149,10 @@ present in `createGooglePay` is single flow. You don't need to confirm method.
 
 ### 4. addListener
 
-Method of GooglePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `GooglePayEventsEnum.Completed` listener to `Stripe` object:
+Method of Google Pay notify any listeners. If you want to get event of payment process is 'Completed', you should add `GooglePayEventsEnum.Completed` listener to `Stripe` object:
 
 ```ts
-// be able to get event of GooglePay
+// be able to get event of Google Pay
 Stripe.addListener(GooglePayEventsEnum.Completed, () => {
   console.log('GooglePayEventsEnum.Completed');
 });
@@ -166,7 +166,7 @@ The event name you can use is `GooglePayEventsEnum`.
 ## 📖 Reference
 See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
 
-### GooglePay(Android)
+### Googl ePay(Android)
 This plugin use GooglePayLauncher on `com.stripe:stripe-android`:
 
 https://stripe.com/docs/google-pay

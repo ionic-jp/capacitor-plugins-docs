@@ -6,14 +6,14 @@ file: "apple-pay.ts"
 import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
 
 (async() => {
-  // Check to be able to use ApplePay on device
+  // Check to be able to use Apple Pay on device
   const isAvailable = Stripe.isApplePayAvailable().catch(() => undefined);
   if (isAvailable === undefined) {
-    // disable to use GooglePay
+    // disable to use Google Pay
     return;
   }
 
-  // be able to get event of ApplePay
+  // be able to get event of Apple Pay
   Stripe.addListener(ApplePayEventsEnum.Completed, () => {
     console.log('ApplePayEventsEnum.Completed');
   });
@@ -23,7 +23,7 @@ import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
     paymentIntent: string;
   }>(environment.api + 'payment-sheet', {}).pipe(first()).toPromise(Promise);
 
-  // Prepare ApplePay
+  // Prepare Apple Pay
   await Stripe.createApplePay({
     paymentIntentClientSecret: paymentIntent,
     paymentSummaryItems: [{
@@ -35,7 +35,7 @@ import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
     currency: 'USD',
   });
 
-  // Present ApplePay
+  // Present Apple Pay
   const result = await Stripe.presentApplePay();
   if (result.paymentResult === ApplePayEventsEnum.Completed) {
     // Happy path

@@ -11,13 +11,13 @@ scrollActiveLine: [
 ---
 
 
-With ApplePay, you can make instant payments in a single flow. Please check settings:
+With Apple Pay, you can make instant payments in a single flow. Please check settings:
 
 https://stripe.com/docs/apple-pay
 
 ## 🐾 Implements
 ### Prepare settings
-For using ApplePay, you need some settings.
+For using Apple Pay, you need some settings.
 
 - Register for an Apple Merchant ID
 - Create a new Apple Pay certificate
@@ -30,16 +30,16 @@ https://stripe.com/docs/apple-pay#merchantid
 If these are not done correctly and are different from the options given to `createApplePay`, this method will not be able to run.
 
 ### 1. isApplePayAvailable
-First, you should check to be able to use ApplePay on device.
+First, you should check to be able to use Apple Pay on device.
 
 ```ts
 import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
 
 (async() => {
-  // Check to be able to use ApplePay on device
+  // Check to be able to use Apple Pay on device
   const isAvailable = Stripe.isApplePayAvailable().catch(() => undefined);
   if (isAvailable === undefined) {
-    // disable to use GooglePay
+    // disable to use Google Pay
     return;
   }
 })();
@@ -93,7 +93,7 @@ present in `createApplePay` is single flow. You don't need to confirm method.
 
 ```ts
 (async() => {
-  // Present ApplePay
+  // Present Apple Pay
   const result = await Stripe.presentApplePay();
   if (result.paymentResult === ApplePayEventsEnum.Completed) {
     // Happy path
@@ -109,10 +109,10 @@ present in `createApplePay` is single flow. You don't need to confirm method.
 
 ### 4. addListener
 
-Method of ApplePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `ApplePayEventsEnum.Completed` listener to `Stripe` object:
+Method of Apple Pay notify any listeners. If you want to get event of payment process is 'Completed', you should add `ApplePayEventsEnum.Completed` listener to `Stripe` object:
 
 ```ts
-// be able to get event of ApplePay
+// be able to get event of Apple Pay
 Stripe.addListener(ApplePayEventsEnum.Completed, () => {
   console.log('ApplePayEventsEnum.Completed');
 });
@@ -126,7 +126,7 @@ The event name you can use is `ApplePayEventsEnum`.
 ## 📖 Reference
 See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
 
-### ApplePay(iOS)
+### Apple Pay(iOS)
 This plugin use STPApplePayContext on `pod 'Stripe'`:
 
 https://stripe.com/docs/apple-pay
