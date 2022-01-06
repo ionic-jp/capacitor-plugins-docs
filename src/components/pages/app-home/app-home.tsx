@@ -28,7 +28,7 @@ export class AppHome {
               </a>
             </div>
           </section>
-          <img src="/assets/images/capacitor-image.png" alt="capacitor" decoding="async" />
+          <img src="/assets/images/capacitor-image.png" width="1089" height="1220" alt="capacitor" decoding="async" />
         </div>
       </div>
     );
