@@ -39,7 +39,13 @@ export class AppDocs {
     editFile: string;
   }> {
     const docs = Object.keys(usePlugin()).map((key) => usePlugin()[key]);
-    const doc = docs.flat().find((d) => d.path === path);
+    const doc = docs.flat().find((d) => {
+      return d.path === path || d.path + '/' === path
+    });
+
+    if (!doc) {
+      console.log([docs, path]);
+    }
 
     const markdownContent: MarkdownContent = await fetch(doc.filePath)
       .then((response) => response.json())
