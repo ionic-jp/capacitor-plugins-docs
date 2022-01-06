@@ -20,7 +20,7 @@ Google Payを使えば、ワンフローで即時決済が可能です。詳し�
 
 https://stripe.com/docs/google-pay
 
-## 🐾 Implements
+## 🐾 Implements Guide
 
 ### Prepare settings
 Google Payを利用するためには、いくつかの設定が必要です。

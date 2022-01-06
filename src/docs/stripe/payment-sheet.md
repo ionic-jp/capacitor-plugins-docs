@@ -18,7 +18,7 @@ https://stripe.com/docs/payments/payment-intents
 
 このガイドでは、 `PaymentIntent` を簡単に取得できる方法を紹介します。
 
-## 🐾 Implements
+## 🐾 Implements Guide
 ### 1. createPaymentSheet
 
 このメソッドはPaymentSheetのための設定です。使用する前に、バックエンドのエンドポイントに接続し、それぞれのキーを取得する必要があります。これは、このプラグインには「ない」機能です。そのため、 `HTTPClient` 、 `Axios` 、 `Ajax` などを使用することになります。以下は、AngularのHttpClientの例です。この例では、`paymentIntent`、`ephemeralKey`、`ephemeralKey`を取得しています。
