@@ -15,27 +15,27 @@
   ],
   "メソッド": [
     {
-      "title": "Initialize",
+      "title": "Initialize()",
       "path": "/docs/initialize",
       "filePath": "/assets/docs/stripe/initialize.json"
     },
     {
-      "title": "PaymentSheet",
+      "title": "PaymentSheet()",
       "path": "/docs/payment-sheet",
       "filePath": "/assets/docs/stripe/payment-sheet.json"
     },
     {
-      "title": "PaymentFlow",
+      "title": "PaymentFlow()",
       "path": "/docs/payment-flow",
       "filePath": "/assets/docs/stripe/payment-flow.json"
     },
     {
-      "title": "Apple Pay",
+      "title": "ApplePay()",
       "path": "/docs/apple-pay",
       "filePath": "/assets/docs/stripe/apple-pay.json"
     },
     {
-      "title": "Google Pay",
+      "title": "GooglePay()",
       "path": "/docs/google-pay",
       "filePath": "/assets/docs/stripe/google-pay.json"
     }
