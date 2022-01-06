@@ -18,7 +18,7 @@ https://stripe.com/docs/payments/payment-intents
 
 This guide will show you an easy way to make instant payments.
 
-## 🐾 Implements
+## 🐾 Implements Guide
 ### 1. createPaymentSheet
 
 This method is settings for PaymentSheet. Before use, you should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you will use `HTTPClient` , `Axios` , `Ajax` , and so on. Here is example of Angular HttpClient. This method will get `paymentIntent`, `ephemeralKey`, and `ephemeralKey`.

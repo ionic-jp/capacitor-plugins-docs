@@ -20,7 +20,7 @@ With Google Pay, you can make instant payments in a single flow. Please check se
 
 https://stripe.com/docs/google-pay
 
-## 🐾 Implements
+## 🐾 Implements Guide
 
 ### Prepare settings
 For using Google Pay, you need some settings.
