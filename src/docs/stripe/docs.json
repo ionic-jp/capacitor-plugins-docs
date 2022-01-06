@@ -15,27 +15,27 @@
   ],
   "Method": [
     {
-      "title": "Initialize()",
+      "title": "Initialize",
       "path": "/docs/initialize",
       "filePath": "/assets/docs/stripe/initialize.json"
     },
     {
-      "title": "PaymentSheet()",
+      "title": "PaymentSheet",
       "path": "/docs/payment-sheet",
       "filePath": "/assets/docs/stripe/payment-sheet.json"
     },
     {
-      "title": "PaymentFlow()",
+      "title": "PaymentFlow",
       "path": "/docs/payment-flow",
       "filePath": "/assets/docs/stripe/payment-flow.json"
     },
     {
-      "title": "ApplePay()",
+      "title": "Apple Pay",
       "path": "/docs/apple-pay",
       "filePath": "/assets/docs/stripe/apple-pay.json"
     },
     {
-      "title": "GooglePay()",
+      "title": "Google Pay",
       "path": "/docs/google-pay",
       "filePath": "/assets/docs/stripe/google-pay.json"
     }
