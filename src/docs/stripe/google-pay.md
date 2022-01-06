@@ -16,18 +16,18 @@ scrollActiveLine: [
 ]
 ---
 
-With Google Pay, you can make instant payments in a single flow. Please check settings:
+Google Payを使えば、ワンフローで即時決済が可能です。詳しい設定は以下をご確認ください：
 
 https://stripe.com/docs/google-pay
 
 ## 🐾 Implements
 
 ### Prepare settings
-For using GooglePay, you need some settings.
+Google Payを利用するためには、いくつかの設定が必要です。
 
 #### strings.xml
 
-In file `android/app/src/main/res/values/strings.xml` add the these value.
+`android/app/src/main/res/values/strings.xml` に以下の値を追加します。
 
 - publishable_key(Stripe's publoshable key)
 - enable_google_pay
@@ -35,7 +35,7 @@ In file `android/app/src/main/res/values/strings.xml` add the these value.
 - merchant_display_name
 - google_pay_is_testing
 
-These settings are used because GooglePay requires some processing to be done before initializing the plugin.
+これらの設定は、プラグインを初期化する前にGooglePayの処理を行う必要があるため、別途設定します。
 
 ```xml
 <string name="publishable_key">Your Publishable Key</string>
@@ -47,7 +47,7 @@ These settings are used because GooglePay requires some processing to be done be
 
 #### AndroidManifest.xml
 
-In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `manifest > application`. These call the values set in strings.xml.
+`android/app/src/main/AndroidManifest.xml` の `manifest > application` 以下にXML要素を追加します。これらは strings.xml に設定した値が呼び出されます。
 
 ```xml
 <meta-data
@@ -77,7 +77,7 @@ In file `android/app/src/main/AndroidManifest.xml`, add the following XML elemen
 
 
 ### 1. isGooglePayAvailable
-First, you should check to be able to use GooglePay on device. 
+まず、ユーザのデバイスでGooglePayが使えるかどうか確認します。
 
 ```ts
 import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
@@ -92,19 +92,19 @@ import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
 })();
 ```
 
-This method return `resolve(): void` or `reject('Not implemented on Device.')`. 
+このメソッドは `resolve(): void` か `reject('Not implemented on Device.')` を返却します。
 
 !::isGooglePayAvailable::
 
 
 ### 2. createGooglePay
 
-You should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you can use `HTTPClient` , `Axios` , `Ajax` , and so on.
+バックエンドエンドポイントに接続し、それぞれのキーを取得する必要があります。これは本プラグインでは「できない」機能です。そのため、 `HTTPClient` や `Axios` 、 `Ajax` などの機能を利用することができます。
 
-Stripe provide how to implement backend:
+Stripeは、バックエンドの実装方法を提供します:
 https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoint
 
-After that, you set these key to `createGooglePay` method.
+その後、これらのキーを `createGooglePay` メソッドに設定します。
 
 ```ts
 (async () => {
@@ -123,13 +123,13 @@ After that, you set these key to `createGooglePay` method.
 !::createGooglePay::
 
 
-You can use options of `CreateGooglePayOption` on `createGooglePay`. 
+`createGooglePay` では `CreateGooglePayOption` が利用できます。
 
 !::CreateApplePayOption::
 
 ### 3. presentGooglePay
 
-present in `createGooglePay` is single flow. You don't need to confirm method.
+`createGooglePay` はシングルフローです。 `confirm` メソッドを必要としません。
 
 ```ts
 (async () => {
@@ -143,13 +143,14 @@ present in `createGooglePay` is single flow. You don't need to confirm method.
 
 !::presentGooglePay::
 
-`GooglePayResultInterface` is created from Enum of `GooglePayEventsEnum`. So you should import and check result.
+`presentGooglePay` の返り値から `GooglePayResultInterface` を取得することができます。
+`GooglePayResultInterface` は `GooglePayEventsEnum` から作成されています。したがって、インポートして結果を確認する必要があります。
 
 !::GooglePayResultInterface::
 
 ### 4. addListener
 
-Method of GooglePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `GooglePayEventsEnum.Completed` listener to `Stripe` object:
+Google Payのメソッドはリスナーを通知します。もし、支払い処理が完了したときのイベントを取得したい場合は、 `Stripe` オブジェクトに `GooglePayEventsEnum.Completed` リスナーを追加する必要があります。
 
 ```ts
 // be able to get event of GooglePay
@@ -158,15 +159,15 @@ Stripe.addListener(GooglePayEventsEnum.Completed, () => {
 });
 ```
 
-The event name you can use is `GooglePayEventsEnum`.
+使用できるイベント名は `GooglePayEventsEnum` にあります。
 
 !::GooglePayEventsEnum::
 
 
 ## 📖 Reference
-See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
+詳しくはStripeのドキュメントをご覧ください。このプラグインはラッパーなので、詳しい情報はStripeのドキュメンテーションが役立ちます。
 
 ### GooglePay(Android)
-This plugin use GooglePayLauncher on `com.stripe:stripe-android`:
+このプラグインの GooglePayLauncher は `com.stripe:stripe-android` を利用しています。
 
 https://stripe.com/docs/google-pay

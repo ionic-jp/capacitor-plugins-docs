@@ -92,7 +92,7 @@ PaymentSheetでは `presentPaymentSheet` メソッドでプロセスが終了し
 })();
 ```
 
-`PaymentFlowEventsEnum` の返り値から `PaymentFlowResultInterface` を取得することができます。
+`confirmPaymentFlow` の返り値から `PaymentFlowResultInterface` を取得することができます。
 
 !::PaymentFlowResultInterface::
 

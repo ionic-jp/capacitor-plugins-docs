@@ -1,5 +1,5 @@
 ---
-title: "ApplePay"
+title: "Apple Pay"
 code: ["/docs/stripe/apple-pay/apple-pay.ts.md"]
 scrollActiveLine: [
 {id: "", activeLine: {}},
@@ -11,26 +11,26 @@ scrollActiveLine: [
 ---
 
 
-With ApplePay, you can make instant payments in a single flow. Please check settings:
+Apple Payを使えば、ワンフローで即時決済が可能です。詳しい設定は以下をご確認ください：
 
 https://stripe.com/docs/apple-pay
 
 ## 🐾 Implements
 ### Prepare settings
-For using ApplePay, you need some settings.
+Apple Payを利用するためには、いくつかの設定が必要です。
 
-- Register for an Apple Merchant ID
-- Create a new Apple Pay certificate
-- Integrate with Xcode
+- AppleマーチャントIDの登録
+- Apple Payの証明書を新規に作成する
+- Xcodeと統合する
 
-Detail information is here: 
+詳細はこちらをご覧ください：
 
 https://stripe.com/docs/apple-pay#merchantid
 
-If these are not done correctly and are different from the options given to `createApplePay`, this method will not be able to run.
+もしこれらが正しく行われず、 `createApplePay` に与えられたオプションと異なる場合、このメソッドは実行することができません。
 
 ### 1. isApplePayAvailable
-First, you should check to be able to use ApplePay on device.
+まず、ユーザのデバイスでApple Payが使えるかどうか確認します。
 
 ```ts
 import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
@@ -45,19 +45,19 @@ import { Stripe, ApplePayEventsEnum } from '@capacitor-community/stripe';
 })();
 ```
 
-This method return `resolve(): void` or `reject('Not implemented on Device.')`.
+このメソッドは `resolve(): void` か `reject('Not implemented on Device.')` を返却します。
 
 !::isApplePayAvailable::
 
 
 ### 2. createApplePay
 
-You should connect to your backend endpoint, and get every key. This is "not" function at this Plugin. So you can use `HTTPClient` , `Axios` , `Ajax` , and so on.
+バックエンドエンドポイントに接続し、それぞれのキーを取得する必要があります。これは本プラグインでは「できない」機能です。そのため、 `HTTPClient` や `Axios` 、 `Ajax` などの機能を利用することができます。
 
-Stripe provide how to implement backend:
+Stripeは、バックエンドの実装方法を提供します:
 https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoint
 
-After that, you set these key to `createApplePay` method.
+その後、これらのキーを `createApplePay` メソッドに設定します。
 
 ```ts
 (async() => {
@@ -83,17 +83,17 @@ After that, you set these key to `createApplePay` method.
 !::createApplePay::
 
 
-You can use options of `CreateApplePayOption` on `createApplePay`. `merchantIdentifier`  must be the same as the value registered in [Apple Developer Website](https://developer.apple.com/account/resources/identifiers/add/merchant).
+`createApplePay` では、 `CreateApplePayOption` のオプションを使用することができます。 `merchantIdentifier` は [Apple Developer Website](https://developer.apple.com/account/resources/identifiers/add/merchant) で登録した値と同じである必要があります。
 
 !::CreateApplePayOption::
 
 ### 3. presentApplePay
 
-present in `createApplePay` is single flow. You don't need to confirm method.
+`createApplePay` はシングルフローです。 `confirm` メソッドを必要としません。
 
 ```ts
 (async() => {
-  // Present ApplePay
+  // Present Apple Pay
   const result = await Stripe.presentApplePay();
   if (result.paymentResult === ApplePayEventsEnum.Completed) {
     // Happy path
@@ -103,13 +103,14 @@ present in `createApplePay` is single flow. You don't need to confirm method.
 
 !::presentApplePay::
 
-`ApplePayResultInterface` is created from Enum of `ApplePayEventsEnum`. So you should import and check result.
+`presentApplePay` の返り値から `ApplePayResultInterface` を取得することができます。
+`ApplePayResultInterface` は `ApplePayEventsEnum` から作成されています。したがって、インポートして結果を確認する必要があります。
 
 !::ApplePayResultInterface::
 
 ### 4. addListener
 
-Method of ApplePay notify any listeners. If you want to get event of payment process is 'Completed', you should add `ApplePayEventsEnum.Completed` listener to `Stripe` object:
+Apple Payのメソッドはリスナーを通知します。もし、支払い処理が完了したときのイベントを取得したい場合は、 `Stripe` オブジェクトに `ApplePayEventsEnum.Completed` リスナーを追加する必要があります。
 
 ```ts
 // be able to get event of ApplePay
@@ -118,15 +119,15 @@ Stripe.addListener(ApplePayEventsEnum.Completed, () => {
 });
 ```
 
-The event name you can use is `ApplePayEventsEnum`.
+使用できるイベント名は `ApplePayEventsEnum` にあります。
 
 !::ApplePayEventsEnum::
 
 
 ## 📖 Reference
-See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
+詳しくはStripeのドキュメントをご覧ください。このプラグインはラッパーなので、詳しい情報はStripeのドキュメンテーションが役立ちます。
 
-### ApplePay(iOS)
-This plugin use STPApplePayContext on `pod 'Stripe'`:
+### Apple Pay(iOS)
+このプラグインの STPApplePayContext は `pod 'Stripe'` を利用しています。
 
 https://stripe.com/docs/apple-pay
