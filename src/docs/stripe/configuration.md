@@ -1,19 +1,19 @@
 ---
-title: "Configuration platform"
+title: "プラットフォームの構成"
 code: []
 scrollActiveLine: []
 ---
 
-No special settings are required to install the plugin. Just install it from npm like any other plugin, and run `sync`.
+プラグインのインストールには、特別な設定は必要ありません。他のプラグインと同様にnpmからインストールし、 `sync` を実行するだけです。
 
 ```bash
 npm install @capacitor-community/stripe
 npx cap sync
 ```
 
-## Android configuration
+## Androidの構成
 
-In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
+`android/app/src/main/java/**/**/MainActivity.java` の初期化リストにプラグインを追加します：
 
 ```diff java:android/app/src/main/java/**/**/MainActivity.java
   package io.ionic.starter;
@@ -30,29 +30,29 @@ In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to t
   }
 ```
 
-## iOS configuration
+## iOSの構成
 
-In iOS, the plugin will be loaded automatically without any configuration.
+iOSの場合、設定なしで自動的にプラグインが読み込まれます。
 
 
-## Web configuration
+## Webの構成
 
 :::message
-This feature is experimental. Please tested and feedback. If you want to contribute UI, Animation or create issue, move to https://github.com/stripe-elements/stripe-elements .
+この機能は実験的なものです。テストとフィードバックをお願いします。UIやアニメーションを提供したい場合や、課題を作成したい場合は、以下のページに移動してください。 https://github.com/stripe-elements/stripe-elements
 :::
 
 ```bash
 npm install @stripe-elements/stripe-elements
 ```
 
-And `defineCustomElements()` called once during the bootstrapping of your application.
+アプリの起動時に1度だけ、 `defineCustomElements()` を呼び出して実行します。
 
 ```diff ts
 + import { defineCustomElements } from '@stripe-elements/stripe-elements/loader';
 + defineCustomElements();
 ```
 
-`@stripe-elements/stripe-elements` is created with StencilJS. If you can't understand where defined, please check these docs:
+`@stripe-elements/stripe-elements` は StencilJS で作成されました。どこで定義するかわからない場合は、こちらのドキュメントをご覧ください。
 
 https://stenciljs.com/docs/overview
 
