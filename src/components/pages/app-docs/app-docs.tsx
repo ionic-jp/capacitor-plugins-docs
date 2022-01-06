@@ -41,6 +41,10 @@ export class AppDocs {
     const docs = Object.keys(usePlugin()).map((key) => usePlugin()[key]);
     const doc = docs.flat().find((d) => d.path === path);
 
+    if (!doc) {
+      console.log([docs, path]);
+    }
+
     const markdownContent: MarkdownContent = await fetch(doc.filePath)
       .then((response) => response.json())
       .catch((e) => console.log(e));
