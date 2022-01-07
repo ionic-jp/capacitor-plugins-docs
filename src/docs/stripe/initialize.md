@@ -1,5 +1,5 @@
 ---
-title: "プロジェクトにインストール"
+title: "Initialize"
 code: []
 scrollActiveLine: []
 ---
