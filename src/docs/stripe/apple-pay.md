@@ -130,3 +130,8 @@ See the Stripe Documentation for more information. This plugin is wrapper, so th
 This plugin use STPApplePayContext on `pod 'Stripe'`:
 
 https://stripe.com/docs/apple-pay
+
+### "Merchant name" on the apple pay payment sheet #115
+This is good issue for setting "Merchant name".
+
+https://github.com/capacitor-community/stripe/issues/115
