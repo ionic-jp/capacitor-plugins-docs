@@ -15,6 +15,8 @@ Apple Payを使えば、ワンフローで即時決済が可能です。詳し�
 
 https://stripe.com/docs/apple-pay
 
+[![Image from Gyazo](https://i.gyazo.com/d632147e6d3b33dcc8e28f3ecc898a99.gif)](https://gyazo.com/d632147e6d3b33dcc8e28f3ecc898a99)
+
 ## 🐾 実装ガイド
 ### Prepare settings
 Apple Payを利用するためには、いくつかの設定が必要です。

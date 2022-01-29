@@ -12,6 +12,8 @@ scrollActiveLine: [
 
 PaymentFlowを使えば、2ステップのフローで決済が可能です。ユーザーが `submit` ボタンを押すと、システムはカード情報のみを取得し、保留状態にします。その後、プログラムが `confirm` メソッドを実行すると、決済が実行されます。多くの場合、クレジットカード情報入力後に最終確認画面が表示されるフローで使用されます。
 
+[![Image from Gyazo](https://i.gyazo.com/736450bb2e267eab0bba578e366fcba5.gif)](https://gyazo.com/736450bb2e267eab0bba578e366fcba5)
+
 このメソッドは `PaymentIntent` による即時決済と `SetupIntent` による将来の決済の両方に使用することができます。
 
 これらのIntentが何なのかご存知ないですか？まずはStripeの公式サイトで学んでみてください。

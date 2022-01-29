@@ -11,6 +11,8 @@ scrollActiveLine: [
 
 PaymentSheetを使えば、1つのフローで決済を行うことができます。ユーザーが支払いボタンを押せば、すぐに支払いが完了します。(もし、この後に何らかのフローが必要な場合は、`paymentFlow` メソッドを使用してください）。
 
+[![Image from Gyazo](https://i.gyazo.com/4356878ec43a90178ec3d831d6b47b10.gif)](https://gyazo.com/4356878ec43a90178ec3d831d6b47b10)
+
 このメソッドには `PaymentIntent` が必要です。 `PaymentIntent` が何であるかご存知ない場合は、まずはStripeの公式サイトで学んでください。
 
 __PaymentIntent:__
