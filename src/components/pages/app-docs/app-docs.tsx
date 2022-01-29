@@ -1,6 +1,6 @@
 import { Component, h, State, Listen, Prop, Watch } from '@stencil/core';
 import { MarkdownCode, MarkdownContent } from '../../../global/definitions';
-import { repository, usePlugin } from '../../shared/utils';
+import { plugin, pluginDocs } from '../../shared/utils';
 
 @Component({
   tag: 'app-docs',
@@ -38,7 +38,7 @@ export class AppDocs {
     activeLine: Record<string, number[]>;
     editFile: string;
   }> {
-    const docs = Object.keys(usePlugin()).map((key) => usePlugin()[key]);
+    const docs = Object.keys(pluginDocs()).map((key) => pluginDocs()[key]);
     const doc = docs.flat().find((d) => {
       return d.path === path || d.path + '/' === path
     });
@@ -74,7 +74,7 @@ export class AppDocs {
       markdownContent,
       codes: returnCode,
       activeLine: firstSet?.activeLine || {},
-      editFile: repository + 'edit/main/src/' + doc.filePath.replace('/assets', '').replace('json', 'md'),
+      editFile: plugin['repository'] + 'edit/main/src/' + doc.filePath.replace('/assets', '').replace('json', 'md'),
     };
   }
 

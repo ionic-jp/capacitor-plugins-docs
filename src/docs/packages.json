@@ -1,0 +1,6 @@
+{
+  "stripe": {
+    "name": "capacitor-community/stripe",
+    "repository": "https://github.com/rdlabo-team/capacitor-plugins-docs/"
+  }
+}

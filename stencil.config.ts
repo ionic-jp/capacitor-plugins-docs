@@ -4,8 +4,10 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 // https://stenciljs.com/docs/config
 
-const plugin = process.argv.find(c => c.includes('--plugins'))?.split('=') ?? 'stripe';
-const docs = require(`./src/docs/${plugin}/docs.json`);
+const pluginAlias = process.argv.find(c => c.includes('--plugin'))?.split('=') ?? 'stripe';
+export const docs = require(`./src/docs/${pluginAlias}/docs.json`);
+// @ts-ignore
+export const plugin = require(`./src/docs/packages.json`)[pluginAlias];
 
 export const config: Config = {
   globalStyle: 'src/global/app.scss',
@@ -13,6 +15,7 @@ export const config: Config = {
   taskQueue: 'async',
   env: {
     docs,
+    plugin,
   },
   plugins: [
     sass()
