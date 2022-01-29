@@ -131,3 +131,8 @@ Stripe.addListener(ApplePayEventsEnum.Completed, () => {
 このプラグインの STPApplePayContext は `pod 'Stripe'` を利用しています。
 
 https://stripe.com/docs/apple-pay
+
+### "Merchant name" on the apple pay payment sheet #115
+This is good issue for setting "Merchant name".
+
+https://github.com/capacitor-community/stripe/issues/115

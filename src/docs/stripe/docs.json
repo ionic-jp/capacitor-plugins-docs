@@ -10,34 +10,34 @@
     {
       "title": "構成",
       "path": "/docs/configuration",
-      "filePath": "/assets/docs/stripe/configuration.json"
+      "filePath": "/assets/docs/stripe/configuration.md"
     }
   ],
   "メソッド": [
     {
       "title": "Initialize",
       "path": "/docs/initialize",
-      "filePath": "/assets/docs/stripe/initialize.json"
+      "filePath": "/assets/docs/stripe/initialize.md"
     },
     {
       "title": "PaymentSheet",
       "path": "/docs/payment-sheet",
-      "filePath": "/assets/docs/stripe/payment-sheet.json"
+      "filePath": "/assets/docs/stripe/payment-sheet.md"
     },
     {
       "title": "PaymentFlow",
       "path": "/docs/payment-flow",
-      "filePath": "/assets/docs/stripe/payment-flow.json"
+      "filePath": "/assets/docs/stripe/payment-flow.md"
     },
     {
       "title": "Apple Pay",
       "path": "/docs/apple-pay",
-      "filePath": "/assets/docs/stripe/apple-pay.json"
+      "filePath": "/assets/docs/stripe/apple-pay.md"
     },
     {
       "title": "Google Pay",
       "path": "/docs/google-pay",
-      "filePath": "/assets/docs/stripe/google-pay.json"
+      "filePath": "/assets/docs/stripe/google-pay.md"
     }
   ]
 }

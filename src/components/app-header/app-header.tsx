@@ -1,5 +1,6 @@
 import { Component, Host, h, State, Event, EventEmitter, Watch, Prop } from '@stencil/core';
 import { href } from 'stencil-router-v2';
+import {plugin} from '../shared/utils';
 
 @Component({
   tag: 'app-header',
@@ -40,8 +41,8 @@ export class AppHeader {
           </div>
           <h1>
             <a {...href('/')}>
-              <img src="/assets/images/capacitor-logo.svg" alt="capacitor" decoding="async" />
-              capacitor-community/stripe
+              <img src="/assets/icon/capacitor-logo.svg" alt="capacitor" decoding="async" />
+              {plugin['name']}
             </a>
           </h1>
         </header>
