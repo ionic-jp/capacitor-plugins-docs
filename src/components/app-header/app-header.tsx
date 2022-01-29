@@ -41,7 +41,7 @@ export class AppHeader {
           </div>
           <h1>
             <a {...href('/')}>
-              <img src="/assets/images/capacitor-logo.svg" alt="capacitor" decoding="async" />
+              <img src="/assets/icon/capacitor-logo.svg" alt="capacitor" decoding="async" />
               {plugin['name']}
             </a>
           </h1>

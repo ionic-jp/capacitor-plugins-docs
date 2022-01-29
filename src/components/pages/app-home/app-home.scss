@@ -63,3 +63,16 @@
     }
   }
 }
+
+.used {
+  margin: 0 16px 80px;
+
+  .used-items {
+    display: flex;
+    align-items: center;
+
+    a img {
+      width: 180px;
+    }
+  }
+}

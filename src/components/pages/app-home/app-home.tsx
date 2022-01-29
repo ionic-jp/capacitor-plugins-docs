@@ -28,7 +28,14 @@ export class AppHome {
               </a>
             </div>
           </section>
-          <img src="/assets/images/capacitor-image.png" width="1089" height="1220" alt="capacitor" decoding="async" />
+          <img src="/assets/stripe/capacitor-image.png" width="1089" height="1220" alt="capacitor" decoding="async" />
+        </div>
+        <div class="used">
+          <h2>Used</h2>
+          <div class="used-items">
+            <a href="https://www.doctr.ca/" target="_blank"><img src="/assets/stripe/doctr.svg" alt="doctr" decoding="async" /></a>
+            <a href="https://www.sunset-palmi.it/" target="_blank"><img src="/assets/stripe/sunset.png" width="200" alt="sunset" decoding="async" /></a>
+          </div>
         </div>
       </div>
     );
