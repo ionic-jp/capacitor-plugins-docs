@@ -11,6 +11,8 @@ scrollActiveLine: [
 
 With PaymentSheet, you can make payments in a single flow. As soon as the User presses the payment button, the payment is completed. (If you want user have some flow after that, please use `paymentFlow` method)
 
+[![Image from Gyazo](https://i.gyazo.com/4356878ec43a90178ec3d831d6b47b10.gif)](https://gyazo.com/4356878ec43a90178ec3d831d6b47b10)
+
 This method require `PaymentIntent`. Don't know what `PaymentIntent` is? Learn it first at the official Stripe website.
 
 __PaymentIntent:__

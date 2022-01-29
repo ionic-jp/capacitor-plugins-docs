@@ -15,6 +15,8 @@ With Apple Pay, you can make instant payments in a single flow. Please check set
 
 https://stripe.com/docs/apple-pay
 
+[![Image from Gyazo](https://i.gyazo.com/d632147e6d3b33dcc8e28f3ecc898a99.gif)](https://gyazo.com/d632147e6d3b33dcc8e28f3ecc898a99)
+
 ## 🐾 Implements Guide
 ### Prepare settings
 For using Apple Pay, you need some settings.

@@ -12,6 +12,8 @@ scrollActiveLine: [
 
 With PaymentFlow, you can make payments in two steps flow. When the user presses the submit button, the system only gets the card information, and puts it in a pending state. After that, when the program executes the confirmation method, the payment is executed. In most cases, it is used in a flow that is interrupted by a final confirmation screen.
 
+[![Image from Gyazo](https://i.gyazo.com/736450bb2e267eab0bba578e366fcba5.gif)](https://gyazo.com/736450bb2e267eab0bba578e366fcba5)
+
 This method can be used for both immediate payment with `PaymentIntent`, and future payments with `SetupIntent`.
 
 Don't know what these Intent is? Learn it first at the official Stripe website.
