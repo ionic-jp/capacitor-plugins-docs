@@ -47,7 +47,7 @@ export class AppDocs {
       console.log([docs, path]);
     }
 
-    const markdownContent: MarkdownContent = await fetch(doc.filePath)
+    const markdownContent: MarkdownContent = await fetch(doc.filePath.replace('.md', '.json'))
       .then((response) => response.json())
       .catch((e) => console.log(e));
 
@@ -74,7 +74,7 @@ export class AppDocs {
       markdownContent,
       codes: returnCode,
       activeLine: firstSet?.activeLine || {},
-      editFile: plugin['repository'] + 'edit/main/src/' + doc.filePath.replace('/assets', '').replace('json', 'md'),
+      editFile: plugin['repository'] + 'edit/main/src/' + doc.filePath.replace('/assets', ''),
     };
   }
 
