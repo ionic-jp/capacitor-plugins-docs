@@ -1,10 +1,10 @@
 ---
-title: "Use React Hooks"
+title: "React Hooksを使う"
 code: []
 scrollActiveLine: []
 ---
 
-Since v3.5.0, `@capacitor-community/plugin` has React Hooks. You can use `CapacitorStripeProvider` instead of `Stripe` Object:
+v3.5.0から `@capacitor-community/plugin` にReact Hooksが追加されました。`Stripe` オブジェクトの代わりに `CapacitorStripeProvider` を使用することができます:
 
 ```diff tsx: App.tsx 
 import { CapacitorStripeProvider } from '@capacitor-community/stripe/dist/esm/react/provider';
@@ -23,11 +23,11 @@ const App: React.FC = () => (
 export default App;
 ```
 :::message
-If you use typescript@4.5, you can write:
+もし利用しているのがtypescript@4.5以上の場合、次のように書くことができます:
 `import { useCapacitorStripe } from '@capacitor-community/stripe/react';`
 :::
 
-After that, you can get these values from `useCapacitorStripe`.
+その後、これらの値を `useCapacitorStripe` から取得することができます。
 
 ```ts
 import { useCapacitorStripe } from '@capacitor-community/stripe/dist/esm/react/provider';
@@ -40,7 +40,7 @@ export const PaymentSheet: React.FC = () => {
 
 !::CapacitorStripeContext::
 
-This `stripe` Object is instead of `Stripe` object from `@capacitor-community/stripe` method. So if you want use `createPaymentSheet` method, you can write:
+この `stripe` オブジェクトは `@capacitor-community/stripe` メソッドの `Stripe` オブジェクトの代わりとなるものです。したがって、`createPaymentSheet`メソッドを使用したい場合は、次のように記述します。
 
 ```ts
 const { stripe } = useCapacitorStripe();
@@ -49,5 +49,5 @@ await stripe.createPaymentSheet({
 })
 ```
 
-Of course, You can write without React Hooks. Are you interested in using React Hooks? So please check demo code:
+もちろん、React Hooksがなくても書くことはできます。React Hooksを使った記法に興味がありますか？その場合、ぜひデモコードをご覧ください:
 https://github.com/capacitor-community/stripe/tree/master/demo/react
