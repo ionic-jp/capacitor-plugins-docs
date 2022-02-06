@@ -46,7 +46,7 @@ export class AppDocs {
     if (!doc) {
       console.log([docs, path]);
     }
-
+    console.log(doc.filePath.replace('.md', '.json'))
     const markdownContent: MarkdownContent = await fetch(doc.filePath.replace('.md', '.json'))
       .then((response) => response.json())
       .catch((e) => console.log(e));
