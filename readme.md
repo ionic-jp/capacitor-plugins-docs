@@ -79,3 +79,16 @@ update docs:
 npm run docs
 ```
 
+## Markdown Notation
+
+This markdown use [Zenn Editor](https://github.com/zenn-dev/zenn-editor). So you can use zenn's markdown notation. List is here:
+
+https://zenn.dev/zenn/articles/markdown-guide
+
+And added custom notation of add types. If your plugin has `createPaymentSheet` interface, you can:
+
+```md
+!::createPaymentSheet::
+```
+
+This will paste the type information of createPaymentSheet.
