@@ -19,6 +19,7 @@
     "zenn-content-css": "^0.1.100"
   },
   "devDependencies": {
+    "@capacitor-community/admob": "^3.2.0",
     "@capacitor-community/stripe": "^3.5.3",
     "@capacitor/docgen": "^0.1.0",
     "@types/fs-extra": "^9.0.13",

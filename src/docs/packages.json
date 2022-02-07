@@ -2,5 +2,9 @@
   "stripe": {
     "name": "capacitor-community/stripe",
     "repository": "https://github.com/rdlabo-team/capacitor-plugins-docs/"
+  },
+  "admob": {
+    "name": "capacitor-community/admob",
+    "repository": "https://github.com/rdlabo-team/capacitor-plugins-docs/"
   }
 }
