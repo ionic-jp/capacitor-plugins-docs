@@ -2,6 +2,7 @@
 This repository is for create document of Capacitor Plugin.
 
 ## How to create docs
+This is example of [first step of adding new plugin](https://github.com/rdlabo-team/capacitor-plugins-docs/commit/c67758326bca456305b36a91da8b10755b84e35c):
 
 ### 1. Add docs.json to plugin's package
 Your plugin may use `@capacitor/docgen`. You should add `--output-json dist/docs.json` to docgen script. example:
