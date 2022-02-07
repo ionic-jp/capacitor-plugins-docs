@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MarkdownContent } from "./global/definitions";
 export namespace Components {
+    interface AppAdmob {
+    }
     interface AppCodes {
         "activeLine": Record<string, number[]>;
         "codes": Record<string, string>;
@@ -32,6 +34,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLAppAdmobElement extends Components.AppAdmob, HTMLStencilElement {
+    }
+    var HTMLAppAdmobElement: {
+        prototype: HTMLAppAdmobElement;
+        new (): HTMLAppAdmobElement;
+    };
     interface HTMLAppCodesElement extends Components.AppCodes, HTMLStencilElement {
     }
     var HTMLAppCodesElement: {
@@ -81,6 +89,7 @@ declare global {
         new (): HTMLAppStripeElement;
     };
     interface HTMLElementTagNameMap {
+        "app-admob": HTMLAppAdmobElement;
         "app-codes": HTMLAppCodesElement;
         "app-docs": HTMLAppDocsElement;
         "app-header": HTMLAppHeaderElement;
@@ -92,6 +101,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface AppAdmob {
+    }
     interface AppCodes {
         "activeLine"?: Record<string, number[]>;
         "codes"?: Record<string, string>;
@@ -119,6 +130,7 @@ declare namespace LocalJSX {
     interface AppStripe {
     }
     interface IntrinsicElements {
+        "app-admob": AppAdmob;
         "app-codes": AppCodes;
         "app-docs": AppDocs;
         "app-header": AppHeader;
@@ -133,6 +145,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-admob": LocalJSX.AppAdmob & JSXBase.HTMLAttributes<HTMLAppAdmobElement>;
             "app-codes": LocalJSX.AppCodes & JSXBase.HTMLAttributes<HTMLAppCodesElement>;
             "app-docs": LocalJSX.AppDocs & JSXBase.HTMLAttributes<HTMLAppDocsElement>;
             "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
