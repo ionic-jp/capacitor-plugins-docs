@@ -9,7 +9,7 @@ import { href } from 'stencil-router-v2';
 export class AppStripe {
   render() {
     return (
-      <div class="app-home">
+      <div class="app-stripe">
         <div class="hero">
           <section>
             <h1>Earn on mobile app with web tech.</h1>
