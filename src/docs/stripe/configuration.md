@@ -41,9 +41,14 @@ In iOS, the plugin will be loaded automatically without any configuration.
 This feature is experimental. Please tested and feedback. If you want to contribute UI, Animation or create issue, move to https://github.com/stripe-elements/stripe-elements .
 :::
 
+If we are using anything other than React, we need to install the UI element library.
+If using React, we don't have to install it because the `CapacitorStripeProvider` component bundles this library.
+
 ```bash
 npm install @stripe-elements/stripe-elements
 ```
+
+### Vanilla JS
 
 And `defineCustomElements()` called once during the bootstrapping of your application.
 
@@ -75,3 +80,7 @@ https://stenciljs.com/docs/overview
 +   .then(() => defineCustomElements(window))
     .catch(err => console.log(err));
 ```
+
+### React
+
+Nothing.

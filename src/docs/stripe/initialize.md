@@ -48,3 +48,7 @@ These are implementation examples of each JavaScript framework.
     }
   }
 ```
+
+### React
+
+When we are using the `CapacitorStripeProvider` component, we don't have to initialize manually.
