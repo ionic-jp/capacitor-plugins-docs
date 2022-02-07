@@ -49,3 +49,7 @@ JavaScriptフレームワークでの実装例をご紹介します。
     }
   }
 ```
+
+### React
+
+When we are using the `CapacitorStripeProvider` component, we don't have to initialize manually.

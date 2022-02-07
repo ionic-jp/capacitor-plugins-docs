@@ -6,11 +6,26 @@
       "filePath": ""
     }
   ],
-  "インストール": [
+  "はじめかた": [
     {
       "title": "構成",
       "path": "/docs/configuration",
       "filePath": "/assets/docs/stripe/configuration.md"
+    },
+    {
+      "title": "Vanilla JS",
+      "path": "/docs/vanilla-js",
+      "filePath": "/assets/docs/stripe/vanilla-js.md"
+    },
+    {
+      "title": "Angular",
+      "path": "/docs/angular",
+      "filePath": "/assets/docs/stripe/angular.md"
+    },
+    {
+      "title": "React",
+      "path": "/docs/react",
+      "filePath": "/assets/docs/stripe/react.md"
     }
   ],
   "メソッド": [
@@ -38,13 +53,6 @@
       "title": "Google Pay",
       "path": "/docs/google-pay",
       "filePath": "/assets/docs/stripe/google-pay.md"
-    }
-  ],
-  "Hooks": [
-    {
-      "title": "React Hooks",
-      "path": "/docs/react-hooks",
-      "filePath": "/assets/docs/stripe/react-hooks.md"
     }
   ]
 }
