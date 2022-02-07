@@ -7,7 +7,9 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 const pluginAlias = process.argv.find(c => c.includes('--plugin'))?.split('=') ?? 'stripe';
 export const docs = require(`./src/docs/${pluginAlias}/docs.json`);
 // @ts-ignore
-export const plugin = require(`./src/docs/packages.json`)[pluginAlias];
+export const plugin = Object.assign(require(`./src/docs/packages.json`)[pluginAlias], {
+  alias: pluginAlias
+});
 
 export const config: Config = {
   globalStyle: 'src/global/app.scss',
@@ -28,7 +30,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
-      baseUrl: 'https://stripe.capacitorjs.jp/',
+      baseUrl: `https://${pluginAlias}.capacitorjs.jp/`,
       prerenderConfig: './prerender.config.ts',
       serviceWorker: null,
     },

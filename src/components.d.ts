@@ -28,6 +28,8 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface AppStripe {
+    }
 }
 declare global {
     interface HTMLAppCodesElement extends Components.AppCodes, HTMLStencilElement {
@@ -72,6 +74,12 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLAppStripeElement extends Components.AppStripe, HTMLStencilElement {
+    }
+    var HTMLAppStripeElement: {
+        prototype: HTMLAppStripeElement;
+        new (): HTMLAppStripeElement;
+    };
     interface HTMLElementTagNameMap {
         "app-codes": HTMLAppCodesElement;
         "app-docs": HTMLAppDocsElement;
@@ -80,6 +88,7 @@ declare global {
         "app-menu": HTMLAppMenuElement;
         "app-parser": HTMLAppParserElement;
         "app-root": HTMLAppRootElement;
+        "app-stripe": HTMLAppStripeElement;
     }
 }
 declare namespace LocalJSX {
@@ -107,6 +116,8 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface AppStripe {
+    }
     interface IntrinsicElements {
         "app-codes": AppCodes;
         "app-docs": AppDocs;
@@ -115,6 +126,7 @@ declare namespace LocalJSX {
         "app-menu": AppMenu;
         "app-parser": AppParser;
         "app-root": AppRoot;
+        "app-stripe": AppStripe;
     }
 }
 export { LocalJSX as JSX };
@@ -128,6 +140,7 @@ declare module "@stencil/core" {
             "app-menu": LocalJSX.AppMenu & JSXBase.HTMLAttributes<HTMLAppMenuElement>;
             "app-parser": LocalJSX.AppParser & JSXBase.HTMLAttributes<HTMLAppParserElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-stripe": LocalJSX.AppStripe & JSXBase.HTMLAttributes<HTMLAppStripeElement>;
         }
     }
 }
