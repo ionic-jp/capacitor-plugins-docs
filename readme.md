@@ -1,7 +1,7 @@
 # Capacitor-plugins-docs
+This repository is for create document of Capacitor Plugin.
 
 ## How to create docs
-
 
 ### 1. Add docs.json to plugin's package
 Your plugin may use `@capacitor/docgen`. You should add `--output-json dist/docs.json` to docgen script. example:
@@ -54,7 +54,7 @@ You should run `cp -r src/docs/.template src/docs/your-alias`. Case of `@capacit
 
 And change "app-template" to "app-[Your Alias]". All: folder name, file name, component tag. 
 
-#### Ready!
+#### 3.4. Ready!
 
 All that's left is to write the documentation with the help of other plugins.
 
@@ -77,3 +77,4 @@ update docs:
 ```bash
 npm run docs
 ```
+
