@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MarkdownContent } from "./global/definitions";
 export namespace Components {
+    interface AppAdmob {
+    }
     interface AppCodes {
         "activeLine": Record<string, number[]>;
         "codes": Record<string, string>;
@@ -28,8 +30,16 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface AppStripe {
+    }
 }
 declare global {
+    interface HTMLAppAdmobElement extends Components.AppAdmob, HTMLStencilElement {
+    }
+    var HTMLAppAdmobElement: {
+        prototype: HTMLAppAdmobElement;
+        new (): HTMLAppAdmobElement;
+    };
     interface HTMLAppCodesElement extends Components.AppCodes, HTMLStencilElement {
     }
     var HTMLAppCodesElement: {
@@ -72,7 +82,14 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLAppStripeElement extends Components.AppStripe, HTMLStencilElement {
+    }
+    var HTMLAppStripeElement: {
+        prototype: HTMLAppStripeElement;
+        new (): HTMLAppStripeElement;
+    };
     interface HTMLElementTagNameMap {
+        "app-admob": HTMLAppAdmobElement;
         "app-codes": HTMLAppCodesElement;
         "app-docs": HTMLAppDocsElement;
         "app-header": HTMLAppHeaderElement;
@@ -80,9 +97,12 @@ declare global {
         "app-menu": HTMLAppMenuElement;
         "app-parser": HTMLAppParserElement;
         "app-root": HTMLAppRootElement;
+        "app-stripe": HTMLAppStripeElement;
     }
 }
 declare namespace LocalJSX {
+    interface AppAdmob {
+    }
     interface AppCodes {
         "activeLine"?: Record<string, number[]>;
         "codes"?: Record<string, string>;
@@ -107,7 +127,10 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface AppStripe {
+    }
     interface IntrinsicElements {
+        "app-admob": AppAdmob;
         "app-codes": AppCodes;
         "app-docs": AppDocs;
         "app-header": AppHeader;
@@ -115,12 +138,14 @@ declare namespace LocalJSX {
         "app-menu": AppMenu;
         "app-parser": AppParser;
         "app-root": AppRoot;
+        "app-stripe": AppStripe;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-admob": LocalJSX.AppAdmob & JSXBase.HTMLAttributes<HTMLAppAdmobElement>;
             "app-codes": LocalJSX.AppCodes & JSXBase.HTMLAttributes<HTMLAppCodesElement>;
             "app-docs": LocalJSX.AppDocs & JSXBase.HTMLAttributes<HTMLAppDocsElement>;
             "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
@@ -128,6 +153,7 @@ declare module "@stencil/core" {
             "app-menu": LocalJSX.AppMenu & JSXBase.HTMLAttributes<HTMLAppMenuElement>;
             "app-parser": LocalJSX.AppParser & JSXBase.HTMLAttributes<HTMLAppParserElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-stripe": LocalJSX.AppStripe & JSXBase.HTMLAttributes<HTMLAppStripeElement>;
         }
     }
 }
