@@ -25,6 +25,15 @@ import { Stripe, GooglePayEventsEnum } from '@capacitor-community/stripe';
   // Prepare Google Pay
   await Stripe.createGooglePay({
     paymentIntentClientSecret: paymentIntent,
+
+    // Web only. Google Pay on Android App doesn't need
+    paymentSummaryItems: [{
+      label: 'Product Name',
+      amount: 1099.00
+    }],
+    merchantIdentifier: 'merchant.com.getcapacitor.stripe',
+    countryCode: 'US',
+    currency: 'USD',
   });
 
   // Present Google Pay

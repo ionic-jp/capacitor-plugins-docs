@@ -10,8 +10,8 @@ scrollActiveLine: [
   {id: "strings.xml", activeLine: {['strings.xml']: [6, 15]}},
   {id: "androidmanifest.xml", activeLine: {['AndroidManifest.xml']: [17, 30]}},
   {id: "1.-isgooglepayavailable", activeLine: {['google-pay.ts']: [3, 8]}},
-  {id: "2.-creategooglepay", activeLine: {['google-pay.ts']: [10, 18]}},
-  {id: "3.-presentgooglepay", activeLine: {['google-pay.ts']: [18, 24]}},
+  {id: "2.-creategooglepay", activeLine: {['google-pay.ts']: [10, 27]}},
+  {id: "3.-presentgooglepay", activeLine: {['google-pay.ts']: [27, 33]}},
   {id: "4.-addlistener", activeLine: {['google-pay.ts']: [8, 10]}}
 ]
 ---
@@ -19,6 +19,10 @@ scrollActiveLine: [
 With Google Pay, you can make instant payments in a single flow. Please check settings:
 
 https://stripe.com/docs/google-pay
+
+And if you will work on the web, you should check "Payment Request Button" 's docs. __Serve your application over HTTPS. This is a requirement both in development and in production. One way to get up and running is to use a service like ngrok.__
+
+https://stripe.com/docs/stripe-js/elements/payment-request-button?platform=html-js-testing-google-pay#html-js-prerequisites
 
 ## 🐾 Implements Guide
 
@@ -116,16 +120,28 @@ After that, you set these key to `createGooglePay` method.
   // Prepare Google Pay
   await Stripe.createGooglePay({
     paymentIntentClientSecret: paymentIntent,
+
+    // Web only. Google Pay on Android App doesn't need
+    paymentSummaryItems: [{
+      label: 'Product Name',
+      amount: 1099.00
+    }],
+    merchantIdentifier: 'merchant.com.getcapacitor.stripe',
+    countryCode: 'US',
+    currency: 'USD',
   });
 })();
 ```
 
 !::createGooglePay::
 
-
 You can use options of `CreateGooglePayOption` on `createGooglePay`. 
 
-!::CreateApplePayOption::
+!::CreateGooglePayOption::
+
+:::message
+`paymentSummaryItems`, `merchantIdentifier`, `countryCode`, `currency` is needed on the web only. If you will implement Google Pay on Android App only, don't need.
+:::
 
 ### 3. presentGooglePay
 
@@ -166,7 +182,12 @@ The event name you can use is `GooglePayEventsEnum`.
 ## 📖 Reference
 See the Stripe Documentation for more information. This plugin is wrapper, so there information seems useful for you.
 
-### Googl ePay(Android)
+### Google Pay (Android)
 This plugin use GooglePayLauncher on `com.stripe:stripe-android`:
 
 https://stripe.com/docs/google-pay
+
+### Google Pay (Web)
+This plugin use "Payment Request Button". 
+
+https://stripe.com/docs/stripe-js/elements/payment-request-button?platform=html-js-testing-google-pay#html-js-prerequisites
