@@ -10,8 +10,8 @@ scrollActiveLine: [
   {id: "strings.xml", activeLine: {['strings.xml']: [6, 15]}},
   {id: "androidmanifest.xml", activeLine: {['AndroidManifest.xml']: [17, 30]}},
   {id: "1.-isgooglepayavailable", activeLine: {['google-pay.ts']: [3, 8]}},
-  {id: "2.-creategooglepay", activeLine: {['google-pay.ts']: [10, 18]}},
-  {id: "3.-presentgooglepay", activeLine: {['google-pay.ts']: [18, 24]}},
+  {id: "2.-creategooglepay", activeLine: {['google-pay.ts']: [10, 27]}},
+  {id: "3.-presentgooglepay", activeLine: {['google-pay.ts']: [27, 33]}},
   {id: "4.-addlistener", activeLine: {['google-pay.ts']: [8, 10]}}
 ]
 ---
@@ -19,6 +19,10 @@ scrollActiveLine: [
 Google Payを使えば、ワンフローで即時決済が可能です。詳しい設定は以下をご確認ください：
 
 https://stripe.com/docs/google-pay
+
+もしあながたWeb上でも動作させるなら、 "Payment Request Button" のドキュメントを読むべきです。__HTTPSでホスティングされたアプリケーションでしか動作しません。開発環境と本番環境両方です。HTTPSで動かすための方法のひとつに ngrok というサービスを利用する方法があります。__
+
+https://stripe.com/docs/stripe-js/elements/payment-request-button?platform=html-js-testing-google-pay#html-js-prerequisites
 
 ## 🐾 実装ガイド
 
@@ -116,16 +120,33 @@ https://stripe.com/docs/payments/accept-a-payment?platform=ios#add-server-endpoi
   // Prepare GooglePay
   await Stripe.createGooglePay({
     paymentIntentClientSecret: paymentIntent,
+
+    // Web only. Google Pay on Android App doesn't need
+    paymentSummaryItems: [{
+      label: 'Product Name',
+      amount: 1099.00
+    }],
+    merchantIdentifier: 'merchant.com.getcapacitor.stripe',
+    countryCode: 'US',
+    currency: 'USD',
   });
 })();
 ```
 
 !::createGooglePay::
 
+<<<<<<< HEAD
 
 `createGooglePay` では `CreateGooglePayOption` が利用できます。
+=======
+You can use options of `CreateGooglePayOption` on `createGooglePay`. 
+>>>>>>> main
 
-!::CreateApplePayOption::
+!::CreateGooglePayOption::
+
+:::message
+`paymentSummaryItems`, `merchantIdentifier`, `countryCode`, `currency` is needed on the web only. If you will implement Google Pay on Android App only, don't need.
+:::
 
 ### 3. presentGooglePay
 
@@ -171,3 +192,8 @@ Stripe.addListener(GooglePayEventsEnum.Completed, () => {
 このプラグインの GooglePayLauncher は `com.stripe:stripe-android` を利用しています。
 
 https://stripe.com/docs/google-pay
+
+### Google Pay (Web)
+このプラグインは "Payment Request Button" を利用しています。
+
+https://stripe.com/docs/stripe-js/elements/payment-request-button?platform=html-js-testing-google-pay#html-js-prerequisites
