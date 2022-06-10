@@ -33,6 +33,18 @@ export namespace Components {
     interface AppStripe {
     }
 }
+export interface AppHeaderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAppHeaderElement;
+}
+export interface AppMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAppMenuElement;
+}
+export interface AppParserCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAppParserElement;
+}
 declare global {
     interface HTMLAppAdmobElement extends Components.AppAdmob, HTMLStencilElement {
     }
@@ -112,18 +124,18 @@ declare namespace LocalJSX {
     }
     interface AppHeader {
         "isBtnActive"?: boolean;
-        "onChangeMenuState"?: (event: CustomEvent<boolean>) => void;
+        "onChangeMenuState"?: (event: AppHeaderCustomEvent<boolean>) => void;
     }
     interface AppHome {
     }
     interface AppMenu {
-        "onChangeMenuState"?: (event: CustomEvent<boolean>) => void;
+        "onChangeMenuState"?: (event: AppMenuCustomEvent<boolean>) => void;
         "path"?: string;
     }
     interface AppParser {
         "hideCodeBlock"?: boolean;
         "markdownContent"?: MarkdownContent;
-        "onChangedActiveLine"?: (event: CustomEvent<Record<string, number[]>>) => void;
+        "onChangedActiveLine"?: (event: AppParserCustomEvent<Record<string, number[]>>) => void;
     }
     interface AppRoot {
     }
