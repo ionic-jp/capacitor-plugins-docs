@@ -4,6 +4,8 @@ code: []
 scrollActiveLine: []
 ---
 
+## Work for Web Browser
+
 :::message
 This feature is experimental. Please tested and feedback. If you want to contribute UI, Animation or create issue, move to https://github.com/stripe-elements/stripe-elements .
 :::
