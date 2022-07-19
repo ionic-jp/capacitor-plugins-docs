@@ -32,6 +32,14 @@ In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to t
 
 ## iOS configuration
 
+```diff plist:ios/App/App/Info.plist
+  	<key>UIViewControllerBasedStatusBarAppearance</key>
+	  <true/>
+    
++   <key>NSCameraUsageDescription</key>
++   <string>Need camera access for read credit card.</string>
+  </dict>
+```
 In iOS, the plugin will be loaded automatically without any configuration.
 
 
