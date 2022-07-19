@@ -32,7 +32,15 @@ npx cap sync
 
 ## iOSの構成
 
-iOSの場合、設定なしで自動的にプラグインが読み込まれます。
+```diff plist:ios/App/App/Info.plist
+  	<key>UIViewControllerBasedStatusBarAppearance</key>
+	  <true/>
+    
++   <key>NSCameraUsageDescription</key>
++   <string>Need camera access for read credit card.</string>
+  </dict>
+```
+In iOS, the plugin will be loaded automatically without any configuration.
 
 
 ## Webの構成
