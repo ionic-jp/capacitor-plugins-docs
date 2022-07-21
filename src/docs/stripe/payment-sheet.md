@@ -13,10 +13,15 @@ With PaymentSheet, you can make payments in a single flow. As soon as the User p
 
 [![Image from Gyazo](https://i.gyazo.com/4356878ec43a90178ec3d831d6b47b10.gif)](https://gyazo.com/4356878ec43a90178ec3d831d6b47b10)
 
-This method require `PaymentIntent`. Don't know what `PaymentIntent` is? Learn it first at the official Stripe website.
+This method can be used for both immediate payment with `PaymentIntent`, and future payments with `SetupIntent`.
+
+Don't know what these Intent is? Learn it first at the official Stripe website.
 
 __PaymentIntent:__
 https://stripe.com/docs/payments/payment-intents
+
+__SetupIntent:__
+https://stripe.com/docs/payments/save-and-reuse?platform=web
 
 This guide will show you an easy way to make instant payments.
 
