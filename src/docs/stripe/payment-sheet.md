@@ -13,12 +13,15 @@ PaymentSheetを使えば、1つのフローで決済を行うことができま�
 
 [![Image from Gyazo](https://i.gyazo.com/4356878ec43a90178ec3d831d6b47b10.gif)](https://gyazo.com/4356878ec43a90178ec3d831d6b47b10)
 
-このメソッドには `PaymentIntent` が必要です。 `PaymentIntent` が何であるかご存知ない場合は、まずはStripeの公式サイトで学んでください。
+このメソッドは `PaymentIntent` による即時決済と `SetupIntent` による将来の決済の両方に使用することができます。
+
+これらのIntentが何なのかご存知ないですか？まずはStripeの公式サイトで学んでみてください。
 
 __PaymentIntent:__
 https://stripe.com/docs/payments/payment-intents
 
-このガイドでは、 `PaymentIntent` を簡単に取得できる方法を紹介します。
+__SetupIntent:__
+https://stripe.com/docs/payments/save-and-reuse?platform=web
 
 ## 🐾 実装ガイド
 ### 1. createPaymentSheet
