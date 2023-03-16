@@ -30,6 +30,15 @@ In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to t
   }
 ```
 
+And update project `android/variables.gradle`:
+
+```diff
+-    compileSdkVersion = 32
+-    targetSdkVersion = 32
++    compileSdkVersion = 33
++    targetSdkVersion = 33
+```
+
 ## iOS configuration
 
 ```diff plist:ios/App/App/Info.plist
