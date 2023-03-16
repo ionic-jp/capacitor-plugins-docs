@@ -53,6 +53,11 @@
       "title": "Google Pay",
       "path": "/docs/google-pay",
       "filePath": "/assets/docs/stripe/google-pay.md"
+    },
+    {
+      "title": "IdentityVerificationSheet",
+      "path": "/docs/identity",
+      "filePath": "/assets/docs/stripe/identity.md"
     }
   ]
 }

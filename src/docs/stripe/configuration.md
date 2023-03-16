@@ -30,7 +30,16 @@ npx cap sync
   }
 ```
 
-## iOSの構成
+そして、プロジェクトの `android/variables.gradle` を更新します。
+
+```diff
+-    compileSdkVersion = 32
+-    targetSdkVersion = 32
++    compileSdkVersion = 33
++    targetSdkVersion = 33
+```
+
+## iOS configuration
 
 ```diff plist:ios/App/App/Info.plist
   	<key>UIViewControllerBasedStatusBarAppearance</key>
