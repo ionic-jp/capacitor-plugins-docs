@@ -79,6 +79,38 @@ Google Payを利用するためには、いくつかの設定が必要です。
   android:value="@bool/google_pay_is_testing"/>
 ```
 
+#### Optional: If you get user information, set these:
+
+Added metadata options to specify what, if any, billing info to require from Google Pay. Add the following entries to strings.xml in the Android project to enable additional data:
+
+In file `android/app/src/main/res/values/strings.xml` add the these value.
+
+```xml
+<bool name="email_address_required">true</bool>
+<bool name="phone_number_required">true</bool>
+<bool name="billing_address_required">true</bool>
+<string name="billing_address_format">Full</string>
+```
+
+And in file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `manifest > application`.
+
+```xml
+<meta-data
+  android:name="com.getcapacitor.community.stripe.email_address_required"
+  android:value="@bool/email_address_required"/>
+
+<meta-data
+android:name="com.getcapacitor.community.stripe.phone_number_required"
+android:value="@bool/phone_number_required"/>
+
+<meta-data
+android:name="com.getcapacitor.community.stripe.billing_address_required"
+android:value="@bool/billing_address_required"/>
+
+<meta-data
+android:name="com.getcapacitor.community.stripe.billing_address_format"
+android:value="@string/billing_address_format"/>
+```
 
 ### 1. isGooglePayAvailable
 まず、ユーザのデバイスでGooglePayが使えるかどうか確認します。
