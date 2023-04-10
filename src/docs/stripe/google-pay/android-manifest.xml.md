@@ -62,6 +62,22 @@ file: "AndroidManifest.xml"
         <meta-data
           android:name="com.getcapacitor.community.stripe.google_pay_is_testing"
           android:value="@bool/google_pay_is_testing"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.email_address_required"
+          android:value="@bool/email_address_required"/>
+  
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.phone_number_required"
+          android:value="@bool/phone_number_required"/>
+  
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.billing_address_required"
+          android:value="@bool/billing_address_required"/>
+  
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.billing_address_format"
+          android:value="@string/billing_address_format"/>
     </application>
 
     <!-- Permissions -->

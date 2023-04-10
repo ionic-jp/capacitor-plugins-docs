@@ -7,8 +7,8 @@ code: [
 ]
 scrollActiveLine: [
   {id: "", activeLine: {}},
-  {id: "strings.xml", activeLine: {['strings.xml']: [6, 15]}},
-  {id: "androidmanifest.xml", activeLine: {['AndroidManifest.xml']: [17, 30]}},
+  {id: "strings.xml", activeLine: {['strings.xml']: [6, 16]}},
+  {id: "androidmanifest.xml", activeLine: {['AndroidManifest.xml']: [17, 40]}},
   {id: "1.-isgooglepayavailable", activeLine: {['google-pay.ts']: [3, 8]}},
   {id: "2.-creategooglepay", activeLine: {['google-pay.ts']: [10, 27]}},
   {id: "3.-presentgooglepay", activeLine: {['google-pay.ts']: [27, 33]}},
