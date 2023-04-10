@@ -15,5 +15,10 @@ file: "strings.xml"
     <string name="country_code">US</string>
     <string name="merchant_display_name">Widget Store</string>
     <bool name="google_pay_is_testing">true</bool>
+
+    <bool name="email_address_required">true</bool>
+    <bool name="phone_number_required">true</bool>
+    <bool name="billing_address_required">true</bool>
+    <string name="billing_address_format">Full</string>
 </resources>
 ```
