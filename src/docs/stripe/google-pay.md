@@ -79,11 +79,11 @@ Google Payを利用するためには、いくつかの設定が必要です。
   android:value="@bool/google_pay_is_testing"/>
 ```
 
-#### Optional: If you get user information, set these:
+#### オプション：ユーザー情報を取得する場合、これらを設定します：
 
-Added metadata options to specify what, if any, billing info to require from Google Pay. Add the following entries to strings.xml in the Android project to enable additional data:
+Google Payから要求する課金情報がある場合、それを指定するメタデータオプションを追加しました。追加データを有効にするために、Androidプロジェクトのstrings.xmlに以下のエントリーを追加します：
 
-In file `android/app/src/main/res/values/strings.xml` add the these value.
+ファイル `android/app/src/main/res/values/strings.xml` に、これらの値を追加します。
 
 ```xml
 <bool name="email_address_required">true</bool>
@@ -92,7 +92,7 @@ In file `android/app/src/main/res/values/strings.xml` add the these value.
 <string name="billing_address_format">Full</string>
 ```
 
-And in file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `manifest > application`.
+そして、ファイル `android/app/src/main/AndroidManifest.xml` の `manifest > application` の下に、以下のXML要素を追加します。
 
 ```xml
 <meta-data
