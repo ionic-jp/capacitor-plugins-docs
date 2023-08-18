@@ -37,7 +37,7 @@
     "puppeteer": "^10.0.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "ts-node": "^10.4.0",
-    "zenn-markdown-html": "^0.1.100"
+    "zenn-markdown-html": "^0.1.144"
   },
   "lint-staged": {
     "*.tsx": [

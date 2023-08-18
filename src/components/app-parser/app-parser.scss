@@ -5,6 +5,10 @@
   display: block;
   padding: 6px 16px 64px;
 
+  .msg-symbol {
+    display: none;
+  }
+
   blockquote {
     margin: 1.8rem 0 !important;
   }
