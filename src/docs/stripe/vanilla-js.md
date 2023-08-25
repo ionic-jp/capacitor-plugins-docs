@@ -11,16 +11,16 @@ This feature is experimental. Please tested and feedback. If you want to contrib
 :::
 
 ```bash
-npm install @stripe-elements/stripe-elements
+npm install stripe-pwa-elements
 ```
 
 And `defineCustomElements()` called once during the bootstrapping of your application.
 
 ```diff ts
-+ import { defineCustomElements } from '@stripe-elements/stripe-elements/loader';
++ import { defineCustomElements } from 'stripe-pwa-elements/loader';
 + defineCustomElements();
 ```
 
-`@stripe-elements/stripe-elements` is created with StencilJS. If you can't understand where defined, please check these docs:
+`stripe-pwa-elements` is created with StencilJS. If you can't understand where defined, please check these docs:
 
 https://stenciljs.com/docs/overview

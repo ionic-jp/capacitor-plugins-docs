@@ -31,7 +31,7 @@ This feature is experimental. Please tested and feedback. If you want to contrib
 :::
 
 ```bash
-npm install @stripe-elements/stripe-elements
+npm install stripe-pwa-elements
 ```
 
 And `defineCustomElements()` called once during the bootstrapping of your application.
@@ -44,7 +44,7 @@ And `defineCustomElements()` called once during the bootstrapping of your applic
   import { AppModule } from './app/app.module';
   import { environment } from './environments/environment';
 
-+ import { defineCustomElements } from '@stripe-elements/stripe-elements/loader';
++ import { defineCustomElements } from 'stripe-pwa-elements/loader';
 
   if (environment.production) {
     enableProdMode();
