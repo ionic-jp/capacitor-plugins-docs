@@ -33,10 +33,10 @@ npx cap sync
 そして、プロジェクトの `android/variables.gradle` を更新します。
 
 ```diff
--    compileSdkVersion = 32
--    targetSdkVersion = 32
-+    compileSdkVersion = 33
-+    targetSdkVersion = 33
+-    minSdkVersion = 22
+-    compileSdkVersion = 33
++    minSdkVersion = 26
++    compileSdkVersion = 34
 ```
 
 ## iOS configuration
