@@ -79,7 +79,7 @@ Google Payを利用するためには、いくつかの設定が必要です。
   android:value="@bool/google_pay_is_testing"/>
 ```
 
-#### オプション：ユーザー情報を取得する場合、これらを設定します：
+#### オプション１：ユーザー情報を取得する場合、これらを設定します：
 
 Google Payから要求する課金情報がある場合、それを指定するメタデータオプションを追加しました。追加データを有効にするために、Androidプロジェクトのstrings.xmlに以下のエントリーを追加します：
 
@@ -110,6 +110,25 @@ android:value="@bool/billing_address_required"/>
 <meta-data
 android:name="com.getcapacitor.community.stripe.billing_address_format"
 android:value="@string/billing_address_format"/>
+```
+
+#### オプション２: もし顧客がGoogle payで既存の支払い設定がされてなくてもいい場合:
+
+false の場合、顧客の Google Pay ウォレットに既存の支払い方法がない場合でも、Google Pay は準備できているとみなされます。
+デフォルトは true です。
+
+ファイル `android/app/src/main/res/values/strings.xml` に、これらの値を追加します。
+
+```xml
+<bool name="google_pay_existing_payment_method_required">false</bool>
+```
+
+そして、ファイル `android/app/src/main/AndroidManifest.xml` の `manifest > application` の下に、以下のXML要素を追加します。
+
+```xml
+<meta-data
+    android:name="com.getcapacitor.community.stripe.google_pay_existing_payment_method_required"
+    android:value="@bool/google_pay_existing_payment_method_required"/>
 ```
 
 ### 1. isGooglePayAvailable

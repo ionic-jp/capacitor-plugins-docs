@@ -20,5 +20,7 @@ file: "strings.xml"
     <bool name="phone_number_required">true</bool>
     <bool name="billing_address_required">true</bool>
     <string name="billing_address_format">Full</string>
+  
+    <bool name="google_pay_existing_payment_method_required">false</bool>
 </resources>
 ```
