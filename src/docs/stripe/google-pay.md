@@ -114,7 +114,7 @@ android:value="@string/billing_address_format"/>
 
 #### Optional2: If you don't require existing payment method at Googl Pay:
 
-If false, Google Pay is "not" considered ready if the customer's Google Pay wallet has existing payment methods.
+If false, Google Pay is considered ready if the customer's Google Pay wallet does "not" have existing payment methods.
 Default to true.
 
 In file `android/app/src/main/res/values/strings.xml` add the these value.
