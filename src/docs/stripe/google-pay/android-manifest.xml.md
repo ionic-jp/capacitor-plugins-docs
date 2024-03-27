@@ -78,6 +78,10 @@ file: "AndroidManifest.xml"
         <meta-data
           android:name="com.getcapacitor.community.stripe.billing_address_format"
           android:value="@string/billing_address_format"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.google_pay_existing_payment_method_required"
+          android:value="@string/google_pay_existing_payment_method_required"/>
     </application>
 
     <!-- Permissions -->

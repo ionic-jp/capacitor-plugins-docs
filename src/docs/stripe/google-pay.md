@@ -79,7 +79,7 @@ In file `android/app/src/main/AndroidManifest.xml`, add the following XML elemen
   android:value="@bool/google_pay_is_testing"/>
 ```
 
-#### Optional: If you get user information, set these:
+#### Optional1: If you get user information, set these:
 
 Added metadata options to specify what, if any, billing info to require from Google Pay. Add the following entries to strings.xml in the Android project to enable additional data:
 
@@ -110,6 +110,25 @@ android:value="@bool/billing_address_required"/>
 <meta-data
 android:name="com.getcapacitor.community.stripe.billing_address_format"
 android:value="@string/billing_address_format"/>
+```
+
+#### Optional2: If you don't require existing payment method at Googl Pay:
+
+If false, Google Pay is "not" considered ready if the customer's Google Pay wallet has existing payment methods.
+Default to true.
+
+In file `android/app/src/main/res/values/strings.xml` add the these value.
+
+```xml
+<bool name="google_pay_existing_payment_method_required">false</bool>
+```
+
+And in file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `manifest > application`.
+
+```xml
+<meta-data
+    android:name="com.getcapacitor.community.stripe.google_pay_existing_payment_method_required"
+    android:value="@bool/google_pay_existing_payment_method_required"/>
 ```
 
 ### 1. isGooglePayAvailable
