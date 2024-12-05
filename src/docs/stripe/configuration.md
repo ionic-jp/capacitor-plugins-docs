@@ -39,7 +39,7 @@ npx cap sync
 +    compileSdkVersion = 34
 ```
 
-And add next block to `android/app/build.gradle`.
+そして、次のブロックを `android/app/build.gradle` の下部に追加します。
 
 ```diff
 + buildscript {
