@@ -39,6 +39,22 @@ And update project `android/variables.gradle`:
 +    compileSdkVersion = 34
 ```
 
+And add next block to `android/app/build.gradle`.
+
+```diff
++ buildscript {
++   ext.kotlin_version = '2.0.+'
++   repositories {
++       google()
++       mavenCentral()
++   }
++   dependencies {
++     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
++   }
++ }
++ apply plugin: 'kotlin-android'
+```
+
 ## iOS configuration
 
 ```diff plist:ios/App/App/Info.plist
