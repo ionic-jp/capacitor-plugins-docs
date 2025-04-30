@@ -65,8 +65,3 @@ export const PaymentSheet: React.FC = () => {
 
 Of course, You can write without React Hooks. Are you interested in using React Hooks? So please check demo code:
 https://github.com/capacitor-community/stripe/tree/master/demo/react
-
-## Hook API
-### `useCapacitorStripe` 
-
-!::CapacitorStripeContext::

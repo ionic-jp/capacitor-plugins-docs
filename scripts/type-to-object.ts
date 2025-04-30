@@ -63,7 +63,7 @@ const createMarkdown = (sources: TypeObject[], type: string) => {
 }
 
 export const getTypeToObjects = (): Record<'methods' | 'interfaces' | 'typeAliases' | 'enums', TypeObject[]> => {
-  const source = Stripe as DocsData;
+  const source = Stripe as unknown as DocsData;
 
   const methods: TypeObject[] = source!.api!.methods.map((m: DocsInterfaceMethod): TypeObject => {
     return {
