@@ -63,10 +63,5 @@ export const PaymentSheet: React.FC = () => {
 }
 ```
 
-もちろん、React Hooksがなくても書くことはできます。React Hooksを使うことに興味があるという方は、デモコードをご覧ください:
+Of course, You can write without React Hooks. Are you interested in using React Hooks? So please check demo code:
 https://github.com/capacitor-community/stripe/tree/master/demo/react
-
-## Hook API
-### `useCapacitorStripe`
-
-!::CapacitorStripeContext::
