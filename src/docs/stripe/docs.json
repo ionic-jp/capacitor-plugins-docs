@@ -28,6 +28,13 @@
       "filePath": "/assets/docs/stripe/react.md"
     }
   ],
+  "Learn": [
+    {
+      "title": "Event Listeners",
+      "path": "/docs/learn/event-listeners",
+      "filePath": "/assets/docs/stripe/learn/event-listeners.md"
+    }
+  ],
   "Method": [
     {
       "title": "Initialize",
