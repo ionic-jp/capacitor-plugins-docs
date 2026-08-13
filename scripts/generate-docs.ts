@@ -252,6 +252,13 @@ async function main(): Promise<void> {
       formatApiEntries(htmlDocument);
       if (slug === 'api') formatApiReference(htmlDocument);
       html = htmlDocument.body.innerHTML;
+      const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
+        (heading) => ({
+          id: heading.id,
+          text: heading.textContent?.trim() ?? '',
+          level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
+        }),
+      );
       pages.push({
         title: parsed.attributes.title || title,
         navTitle: title,
@@ -260,6 +267,7 @@ async function main(): Promise<void> {
         section,
         path: `/${plugin.id}/docs/${slug}`,
         html,
+        headings,
         codes,
         scrollMap: parsed.attributes.scrollActiveLine ?? [],
         editUrl: `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`,

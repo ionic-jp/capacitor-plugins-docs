@@ -10,6 +10,12 @@ export interface ScrollMapEntry {
   activeLine: Record<string, readonly number[]>;
 }
 
+export interface DocsHeading {
+  id: string;
+  text: string;
+  level: 2 | 3 | 4;
+}
+
 export interface DocsPage {
   title: string;
   navTitle: string;
@@ -18,6 +24,7 @@ export interface DocsPage {
   section: string;
   path: string;
   html: string;
+  headings: readonly DocsHeading[];
   codes: readonly CodeSample[];
   scrollMap: readonly ScrollMapEntry[];
   editUrl: string;
