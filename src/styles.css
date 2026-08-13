@@ -27,3 +27,68 @@ a {
 .znc h1 {
   border-bottom-color: rgba(92, 147, 187, 0.17);
 }
+
+.znc .api-reference > h2 {
+  margin-bottom: 0.5rem;
+}
+.znc .api-reference .api-entry {
+  border-top: 1px solid #e3eaf2;
+  padding: 1.55rem 0 1.8rem;
+}
+.znc .api-reference .api-entry > h4 {
+  margin: 0 0 1rem;
+  border-left: 3px solid #1b6dff;
+  padding: 0.2rem 0 0.2rem 0.8rem;
+  color: #18263a;
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+.znc .api-reference .api-entry > h4 > code {
+  margin-right: 0.45rem;
+  border-radius: 0.4rem;
+  background: #edf4ff;
+  padding: 0.2rem 0.45rem;
+  color: #46617d;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.znc .api-reference .api-entry > p:not(.api-signature) {
+  max-width: 68ch;
+  margin: 0.65rem 0;
+  color: #44556a;
+  line-height: 1.75;
+}
+.znc .api-reference .api-entry > .api-signature {
+  max-width: 100%;
+  margin: 1rem 0 0;
+  overflow-x: auto;
+  border: 1px solid #dbe5f0;
+  border-radius: 0.65rem;
+  background: #f6f9fc;
+  padding: 0.72rem 0.9rem;
+  line-height: 1.5;
+}
+.znc .api-reference .api-entry > .api-signature > code {
+  white-space: nowrap;
+  background: transparent;
+  padding: 0;
+}
+.znc .api-reference .api-entry > table {
+  margin-top: 1rem;
+}
+.znc .api-reference .api-entry > table th:nth-child(3),
+.znc .api-reference .api-entry > table td:nth-child(3) {
+  min-width: 17rem;
+}
+
+@media (max-width: 576px) {
+  .znc .api-reference .api-entry {
+    padding: 1.3rem 0 1.55rem;
+  }
+  .znc .api-reference .api-entry > h4 {
+    font-size: 1rem;
+  }
+}

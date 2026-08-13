@@ -5,7 +5,7 @@ import { filter } from 'rxjs';
 import { findPlugin, pluginDocs, sectionsFor, type PluginDocs } from './docs/docs-data';
 
 const PLUGIN_LABELS: Record<string, string> = {
-  stripe: 'Stripe Payments',
+  stripe: 'Stripe',
   'stripe-identity': 'Stripe Identity',
   'stripe-terminal': 'Stripe Terminal',
 };

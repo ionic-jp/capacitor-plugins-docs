@@ -4,7 +4,7 @@ code: []
 scrollActiveLine: []
 ---
 
-Reference generated from the public API metadata for `@capacitor-community/stripe` v8.2.0. Platform limits, inherited option fields, result listener lifecycle, and server responsibilities are documented on the method pages.
+Reference generated from the public API metadata for `@capacitor-community/stripe` v8.2.1. Platform limits, inherited option fields, result listener lifecycle, and server responsibilities are documented on the method pages.
 
 ## Methods
 

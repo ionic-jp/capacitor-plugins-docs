@@ -10,7 +10,7 @@ interface PluginIndexCopy {
 
 const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
   stripe: {
-    label: 'Stripe Payments',
+    label: 'Stripe',
     capability:
       'Accept PaymentSheet and PaymentFlow, plus Apple Pay and Google Pay, from one Capacitor codebase.',
   },

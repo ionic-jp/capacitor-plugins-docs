@@ -11,7 +11,7 @@ npm install @capacitor-community/stripe-terminal
 npx cap sync
 ```
 
-The plugin is `@capacitor-community/stripe-terminal` **v8.2.0**. Official demos:
+The plugin is `@capacitor-community/stripe-terminal` **v8.2.1**. Official demos:
 
 - [Tap to Pay / Internet / Bluetooth](https://github.com/capacitor-community/stripe/tree/main/demo/angular)
 - [Apps on Devices](https://github.com/capacitor-community/stripe/tree/main/demo/app-on-devices)

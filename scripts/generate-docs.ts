@@ -73,7 +73,7 @@ function apiMarkdown(source: any): Map<string, string> {
       method.name === 'addListener' && method.parameters?.length
         ? `addListener(${String(method.parameters[0].type).replace(/"/g, "'")}, ...)`
         : `${method.name}(${method.parameters?.length ? '...' : ''})`;
-    const markdown = `#### \`method\` ${signature}\n${formatDescription(source, method.docs) || ''}\n\`${method.name}${method.signature}\`\n`;
+    const markdown = `#### \`method\` ${signature}\n${formatDescription(source, method.docs) || ''}\n\n\`${method.name}${method.signature}\`\n`;
     const existing = entries.get(method.name);
     entries.set(method.name, existing ? `${existing}\n${markdown}` : markdown);
   }
@@ -135,6 +135,41 @@ async function renderCode(markdown: string): Promise<{ file: string; lines: stri
   };
 }
 
+function formatApiReference(document: Document): string {
+  const body = document.body;
+  for (const heading of Array.from(body.children)) {
+    if (heading.tagName !== 'H4' || heading.parentElement !== body) continue;
+
+    const section = document.createElement('section');
+    section.className = 'api-entry';
+    body.insertBefore(section, heading);
+
+    let sibling: Element | null = heading;
+    while (sibling && (sibling === heading || !/^H[234]$/.test(sibling.tagName))) {
+      const next = sibling.nextElementSibling;
+      section.appendChild(sibling);
+      sibling = next;
+    }
+
+    for (const paragraph of Array.from(section.querySelectorAll(':scope > p'))) {
+      const children = Array.from(paragraph.children);
+      const hasOnlyOneCodeElement =
+        children.length === 1 &&
+        children[0].tagName === 'CODE' &&
+        Array.from(paragraph.childNodes).every(
+          (node) => node === children[0] || !node.textContent?.trim(),
+        );
+      if (hasOnlyOneCodeElement) paragraph.classList.add('api-signature');
+    }
+  }
+
+  const root = document.createElement('div');
+  root.className = 'api-reference';
+  while (body.firstChild) root.appendChild(body.firstChild);
+  body.appendChild(root);
+  return body.innerHTML;
+}
+
 async function main(): Promise<void> {
   const generated = [];
   for (const plugin of plugins) {
@@ -166,7 +201,7 @@ async function main(): Promise<void> {
           ),
         );
       }
-      const html = (await markdownToHtml(expanded))
+      let html = (await markdownToHtml(expanded))
         .replace(/href="\/docs\//g, `href="/${plugin.id}/docs/`)
         .replace('loading="lazy"', 'loading="eager" fetchpriority="high"');
       const htmlDocument = new JSDOM(html).window.document;
@@ -210,6 +245,7 @@ async function main(): Promise<void> {
           }
         }
       }
+      if (slug === 'api') html = formatApiReference(htmlDocument);
       pages.push({
         title: parsed.attributes.title || title,
         navTitle: title,
