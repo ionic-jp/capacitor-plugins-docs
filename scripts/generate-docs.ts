@@ -135,10 +135,12 @@ async function renderCode(markdown: string): Promise<{ file: string; lines: stri
   };
 }
 
-function formatApiReference(document: Document): string {
+function formatApiEntries(document: Document): void {
   const body = document.body;
   for (const heading of Array.from(body.children)) {
     if (heading.tagName !== 'H4' || heading.parentElement !== body) continue;
+    const kind = heading.querySelector(':scope > code')?.textContent?.trim();
+    if (!kind || !['method', 'interface', 'type alias', 'enum'].includes(kind)) continue;
 
     const section = document.createElement('section');
     section.className = 'api-entry';
@@ -162,12 +164,14 @@ function formatApiReference(document: Document): string {
       if (hasOnlyOneCodeElement) paragraph.classList.add('api-signature');
     }
   }
+}
 
+function formatApiReference(document: Document): void {
+  const body = document.body;
   const root = document.createElement('div');
   root.className = 'api-reference';
   while (body.firstChild) root.appendChild(body.firstChild);
   body.appendChild(root);
-  return body.innerHTML;
 }
 
 async function main(): Promise<void> {
@@ -245,7 +249,9 @@ async function main(): Promise<void> {
           }
         }
       }
-      if (slug === 'api') html = formatApiReference(htmlDocument);
+      formatApiEntries(htmlDocument);
+      if (slug === 'api') formatApiReference(htmlDocument);
+      html = htmlDocument.body.innerHTML;
       pages.push({
         title: parsed.attributes.title || title,
         navTitle: title,
