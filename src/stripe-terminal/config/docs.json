@@ -1,0 +1,30 @@
+{
+  "Guide": [
+    {
+      "title": "Introduction",
+      "path": "/"
+    }
+  ],
+  "Quickstart": [
+    {
+      "title": "Configuration",
+      "path": "/docs/configuration"
+    }
+  ],
+  "Guide": [
+    {
+      "title": "Collect a Payment",
+      "path": "/docs/collect-a-payment"
+    },
+    {
+      "title": "Reader Lifecycle",
+      "path": "/docs/reader-lifecycle"
+    }
+  ],
+  "Reference": [
+    {
+      "title": "API",
+      "path": "/docs/api"
+    }
+  ]
+}

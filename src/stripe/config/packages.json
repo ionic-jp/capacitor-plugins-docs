@@ -1,0 +1,10 @@
+{
+  "stripe": {
+    "name": "capacitor-community/stripe",
+    "repository": "https://github.com/rdlabo-team/capacitor-plugins-docs/"
+  },
+  "stripe-identity": {
+    "name": "capacitor-community/stripe-identity",
+    "repository": "https://github.com/rdlabo-team/capacitor-plugins-docs/"
+  }
+}

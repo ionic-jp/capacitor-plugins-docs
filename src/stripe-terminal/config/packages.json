@@ -1,0 +1,6 @@
+{
+  "stripe-terminal": {
+    "name": "capacitor-community/stripe-terminal",
+    "repository": "https://github.com/rdlabo-team/capacitor-plugins-docs/"
+  }
+}

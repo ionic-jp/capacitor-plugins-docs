@@ -1,0 +1,151 @@
+<header
+  class="relative z-40 flex min-h-15.5 items-stretch justify-between border-b border-sky-900/10 bg-white"
+>
+  <div class="flex min-w-0 items-center">
+    <button
+      class="relative ml-4 h-3.5 w-4.5 cursor-pointer border-0 bg-transparent lg:hidden"
+      type="button"
+      (click)="menuOpen.set(!menuOpen())"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Toggle documentation menu"
+    >
+      <span class="absolute top-0 left-0 h-0.5 w-full rounded-sm bg-black"></span>
+      <span class="absolute top-1.5 left-0 h-0.5 w-full rounded-sm bg-black"></span>
+      <span class="absolute top-3 left-0 h-0.5 w-full rounded-sm bg-black"></span>
+    </button>
+    <a
+      class="m-4 flex min-w-0 items-center gap-2 truncate font-medium text-black no-underline hover:opacity-80"
+      [routerLink]="isIndex() ? '/' : '/' + activePlugin().id"
+    >
+      <img src="/assets/icon/capacitor-logo.svg" width="20" height="20" alt="" />
+      {{ isIndex() ? 'capacitor-community/plugins' : activePlugin().packageName.replace('@', '') }}
+    </a>
+  </div>
+  <a
+    class="ml-auto flex items-center border-l border-sky-900/10 px-4 text-black no-underline hover:bg-sky-900/5 sm:px-7"
+    [href]="
+      isIndex()
+        ? 'https://github.com/ionic-jp/capacitor-plugins-docs'
+        : activePlugin().repositoryUrl
+    "
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="View plugin on GitHub"
+    >GitHub</a
+  >
+</header>
+
+<div class="relative grid min-h-[calc(100dvh-62px)] grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)]">
+  @if (menuOpen()) {
+    <button
+      class="absolute inset-0 z-20 border-0 bg-white/65 lg:hidden"
+      type="button"
+      aria-label="Close documentation menu"
+      (click)="menuOpen.set(false)"
+    ></button>
+  }
+  <aside
+    class="absolute inset-y-0 left-0 z-30 w-[300px] overflow-y-auto bg-white pt-7 pb-15 shadow-[8px_0_12px_rgba(0,0,0,.08)] transition-transform lg:sticky lg:top-0 lg:max-h-dvh lg:w-auto lg:translate-x-0 lg:self-start lg:shadow-none"
+    [class.-translate-x-full]="!menuOpen()"
+    [class.translate-x-0]="menuOpen()"
+    aria-label="Documentation"
+  >
+    <div class="px-3 pb-3">
+      <a
+        class="flex items-center gap-2.5 rounded-lg py-3 text-[0.9rem] leading-none font-normal tracking-tight text-[#141414] no-underline hover:text-[#1b6dff]"
+        routerLink="/"
+        routerLinkActive="bg-[#f0f6ff] !text-[#1b6dff]"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <svg class="size-3 shrink-0" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <rect x="1" y="1" width="4" height="4" rx="0.75" stroke="currentColor" />
+          <rect x="7" y="1" width="4" height="4" rx="0.75" stroke="currentColor" />
+          <rect x="1" y="7" width="4" height="4" rx="0.75" stroke="currentColor" />
+          <rect x="7" y="7" width="4" height="4" rx="0.75" stroke="currentColor" />
+        </svg>
+        <span>Plugins</span>
+      </a>
+    </div>
+    @for (plugin of plugins; track plugin.id) {
+      <div class="px-3 not-first:mt-4">
+        <button
+          class="flex w-full cursor-pointer items-center gap-2.5 border-0 bg-transparent py-3 text-left text-[0.9rem] leading-none font-normal tracking-tight text-[#141414]"
+          type="button"
+          [id]="buttonId(plugin)"
+          [attr.aria-expanded]="isExpanded(plugin)"
+          [attr.aria-controls]="panelId(plugin)"
+          (click)="selectPlugin(plugin)"
+        >
+          <svg
+            class="size-3 shrink-0 text-[#03060b] transition-transform duration-300 ease-out"
+            [class.-rotate-90]="!isExpanded(plugin)"
+            viewBox="0 0 10 6"
+            aria-hidden="true"
+          >
+            <path
+              d="M1 1 5 5 9 1"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
+          <span>{{ pluginLabel(plugin) }}</span>
+        </button>
+        <div
+          class="grid transition-[grid-template-rows] duration-300 ease-out"
+          [class.grid-rows-[1fr]]="isExpanded(plugin)"
+          [class.grid-rows-[0fr]]="!isExpanded(plugin)"
+        >
+          <div class="min-h-0 overflow-hidden">
+            <div
+              class="pr-1.5 pb-1 pl-6 transition-[opacity,visibility] duration-300 ease-out"
+              [id]="panelId(plugin)"
+              [attr.aria-labelledby]="buttonId(plugin)"
+              [attr.aria-hidden]="!isExpanded(plugin)"
+              [attr.inert]="isExpanded(plugin) ? null : ''"
+              [class.opacity-100]="isExpanded(plugin)"
+              [class.visible]="isExpanded(plugin)"
+              [class.opacity-0]="!isExpanded(plugin)"
+              [class.invisible]="!isExpanded(plugin)"
+            >
+              <a
+                class="block rounded-lg px-3 py-2.5 text-[0.9rem] leading-6 font-normal tracking-tight text-[#445b78] no-underline hover:text-[#1b6dff] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1b6dff]"
+                [routerLink]="'/' + plugin.id"
+                routerLinkActive="bg-[#f0f6ff] !text-[#1b6dff]"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Introduction</a
+              >
+              @for (section of sectionsFor(plugin); track section.name) {
+                <h2
+                  class="m-0 mt-7 mb-1.5 flex items-center gap-3 px-3 text-[0.65rem] leading-none font-normal tracking-[0.14em] text-slate-400 uppercase"
+                >
+                  <span>{{ section.name }}</span>
+                  <span class="h-0.5 flex-1 rounded-full bg-sky-900/10" aria-hidden="true"></span>
+                </h2>
+                <ul class="m-0 list-none p-0">
+                  @for (page of section.pages; track page.path) {
+                    <li>
+                      <a
+                        class="block rounded-lg px-3 py-2.5 text-[0.9rem] leading-6 font-normal tracking-tight text-[#445b78] no-underline hover:text-[#1b6dff] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1b6dff]"
+                        [routerLink]="page.path"
+                        routerLinkActive="bg-[#f0f6ff] !text-[#1b6dff]"
+                        >{{ page.navTitle }}</a
+                      >
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </aside>
+  <main class="min-w-0 pt-4 lg:px-4"><router-outlet /></main>
+</div>
+
+<footer class="flex justify-center bg-sky-900/10 px-4 py-14 text-xs">
+  <p>© 2026 RELATION DESIGN LABO, GENERAL INC. ASSOCIATION. Released under the MIT License.</p>
+</footer>

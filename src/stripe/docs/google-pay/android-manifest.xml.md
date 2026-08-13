@@ -1,0 +1,91 @@
+---
+file: "AndroidManifest.xml"
+---
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.ionic.starter">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+            android:name="io.ionic.starter.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBarLaunch"
+            android:launchMode="singleTask">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+        <meta-data
+          android:name="com.google.android.gms.wallet.api.enabled"
+          android:value="true" />
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.enable_google_pay"
+          android:value="@bool/enable_google_pay"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.publishable_key"
+          android:value="@string/publishable_key"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.country_code"
+          android:value="@string/country_code"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.merchant_display_name"
+          android:value="@string/merchant_display_name"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.google_pay_is_testing"
+          android:value="@bool/google_pay_is_testing"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.email_address_required"
+          android:value="@bool/email_address_required"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.phone_number_required"
+          android:value="@bool/phone_number_required"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.billing_address_required"
+          android:value="@bool/billing_address_required"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.billing_address_format"
+          android:value="@string/billing_address_format"/>
+
+        <meta-data
+          android:name="com.getcapacitor.community.stripe.google_pay_existing_payment_method_required"
+          android:value="@bool/google_pay_existing_payment_method_required"/>
+    </application>
+
+    <!-- Permissions -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>
+```

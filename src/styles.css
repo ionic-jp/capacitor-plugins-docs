@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+@import 'zenn-content-css/lib/index.css';
+
+:root {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  background: #fff;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.znc .msg-symbol {
+  display: none;
+}
+.znc blockquote {
+  margin: 1.8rem 0 !important;
+}
+.znc h1 {
+  border-bottom-color: rgba(92, 147, 187, 0.17);
+}

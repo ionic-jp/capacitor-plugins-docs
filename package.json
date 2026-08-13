@@ -1,55 +1,59 @@
 {
   "name": "capacitor-plugins-docs",
-  "private": true,
   "version": "0.0.1",
-  "description": "Stencil App Starter",
+  "private": true,
+  "description": "Documentation site for Capacitor Community plugins",
+  "license": "MIT",
+  "packageManager": "npm@11.7.0",
   "scripts": {
-    "build": "stencil build",
-    "build:ci": "stencil build --ci --prerender",
-    "start": "stencil build --dev --watch --serve",
-    "generate": "stencil generate",
-    "docs": "ts-node -P scripts/tsconfig.json scripts/markdown-to-html",
-    "fmt": "prettier --parser typescript --write \"./src/**/*.tsx\""
+    "ng": "ng",
+    "docs:generate": "tsx scripts/generate-docs.ts",
+    "prestart": "npm run docs:generate",
+    "start": "ng serve",
+    "prebuild": "npm run docs:generate",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "pretest": "npm run docs:generate",
+    "test": "ng test --watch=false",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
+    "serve:ssr:capacitor-plugins-docs": "node dist/capacitor-plugins-docs/server/server.mjs"
   },
   "dependencies": {
-    "@stencil/core": "^2.12.0",
-    "@stencil/sass": "^1.5.2",
-    "sanitize.css": "^13.0.0",
-    "stencil-router-v2": "^0.6.0",
-    "zenn-content-css": "^0.1.100"
+    "@angular/common": "^22.1.0",
+    "@angular/compiler": "^22.1.0",
+    "@angular/core": "^22.1.0",
+    "@angular/forms": "^22.1.0",
+    "@angular/platform-browser": "^22.1.0",
+    "@angular/platform-server": "^22.1.0",
+    "@angular/router": "^22.1.0",
+    "@angular/ssr": "^22.1.3",
+    "@capacitor-community/stripe-terminal": "^8.2.0",
+    "express": "^5.1.0",
+    "front-matter": "^4.0.2",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zenn-content-css": "^0.5.2",
+    "zenn-markdown-html": "^0.5.2"
   },
   "devDependencies": {
-    "@capacitor-community/admob": "^7.0.3",
-    "@capacitor-community/stripe": "^7.0.3",
-    "@capacitor/docgen": "^0.1.0",
-    "@types/fs-extra": "^9.0.13",
-    "@types/glob": "^7.2.0",
-    "@types/jest": "^26.0.24",
-    "front-matter": "^4.0.2",
-    "fs-extra": "^10.0.0",
-    "glob": "^7.2.0",
-    "husky": "^7.0.4",
-    "jest": "^26.6.3",
-    "jest-cli": "^26.6.3",
-    "lint-staged": "^12.1.5",
-    "pre-commit": "^1.2.2",
-    "prettier": "^2.5.1",
-    "puppeteer": "^10.0.0",
-    "rollup-plugin-node-polyfills": "^0.2.1",
-    "ts-node": "^10.4.0",
-    "typescript": "^5.8.3",
-    "zenn-markdown-html": "^0.1.144"
-  },
-  "lint-staged": {
-    "*.tsx": [
-      "prettier --parser typescript --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "license": "MIT"
+    "@angular/build": "^22.1.3",
+    "@angular/cli": "^22.1.3",
+    "@angular/compiler-cli": "^22.1.0",
+    "@capacitor-community/stripe": "^8.2.0",
+    "@capacitor-community/stripe-identity": "^8.2.0",
+    "@capacitor/docgen": "^0.3.1",
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/express": "^5.0.1",
+    "@types/jsdom": "^27.0.0",
+    "@types/node": "^20.17.19",
+    "jsdom": "^28.0.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tailwindcss": "^4.1.12",
+    "tsx": "^4.20.6",
+    "typescript": "~6.0.2",
+    "vitest": "^4.0.8"
+  }
 }
