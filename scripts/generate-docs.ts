@@ -8,6 +8,33 @@ import { JSDOM } from 'jsdom';
 
 const root = resolve(process.cwd());
 const docsRepositoryUrl = 'https://github.com/ionic-jp/capacitor-plugins-docs';
+type Locale = 'en' | 'ja';
+
+const japanesePageCopy: Record<string, { title: string; section: string }> = {
+  'stripe/configuration': { title: '設定', section: 'クイックスタート' },
+  'stripe/vanilla-js': { title: 'Vanilla JS', section: 'クイックスタート' },
+  'stripe/angular': { title: 'Angular', section: 'クイックスタート' },
+  'stripe/react': { title: 'React', section: 'クイックスタート' },
+  'stripe/learn/event-listeners': { title: 'イベントリスナー', section: '学ぶ' },
+  'stripe/server-integration': { title: 'サーバー連携', section: '学ぶ' },
+  'stripe/initialize': { title: '初期化', section: 'メソッド' },
+  'stripe/payment-sheet': { title: 'PaymentSheet', section: 'メソッド' },
+  'stripe/payment-flow': { title: 'PaymentFlow', section: 'メソッド' },
+  'stripe/apple-pay': { title: 'Apple Pay', section: 'メソッド' },
+  'stripe/google-pay': { title: 'Google Pay', section: 'メソッド' },
+  'stripe/api': { title: 'API', section: 'リファレンス' },
+  'stripe-identity/configuration': { title: '設定', section: 'クイックスタート' },
+  'stripe-identity/identity-verification-sheet': {
+    title: '本人確認シート',
+    section: 'ガイド',
+  },
+  'stripe-identity/api': { title: 'API', section: 'リファレンス' },
+  'stripe-terminal/configuration': { title: '設定', section: 'クイックスタート' },
+  'stripe-terminal/collect-a-payment': { title: '支払いを受け付ける', section: 'ガイド' },
+  'stripe-terminal/reader-lifecycle': { title: 'リーダーのライフサイクル', section: 'ガイド' },
+  'stripe-terminal/tap-to-pay': { title: 'Tap to Pay', section: 'ガイド' },
+  'stripe-terminal/api': { title: 'API', section: 'リファレンス' },
+};
 const plugins = [
   {
     id: 'stripe',
@@ -174,7 +201,7 @@ function formatApiReference(document: Document): void {
   body.appendChild(root);
 }
 
-async function main(): Promise<void> {
+async function generateLocale(locale: Locale): Promise<unknown[]> {
   const generated = [];
   for (const plugin of plugins) {
     const docsJson = JSON.parse(
@@ -183,7 +210,14 @@ async function main(): Promise<void> {
     const api = apiMarkdown(docsJson);
     const pages = [];
     for (const [title, slug, file, section] of plugin.pages) {
-      const sourcePath = join(root, 'src', plugin.id, 'docs', file);
+      const sourcePath = join(
+        root,
+        'src',
+        plugin.id,
+        'docs',
+        ...(locale === 'ja' ? ['ja'] : []),
+        file,
+      );
       const parsed = fm<any>(await readFile(sourcePath, 'utf8'));
       const missingApiEntries: string[] = [];
       const expanded = parsed.body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
@@ -205,16 +239,25 @@ async function main(): Promise<void> {
           ),
         );
       }
+      const localePrefix = locale === 'ja' ? '/ja' : '';
       let html = (await markdownToHtml(expanded))
-        .replace(/href="\/docs\//g, `href="/${plugin.id}/docs/`)
+        .replace(/href="\/docs\//g, `href="${localePrefix}/${plugin.id}/docs/`)
+        .replace(/href="\/(stripe(?:-identity|-terminal)?)(\/|\")/g, `href="${localePrefix}/$1$2`)
         .replace('loading="lazy"', 'loading="eager" fetchpriority="high"');
       const htmlDocument = new JSDOM(html).window.document;
       const headingIds = Array.from(
         htmlDocument.querySelectorAll<HTMLElement>('h1, h2, h3, h4'),
       ).map((heading) => heading.id);
+      const scrollMap = (parsed.attributes.scrollActiveLine ?? []).map((entry: any) => {
+        if (locale !== 'ja' || !entry.id) return entry;
+        const localizedId = headingIds.find(
+          (headingId) => decodeURIComponent(headingId) === entry.id,
+        );
+        return localizedId ? { ...entry, id: localizedId } : entry;
+      });
       const codeByFile = new Map(codes.map((code) => [code.file, code]));
       let previousHeadingIndex = -1;
-      for (const entry of parsed.attributes.scrollActiveLine ?? []) {
+      for (const entry of scrollMap) {
         if (entry.id) {
           const headingIndex = headingIds.indexOf(entry.id);
           if (headingIndex < 0) {
@@ -259,30 +302,46 @@ async function main(): Promise<void> {
           level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
         }),
       );
+      const localizedCopy = locale === 'ja' ? japanesePageCopy[`${plugin.id}/${slug}`] : undefined;
       pages.push({
-        title: parsed.attributes.title || title,
-        navTitle: title,
+        title: parsed.attributes.title || localizedCopy?.title || title,
+        navTitle: localizedCopy?.title || title,
         slug,
         file,
-        section,
+        section: localizedCopy?.section || section,
         path: `/${plugin.id}/docs/${slug}`,
         html,
         headings,
         codes,
-        scrollMap: parsed.attributes.scrollActiveLine ?? [],
+        scrollMap,
         editUrl: `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`,
       });
     }
-    generated.push({ ...plugin, pages });
+    generated.push({
+      ...plugin,
+      name:
+        locale === 'ja'
+          ? plugin.name.replace('Capacitor Community', 'Capacitor Community')
+          : plugin.name,
+      description:
+        locale === 'ja' ? `${plugin.packageName} の日本語ドキュメント。` : plugin.description,
+      pages,
+    });
   }
+  return generated;
+}
+
+async function main(): Promise<void> {
+  const generatedEnglish = await generateLocale('en');
+  const generatedJapanese = await generateLocale('ja');
   const destination = join(root, 'src/app/generated/plugin-docs.generated.ts');
   await mkdir(dirname(destination), { recursive: true });
   await writeFile(
     destination,
-    `// Generated by scripts/generate-docs.ts. Do not edit.\nexport const PLUGINS = ${JSON.stringify(generated, null, 2)} as const;\n`,
+    `// Generated by scripts/generate-docs.ts. Do not edit.\nexport const PLUGINS_EN = ${JSON.stringify(generatedEnglish, null, 2)} as const;\n\nexport const PLUGINS_JA = ${JSON.stringify(generatedJapanese, null, 2)} as const;\n`,
   );
   console.log(
-    `Generated ${generated.reduce((count, plugin) => count + plugin.pages.length, 0)} documentation pages.`,
+    `Generated ${generatedEnglish.reduce((count: number, plugin: any) => count + plugin.pages.length, 0) + generatedJapanese.reduce((count: number, plugin: any) => count + plugin.pages.length, 0)} localized documentation pages.`,
   );
 }
 

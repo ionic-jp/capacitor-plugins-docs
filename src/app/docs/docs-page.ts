@@ -1,5 +1,13 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  LOCALE_ID,
+  OnInit,
+  PLATFORM_ID,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -58,14 +66,15 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
           }
           <aside
             class="sticky top-8 max-h-[calc(100dvh-64px)] min-w-0 overflow-y-auto px-5 pt-2 pb-8 max-[1500px]:hidden"
+            i18n-aria-label="@@tableOfContents"
             aria-label="Table of contents"
           >
             <p
               class="m-0 mb-3 text-[0.65rem] leading-none font-normal tracking-[0.16em] text-slate-400 uppercase"
             >
-              Contents
+              <ng-container i18n="@@contents">Contents</ng-container>
             </p>
-            <nav aria-label="On this page">
+            <nav i18n-aria-label="@@onThisPage" aria-label="On this page">
               <ul class="m-0 list-none p-0">
                 @for (heading of tocHeadings; track heading.id) {
                   <li [class.pl-3]="heading.level === 3">
@@ -91,7 +100,7 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
                     d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.24c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.4-1.27.74-1.56-2.57-.29-5.27-1.29-5.27-5.69 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.06 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.74 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.41-2.71 5.39-5.29 5.68.42.36.79 1.06.79 2.14v3.18c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"
                   />
                 </svg>
-                Edit this page on GitHub
+                <ng-container i18n="@@editOnGitHub">Edit this page on GitHub</ng-container>
               </a>
             </div>
           </aside>
@@ -102,6 +111,7 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
 })
 export class DocsPageComponent implements OnInit, AfterViewInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly locale = inject(LOCALE_ID);
   private readonly title = inject(Title);
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
@@ -116,13 +126,14 @@ export class DocsPageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const pluginId = this.route.snapshot.data['pluginId'] as string;
     const slug = this.route.snapshot.data['pageSlug'] as string;
-    this.plugin = findPlugin(pluginId);
-    this.page = findPage(pluginId, slug);
+    this.plugin = findPlugin(pluginId, this.locale);
+    this.page = findPage(pluginId, slug, this.locale);
     if (!this.plugin || !this.page) return;
     this.headingKeys = ['', ...this.page.headings.map((heading) => heading.id)];
     this.tocHeadings = this.page.headings.filter((heading) => heading.level <= 3);
     this.activeLines = { ...(this.page.scrollMap[0]?.activeLine ?? {}) };
-    this.title.setTitle(`${this.page.title} - ${this.plugin.packageName} Documentation`);
+    const documentation = $localize`:@@documentationTitleSuffix:Documentation`;
+    this.title.setTitle(`${this.page.title} - ${this.plugin.packageName} ${documentation}`);
   }
 
   ngAfterViewInit(): void {

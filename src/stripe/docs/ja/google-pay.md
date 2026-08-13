@@ -1,0 +1,137 @@
+---
+title: "Google Pay"
+code: [
+  "/docs/stripe/google-pay/strings.xml.md",
+  "/docs/stripe/google-pay/android-manifest.xml.md",
+  "/docs/stripe/google-pay/google-pay.ts.md"
+]
+scrollActiveLine: [
+  {id: "", activeLine: {}},
+  {id: "strings.xml", activeLine: {['strings.xml']: [7, 14]}},
+  {id: "androidmanifest.xml", activeLine: {['AndroidManifest.xml']: [36, 60]}},
+  {id: "1.-isgooglepayavailable", activeLine: {['google-pay.ts']: [4, 10]}},
+  {id: "2.-creategooglepay", activeLine: {['google-pay.ts']: [15, 33]}},
+  {id: "3.-presentgooglepay", activeLine: {['google-pay.ts']: [33, 39]}},
+  {id: "4.-addlistener", activeLine: {['google-pay.ts']: [11, 14]}}
+]
+---
+
+Google Pay は一度の表示で PaymentIntent を確定します。Android は SetupIntent にも対応しますが、Web は対応していません。
+
+[Stripe: Google Pay](https://stripe.com/docs/google-pay)
+
+Web では Payment Request Button を使用します。開発環境と本番環境の両方を HTTPS で配信してください。
+
+## プラットフォーム対応
+
+| プラットフォーム | Google Pay |
+| --- | --- |
+| Android | ネイティブ `GooglePayLauncher`（アプリメタデータ必須） |
+| iOS | 未実装 |
+| Web | Payment Request Button（`stripe-pwa-elements`） |
+
+iOS の各 Google Pay メソッドは拒否されます。Android はプラグイン読み込み時にメタデータから設定を読むため、`initialize` だけでは不十分です。
+
+## 事前設定
+
+### strings.xml
+
+`android/app/src/main/res/values/strings.xml` に公開可能キー、有効フラグ、国コード、加盟店表示名、テストフラグを追加します。
+
+```xml
+<string name="publishable_key">Your Publishable Key</string>
+<bool name="enable_google_pay">true</bool>
+<string name="country_code">US</string>
+<string name="merchant_display_name">Widget Store</string>
+<bool name="google_pay_is_testing">true</bool>
+```
+
+Android Google Pay で Stripe Connect を使う場合は任意で追加します。
+
+```xml
+<string name="stripe_account">acct_xxxxxxxxxxxxx</string>
+```
+
+### AndroidManifest.xml
+
+`manifest > application` の下へ、対応する `com.getcapacitor.community.stripe.*` メタデータを追加します。右側のコード例に完全な設定を示します。連結アカウントには `stripe_account` メタデータを追加してください。
+
+#### 任意1: 利用者情報を取得する場合
+
+メール、電話、請求先住所の必須フラグと住所形式を `strings.xml` に定義し、同名のメタデータから参照します。
+
+```xml
+<bool name="email_address_required">true</bool>
+<bool name="phone_number_required">true</bool>
+<bool name="billing_address_required">true</bool>
+<string name="billing_address_format">Full</string>
+```
+
+#### 任意2: Google Pay に既存の支払い方法を要求しない場合
+
+`false` にすると、利用者の Google Pay ウォレットに既存の支払い方法がなくても利用可能と判定します。既定値は `true` です。
+
+```xml
+<bool name="google_pay_existing_payment_method_required">false</bool>
+```
+
+## 1. isGooglePayAvailable
+
+Google Pay が利用可能なら Promise が解決し、それ以外は拒否されます。
+
+```ts
+try { await Stripe.isGooglePayAvailable(); } catch { return; }
+```
+
+!::isGooglePayAvailable::
+
+## 2. createGooglePay
+
+バックエンドから PaymentIntent のクライアントシークレットを取得します。Android では SetupIntent も渡せます。どちらもオプション名は `paymentIntentClientSecret` です。Web では `paymentSummaryItems`、`merchantIdentifier`、`countryCode`、`currency` も必要です。
+
+```ts
+await Stripe.createGooglePay({
+  paymentIntentClientSecret: paymentIntent,
+  // 以下はWeb専用。AndroidアプリのGoogle Payでは不要です。
+  paymentSummaryItems: [{ label: 'Product Name', amount: 1099.00 }],
+  merchantIdentifier: 'merchant.com.getcapacitor.stripe',
+  countryCode: 'US',
+  currency: 'USD',
+});
+```
+
+!::createGooglePay::
+!::CreateGooglePayOption::
+
+:::message
+`paymentSummaryItems`、`merchantIdentifier`、`countryCode`、`currency` は Web で必須です。Android はメタデータの国と加盟店名を使用します。
+:::
+
+SetupIntent のクライアントシークレットは `seti_` で始まります。Android は接頭辞を検出し、作成オプションの `currency`（既定値 `USD`）で `presentForSetupIntent` を使用します。Web は `confirmCardPayment` を使うため、SetupIntent を渡さないでください。
+
+## 3. presentGooglePay
+
+```ts
+const result = await Stripe.presentGooglePay();
+if (result.paymentResult === GooglePayEventsEnum.Completed) {
+  // UIだけを更新し、WebhookでIntentを確認します。
+}
+```
+
+!::presentGooglePay::
+!::GooglePayResultInterface::
+
+`Canceled` はキャンセル、`Failed` はエラーです。Android Activity 再生成後は結果リスナーを優先してください。
+
+## 4. addListener
+
+```ts
+Stripe.addListener(GooglePayEventsEnum.Completed, () => console.log('Completed'));
+```
+
+!::GooglePayEventsEnum::
+
+## 参考資料
+
+- [Google Pay（Android）](https://stripe.com/docs/google-pay)
+- [Google Pay（Web）](https://stripe.com/docs/stripe-js/elements/payment-request-button?platform=html-js-testing-google-pay#html-js-prerequisites)

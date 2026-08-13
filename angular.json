@@ -13,6 +13,18 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": {
+          "code": "en",
+          "subPath": ""
+        },
+        "locales": {
+          "ja": {
+            "translation": "src/locale/messages.ja.xlf",
+            "subPath": "ja"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -38,15 +50,18 @@
             },
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "polyfills": ["@angular/localize/init"],
+            "localize": true,
+            "i18nMissingTranslation": "error"
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "650kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.5MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -57,9 +72,13 @@
               "outputHashing": "all"
             },
             "development": {
+              "localize": false,
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "ja": {
+              "localize": ["ja"]
             }
           },
           "defaultConfiguration": "production"
@@ -72,9 +91,18 @@
             },
             "development": {
               "buildTarget": "capacitor-plugins-docs:build:development"
+            },
+            "ja": {
+              "buildTarget": "capacitor-plugins-docs:build:development,ja"
             }
           },
           "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n",
+          "options": {
+            "buildTarget": "capacitor-plugins-docs:build:development"
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test",

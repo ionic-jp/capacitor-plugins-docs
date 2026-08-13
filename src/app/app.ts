@@ -1,8 +1,8 @@
-import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, LOCALE_ID, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
-import { findPlugin, pluginDocs, sectionsFor, type PluginDocs } from './docs/docs-data';
+import { docsForLocale, findPlugin, sectionsFor, type PluginDocs } from './docs/docs-data';
 
 const PLUGIN_LABELS: Record<string, string> = {
   stripe: 'Stripe',
@@ -19,21 +19,23 @@ const PLUGIN_LABELS: Record<string, string> = {
 export class App {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly locale = inject(LOCALE_ID);
   protected readonly menuOpen = signal(false);
   protected readonly currentUrl = signal('/stripe');
-  protected readonly plugins = pluginDocs;
+  protected readonly plugins = docsForLocale(this.locale);
+  protected readonly isJapanese = this.locale.toLowerCase().startsWith('ja');
   protected readonly sectionsFor = sectionsFor;
   protected readonly isIndex = computed(() => this.currentUrl().split(/[?#]/)[0] === '/');
   protected readonly activePlugin = computed(() => {
     const id = this.currentUrl().split('/').filter(Boolean)[0] ?? 'stripe';
-    return findPlugin(id) ?? pluginDocs[0];
+    return findPlugin(id, this.locale) ?? this.plugins[0];
   });
   protected readonly expandedPluginId = signal(this.isIndex() ? '' : this.activePlugin().id);
 
   constructor() {
     const initialPath = globalThis.location?.pathname;
     const initialPluginId = initialPath?.split('/').filter(Boolean)[0];
-    if (initialPath && initialPluginId && findPlugin(initialPluginId)) {
+    if (initialPath && initialPluginId && findPlugin(initialPluginId, this.locale)) {
       globalThis.setTimeout(() => this.syncPlugin(initialPath));
     }
     this.router.events
@@ -59,11 +61,21 @@ export class App {
     return `plugin-panel-${plugin.id}`;
   }
 
+  protected alternateLocaleUrl(): string {
+    const url = this.currentUrl();
+    return this.isJapanese ? url : `/ja${url === '/' ? '/' : url}`;
+  }
+
   protected isExpanded(plugin: PluginDocs): boolean {
     return this.expandedPluginId() === plugin.id;
   }
 
   protected selectPlugin(plugin: PluginDocs): void {
+    if (this.isExpanded(plugin)) {
+      this.expandedPluginId.set('');
+      return;
+    }
+
     this.expandedPluginId.set(plugin.id);
     void this.router.navigate(['/' + plugin.id]);
   }

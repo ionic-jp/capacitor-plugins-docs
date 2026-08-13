@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, LOCALE_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 
@@ -18,6 +18,7 @@ describe('App', () => {
         provideRouter([
           { path: '', pathMatch: 'full', component: StubPage },
           { path: 'stripe', component: StubPage },
+          { path: 'stripe/docs/payment-sheet', component: StubPage },
           { path: 'stripe-identity', component: StubPage },
           { path: 'stripe-terminal', component: StubPage },
         ]),
@@ -144,5 +145,61 @@ describe('App', () => {
     expect(stripePanel?.getAttribute('aria-hidden')).toBe('true');
     expect(identityPanel?.hasAttribute('inert')).toBe(false);
     expect(stripePanel?.hasAttribute('inert')).toBe(true);
+  });
+
+  it('should collapse the open plugin when its accordion is clicked again', async () => {
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/stripe');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const stripeButton = compiled.querySelector<HTMLButtonElement>(
+      'button[aria-controls="plugin-panel-stripe"]',
+    );
+    expect(stripeButton).toBeTruthy();
+    expect(stripeButton!.getAttribute('aria-expanded')).toBe('true');
+
+    stripeButton!.click();
+    fixture.detectChanges();
+
+    const stripePanel = compiled.querySelector('#plugin-panel-stripe');
+    expect(router.url).toBe('/stripe');
+    expect(stripeButton!.getAttribute('aria-expanded')).toBe('false');
+    expect(stripePanel?.getAttribute('aria-hidden')).toBe('true');
+    expect(stripePanel?.hasAttribute('inert')).toBe(true);
+  });
+
+  it('should link to the matching Japanese page from the English site', async () => {
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/stripe/docs/payment-sheet');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const languageLink = compiled.querySelector<HTMLAnchorElement>('a[hreflang="ja"]');
+    expect(languageLink?.getAttribute('href')).toBe('/ja/stripe/docs/payment-sheet');
+    expect(languageLink?.textContent?.trim()).toBe('日本語');
+  });
+
+  it('should render Japanese navigation and link back to the matching English page', async () => {
+    TestBed.overrideProvider(LOCALE_ID, { useValue: 'ja' });
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/stripe/docs/payment-sheet');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('クイックスタート');
+    expect(compiled.textContent).toContain('イベントリスナー');
+    const languageLink = compiled.querySelector<HTMLAnchorElement>('a[hreflang="en"]');
+    expect(languageLink?.getAttribute('href')).toBe('/stripe/docs/payment-sheet');
+    expect(languageLink?.textContent?.trim()).toBe('English');
   });
 });

@@ -7,6 +7,7 @@
       type="button"
       (click)="menuOpen.set(!menuOpen())"
       [attr.aria-expanded]="menuOpen()"
+      i18n-aria-label="@@toggleDocumentationMenu"
       aria-label="Toggle documentation menu"
     >
       <span class="absolute top-0 left-0 h-0.5 w-full rounded-sm bg-black"></span>
@@ -21,18 +22,34 @@
       {{ isIndex() ? 'capacitor-community/plugins' : activePlugin().packageName.replace('@', '') }}
     </a>
   </div>
-  <a
-    class="ml-auto flex items-center border-l border-sky-900/10 px-4 text-black no-underline hover:bg-sky-900/5 sm:px-7"
-    [href]="
-      isIndex()
-        ? 'https://github.com/ionic-jp/capacitor-plugins-docs'
-        : activePlugin().repositoryUrl
-    "
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="View plugin on GitHub"
-    >GitHub</a
-  >
+  <div class="ml-auto flex items-stretch">
+    <a
+      class="flex items-center border-l border-sky-900/10 px-4 text-sm text-black no-underline hover:bg-sky-900/5 sm:px-5"
+      [href]="alternateLocaleUrl()"
+      [attr.hreflang]="isJapanese ? 'en' : 'ja'"
+      i18n-aria-label="@@switchLanguage"
+      aria-label="Switch language"
+    >
+      @if (isJapanese) {
+        <span lang="en">English</span>
+      } @else {
+        <span lang="ja">日本語</span>
+      }
+    </a>
+    <a
+      class="flex items-center border-l border-sky-900/10 px-4 text-black no-underline hover:bg-sky-900/5 sm:px-7"
+      [href]="
+        isIndex()
+          ? 'https://github.com/ionic-jp/capacitor-plugins-docs'
+          : activePlugin().repositoryUrl
+      "
+      target="_blank"
+      rel="noopener noreferrer"
+      i18n-aria-label="@@viewOnGitHub"
+      aria-label="View plugin on GitHub"
+      >GitHub</a
+    >
+  </div>
 </header>
 
 <div class="relative grid min-h-[calc(100dvh-62px)] grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)]">
@@ -40,6 +57,7 @@
     <button
       class="absolute inset-0 z-20 border-0 bg-white/65 lg:hidden"
       type="button"
+      i18n-aria-label="@@closeDocumentationMenu"
       aria-label="Close documentation menu"
       (click)="menuOpen.set(false)"
     ></button>
@@ -48,6 +66,7 @@
     class="absolute inset-y-0 left-0 z-30 w-[300px] overflow-y-auto bg-white pt-7 pb-15 shadow-[8px_0_12px_rgba(0,0,0,.08)] transition-transform lg:sticky lg:top-0 lg:max-h-dvh lg:w-auto lg:translate-x-0 lg:self-start lg:shadow-none"
     [class.-translate-x-full]="!menuOpen()"
     [class.translate-x-0]="menuOpen()"
+    i18n-aria-label="@@documentation"
     aria-label="Documentation"
   >
     <div class="px-3 pb-3">
@@ -63,7 +82,7 @@
           <rect x="1" y="7" width="4" height="4" rx="0.75" stroke="currentColor" />
           <rect x="7" y="7" width="4" height="4" rx="0.75" stroke="currentColor" />
         </svg>
-        <span>Plugins</span>
+        <span i18n="@@pluginsNav">Plugins</span>
       </a>
     </div>
     @for (plugin of plugins; track plugin.id) {
@@ -115,7 +134,7 @@
                 [routerLink]="'/' + plugin.id"
                 routerLinkActive="bg-[#f0f6ff] !text-[#1b6dff]"
                 [routerLinkActiveOptions]="{ exact: true }"
-                >Introduction</a
+                ><ng-container i18n="@@introductionNav">Introduction</ng-container></a
               >
               @for (section of sectionsFor(plugin); track section.name) {
                 <h2
@@ -147,5 +166,7 @@
 </div>
 
 <footer class="flex justify-center bg-sky-900/10 px-4 py-14 text-xs">
-  <p>© 2026 RELATION DESIGN LABO, GENERAL INC. ASSOCIATION. Released under the MIT License.</p>
+  <p i18n="@@footerCopyright">
+    © 2026 RELATION DESIGN LABO, GENERAL INC. ASSOCIATION. Released under the MIT License.
+  </p>
 </footer>

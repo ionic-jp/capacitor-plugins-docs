@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, LOCALE_ID, OnInit, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PluginDocs, findPlugin } from './docs-data';
@@ -17,87 +17,75 @@ interface LandingCopy {
 
 const LANDING_COPY: Record<string, LandingCopy> = {
   stripe: {
-    headline: 'Accept Stripe payments in Capacitor apps',
-    overview:
-      'Use @capacitor-community/stripe to present native PaymentSheet and PaymentFlow, accept Apple Pay and Google Pay, and integrate payments on the web from the same Capacitor codebase.',
-    featuresHeading: 'What you can build',
+    headline: $localize`:@@stripeHeadline:Accept Stripe payments in Capacitor apps`,
+    overview: $localize`:@@stripeOverview:Use @capacitor-community/stripe to present native PaymentSheet and PaymentFlow, accept Apple Pay and Google Pay, and integrate payments on the web from the same Capacitor codebase.`,
+    featuresHeading: $localize`:@@whatYouCanBuild:What you can build`,
     features: [
       {
         title: 'PaymentSheet',
-        description: 'Collect payment in a single native flow with PaymentIntent or SetupIntent.',
+        description: $localize`:@@paymentSheetFeature:Collect payment in a single native flow with PaymentIntent or SetupIntent.`,
       },
       {
         title: 'PaymentFlow',
-        description:
-          'Collect payment details first, then confirm after an intermediate step in your app.',
+        description: $localize`:@@paymentFlowFeature:Collect payment details first, then confirm after an intermediate step in your app.`,
       },
       {
         title: 'Apple Pay',
-        description: 'Present Apple Pay for instant checkout where it is available.',
+        description: $localize`:@@applePayFeature:Present Apple Pay for instant checkout where it is available.`,
       },
       {
         title: 'Google Pay',
-        description: 'Present Google Pay for instant checkout where it is available.',
+        description: $localize`:@@googlePayFeature:Present Google Pay for instant checkout where it is available.`,
       },
       {
-        title: 'Web integration',
-        description:
-          'Use the same plugin APIs with web frameworks and browsers alongside native apps.',
+        title: $localize`:@@webIntegrationTitle:Web integration`,
+        description: $localize`:@@webIntegrationFeature:Use the same plugin APIs with web frameworks and browsers alongside native apps.`,
       },
     ],
   },
   'stripe-identity': {
-    headline: 'Present Stripe Identity verification in Capacitor apps',
-    overview:
-      "Use @capacitor-community/stripe-identity to present Stripe's identity verification sheet on native platforms and the web. Your app listens for result events; Stripe performs the verification.",
-    featuresHeading: 'What you can do',
+    headline: $localize`:@@identityHeadline:Present Stripe Identity verification in Capacitor apps`,
+    overview: $localize`:@@identityOverview:Use @capacitor-community/stripe-identity to present Stripe's identity verification sheet on native platforms and the web. Your app listens for result events; Stripe performs the verification.`,
+    featuresHeading: $localize`:@@whatYouCanDo:What you can do`,
     features: [
       {
-        title: 'Identity Verification Sheet',
-        description:
-          'Create and present the verification sheet from Capacitor after your backend supplies the required session credentials.',
+        title: $localize`:@@identitySheetTitle:Identity Verification Sheet`,
+        description: $localize`:@@identitySheetFeature:Create and present the verification sheet from Capacitor after your backend supplies the required session credentials.`,
       },
       {
-        title: 'Native and web',
-        description:
-          'Use one API across platforms. On the web, call initialize before creating and presenting the sheet.',
+        title: $localize`:@@nativeWebTitle:Native and web`,
+        description: $localize`:@@nativeWebFeature:Use one API across platforms. On the web, call initialize before creating and presenting the sheet.`,
       },
       {
-        title: 'Result events',
-        description:
-          'Register listeners for verification result events before presenting the sheet so outcomes are not missed.',
+        title: $localize`:@@resultEventsTitle:Result events`,
+        description: $localize`:@@resultEventsFeature:Register listeners for verification result events before presenting the sheet so outcomes are not missed.`,
       },
     ],
   },
   'stripe-terminal': {
-    headline: 'Collect in-person payments with Stripe Terminal',
-    overview:
-      'Use @capacitor-community/stripe-terminal to discover and connect readers, collect and confirm PaymentIntents, and respond to reader display, status, input, and software update events—including Tap to Pay where supported.',
-    featuresHeading: 'What you can do',
+    headline: $localize`:@@terminalHeadline:Collect in-person payments with Stripe Terminal`,
+    overview: $localize`:@@terminalOverview:Use @capacitor-community/stripe-terminal to discover and connect readers, collect and confirm PaymentIntents, and respond to reader display, status, input, and software update events—including Tap to Pay where supported.`,
+    featuresHeading: $localize`:@@whatYouCanDo:What you can do`,
     features: [
       {
-        title: 'In-person payments',
-        description:
-          'Collect a payment method on a connected reader and confirm the PaymentIntent.',
+        title: $localize`:@@inPersonTitle:In-person payments`,
+        description: $localize`:@@inPersonFeature:Collect a payment method on a connected reader and confirm the PaymentIntent.`,
       },
       {
-        title: 'Reader discovery and connection',
-        description:
-          'Discover nearby or simulated readers, then connect before collecting payment details.',
+        title: $localize`:@@readerDiscoveryTitle:Reader discovery and connection`,
+        description: $localize`:@@readerDiscoveryFeature:Discover nearby or simulated readers, then connect before collecting payment details.`,
       },
       {
-        title: 'Reader display, status, and input',
-        description:
-          'Set or clear reader display content and listen for status messages and input prompts during checkout.',
+        title: $localize`:@@readerDisplayTitle:Reader display, status, and input`,
+        description: $localize`:@@readerDisplayFeature:Set or clear reader display content and listen for status messages and input prompts during checkout.`,
       },
       {
-        title: 'Software update events',
-        description:
-          'Listen for available reader software updates and track install progress while updates run.',
+        title: $localize`:@@softwareUpdateTitle:Software update events`,
+        description: $localize`:@@softwareUpdateFeature:Listen for available reader software updates and track install progress while updates run.`,
       },
       {
         title: 'Tap to Pay',
-        description: 'Connect with Tap to Pay on devices and configurations that support it.',
+        description: $localize`:@@tapToPayFeature:Connect with Tap to Pay on devices and configurations that support it.`,
       },
     ],
   },
@@ -128,14 +116,14 @@ const LANDING_COPY: Record<string, LandingCopy> = {
           <a
             class="rounded-[32px] border border-[rgba(92,147,187,0.2)] bg-[#119eff] px-[23px] py-[15px] text-white no-underline hover:opacity-80"
             [routerLink]="plugin.pages[0].path"
-            >Get Started</a
+            ><ng-container i18n="@@getStarted">Get Started</ng-container></a
           >
           <a
             class="rounded-[32px] border border-[rgba(92,147,187,0.2)] px-[23px] py-[15px] text-[#119eff] no-underline hover:opacity-80"
             href="https://capacitorjs.jp/"
             target="_blank"
             rel="noopener noreferrer"
-            >Learn Capacitor</a
+            ><ng-container i18n="@@learnCapacitor">Learn Capacitor</ng-container></a
           >
         </div>
 
@@ -159,7 +147,7 @@ const LANDING_COPY: Record<string, LandingCopy> = {
       </section>
       @if (plugin.id === 'stripe') {
         <section class="mx-auto mb-[75px] max-w-[800px] px-10 max-[576px]:px-[18px]">
-          <h2 class="text-[1.25rem]">Used</h2>
+          <h2 class="text-[1.25rem]" i18n="@@usedBy">Used</h2>
           <div class="flex flex-wrap items-center gap-7">
             <a href="https://www.doctr.ca/" target="_blank" rel="noopener noreferrer">
               <img
@@ -191,13 +179,15 @@ const LANDING_COPY: Record<string, LandingCopy> = {
 export class LandingPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly title = inject(Title);
+  private readonly locale = inject(LOCALE_ID);
   plugin?: PluginDocs;
   copy?: LandingCopy;
 
   ngOnInit(): void {
-    this.plugin = findPlugin(this.route.snapshot.data['pluginId'] as string);
+    this.plugin = findPlugin(this.route.snapshot.data['pluginId'] as string, this.locale);
     if (!this.plugin) return;
     this.copy = LANDING_COPY[this.plugin.id];
-    this.title.setTitle(`${this.plugin.packageName} Documentation`);
+    const documentation = $localize`:@@documentationTitleSuffix:Documentation`;
+    this.title.setTitle(`${this.plugin.packageName} ${documentation}`);
   }
 }

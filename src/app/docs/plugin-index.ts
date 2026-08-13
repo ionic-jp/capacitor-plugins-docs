@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, LOCALE_ID, OnInit, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { pluginDocs } from './docs-data';
+import { docsForLocale } from './docs-data';
 
 interface PluginIndexCopy {
   label: string;
@@ -11,18 +11,15 @@ interface PluginIndexCopy {
 const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
   stripe: {
     label: 'Stripe',
-    capability:
-      'Accept PaymentSheet and PaymentFlow, plus Apple Pay and Google Pay, from one Capacitor codebase.',
+    capability: $localize`:@@stripeCapability:Accept PaymentSheet and PaymentFlow, plus Apple Pay and Google Pay, from one Capacitor codebase.`,
   },
   'stripe-identity': {
     label: 'Stripe Identity',
-    capability:
-      'Present Stripe Identity verification on native platforms and the web, then handle the result events.',
+    capability: $localize`:@@identityCapability:Present Stripe Identity verification on native platforms and the web, then handle the result events.`,
   },
   'stripe-terminal': {
     label: 'Stripe Terminal',
-    capability:
-      'Discover and connect readers, collect in-person payments, and listen for reader events including Tap to Pay.',
+    capability: $localize`:@@terminalCapability:Discover and connect readers, collect in-person payments, and listen for reader events including Tap to Pay.`,
   },
 };
 
@@ -36,14 +33,16 @@ const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
       <h1
         class="mt-0 mb-7 max-w-[900px] text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] tracking-[-0.045em] max-[576px]:text-[2.5rem]"
       >
-        Plugins
+        <ng-container i18n="@@pluginsHeading">Plugins</ng-container>
       </h1>
       <p
         class="max-w-[820px] text-[1.25rem] leading-[1.65] text-[#505c64] max-[576px]:text-[1.05rem]"
       >
-        These Capacitor Community plugins wrap Stripe's native SDKs. Use them to accept in-app
-        payments, present identity verification, and collect in-person payments from a single
-        codebase.
+        <ng-container i18n="@@pluginsIntro"
+          >These Capacitor Community plugins wrap Stripe's native SDKs. Use them to accept in-app
+          payments, present identity verification, and collect in-person payments from a single
+          codebase.</ng-container
+        >
       </p>
 
       <ul class="mt-16 grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-2 xl:grid-cols-3">
@@ -140,7 +139,8 @@ const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
 })
 export class PluginIndexComponent implements OnInit {
   private readonly title = inject(Title);
-  protected readonly cards = pluginDocs.map((plugin) => {
+  private readonly locale = inject(LOCALE_ID);
+  protected readonly cards = docsForLocale(this.locale).map((plugin) => {
     const copy = PLUGIN_INDEX_COPY[plugin.id];
     return {
       id: plugin.id,
@@ -152,6 +152,6 @@ export class PluginIndexComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.title.setTitle('Capacitor Community Stripe plugins');
+    this.title.setTitle($localize`:@@pluginIndexTitle:Capacitor Community Stripe plugins`);
   }
 }

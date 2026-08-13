@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
+  <file id="ngi18n" original="ng.template">
+    <unit id="toggleDocumentationMenu">
+      <notes>
+        <note category="location">src/app/app.html:11,13</note>
+      </notes>
+      <segment>
+        <source>Toggle documentation menu</source>
+      </segment>
+    </unit>
+    <unit id="switchLanguage">
+      <notes>
+        <note category="location">src/app/app.html:31,33</note>
+      </notes>
+      <segment>
+        <source>Switch language</source>
+      </segment>
+    </unit>
+    <unit id="viewOnGitHub">
+      <notes>
+        <note category="location">src/app/app.html:49,52</note>
+      </notes>
+      <segment>
+        <source>View plugin on GitHub</source>
+      </segment>
+    </unit>
+    <unit id="closeDocumentationMenu">
+      <notes>
+        <note category="location">src/app/app.html:61,62</note>
+      </notes>
+      <segment>
+        <source>Close documentation menu</source>
+      </segment>
+    </unit>
+    <unit id="documentation">
+      <notes>
+        <note category="location">src/app/app.html:70,72</note>
+      </notes>
+      <segment>
+        <source>Documentation</source>
+      </segment>
+    </unit>
+    <unit id="pluginsNav">
+      <notes>
+        <note category="location">src/app/app.html:85,87</note>
+      </notes>
+      <segment>
+        <source>Plugins</source>
+      </segment>
+    </unit>
+    <unit id="introductionNav">
+      <notes>
+        <note category="location">src/app/app.html:137,138</note>
+      </notes>
+      <segment>
+        <source>Introduction</source>
+      </segment>
+    </unit>
+    <unit id="footerCopyright">
+      <notes>
+        <note category="location">src/app/app.html:170,173</note>
+      </notes>
+      <segment>
+        <source> © 2026 RELATION DESIGN LABO, GENERAL INC. ASSOCIATION. Released under the MIT License. </source>
+      </segment>
+    </unit>
+    <unit id="tableOfContents">
+      <notes>
+        <note category="location">src/app/docs/docs-page.ts:70,73</note>
+      </notes>
+      <segment>
+        <source>Table of contents</source>
+      </segment>
+    </unit>
+    <unit id="contents">
+      <notes>
+        <note category="location">src/app/docs/docs-page.ts:75,76</note>
+      </notes>
+      <segment>
+        <source>Contents</source>
+      </segment>
+    </unit>
+    <unit id="onThisPage">
+      <notes>
+        <note category="location">src/app/docs/docs-page.ts:77,78</note>
+      </notes>
+      <segment>
+        <source>On this page</source>
+      </segment>
+    </unit>
+    <unit id="editOnGitHub">
+      <notes>
+        <note category="location">src/app/docs/docs-page.ts:103,104</note>
+      </notes>
+      <segment>
+        <source>Edit this page on GitHub</source>
+      </segment>
+    </unit>
+    <unit id="documentationTitleSuffix">
+      <notes>
+        <note category="location">src/app/docs/docs-page.ts:135</note>
+        <note category="location">src/app/docs/landing-page.ts:190</note>
+      </notes>
+      <segment>
+        <source>Documentation</source>
+      </segment>
+    </unit>
+    <unit id="stripeHeadline">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:20</note>
+      </notes>
+      <segment>
+        <source>Accept Stripe payments in Capacitor apps</source>
+      </segment>
+    </unit>
+    <unit id="stripeOverview">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:21</note>
+      </notes>
+      <segment>
+        <source>Use @capacitor-community/stripe to present native PaymentSheet and PaymentFlow, accept Apple Pay and Google Pay, and integrate payments on the web from the same Capacitor codebase.</source>
+      </segment>
+    </unit>
+    <unit id="whatYouCanBuild">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:22</note>
+      </notes>
+      <segment>
+        <source>What you can build</source>
+      </segment>
+    </unit>
+    <unit id="paymentSheetFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:26</note>
+      </notes>
+      <segment>
+        <source>Collect payment in a single native flow with PaymentIntent or SetupIntent.</source>
+      </segment>
+    </unit>
+    <unit id="paymentFlowFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:30</note>
+      </notes>
+      <segment>
+        <source>Collect payment details first, then confirm after an intermediate step in your app.</source>
+      </segment>
+    </unit>
+    <unit id="applePayFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:34</note>
+      </notes>
+      <segment>
+        <source>Present Apple Pay for instant checkout where it is available.</source>
+      </segment>
+    </unit>
+    <unit id="googlePayFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:38</note>
+      </notes>
+      <segment>
+        <source>Present Google Pay for instant checkout where it is available.</source>
+      </segment>
+    </unit>
+    <unit id="webIntegrationTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:41</note>
+      </notes>
+      <segment>
+        <source>Web integration</source>
+      </segment>
+    </unit>
+    <unit id="webIntegrationFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:42</note>
+      </notes>
+      <segment>
+        <source>Use the same plugin APIs with web frameworks and browsers alongside native apps.</source>
+      </segment>
+    </unit>
+    <unit id="identityHeadline">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:47</note>
+      </notes>
+      <segment>
+        <source>Present Stripe Identity verification in Capacitor apps</source>
+      </segment>
+    </unit>
+    <unit id="identityOverview">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:48</note>
+      </notes>
+      <segment>
+        <source>Use @capacitor-community/stripe-identity to present Stripe&apos;s identity verification sheet on native platforms and the web. Your app listens for result events; Stripe performs the verification.</source>
+      </segment>
+    </unit>
+    <unit id="whatYouCanDo">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:49</note>
+        <note category="location">src/app/docs/landing-page.ts:68</note>
+      </notes>
+      <segment>
+        <source>What you can do</source>
+      </segment>
+    </unit>
+    <unit id="identitySheetTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:52</note>
+      </notes>
+      <segment>
+        <source>Identity Verification Sheet</source>
+      </segment>
+    </unit>
+    <unit id="identitySheetFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:53</note>
+      </notes>
+      <segment>
+        <source>Create and present the verification sheet from Capacitor after your backend supplies the required session credentials.</source>
+      </segment>
+    </unit>
+    <unit id="nativeWebTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:56</note>
+      </notes>
+      <segment>
+        <source>Native and web</source>
+      </segment>
+    </unit>
+    <unit id="nativeWebFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:57</note>
+      </notes>
+      <segment>
+        <source>Use one API across platforms. On the web, call initialize before creating and presenting the sheet.</source>
+      </segment>
+    </unit>
+    <unit id="resultEventsTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:60</note>
+      </notes>
+      <segment>
+        <source>Result events</source>
+      </segment>
+    </unit>
+    <unit id="resultEventsFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:61</note>
+      </notes>
+      <segment>
+        <source>Register listeners for verification result events before presenting the sheet so outcomes are not missed.</source>
+      </segment>
+    </unit>
+    <unit id="terminalHeadline">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:66</note>
+      </notes>
+      <segment>
+        <source>Collect in-person payments with Stripe Terminal</source>
+      </segment>
+    </unit>
+    <unit id="terminalOverview">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:67</note>
+      </notes>
+      <segment>
+        <source>Use @capacitor-community/stripe-terminal to discover and connect readers, collect and confirm PaymentIntents, and respond to reader display, status, input, and software update events—including Tap to Pay where supported.</source>
+      </segment>
+    </unit>
+    <unit id="inPersonTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:71</note>
+      </notes>
+      <segment>
+        <source>In-person payments</source>
+      </segment>
+    </unit>
+    <unit id="inPersonFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:72</note>
+      </notes>
+      <segment>
+        <source>Collect a payment method on a connected reader and confirm the PaymentIntent.</source>
+      </segment>
+    </unit>
+    <unit id="readerDiscoveryTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:75</note>
+      </notes>
+      <segment>
+        <source>Reader discovery and connection</source>
+      </segment>
+    </unit>
+    <unit id="readerDiscoveryFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:76</note>
+      </notes>
+      <segment>
+        <source>Discover nearby or simulated readers, then connect before collecting payment details.</source>
+      </segment>
+    </unit>
+    <unit id="readerDisplayTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:79</note>
+      </notes>
+      <segment>
+        <source>Reader display, status, and input</source>
+      </segment>
+    </unit>
+    <unit id="readerDisplayFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:80</note>
+      </notes>
+      <segment>
+        <source>Set or clear reader display content and listen for status messages and input prompts during checkout.</source>
+      </segment>
+    </unit>
+    <unit id="softwareUpdateTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:83</note>
+      </notes>
+      <segment>
+        <source>Software update events</source>
+      </segment>
+    </unit>
+    <unit id="softwareUpdateFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:84</note>
+      </notes>
+      <segment>
+        <source>Listen for available reader software updates and track install progress while updates run.</source>
+      </segment>
+    </unit>
+    <unit id="tapToPayFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:88</note>
+      </notes>
+      <segment>
+        <source>Connect with Tap to Pay on devices and configurations that support it.</source>
+      </segment>
+    </unit>
+    <unit id="getStarted">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:119,120</note>
+      </notes>
+      <segment>
+        <source>Get Started</source>
+      </segment>
+    </unit>
+    <unit id="learnCapacitor">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:126,127</note>
+      </notes>
+      <segment>
+        <source>Learn Capacitor</source>
+      </segment>
+    </unit>
+    <unit id="usedBy">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:150,151</note>
+      </notes>
+      <segment>
+        <source>Used</source>
+      </segment>
+    </unit>
+    <unit id="stripeCapability">
+      <notes>
+        <note category="location">src/app/docs/plugin-index.ts:14</note>
+      </notes>
+      <segment>
+        <source>Accept PaymentSheet and PaymentFlow, plus Apple Pay and Google Pay, from one Capacitor codebase.</source>
+      </segment>
+    </unit>
+    <unit id="identityCapability">
+      <notes>
+        <note category="location">src/app/docs/plugin-index.ts:18</note>
+      </notes>
+      <segment>
+        <source>Present Stripe Identity verification on native platforms and the web, then handle the result events.</source>
+      </segment>
+    </unit>
+    <unit id="terminalCapability">
+      <notes>
+        <note category="location">src/app/docs/plugin-index.ts:22</note>
+      </notes>
+      <segment>
+        <source>Discover and connect readers, collect in-person payments, and listen for reader events including Tap to Pay.</source>
+      </segment>
+    </unit>
+    <unit id="pluginsHeading">
+      <notes>
+        <note category="location">src/app/docs/plugin-index.ts:36,38</note>
+      </notes>
+      <segment>
+        <source>Plugins</source>
+      </segment>
+    </unit>
+    <unit id="pluginsIntro">
+      <notes>
+        <note category="location">src/app/docs/plugin-index.ts:42,44</note>
+      </notes>
+      <segment>
+        <source>These Capacitor Community plugins wrap Stripe&apos;s native SDKs. Use them to accept in-app payments, present identity verification, and collect in-person payments from a single codebase.</source>
+      </segment>
+    </unit>
+    <unit id="pluginIndexTitle">
+      <notes>
+        <note category="location">src/app/docs/plugin-index.ts:155</note>
+      </notes>
+      <segment>
+        <source>Capacitor Community Stripe plugins</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>
