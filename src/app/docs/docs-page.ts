@@ -57,13 +57,15 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
             <app-code-panel [codes]="page.codes" [activeLines]="activeLines" />
           }
         </div>
-        <a
-          class="mx-6 inline-flex text-[0.9rem] text-[#333] no-underline hover:text-[#0f83fd]"
-          [href]="page.editUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Edit this page on GitHub</a
-        >
+        <div class="mx-6 flex justify-end">
+          <a
+            class="inline-flex text-[0.9rem] text-[#333] no-underline hover:text-[#0f83fd]"
+            [href]="page.editUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Edit this page on GitHub</a
+          >
+        </div>
       </div>
     }
   `,
