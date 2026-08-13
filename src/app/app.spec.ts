@@ -82,7 +82,7 @@ describe('App', () => {
     ]);
     expect(
       accordionButtons.map((button) => button.querySelector('span')?.textContent?.trim()),
-    ).toEqual(['Stripe', 'Stripe Identity', 'Stripe Terminal']);
+    ).toEqual(['Stripe Payments', 'Stripe Identity', 'Stripe Terminal']);
 
     expect(accordionButtons.map((button) => button.id)).toEqual([
       'plugin-button-stripe',

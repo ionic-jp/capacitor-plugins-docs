@@ -34,7 +34,7 @@ describe('PluginIndexComponent', () => {
       '/stripe-terminal',
     ]);
     expect(cards.map((card) => card.querySelector('h2')?.textContent?.trim())).toEqual([
-      'Stripe',
+      'Stripe Payments',
       'Stripe Identity',
       'Stripe Terminal',
     ]);
