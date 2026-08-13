@@ -31,7 +31,7 @@ const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
   imports: [RouterLink],
   template: `
     <section
-      class="mx-auto max-w-[1080px] px-10 pt-[70px] pb-20 max-[960px]:pt-[55px] max-[576px]:px-[18px] max-[576px]:pt-[46px] max-[576px]:pb-[65px]"
+      class="mx-auto max-w-[800px] px-10 pt-[70px] pb-20 max-[960px]:pt-[55px] max-[576px]:px-[18px] max-[576px]:pt-[46px] max-[576px]:pb-[65px]"
     >
       <h1
         class="mt-0 mb-7 max-w-[900px] text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] tracking-[-0.045em] max-[576px]:text-[2.5rem]"
