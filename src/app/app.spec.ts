@@ -21,6 +21,7 @@ describe('App', () => {
           { path: 'stripe/docs/payment-sheet', component: StubPage },
           { path: 'stripe-identity', component: StubPage },
           { path: 'stripe-terminal', component: StubPage },
+          { path: 'admob', component: StubPage },
         ]),
       ],
     }).compileComponents();
@@ -54,6 +55,7 @@ describe('App', () => {
       'false',
       'false',
       'false',
+      'false',
     ]);
   });
 
@@ -80,15 +82,17 @@ describe('App', () => {
       'plugin-panel-stripe',
       'plugin-panel-stripe-identity',
       'plugin-panel-stripe-terminal',
+      'plugin-panel-admob',
     ]);
     expect(
       accordionButtons.map((button) => button.querySelector('span')?.textContent?.trim()),
-    ).toEqual(['Stripe', 'Stripe Identity', 'Stripe Terminal']);
+    ).toEqual(['Stripe', 'Stripe Identity', 'Stripe Terminal', 'AdMob']);
 
     expect(accordionButtons.map((button) => button.id)).toEqual([
       'plugin-button-stripe',
       'plugin-button-stripe-identity',
       'plugin-button-stripe-terminal',
+      'plugin-button-admob',
     ]);
 
     const [stripeButton, identityButton, terminalButton] = accordionButtons;

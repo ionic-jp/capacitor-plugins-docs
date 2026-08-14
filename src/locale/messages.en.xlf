@@ -100,7 +100,7 @@
     <unit id="documentationTitleSuffix">
       <notes>
         <note category="location">src/app/docs/docs-page.ts:135</note>
-        <note category="location">src/app/docs/landing-page.ts:190</note>
+        <note category="location">src/app/docs/landing-page.ts:217</note>
       </notes>
       <segment>
         <source>Documentation</source>
@@ -198,6 +198,7 @@
       <notes>
         <note category="location">src/app/docs/landing-page.ts:49</note>
         <note category="location">src/app/docs/landing-page.ts:68</note>
+        <note category="location">src/app/docs/landing-page.ts:95</note>
       </notes>
       <segment>
         <source>What you can do</source>
@@ -339,9 +340,105 @@
         <source>Connect with Tap to Pay on devices and configurations that support it.</source>
       </segment>
     </unit>
+    <unit id="admobHeadline">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:93</note>
+      </notes>
+      <segment>
+        <source>Monetize Capacitor apps with Google AdMob</source>
+      </segment>
+    </unit>
+    <unit id="admobOverview">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:94</note>
+      </notes>
+      <segment>
+        <source>Use @capacitor-community/admob to initialize Google Mobile Ads, manage privacy consent, and present native ad formats on iOS and Android.</source>
+      </segment>
+    </unit>
+    <unit id="bannerAdsTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:98</note>
+      </notes>
+      <segment>
+        <source>Banner ads</source>
+      </segment>
+    </unit>
+    <unit id="bannerAdsFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:99</note>
+      </notes>
+      <segment>
+        <source>Place adaptive or fixed-size banners at the top or bottom of the native view.</source>
+      </segment>
+    </unit>
+    <unit id="fullScreenAdsTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:102</note>
+      </notes>
+      <segment>
+        <source>Full-screen ads</source>
+      </segment>
+    </unit>
+    <unit id="fullScreenAdsFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:103</note>
+      </notes>
+      <segment>
+        <source>Prepare and show interstitial, rewarded, and rewarded interstitial ads.</source>
+      </segment>
+    </unit>
+    <unit id="appOpenAdsTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:106</note>
+      </notes>
+      <segment>
+        <source>App open ads</source>
+      </segment>
+    </unit>
+    <unit id="appOpenAdsFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:107</note>
+      </notes>
+      <segment>
+        <source>Load and present ads when users bring your app to the foreground.</source>
+      </segment>
+    </unit>
+    <unit id="consentControlsTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:110</note>
+      </notes>
+      <segment>
+        <source>Consent controls</source>
+      </segment>
+    </unit>
+    <unit id="consentControlsFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:111</note>
+      </notes>
+      <segment>
+        <source>Use Google UMP and iOS tracking authorization APIs before requesting ads.</source>
+      </segment>
+    </unit>
+    <unit id="adRevenueTitle">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:114</note>
+      </notes>
+      <segment>
+        <source>Ad revenue events</source>
+      </segment>
+    </unit>
+    <unit id="adRevenueFeature">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts:115</note>
+      </notes>
+      <segment>
+        <source>Listen for impression-level revenue data across supported ad formats.</source>
+      </segment>
+    </unit>
     <unit id="getStarted">
       <notes>
-        <note category="location">src/app/docs/landing-page.ts:119,120</note>
+        <note category="location">src/app/docs/landing-page.ts:146,147</note>
       </notes>
       <segment>
         <source>Get Started</source>
@@ -349,7 +446,7 @@
     </unit>
     <unit id="learnCapacitor">
       <notes>
-        <note category="location">src/app/docs/landing-page.ts:126,127</note>
+        <note category="location">src/app/docs/landing-page.ts:153,154</note>
       </notes>
       <segment>
         <source>Learn Capacitor</source>
@@ -357,7 +454,7 @@
     </unit>
     <unit id="usedBy">
       <notes>
-        <note category="location">src/app/docs/landing-page.ts:150,151</note>
+        <note category="location">src/app/docs/landing-page.ts:177,178</note>
       </notes>
       <segment>
         <source>Used</source>
@@ -387,9 +484,17 @@
         <source>Discover and connect readers, collect in-person payments, and listen for reader events including Tap to Pay.</source>
       </segment>
     </unit>
+    <unit id="admobCapability">
+      <notes>
+        <note category="location">src/app/docs/plugin-index.ts:26</note>
+      </notes>
+      <segment>
+        <source>Show banner, interstitial, rewarded, rewarded interstitial, and app open ads with consent controls.</source>
+      </segment>
+    </unit>
     <unit id="pluginsHeading">
       <notes>
-        <note category="location">src/app/docs/plugin-index.ts:36,38</note>
+        <note category="location">src/app/docs/plugin-index.ts:40,42</note>
       </notes>
       <segment>
         <source>Plugins</source>
@@ -397,18 +502,18 @@
     </unit>
     <unit id="pluginsIntro">
       <notes>
-        <note category="location">src/app/docs/plugin-index.ts:42,44</note>
+        <note category="location">src/app/docs/plugin-index.ts:46,48</note>
       </notes>
       <segment>
-        <source>These Capacitor Community plugins wrap Stripe&apos;s native SDKs. Use them to accept in-app payments, present identity verification, and collect in-person payments from a single codebase.</source>
+        <source>Capacitor Community plugins bring native payments, identity verification, in-person payments, and mobile ads to one Capacitor codebase.</source>
       </segment>
     </unit>
     <unit id="pluginIndexTitle">
       <notes>
-        <note category="location">src/app/docs/plugin-index.ts:155</note>
+        <note category="location">src/app/docs/plugin-index.ts:178</note>
       </notes>
       <segment>
-        <source>Capacitor Community Stripe plugins</source>
+        <source>Capacitor Community plugins</source>
       </segment>
     </unit>
   </file>

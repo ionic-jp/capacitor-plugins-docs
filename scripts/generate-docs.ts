@@ -34,6 +34,12 @@ const japanesePageCopy: Record<string, { title: string; section: string }> = {
   'stripe-terminal/reader-lifecycle': { title: 'リーダーのライフサイクル', section: 'ガイド' },
   'stripe-terminal/tap-to-pay': { title: 'Tap to Pay', section: 'ガイド' },
   'stripe-terminal/api': { title: 'API', section: 'リファレンス' },
+  'admob/configuration': { title: '設定', section: 'クイックスタート' },
+  'admob/consent': { title: '同意管理', section: 'ガイド' },
+  'admob/banner': { title: 'バナー広告', section: '広告フォーマット' },
+  'admob/full-screen-ads': { title: 'フルスクリーン広告', section: '広告フォーマット' },
+  'admob/app-open': { title: 'アプリ起動時広告', section: '広告フォーマット' },
+  'admob/api': { title: 'API', section: 'リファレンス' },
 };
 const plugins = [
   {
@@ -85,6 +91,21 @@ const plugins = [
       ['Collect a Payment', 'collect-a-payment', 'collect-a-payment.md', 'Guide'],
       ['Reader Lifecycle', 'reader-lifecycle', 'reader-lifecycle.md', 'Guide'],
       ['Tap to Pay', 'tap-to-pay', 'tap-to-pay.md', 'Guide'],
+      ['API', 'api', 'api.md', 'Reference'],
+    ],
+  },
+  {
+    id: 'admob',
+    name: 'Capacitor Community AdMob',
+    packageName: '@capacitor-community/admob',
+    repositoryUrl: 'https://github.com/capacitor-community/admob',
+    description: 'Native Google AdMob ads for Capacitor applications.',
+    pages: [
+      ['Configuration', 'configuration', 'configuration.md', 'Quickstart'],
+      ['Consent', 'consent', 'consent.md', 'Guide'],
+      ['Banner Ads', 'banner', 'banner.md', 'Ad formats'],
+      ['Full-screen Ads', 'full-screen-ads', 'full-screen-ads.md', 'Ad formats'],
+      ['App Open Ads', 'app-open', 'app-open.md', 'Ad formats'],
       ['API', 'api', 'api.md', 'Reference'],
     ],
   },
@@ -242,7 +263,10 @@ async function generateLocale(locale: Locale): Promise<unknown[]> {
       const localePrefix = locale === 'ja' ? '/ja' : '';
       let html = (await markdownToHtml(expanded))
         .replace(/href="\/docs\//g, `href="${localePrefix}/${plugin.id}/docs/`)
-        .replace(/href="\/(stripe(?:-identity|-terminal)?)(\/|\")/g, `href="${localePrefix}/$1$2`)
+        .replace(
+          /href="\/(stripe(?:-identity|-terminal)?|admob)(\/|\")/g,
+          `href="${localePrefix}/$1$2`,
+        )
         .replace('loading="lazy"', 'loading="eager" fetchpriority="high"');
       const htmlDocument = new JSDOM(html).window.document;
       const headingIds = Array.from(

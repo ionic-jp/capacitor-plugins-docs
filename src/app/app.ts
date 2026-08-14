@@ -8,6 +8,7 @@ const PLUGIN_LABELS: Record<string, string> = {
   stripe: 'Stripe',
   'stripe-identity': 'Stripe Identity',
   'stripe-terminal': 'Stripe Terminal',
+  admob: 'AdMob',
 };
 
 @Component({

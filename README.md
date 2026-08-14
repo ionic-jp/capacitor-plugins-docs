@@ -9,6 +9,7 @@ Documentation site for Capacitor Community plugins. This repository is a single 
 | Stripe | `src/stripe/docs` |
 | Stripe Identity | `src/stripe-identity/docs` |
 | Stripe Terminal | `src/stripe-terminal/docs` |
+| AdMob | `src/admob/docs` |
 
 Markdown under those folders is compiled into the Angular app by the docs generator.
 
@@ -41,6 +42,8 @@ npm run docs:generate
 | `/stripe-identity/docs/:slug` | Stripe Identity documentation pages |
 | `/stripe-terminal` | Stripe Terminal landing page |
 | `/stripe-terminal/docs/:slug` | Stripe Terminal documentation pages |
+| `/admob` | AdMob landing page |
+| `/admob/docs/:slug` | AdMob documentation pages |
 | `/docs/:slug` | Legacy redirect to `/stripe/docs/:slug` |
 | `/docs/identity` | Redirects to `/stripe-identity/docs/identity-verification-sheet` |
 | `/**` | Redirects to `/stripe` |

@@ -89,6 +89,33 @@ const LANDING_COPY: Record<string, LandingCopy> = {
       },
     ],
   },
+  admob: {
+    headline: $localize`:@@admobHeadline:Monetize Capacitor apps with Google AdMob`,
+    overview: $localize`:@@admobOverview:Use @capacitor-community/admob to initialize Google Mobile Ads, manage privacy consent, and present native ad formats on iOS and Android.`,
+    featuresHeading: $localize`:@@whatYouCanDo:What you can do`,
+    features: [
+      {
+        title: $localize`:@@bannerAdsTitle:Banner ads`,
+        description: $localize`:@@bannerAdsFeature:Place adaptive or fixed-size banners at the top or bottom of the native view.`,
+      },
+      {
+        title: $localize`:@@fullScreenAdsTitle:Full-screen ads`,
+        description: $localize`:@@fullScreenAdsFeature:Prepare and show interstitial, rewarded, and rewarded interstitial ads.`,
+      },
+      {
+        title: $localize`:@@appOpenAdsTitle:App open ads`,
+        description: $localize`:@@appOpenAdsFeature:Load and present ads when users bring your app to the foreground.`,
+      },
+      {
+        title: $localize`:@@consentControlsTitle:Consent controls`,
+        description: $localize`:@@consentControlsFeature:Use Google UMP and iOS tracking authorization APIs before requesting ads.`,
+      },
+      {
+        title: $localize`:@@adRevenueTitle:Ad revenue events`,
+        description: $localize`:@@adRevenueFeature:Listen for impression-level revenue data across supported ad formats.`,
+      },
+    ],
+  },
 };
 
 @Component({

@@ -21,6 +21,10 @@ const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
     label: 'Stripe Terminal',
     capability: $localize`:@@terminalCapability:Discover and connect readers, collect in-person payments, and listen for reader events including Tap to Pay.`,
   },
+  admob: {
+    label: 'AdMob',
+    capability: $localize`:@@admobCapability:Show banner, interstitial, rewarded, rewarded interstitial, and app open ads with consent controls.`,
+  },
 };
 
 @Component({
@@ -39,9 +43,8 @@ const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
         class="max-w-[820px] text-[1.25rem] leading-[1.65] text-[#505c64] max-[576px]:text-[1.05rem]"
       >
         <ng-container i18n="@@pluginsIntro"
-          >These Capacitor Community plugins wrap Stripe's native SDKs. Use them to accept in-app
-          payments, present identity verification, and collect in-person payments from a single
-          codebase.</ng-container
+          >Capacitor Community plugins bring native payments, identity verification, in-person
+          payments, and mobile ads to one Capacitor codebase.</ng-container
         >
       </p>
 
@@ -117,6 +120,26 @@ const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
                       />
                     </svg>
                   }
+                  @case ('admob') {
+                    <svg class="size-8" viewBox="0 0 32 32" fill="none">
+                      <rect
+                        x="5"
+                        y="5"
+                        width="22"
+                        height="22"
+                        rx="5"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                      />
+                      <path
+                        d="M10 21.5 15.25 10h2.2L22 21.5M12.2 17h7.7"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.75"
+                      />
+                    </svg>
+                  }
                 }
               </span>
               <h2 class="m-0 text-[1.25rem] font-semibold tracking-[-0.02em] text-[#333]">
@@ -152,6 +175,6 @@ export class PluginIndexComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.title.setTitle($localize`:@@pluginIndexTitle:Capacitor Community Stripe plugins`);
+    this.title.setTitle($localize`:@@pluginIndexTitle:Capacitor Community plugins`);
   }
 }
