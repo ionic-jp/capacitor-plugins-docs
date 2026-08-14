@@ -1,0 +1,66 @@
+# Permanently redirect the retired Japanese Stripe docs to the unified docs site.
+[[redirects]]
+  from = "/"
+  to = "https://stripe.capacitorjs.jp/ja/stripe"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/identity"
+  to = "https://stripe.capacitorjs.jp/ja/stripe-identity/docs/identity-verification-sheet"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/react-hooks"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/react"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/configuration"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/configuration"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/initialize"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/initialize"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/payment-sheet"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/payment-sheet"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/payment-flow"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/payment-flow"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/apple-pay"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/apple-pay"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/google-pay"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/docs/google-pay"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "https://stripe.capacitorjs.jp/ja/stripe/:splat"
+  status = 301
+  force = true
