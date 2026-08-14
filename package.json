@@ -6,6 +6,7 @@
   "scripts": {
     "build": "stencil build",
     "build:ci": "stencil build --ci --prerender",
+    "postbuild:ci": "cp netlify-redirects www/_redirects",
     "start": "stencil build --dev --watch --serve",
     "generate": "stencil generate",
     "docs": "ts-node -P scripts/tsconfig.json scripts/markdown-to-html",

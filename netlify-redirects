@@ -1,0 +1,11 @@
+/ https://stripe.capacitorjs.jp/ja/stripe 301!
+/docs/identity https://stripe.capacitorjs.jp/ja/stripe-identity/docs/identity-verification-sheet 301!
+/docs/react-hooks https://stripe.capacitorjs.jp/ja/stripe/docs/react 301!
+/docs/* https://stripe.capacitorjs.jp/ja/stripe/docs/:splat 301!
+/configuration https://stripe.capacitorjs.jp/ja/stripe/docs/configuration 301!
+/initialize https://stripe.capacitorjs.jp/ja/stripe/docs/initialize 301!
+/payment-sheet https://stripe.capacitorjs.jp/ja/stripe/docs/payment-sheet 301!
+/payment-flow https://stripe.capacitorjs.jp/ja/stripe/docs/payment-flow 301!
+/apple-pay https://stripe.capacitorjs.jp/ja/stripe/docs/apple-pay 301!
+/google-pay https://stripe.capacitorjs.jp/ja/stripe/docs/google-pay 301!
+/* https://stripe.capacitorjs.jp/ja/stripe/:splat 301!
