@@ -23,6 +23,10 @@ import {
 } from './docs/docs-data';
 import { canonicalHomePath, localizedPublicPath } from './locale-path';
 
+type GoogleAnalyticsWindow = Window & {
+  gtag?: (...args: unknown[]) => void;
+};
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
@@ -89,7 +93,20 @@ export class App {
         const activeProject = this.activeProject();
         if (activeProject) this.expandedProjectId.set(activeProject.id);
         if (this.mobileLayout()) this.closeMenu(this.sidebarContainsFocus());
+        this.sendPageView(event.urlAfterRedirects);
       });
+  }
+
+  private sendPageView(path: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const browserWindow = this.document.defaultView as GoogleAnalyticsWindow | null;
+    if (!browserWindow?.gtag) return;
+
+    browserWindow.gtag('event', 'page_view', {
+      page_title: this.document.title,
+      page_location: browserWindow.location.href,
+      page_path: localizedPublicPath(this.locale, path),
+    });
   }
 
   private loadSearchAssets(): void {

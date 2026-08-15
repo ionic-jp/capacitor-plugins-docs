@@ -6,6 +6,10 @@ import { App } from './app';
 @Component({ standalone: true, template: '' })
 class StubPage {}
 
+type GoogleAnalyticsWindow = Window & {
+  gtag?: (...args: unknown[]) => void;
+};
+
 function mockMatchMedia(initialMatches: boolean) {
   let matches = initialMatches;
   let changeListener: ((event: MediaQueryListEvent) => void) | undefined;
@@ -42,6 +46,28 @@ describe('App', () => {
         ]),
       ],
     }).compileComponents();
+  });
+
+  afterEach(() => {
+    delete (window as GoogleAnalyticsWindow).gtag;
+  });
+
+  it('sends one page_view for each completed router navigation', async () => {
+    const gtag = vi.fn();
+    (window as GoogleAnalyticsWindow).gtag = gtag;
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    document.title = 'Tracked page';
+
+    await router.navigateByUrl('/projects/capacitor-admob?source=test');
+
+    expect(gtag).toHaveBeenCalledTimes(1);
+    expect(gtag).toHaveBeenCalledWith('event', 'page_view', {
+      page_title: 'Tracked page',
+      page_location: window.location.href,
+      page_path: '/projects/capacitor-admob?source=test',
+    });
+    fixture.destroy();
   });
 
   it('renders the new brand and all projects in the sidebar', async () => {
