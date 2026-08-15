@@ -172,6 +172,55 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/testing-operations.md"
+    },
+    {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "Reference",
+      "path": "/projects/workers-hono-kit/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\">Public entry-point map for <code>@rdlabo/workers-hono-kit</code> v0.10.6. Import from the narrowest entry point so Worker bundles include only the required infrastructure.</p>\n<h2 id=\"entry-points\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#entry-points\" aria-hidden=\"true\"></a> Entry points</h2>\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit</h4><p data-line=\"6\" class=\"code-line\">Core HTTP, authentication, Firebase verification, AWS signing, error handling, pagination, validation, logging, and middleware exports.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Fdb\" data-line=\"8\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Fdb\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/db</h4><p data-line=\"10\" class=\"code-line\">Drizzle configuration, secret resolution, decimal and JST column helpers, baseline migrations, and guarded-payment recovery.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Fbusiness-time\" data-line=\"12\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Fbusiness-time\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/business-time</h4><p data-line=\"14\" class=\"code-line\">Branded business date and datetime values with parsing, formatting, day-boundary, date arithmetic, and age calculations.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Foffline\" data-line=\"16\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Foffline\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/offline</h4><p data-line=\"18\" class=\"code-line\">Snapshot cursors, journal retention and mutation helpers, and offline wire-compatibility negotiation.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Frealtime\" data-line=\"20\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Frealtime\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/realtime</h4><p data-line=\"22\" class=\"code-line\">Cloudflare Durable Object WebSocket upgrade, hibernation, broadcast, close, retry, invocation, and protocol helpers.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Ftesting\" data-line=\"24\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Ftesting\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/testing</h4><p data-line=\"26\" class=\"code-line\">Database, Firebase, authentication, Stripe fixture, KV, Queue, and configurable-fake utilities for deterministic tests.</p></section>\n\n</div>",
+      "headings": [
+        {
+          "id": "entry-points",
+          "text": "Entry points",
+          "level": 2
+        },
+        {
+          "id": "module-%40rdlabo%2Fworkers-hono-kit",
+          "text": "module @rdlabo/workers-hono-kit",
+          "level": 4
+        },
+        {
+          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Fdb",
+          "text": "module @rdlabo/workers-hono-kit/db",
+          "level": 4
+        },
+        {
+          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Fbusiness-time",
+          "text": "module @rdlabo/workers-hono-kit/business-time",
+          "level": 4
+        },
+        {
+          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Foffline",
+          "text": "module @rdlabo/workers-hono-kit/offline",
+          "level": 4
+        },
+        {
+          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Frealtime",
+          "text": "module @rdlabo/workers-hono-kit/realtime",
+          "level": 4
+        },
+        {
+          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Ftesting",
+          "text": "module @rdlabo/workers-hono-kit/testing",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/api.md"
     }
   ]
 } as const;

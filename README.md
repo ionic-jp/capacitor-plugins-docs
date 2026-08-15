@@ -67,6 +67,13 @@ Narrative documentation uses Zenn Markdown. Markdown-only projects take their di
 !::createPaymentSheet::
 ```
 
+Capacitor READMEs containing both `<docgen-index>` and `<docgen-api>` are automatically exposed as
+separate README and API pages. The source README remains the single file to update.
+
+Every project exposes a dedicated API page. Hand-authored API Markdown uses semantic entry headings
+such as `` #### `component` PhotoEditorPage `` or `` #### `function` generate ``; the generator
+normalizes those entries and Capacitor docgen output into the same API-card presentation.
+
 Generated project modules live under `src/app/generated/projects` and must not be edited by hand.
 
 API input is restricted to packages declared in `scripts/project-manifest.ts` and installed at exact

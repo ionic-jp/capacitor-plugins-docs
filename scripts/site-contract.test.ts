@@ -532,6 +532,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     [
       ['getting-started', 'getting-started.md', 'Guide', 'ガイド'],
       ['upstream-differences', 'upstream-differences.md', 'Comparison', '比較'],
+      ['api', 'api.md', 'Reference', 'リファレンス'],
     ],
   );
 

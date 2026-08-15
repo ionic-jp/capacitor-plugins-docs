@@ -92,6 +92,95 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-docgen/docs/upstream-differences.md"
+    },
+    {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "Reference",
+      "path": "/projects/capacitor-docgen/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\">Reference for the public programmatic API exported by <code>@rdlabo/capacitor-docgen</code> v0.4.1.</p>\n<h2 id=\"generation\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#generation\" aria-hidden=\"true\"></a> Generation</h2>\n<section class=\"api-entry\"><h4 id=\"function-generate\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-generate\" aria-hidden=\"true\"></a> <code>function</code> generate</h4><p data-line=\"6\" class=\"code-line api-signature\"><code>(opts: DocsGenerateOptions) =&gt; Promise&lt;DocsGenerateResults&gt;</code></p><p data-line=\"8\" class=\"code-line\">Parses a TypeScript project or input files and optionally writes README and JSON output.</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-parse\" data-line=\"10\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-parse\" aria-hidden=\"true\"></a> <code>function</code> parse</h4><p data-line=\"12\" class=\"code-line api-signature\"><code>(opts: DocsParseOptions) =&gt; (api: string) =&gt; DocsData</code></p><p data-line=\"14\" class=\"code-line\">Creates a parser result lookup for a named plugin API.</p></section>\n\n\n<h2 id=\"output\" data-line=\"16\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#output\" aria-hidden=\"true\"></a> Output</h2>\n<section class=\"api-entry\"><h4 id=\"function-outputreadme\" data-line=\"18\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-outputreadme\" aria-hidden=\"true\"></a> <code>function</code> outputReadme</h4><p data-line=\"20\" class=\"code-line api-signature\"><code>(readmeFilePath: string, data: DocsData) =&gt; Promise&lt;void&gt;</code></p><p data-line=\"22\" class=\"code-line\">Updates the docgen placeholders in a README file.</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-outputjson\" data-line=\"24\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-outputjson\" aria-hidden=\"true\"></a> <code>function</code> outputJson</h4><p data-line=\"26\" class=\"code-line api-signature\"><code>(jsonFilePath: string, data: DocsData) =&gt; Promise&lt;void&gt;</code></p><p data-line=\"28\" class=\"code-line\">Writes the parsed documentation model as JSON.</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-replacemarkdownplaceholders\" data-line=\"30\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-replacemarkdownplaceholders\" aria-hidden=\"true\"></a> <code>function</code> replaceMarkdownPlaceholders</h4><p data-line=\"32\" class=\"code-line api-signature\"><code>(content: string, data: DocsData) =&gt; string</code></p><p data-line=\"34\" class=\"code-line\">Returns Markdown with <code>&lt;docgen-index&gt;</code> and <code>&lt;docgen-api&gt;</code> content replaced.</p></section>\n\n\n<h2 id=\"cli\" data-line=\"36\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#cli\" aria-hidden=\"true\"></a> CLI</h2>\n<section class=\"api-entry\"><h4 id=\"function-run\" data-line=\"38\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-run\" aria-hidden=\"true\"></a> <code>function</code> run</h4><p data-line=\"40\" class=\"code-line api-signature\"><code>(config: { cwd: string; args: string[] }) =&gt; Promise&lt;void&gt;</code></p><p data-line=\"42\" class=\"code-line\">Runs the docgen command with an explicit working directory and argument list.</p></section>\n\n\n<h2 id=\"options\" data-line=\"44\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#options\" aria-hidden=\"true\"></a> Options</h2>\n<section class=\"api-entry\"><h4 id=\"interface-docsparseoptions\" data-line=\"46\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-docsparseoptions\" aria-hidden=\"true\"></a> <code>interface</code> DocsParseOptions</h4><table data-line=\"48\" class=\"code-line\">\n<thead data-line=\"48\" class=\"code-line\">\n<tr data-line=\"48\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"50\" class=\"code-line\">\n<tr data-line=\"50\" class=\"code-line\">\n<td><strong><code>tsconfigPath</code></strong></td>\n<td><code>string</code></td>\n<td>Optional TypeScript configuration path.</td>\n</tr>\n<tr data-line=\"51\" class=\"code-line\">\n<td><strong><code>inputFiles</code></strong></td>\n<td><code>string[]</code></td>\n<td>Optional explicit source files.</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-docsgenerateoptions\" data-line=\"53\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-docsgenerateoptions\" aria-hidden=\"true\"></a> <code>interface</code> DocsGenerateOptions</h4><table data-line=\"55\" class=\"code-line\">\n<thead data-line=\"55\" class=\"code-line\">\n<tr data-line=\"55\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"57\" class=\"code-line\">\n<tr data-line=\"57\" class=\"code-line\">\n<td><strong><code>api</code></strong></td>\n<td><code>string</code></td>\n<td>Primary plugin interface name.</td>\n</tr>\n<tr data-line=\"58\" class=\"code-line\">\n<td><strong><code>tsconfigPath</code></strong></td>\n<td><code>string</code></td>\n<td>Optional TypeScript configuration path.</td>\n</tr>\n<tr data-line=\"59\" class=\"code-line\">\n<td><strong><code>inputFiles</code></strong></td>\n<td><code>string[]</code></td>\n<td>Optional explicit source files.</td>\n</tr>\n<tr data-line=\"60\" class=\"code-line\">\n<td><strong><code>outputJsonPath</code></strong></td>\n<td><code>string</code></td>\n<td>Optional JSON output path.</td>\n</tr>\n<tr data-line=\"61\" class=\"code-line\">\n<td><strong><code>outputReadmePath</code></strong></td>\n<td><code>string</code></td>\n<td>Optional README output path.</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-docsgenerateresults\" data-line=\"63\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-docsgenerateresults\" aria-hidden=\"true\"></a> <code>interface</code> DocsGenerateResults</h4><p data-line=\"65\" class=\"code-line\">Extends <code>DocsGenerateOptions</code> with the parsed <code>data: DocsData</code> result.</p></section>\n\n<h2 id=\"documentation-model\" data-line=\"67\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#documentation-model\" aria-hidden=\"true\"></a> Documentation model</h2>\n<section class=\"api-entry\"><h4 id=\"interface-docsdata\" data-line=\"69\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-docsdata\" aria-hidden=\"true\"></a> <code>interface</code> DocsData</h4><table data-line=\"71\" class=\"code-line\">\n<thead data-line=\"71\" class=\"code-line\">\n<tr data-line=\"71\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"73\" class=\"code-line\">\n<tr data-line=\"73\" class=\"code-line\">\n<td><strong><code>api</code></strong></td>\n<td><code>DocsInterface | null</code></td>\n<td>Primary plugin API.</td>\n</tr>\n<tr data-line=\"74\" class=\"code-line\">\n<td><strong><code>interfaces</code></strong></td>\n<td><code>DocsInterface[]</code></td>\n<td>Parsed interfaces.</td>\n</tr>\n<tr data-line=\"75\" class=\"code-line\">\n<td><strong><code>typeAliases</code></strong></td>\n<td><code>DocsTypeAlias[]</code></td>\n<td>Parsed type aliases.</td>\n</tr>\n<tr data-line=\"76\" class=\"code-line\">\n<td><strong><code>enums</code></strong></td>\n<td><code>DocsEnum[]</code></td>\n<td>Parsed enums.</td>\n</tr>\n<tr data-line=\"77\" class=\"code-line\">\n<td><strong><code>pluginConfigs</code></strong></td>\n<td><code>DocsConfigInterface[]</code></td>\n<td>Parsed Capacitor configuration interfaces.</td>\n</tr>\n</tbody>\n</table></section>\n\n</div>",
+      "headings": [
+        {
+          "id": "generation",
+          "text": "Generation",
+          "level": 2
+        },
+        {
+          "id": "function-generate",
+          "text": "function generate",
+          "level": 4
+        },
+        {
+          "id": "function-parse",
+          "text": "function parse",
+          "level": 4
+        },
+        {
+          "id": "output",
+          "text": "Output",
+          "level": 2
+        },
+        {
+          "id": "function-outputreadme",
+          "text": "function outputReadme",
+          "level": 4
+        },
+        {
+          "id": "function-outputjson",
+          "text": "function outputJson",
+          "level": 4
+        },
+        {
+          "id": "function-replacemarkdownplaceholders",
+          "text": "function replaceMarkdownPlaceholders",
+          "level": 4
+        },
+        {
+          "id": "cli",
+          "text": "CLI",
+          "level": 2
+        },
+        {
+          "id": "function-run",
+          "text": "function run",
+          "level": 4
+        },
+        {
+          "id": "options",
+          "text": "Options",
+          "level": 2
+        },
+        {
+          "id": "interface-docsparseoptions",
+          "text": "interface DocsParseOptions",
+          "level": 4
+        },
+        {
+          "id": "interface-docsgenerateoptions",
+          "text": "interface DocsGenerateOptions",
+          "level": 4
+        },
+        {
+          "id": "interface-docsgenerateresults",
+          "text": "interface DocsGenerateResults",
+          "level": 4
+        },
+        {
+          "id": "documentation-model",
+          "text": "Documentation model",
+          "level": 2
+        },
+        {
+          "id": "interface-docsdata",
+          "text": "interface DocsData",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-docgen/docs/api.md"
     }
   ]
 } as const;

@@ -82,6 +82,40 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/ja/readme.md"
+    },
+    {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "リファレンス",
+      "path": "/projects/ionic-angular-scroll-header/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\"><code>@rdlabo/ionic-angular-scroll-header</code> v21.6.2 が公開するstandalone directiveのリファレンスです。</p>\n<h2 id=\"directive\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#directive\" aria-hidden=\"true\"></a> Directive</h2>\n<section class=\"api-entry\"><h4 id=\"directive-scrollheaderdirective\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#directive-scrollheaderdirective\" aria-hidden=\"true\"></a> <code>directive</code> ScrollHeaderDirective</h4><p data-line=\"6\" class=\"code-line\"><code>ion-content</code> のscroll streamと投影されたHeader elementを接続します。</p><table data-line=\"8\" class=\"code-line\">\n<thead data-line=\"8\" class=\"code-line\">\n<tr data-line=\"8\" class=\"code-line\">\n<th>Selector</th>\n<th>Content child</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"10\" class=\"code-line\">\n<tr data-line=\"10\" class=\"code-line\">\n<td><strong><code>ion-content[rdlaboScrollHeader]</code></strong></td>\n<td><code>scrollHeader</code></td>\n<td>IonContentのscroll位置に追従するHeader elementです。</td>\n</tr>\n</tbody>\n</table></section>\n\n\n<section class=\"api-entry\"><h4 id=\"directive-virtualscrollheaderdirective\" data-line=\"12\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#directive-virtualscrollheaderdirective\" aria-hidden=\"true\"></a> <code>directive</code> VirtualScrollHeaderDirective</h4><p data-line=\"14\" class=\"code-line\">CDK Virtual Scroll viewportと投影されたHeader elementを接続し、破棄時にsubscriptionを解除します。</p><table data-line=\"16\" class=\"code-line\">\n<thead data-line=\"16\" class=\"code-line\">\n<tr data-line=\"16\" class=\"code-line\">\n<th>Selector</th>\n<th>Content child</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"18\" class=\"code-line\">\n<tr data-line=\"18\" class=\"code-line\">\n<td><strong><code>ion-content[rdlaboVirtualScrollHeader]</code></strong></td>\n<td><code>virtualScroll</code></td>\n<td>監視対象の <code>CdkVirtualScrollViewport</code> です。</td>\n</tr>\n<tr data-line=\"19\" class=\"code-line\">\n<td><strong><code>ion-content[rdlaboVirtualScrollHeader]</code></strong></td>\n<td><code>scrollHeader</code></td>\n<td>Virtual Scrollのoffsetに追従するHeader elementです。</td>\n</tr>\n</tbody>\n</table></section>\n\n\n<section class=\"api-entry\"><h4 id=\"directive-fixvirtualscrollelementdirective\" data-line=\"21\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#directive-fixvirtualscrollelementdirective\" aria-hidden=\"true\"></a> <code>directive</code> FixVirtualScrollElementDirective</h4><p data-line=\"23\" class=\"code-line\">PackageのCDK Virtual Scroll連携で使用するviewport element補正を適用します。</p><table data-line=\"25\" class=\"code-line\">\n<thead data-line=\"25\" class=\"code-line\">\n<tr data-line=\"25\" class=\"code-line\">\n<th>Selector</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"27\" class=\"code-line\">\n<tr data-line=\"27\" class=\"code-line\">\n<td><strong><code>cdk-virtual-scroll-viewport[rdlaboFixVirtualScrollElement]</code></strong></td>\n<td>初期化時にVirtual Scroll viewport elementを補正します。</td>\n</tr>\n</tbody>\n</table></section>\n\n\n</div>",
+      "headings": [
+        {
+          "id": "directive",
+          "text": "Directive",
+          "level": 2
+        },
+        {
+          "id": "directive-scrollheaderdirective",
+          "text": "directive ScrollHeaderDirective",
+          "level": 4
+        },
+        {
+          "id": "directive-virtualscrollheaderdirective",
+          "text": "directive VirtualScrollHeaderDirective",
+          "level": 4
+        },
+        {
+          "id": "directive-fixvirtualscrollelementdirective",
+          "text": "directive FixVirtualScrollElementDirective",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/ja/api.md"
     }
   ]
 } as const;

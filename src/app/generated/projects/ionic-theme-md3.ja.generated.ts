@@ -82,6 +82,30 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-md3/docs/ja/readme.md"
+    },
+    {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "リファレンス",
+      "path": "/projects/ionic-theme-md3/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\"><code>@rdlabo/ionic-theme-md3</code> v1.1.0 が公開するJavaScript APIのリファレンスです。CSS entry pointはREADMEで説明します。</p>\n<h2 id=\"animation\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#animation\" aria-hidden=\"true\"></a> Animation</h2>\n<section class=\"api-entry\"><h4 id=\"function-mdtransitionanimation\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-mdtransitionanimation\" aria-hidden=\"true\"></a> <code>function</code> mdTransitionAnimation</h4><p data-line=\"6\" class=\"code-line api-signature\"><code>(_: HTMLElement, opts: TransitionOptions) =&gt; Animation</code></p><p data-line=\"8\" class=\"code-line\">Ionic向けのMaterial Design 3 navigation transitionを生成します。</p></section>\n\n\n</div>",
+      "headings": [
+        {
+          "id": "animation",
+          "text": "Animation",
+          "level": 2
+        },
+        {
+          "id": "function-mdtransitionanimation",
+          "text": "function mdTransitionAnimation",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-md3/docs/ja/api.md"
     }
   ]
 } as const;

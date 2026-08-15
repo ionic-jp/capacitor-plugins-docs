@@ -152,6 +152,30 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/readme.md"
+    },
+    {
+      "title": "CLI API",
+      "navTitle": "CLI API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "リファレンス",
+      "path": "/projects/ionic-angular-collect-icons/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\"><code>@rdlabo/ionic-angular-collect-icons</code> v2.1.0 のcommand referenceです。</p>\n<h2 id=\"command\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#command\" aria-hidden=\"true\"></a> Command</h2>\n<section class=\"api-entry\"><h4 id=\"command-npx-%40rdlabo%2Fionic-angular-collect-icons\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#command-npx-%40rdlabo%2Fionic-angular-collect-icons\" aria-hidden=\"true\"></a> <code>command</code> npx @rdlabo/ionic-angular-collect-icons</h4><p data-line=\"6\" class=\"code-line\">Angularのsourceとtemplateをscanし、Applicationが使用するIoniconsを既定では <code>src/use-icons.ts</code> へ出力します。</p><table data-line=\"8\" class=\"code-line\">\n<thead data-line=\"8\" class=\"code-line\">\n<tr data-line=\"8\" class=\"code-line\">\n<th>Option</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"10\" class=\"code-line\">\n<tr data-line=\"10\" class=\"code-line\">\n<td><strong><code>--dry-run</code></strong></td>\n<td><code>boolean</code></td>\n<td>Fileを書き込まず変更内容を表示します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"11\" class=\"code-line\">\n<td><strong><code>--interactive</code></strong></td>\n<td><code>boolean</code></td>\n<td>Promptですべてのoptionを指定し、結果を確認します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"12\" class=\"code-line\">\n<td><strong><code>--initialize</code></strong></td>\n<td><code>boolean</code></td>\n<td><code>addIcons</code> の初期化を追加し、Component単位の登録を削除します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"13\" class=\"code-line\">\n<td><strong><code>--project-path</code></strong></td>\n<td><code>string</code></td>\n<td><code>src</code> をscanするProject directoryです。</td>\n<td>現在のdirectory</td>\n</tr>\n<tr data-line=\"14\" class=\"code-line\">\n<td><strong><code>--icon-path</code></strong></td>\n<td><code>string</code></td>\n<td>生成するicon登録fileです。</td>\n<td><code>src/use-icons.ts</code></td>\n</tr>\n</tbody>\n</table></section>\n\n\n</div>",
+      "headings": [
+        {
+          "id": "command",
+          "text": "Command",
+          "level": 2
+        },
+        {
+          "id": "command-npx-%40rdlabo%2Fionic-angular-collect-icons",
+          "text": "command npx @rdlabo/ionic-angular-collect-icons",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/api.md"
     }
   ]
 } as const;

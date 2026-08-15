@@ -204,6 +204,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         'Reference',
         'リファレンス',
       ),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
   {
@@ -250,7 +251,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
+    ],
   },
   {
     id: 'ionic-angular-scroll-header',
@@ -299,7 +303,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
+    ],
   },
   {
     id: 'ngx-cdk-scroll-strategies',
@@ -348,7 +355,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
+    ],
   },
   {
     id: 'ionic-theme-ios26',
@@ -404,6 +414,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         'Documentation',
         'ドキュメント',
       ),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
   {
@@ -453,7 +464,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
+    ],
   },
   {
     id: 'ionic-angular-collect-icons',
@@ -502,7 +516,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('CLI API', 'CLI API', 'api', 'api.md', 'Reference', 'リファレンス'),
+    ],
   },
   {
     id: 'workers-hono-kit',
@@ -585,6 +602,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         'Reference',
         'リファレンス',
       ),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
   {
@@ -652,6 +670,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       ),
       page('Configuration', '設定', 'configuration', 'configuration.md', 'Guide', 'ガイド'),
       page('Rules', 'ルール一覧', 'rules', 'rules.md', 'Reference', 'リファレンス'),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
       ...eslintRulePages,
     ],
   },
@@ -712,6 +731,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         'Comparison',
         '比較',
       ),
+      page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
   {

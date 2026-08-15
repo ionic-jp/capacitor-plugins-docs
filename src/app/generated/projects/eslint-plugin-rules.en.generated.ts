@@ -116,6 +116,40 @@ export const PROJECT = {
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules.md"
     },
     {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "Reference",
+      "path": "/projects/eslint-plugin-rules/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\">Public plugin surface for <code>@rdlabo/eslint-plugin-rules</code> v21.3.0. Detailed options and examples are available on each rule page.</p>\n<h2 id=\"module\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module\" aria-hidden=\"true\"></a> Module</h2>\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Feslint-plugin-rules\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Feslint-plugin-rules\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/eslint-plugin-rules</h4><table data-line=\"6\" class=\"code-line\">\n<thead data-line=\"6\" class=\"code-line\">\n<tr data-line=\"6\" class=\"code-line\">\n<th>Export</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"8\" class=\"code-line\">\n<tr data-line=\"8\" class=\"code-line\">\n<td><strong><code>rules</code></strong></td>\n<td>All rule implementations keyed by rule name.</td>\n</tr>\n<tr data-line=\"9\" class=\"code-line\">\n<td><strong><code>configs</code></strong></td>\n<td>Shareable plugin configurations.</td>\n</tr>\n</tbody>\n</table></section>\n\n<h2 id=\"rules\" data-line=\"11\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#rules\" aria-hidden=\"true\"></a> Rules</h2>\n<section class=\"api-entry\"><h4 id=\"rule-rule-set\" data-line=\"13\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#rule-rule-set\" aria-hidden=\"true\"></a> <code>rule</code> Rule set</h4><table data-line=\"15\" class=\"code-line\">\n<thead data-line=\"15\" class=\"code-line\">\n<tr data-line=\"15\" class=\"code-line\">\n<th>Group</th>\n<th>Rules</th>\n</tr>\n</thead>\n<tbody data-line=\"17\" class=\"code-line\">\n<tr data-line=\"17\" class=\"code-line\">\n<td>Component boundaries</td>\n<td><code>component-property-use-readonly</code>, <code>deny-constructor-di</code>, <code>deny-soft-private-modifier</code>, <code>no-component-method-except-lifecycle</code>, <code>no-component-writable-signal</code>, <code>require-viewmodel</code></td>\n</tr>\n<tr data-line=\"18\" class=\"code-line\">\n<td>Ionic APIs</td>\n<td><code>deny-element</code>, <code>deny-import-from-ionic-module</code>, <code>deny-overlay-create</code>, <code>implements-ionic-lifecycle</code>, <code>ionic-attr-type-check</code>, <code>prefer-disable-handler</code>, <code>prefer-modal-launcher</code></td>\n</tr>\n<tr data-line=\"19\" class=\"code-line\">\n<td>Forms and signals</td>\n<td><code>no-reactive-forms</code>, <code>no-template-driven-forms</code>, <code>signal-use-as-signal</code>, <code>signal-use-as-signal-template</code></td>\n</tr>\n<tr data-line=\"20\" class=\"code-line\">\n<td>Control flow</td>\n<td><code>restrict-try-block</code></td>\n</tr>\n</tbody>\n</table></section>\n\n</div>",
+      "headings": [
+        {
+          "id": "module",
+          "text": "Module",
+          "level": 2
+        },
+        {
+          "id": "module-%40rdlabo%2Feslint-plugin-rules",
+          "text": "module @rdlabo/eslint-plugin-rules",
+          "level": 4
+        },
+        {
+          "id": "rules",
+          "text": "Rules",
+          "level": 2
+        },
+        {
+          "id": "rule-rule-set",
+          "text": "rule Rule set",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/api.md"
+    },
+    {
       "title": "component-property-use-readonly",
       "navTitle": "component-property-use-readonly",
       "slug": "rules/component-property-use-readonly",

@@ -82,6 +82,75 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/readme.md"
+    },
+    {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "リファレンス",
+      "path": "/projects/ngx-cdk-scroll-strategies/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\"><code>@rdlabo/ngx-cdk-scroll-strategies</code> v21.6.2 が公開するAPIのリファレンスです。</p>\n<h2 id=\"directive\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#directive\" aria-hidden=\"true\"></a> Directive</h2>\n<section class=\"api-entry\"><h4 id=\"directive-cdkdynamicsizevirtualscroll\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#directive-cdkdynamicsizevirtualscroll\" aria-hidden=\"true\"></a> <code>directive</code> CdkDynamicSizeVirtualScroll</h4><p data-line=\"6\" class=\"code-line\">CDK Virtual Scroll viewportにDynamic Size Strategyを設定します。</p><table data-line=\"8\" class=\"code-line\">\n<thead data-line=\"8\" class=\"code-line\">\n<tr data-line=\"8\" class=\"code-line\">\n<th>Input</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"10\" class=\"code-line\">\n<tr data-line=\"10\" class=\"code-line\">\n<td><strong><code>itemDynamicSizes</code></strong></td>\n<td><code>itemDynamicSize[]</code></td>\n<td>List itemの正確なsize modelです。</td>\n<td><code>[]</code></td>\n</tr>\n<tr data-line=\"11\" class=\"code-line\">\n<td><strong><code>minBufferPx</code></strong></td>\n<td><code>number</code></td>\n<td>Itemを追加描画するまでの最小bufferです。</td>\n<td><code>100</code></td>\n</tr>\n<tr data-line=\"12\" class=\"code-line\">\n<td><strong><code>maxBufferPx</code></strong></td>\n<td><code>number</code></td>\n<td>追加描画時に確保するbufferです。</td>\n<td><code>200</code></td>\n</tr>\n<tr data-line=\"13\" class=\"code-line\">\n<td><strong><code>isReverse</code></strong></td>\n<td><code>boolean</code></td>\n<td>Reverse Virtual Scrollを有効にします。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"14\" class=\"code-line\">\n<td><strong><code>scrollOffset</code></strong></td>\n<td><code>number</code></td>\n<td>Reverse Scroll向けに正規化したread-only offsetです。</td>\n<td></td>\n</tr>\n</tbody>\n</table></section>\n\n\n<h2 id=\"class\" data-line=\"16\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#class\" aria-hidden=\"true\"></a> Class</h2>\n<section class=\"api-entry\"><h4 id=\"class-dynamicsizevirtualscrollstrategy\" data-line=\"18\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#class-dynamicsizevirtualscrollstrategy\" aria-hidden=\"true\"></a> <code>class</code> DynamicSizeVirtualScrollStrategy</h4><p data-line=\"20\" class=\"code-line\">事前にsizeが分かっているitem向けのAngular CDK <code>VirtualScrollStrategy</code> 実装です。</p><table data-line=\"22\" class=\"code-line\">\n<thead data-line=\"22\" class=\"code-line\">\n<tr data-line=\"22\" class=\"code-line\">\n<th>Member</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"24\" class=\"code-line\">\n<tr data-line=\"24\" class=\"code-line\">\n<td><strong><code>constructor</code></strong></td>\n<td><code>(itemSize, minBufferPx, maxBufferPx, isReverse)</code></td>\n<td>Size modelとbuffer設定を指定して生成します。</td>\n</tr>\n<tr data-line=\"25\" class=\"code-line\">\n<td><strong><code>updateItemAndBufferSize</code></strong></td>\n<td><code>(itemDynamicSize[], number, number, boolean) =&gt; void</code></td>\n<td>Size modelとbuffer設定を置き換えます。</td>\n</tr>\n<tr data-line=\"26\" class=\"code-line\">\n<td><strong><code>scrollToIndex</code></strong></td>\n<td><code>(index: number, behavior: ScrollBehavior) =&gt; void</code></td>\n<td>指定したitem indexへscrollします。</td>\n</tr>\n<tr data-line=\"27\" class=\"code-line\">\n<td><strong><code>scrolledIndexChange</code></strong></td>\n<td><code>Observable&lt;number&gt;</code></td>\n<td>現在のscroll indexを通知します。</td>\n</tr>\n<tr data-line=\"28\" class=\"code-line\">\n<td><strong><code>measureScrollOffset</code></strong></td>\n<td><code>number</code></td>\n<td>最後に正規化したscroll offsetです。</td>\n</tr>\n</tbody>\n</table></section>\n\n\n<section class=\"api-entry\"><h4 id=\"class-dynamicsizevirtualscrollservice\" data-line=\"30\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#class-dynamicsizevirtualscrollservice\" aria-hidden=\"true\"></a> <code>class</code> DynamicSizeVirtualScrollService</h4><p data-line=\"32\" class=\"code-line\">Viewport lifecycle、item height binding、refresh、smooth scrollのhelperを提供します。</p><table data-line=\"34\" class=\"code-line\">\n<thead data-line=\"34\" class=\"code-line\">\n<tr data-line=\"34\" class=\"code-line\">\n<th>Member</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"36\" class=\"code-line\">\n<tr data-line=\"36\" class=\"code-line\">\n<td><strong><code>onInit</code></strong></td>\n<td><code>(viewport, latestScrollOffset) =&gt; void</code></td>\n<td>Viewportの状態を復元します。</td>\n</tr>\n<tr data-line=\"37\" class=\"code-line\">\n<td><strong><code>onDestroy</code></strong></td>\n<td><code>(viewport) =&gt; number</code></td>\n<td>後で復元するoffsetを取得します。</td>\n</tr>\n<tr data-line=\"38\" class=\"code-line\">\n<td><strong><code>getBindDynamicItemHeight</code></strong></td>\n<td><code>(sizes: Signal&lt;itemDynamicSize[]&gt;) =&gt; Signal&lt;string[]&gt;</code></td>\n<td>Item sizeをCSS heightへ変換します。</td>\n</tr>\n<tr data-line=\"39\" class=\"code-line\">\n<td><strong><code>refreshViewport</code></strong></td>\n<td><code>(viewport) =&gt; void</code></td>\n<td>Viewportの寸法を強制更新します。</td>\n</tr>\n<tr data-line=\"40\" class=\"code-line\">\n<td><strong><code>scrollToTopSmooth</code></strong></td>\n<td><code>(viewport) =&gt; Promise&lt;void&gt;</code></td>\n<td>先頭へsmooth scrollします。</td>\n</tr>\n<tr data-line=\"41\" class=\"code-line\">\n<td><strong><code>scrollToPoint</code></strong></td>\n<td><code>(viewport, x, y, duration?) =&gt; Promise&lt;void&gt;</code></td>\n<td>指定位置へsmooth scrollします。</td>\n</tr>\n</tbody>\n</table></section>\n\n\n<h2 id=\"function\" data-line=\"43\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function\" aria-hidden=\"true\"></a> Function</h2>\n<section class=\"api-entry\"><h4 id=\"function-sumitemsize\" data-line=\"45\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-sumitemsize\" aria-hidden=\"true\"></a> <code>function</code> sumItemSize</h4><p data-line=\"47\" class=\"code-line api-signature\"><code>(dynamicSize: itemDynamicSize[], endIndex: number) =&gt; number</code></p><p data-line=\"49\" class=\"code-line\"><code>endIndex</code> より前にある全itemの累積sizeを返します。</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-calculateitemcountforpixeldistance\" data-line=\"51\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-calculateitemcountforpixeldistance\" aria-hidden=\"true\"></a> <code>function</code> calculateItemCountForPixelDistance</h4><p data-line=\"53\" class=\"code-line api-signature\"><code>(dynamicSize: itemDynamicSize[], itemSizeRange: number, startIndex?: number, isReverse?: boolean) =&gt; number</code></p><p data-line=\"55\" class=\"code-line\">Pixel距離を正確な小数item数へ変換します。</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-calcindex\" data-line=\"57\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-calcindex\" aria-hidden=\"true\"></a> <code>function</code> calcIndex</h4><p data-line=\"59\" class=\"code-line api-signature\"><code>(dynamicSize: itemDynamicSize[], itemSizeRange: number, startIndex?: number, isReverse?: boolean) =&gt; number</code></p><p data-line=\"61\" class=\"code-line\">互換性維持用の旧計算です。連続値には <code>calculateItemCountForPixelDistance</code> を使います。</p></section>\n\n\n<h2 id=\"type\" data-line=\"63\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#type\" aria-hidden=\"true\"></a> Type</h2>\n<section class=\"api-entry\"><h4 id=\"interface-itemdynamicsize\" data-line=\"65\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-itemdynamicsize\" aria-hidden=\"true\"></a> <code>interface</code> itemDynamicSize</h4><table data-line=\"67\" class=\"code-line\">\n<thead data-line=\"67\" class=\"code-line\">\n<tr data-line=\"67\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"69\" class=\"code-line\">\n<tr data-line=\"69\" class=\"code-line\">\n<td><strong><code>itemSize</code></strong></td>\n<td><code>number</code></td>\n<td>Pixel単位の正確なitem sizeです。</td>\n</tr>\n<tr data-line=\"70\" class=\"code-line\">\n<td><strong>consumer metadata</strong></td>\n<td>`Record&lt;string, string</td>\n<td>number&gt;`</td>\n</tr>\n</tbody>\n</table></section>\n\n</div>",
+      "headings": [
+        {
+          "id": "directive",
+          "text": "Directive",
+          "level": 2
+        },
+        {
+          "id": "directive-cdkdynamicsizevirtualscroll",
+          "text": "directive CdkDynamicSizeVirtualScroll",
+          "level": 4
+        },
+        {
+          "id": "class",
+          "text": "Class",
+          "level": 2
+        },
+        {
+          "id": "class-dynamicsizevirtualscrollstrategy",
+          "text": "class DynamicSizeVirtualScrollStrategy",
+          "level": 4
+        },
+        {
+          "id": "class-dynamicsizevirtualscrollservice",
+          "text": "class DynamicSizeVirtualScrollService",
+          "level": 4
+        },
+        {
+          "id": "function",
+          "text": "Function",
+          "level": 2
+        },
+        {
+          "id": "function-sumitemsize",
+          "text": "function sumItemSize",
+          "level": 4
+        },
+        {
+          "id": "function-calculateitemcountforpixeldistance",
+          "text": "function calculateItemCountForPixelDistance",
+          "level": 4
+        },
+        {
+          "id": "function-calcindex",
+          "text": "function calcIndex",
+          "level": 4
+        },
+        {
+          "id": "type",
+          "text": "Type",
+          "level": 2
+        },
+        {
+          "id": "interface-itemdynamicsize",
+          "text": "interface itemDynamicSize",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/api.md"
     }
   ]
 } as const;

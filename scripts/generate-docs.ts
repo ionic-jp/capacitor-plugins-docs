@@ -16,6 +16,7 @@ import { localizedPublicPath } from '../src/app/locale-path';
 import { SITE_CONFIG } from '../src/app/site-config';
 import { enforceGeneratedHtmlPolicy } from './html-policy';
 import { normalizeImportedReadmeHeadings } from './markdown-headings';
+import { splitDocgenReadme } from './docgen-readme';
 
 const root = resolve(process.cwd());
 const docsRepositoryUrl = 'https://github.com/rdlabo-dev/docs';
@@ -99,7 +100,24 @@ function formatApiEntries(document: Document): void {
   for (const heading of Array.from(body.children)) {
     if (heading.tagName !== 'H4' || heading.parentElement !== body) continue;
     const kind = heading.querySelector(':scope > code')?.textContent?.trim();
-    if (!kind || !['method', 'interface', 'type alias', 'enum'].includes(kind)) continue;
+    if (
+      !kind ||
+      ![
+        'method',
+        'interface',
+        'type alias',
+        'enum',
+        'class',
+        'component',
+        'directive',
+        'function',
+        'module',
+        'command',
+        'stylesheet',
+        'rule',
+      ].includes(kind)
+    )
+      continue;
 
     const section = document.createElement('section');
     section.className = 'api-entry';
@@ -122,6 +140,41 @@ function formatApiEntries(document: Document): void {
         );
       if (hasOnlyOneCodeElement) paragraph.classList.add('api-signature');
     }
+  }
+}
+
+function annotateDocgenApiEntries(document: Document): void {
+  const categoryKinds = new Map([
+    ['Interfaces', 'interface'],
+    ['インターフェース', 'interface'],
+    ['Type Aliases', 'type alias'],
+    ['型エイリアス', 'type alias'],
+    ['Enums', 'enum'],
+    ['列挙型', 'enum'],
+  ]);
+  let categoryKind: string | undefined;
+
+  for (const heading of Array.from(document.body.children)) {
+    if (heading.tagName === 'H3') {
+      const headingText = heading.textContent?.trim() ?? '';
+      categoryKind = categoryKinds.get(headingText);
+      if (categoryKind) continue;
+
+      const methodHeading = document.createElement('h4');
+      for (const attribute of Array.from(heading.attributes)) {
+        methodHeading.setAttribute(attribute.name, attribute.value);
+      }
+      const kind = document.createElement('code');
+      kind.textContent = 'method';
+      methodHeading.append(kind, document.createTextNode(` ${headingText}`));
+      heading.replaceWith(methodHeading);
+      continue;
+    }
+
+    if (heading.tagName !== 'H4' || !categoryKind) continue;
+    const kind = document.createElement('code');
+    kind.textContent = categoryKind;
+    heading.prepend(kind, document.createTextNode(' '));
   }
 }
 
@@ -186,8 +239,8 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       ? new Map<string, string>()
       : apiMarkdown(JSON.parse(await readFile(join(packageRoot, 'dist/docs.json'), 'utf8')));
   const pages = [];
-  for (const page of project.pages) {
-    const { slug, file } = page;
+  for (const declaredPage of project.pages) {
+    const { file } = declaredPage;
     const sourcePath = join(
       root,
       'src',
@@ -197,106 +250,129 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       file,
     );
     const parsed = fm<any>(await readFile(sourcePath, 'utf8'));
-    const missingApiEntries: string[] = [];
-    const expanded = parsed.body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
-      const entry = api.get(id);
-      if (!entry) missingApiEntries.push(id);
-      return entry ?? '';
-    });
-    if (missingApiEntries.length) {
-      throw new Error(
-        `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
-      );
-    }
-    const codes = [];
-    for (const codePath of parsed.attributes.code ?? []) {
-      const normalized = String(codePath).replace(/^\/docs\/stripe\//, '');
-      codes.push(
-        await renderCode(
-          await readFile(join(root, 'src', project.sourceDirectory, 'docs', normalized), 'utf8'),
-        ),
-      );
-    }
-    let html = rewriteInternalLinks(await markdownToHtml(expanded), project, locale).replace(
-      'loading="lazy"',
-      'loading="eager" fetchpriority="high"',
-    );
-    const htmlDocument = new JSDOM(html).window.document;
-    if (
-      (project.id === 'eslint-plugin-rules' && slug.startsWith('rules/')) ||
-      file === 'readme.md' ||
-      file === 'using-ion-item-group.md'
-    ) {
-      normalizeImportedReadmeHeadings(htmlDocument);
-    }
-    const headingIds = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h1, h2, h3, h4')).map(
-      (heading) => heading.id,
-    );
-    const scrollMap = (parsed.attributes.scrollActiveLine ?? []).map((entry: any) => {
-      if (locale !== 'ja' || !entry.id) return entry;
-      const localizedId = headingIds.find(
-        (headingId) => decodeURIComponent(headingId) === entry.id,
-      );
-      return localizedId ? { ...entry, id: localizedId } : entry;
-    });
-    const codeByFile = new Map(codes.map((code) => [code.file, code]));
-    let previousHeadingIndex = -1;
-    for (const entry of scrollMap) {
-      if (entry.id) {
-        const headingIndex = headingIds.indexOf(entry.id);
-        if (headingIndex < 0) {
-          throw new Error(`${relative(root, sourcePath)} references missing heading: ${entry.id}`);
-        }
-        if (headingIndex <= previousHeadingIndex) {
-          throw new Error(
-            `${relative(root, sourcePath)} has an out-of-order or duplicate heading: ${entry.id}`,
-          );
-        }
-        previousHeadingIndex = headingIndex;
+    const splitReadme = file === 'readme.md' ? splitDocgenReadme(parsed.body) : undefined;
+    const sourcePages = splitReadme
+      ? [
+          { page: declaredPage, body: splitReadme.readme, useFrontMatterTitle: true },
+          {
+            page: {
+              title: { en: 'API', ja: 'API' },
+              section: { en: 'Reference', ja: 'リファレンス' },
+              slug: 'api',
+              file,
+            },
+            body: splitReadme.api,
+            useFrontMatterTitle: false,
+          },
+        ]
+      : [{ page: declaredPage, body: parsed.body, useFrontMatterTitle: true }];
+
+    for (const { page, body, useFrontMatterTitle } of sourcePages) {
+      const { slug } = page;
+      const missingApiEntries: string[] = [];
+      const expanded = body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
+        const entry = api.get(id);
+        if (!entry) missingApiEntries.push(id);
+        return entry ?? '';
+      });
+      if (missingApiEntries.length) {
+        throw new Error(
+          `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
+        );
       }
-      for (const [codeFile, range] of Object.entries<number[]>(entry.activeLine ?? {})) {
-        const code = codeByFile.get(codeFile);
-        if (!code) {
-          throw new Error(
-            `${relative(root, sourcePath)} references missing code file: ${codeFile}`,
-          );
+      const codes = [];
+      for (const codePath of parsed.attributes.code ?? []) {
+        const normalized = String(codePath).replace(/^\/docs\/stripe\//, '');
+        codes.push(
+          await renderCode(
+            await readFile(join(root, 'src', project.sourceDirectory, 'docs', normalized), 'utf8'),
+          ),
+        );
+      }
+      let html = rewriteInternalLinks(await markdownToHtml(expanded), project, locale).replace(
+        'loading="lazy"',
+        'loading="eager" fetchpriority="high"',
+      );
+      const htmlDocument = new JSDOM(html).window.document;
+      if (
+        (project.id === 'eslint-plugin-rules' && slug.startsWith('rules/')) ||
+        slug === 'readme' ||
+        file === 'using-ion-item-group.md'
+      ) {
+        normalizeImportedReadmeHeadings(htmlDocument);
+      }
+      const headingIds = Array.from(
+        htmlDocument.querySelectorAll<HTMLElement>('h1, h2, h3, h4'),
+      ).map((heading) => heading.id);
+      const scrollMap = (parsed.attributes.scrollActiveLine ?? []).map((entry: any) => {
+        if (locale !== 'ja' || !entry.id) return entry;
+        const localizedId = headingIds.find(
+          (headingId) => decodeURIComponent(headingId) === entry.id,
+        );
+        return localizedId ? { ...entry, id: localizedId } : entry;
+      });
+      const codeByFile = new Map(codes.map((code) => [code.file, code]));
+      let previousHeadingIndex = -1;
+      for (const entry of scrollMap) {
+        if (entry.id) {
+          const headingIndex = headingIds.indexOf(entry.id);
+          if (headingIndex < 0) {
+            throw new Error(
+              `${relative(root, sourcePath)} references missing heading: ${entry.id}`,
+            );
+          }
+          if (headingIndex <= previousHeadingIndex) {
+            throw new Error(
+              `${relative(root, sourcePath)} has an out-of-order or duplicate heading: ${entry.id}`,
+            );
+          }
+          previousHeadingIndex = headingIndex;
         }
-        if (
-          range.length !== 2 ||
-          !range.every(Number.isInteger) ||
-          range[0] < 0 ||
-          range[1] < range[0] ||
-          range[1] > code.lines.length + 1
-        ) {
-          throw new Error(
-            `${relative(root, sourcePath)} has an invalid ${codeFile} line range: ${range.join(', ')}`,
-          );
+        for (const [codeFile, range] of Object.entries<number[]>(entry.activeLine ?? {})) {
+          const code = codeByFile.get(codeFile);
+          if (!code) {
+            throw new Error(
+              `${relative(root, sourcePath)} references missing code file: ${codeFile}`,
+            );
+          }
+          if (
+            range.length !== 2 ||
+            !range.every(Number.isInteger) ||
+            range[0] < 0 ||
+            range[1] < range[0] ||
+            range[1] > code.lines.length + 1
+          ) {
+            throw new Error(
+              `${relative(root, sourcePath)} has an invalid ${codeFile} line range: ${range.join(', ')}`,
+            );
+          }
         }
       }
+      if (splitReadme && slug === 'api') annotateDocgenApiEntries(htmlDocument);
+      formatApiEntries(htmlDocument);
+      if (slug === 'api') formatApiReference(htmlDocument);
+      html = enforceGeneratedHtmlPolicy(htmlDocument.body.innerHTML, relative(root, sourcePath));
+      const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
+        (heading) => ({
+          id: heading.id,
+          text: heading.textContent?.trim() ?? '',
+          level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
+        }),
+      );
+      pages.push({
+        title: (useFrontMatterTitle && parsed.attributes.title) || localize(page.title, locale),
+        navTitle: localize(page.title, locale),
+        slug,
+        file,
+        section: localize(page.section, locale),
+        path: `/projects/${project.slug}/docs/${slug}`,
+        html,
+        headings,
+        codes,
+        scrollMap,
+        editUrl: `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`,
+      });
     }
-    formatApiEntries(htmlDocument);
-    if (slug === 'api') formatApiReference(htmlDocument);
-    html = enforceGeneratedHtmlPolicy(htmlDocument.body.innerHTML, relative(root, sourcePath));
-    const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
-      (heading) => ({
-        id: heading.id,
-        text: heading.textContent?.trim() ?? '',
-        level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
-      }),
-    );
-    pages.push({
-      title: parsed.attributes.title || localize(page.title, locale),
-      navTitle: localize(page.title, locale),
-      slug,
-      file,
-      section: localize(page.section, locale),
-      path: `/projects/${project.slug}/docs/${slug}`,
-      html,
-      headings,
-      codes,
-      scrollMap,
-      editUrl: `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`,
-    });
   }
   return {
     ...localizeProject(project, locale, packageJson.version),

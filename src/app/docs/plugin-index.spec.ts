@@ -63,7 +63,33 @@ describe('PluginIndexComponent', () => {
     const japaneseProjects = projectsForLocale('ja');
     expect(japaneseProjects).toHaveLength(projectCatalog.length);
     expect(projectCatalog).toHaveLength(18);
-    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(70);
+    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(84);
+    for (const project of japaneseProjects) {
+      expect(project.pages).toEqual(
+        expect.arrayContaining([expect.objectContaining({ slug: 'api', section: 'リファレンス' })]),
+      );
+    }
+    const projectsWithApi = await Promise.all(
+      japaneseProjects.map((project) => loadProject(project.id, 'ja')),
+    );
+    for (const project of projectsWithApi) {
+      expect(project?.pages.find((page) => page.slug === 'api')?.html).toContain(
+        'class="api-entry"',
+      );
+    }
+    for (const projectId of [
+      'capacitor-codescanner',
+      'capacitor-screenshot-event',
+      'capacitor-printer',
+      'capacitor-brotherprint',
+    ]) {
+      expect(japaneseProjects.find((project) => project.id === projectId)?.pages).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ slug: 'readme' }),
+          expect.objectContaining({ slug: 'api', section: 'リファレンス' }),
+        ]),
+      );
+    }
     expect(japaneseProjects.find((project) => project.id === 'stripe')?.pages[0].navTitle).toBe(
       '設定',
     );
@@ -94,6 +120,15 @@ describe('PluginIndexComponent', () => {
     expect(ionic?.pages.find((page) => page.slug === 'offline-realtime')?.html).toContain(
       'createOfflineAuthBridge',
     );
+    const photoEditor = await loadProject('ionic-angular-photo-editor', 'ja');
+    const photoEditorApi = photoEditor?.pages.find((page) => page.slug === 'api');
+    expect(photoEditorApi?.section).toBe('リファレンス');
+    expect(photoEditorApi?.html).toContain('<code>component</code> PhotoEditorPage');
+    expect(photoEditorApi?.html).toContain('<code>class</code> PhotoFileService');
+    const codeScanner = await loadProject('capacitor-codescanner', 'ja');
+    const codeScannerApi = codeScanner?.pages.find((page) => page.slug === 'api');
+    expect(codeScannerApi?.html).toContain('<code>method</code> present(...)');
+    expect(codeScannerApi?.html).toMatch(/<code>interface<\/code>[\s\S]*?ScannerOption/);
     const iosTheme = await loadProject('ionic-theme-ios26', 'ja');
     expect(iosTheme?.version).toBe('2.3.2');
     expect(iosTheme?.pages.find((page) => page.slug === 'readme')?.html).toContain(

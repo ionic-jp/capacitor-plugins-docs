@@ -196,6 +196,85 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/using-ion-item-group.md"
+    },
+    {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "リファレンス",
+      "path": "/projects/ionic-theme-ios26/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\"><code>@rdlabo/ionic-theme-ios26</code> v2.3.2 が公開するJavaScript APIのリファレンスです。CSSとSassのentry pointはREADMEで説明します。</p>\n<h2 id=\"effect\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#effect\" aria-hidden=\"true\"></a> Effect</h2>\n<section class=\"api-entry\"><h4 id=\"function-registertabbareffect\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-registertabbareffect\" aria-hidden=\"true\"></a> <code>function</code> registerTabBarEffect</h4><p data-line=\"6\" class=\"code-line api-signature\"><code>(targetElement: HTMLElement) =&gt; registeredEffect | undefined</code></p><p data-line=\"8\" class=\"code-line\">Ionic Tab BarにLiquid Glassの選択effectを登録します。</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-registersegmenteffect\" data-line=\"10\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-registersegmenteffect\" aria-hidden=\"true\"></a> <code>function</code> registerSegmentEffect</h4><p data-line=\"12\" class=\"code-line api-signature\"><code>(targetElement: HTMLElement) =&gt; registeredEffect | undefined</code></p><p data-line=\"14\" class=\"code-line\">Ionic SegmentにLiquid Glassの選択effectを登録します。</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"interface-registeredeffect\" data-line=\"16\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-registeredeffect\" aria-hidden=\"true\"></a> <code>interface</code> registeredEffect</h4><table data-line=\"18\" class=\"code-line\">\n<thead data-line=\"18\" class=\"code-line\">\n<tr data-line=\"18\" class=\"code-line\">\n<th>Member</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"20\" class=\"code-line\">\n<tr data-line=\"20\" class=\"code-line\">\n<td><strong><code>destroy</code></strong></td>\n<td><code>() =&gt; void</code></td>\n<td>登録時に作成したlistenerとeffect elementを削除します。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-effectscales\" data-line=\"22\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-effectscales\" aria-hidden=\"true\"></a> <code>interface</code> EffectScales</h4><table data-line=\"24\" class=\"code-line\">\n<thead data-line=\"24\" class=\"code-line\">\n<tr data-line=\"24\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"26\" class=\"code-line\">\n<tr data-line=\"26\" class=\"code-line\">\n<td><strong><code>small</code></strong></td>\n<td><code>string</code></td>\n<td>Small effectのscaleです。</td>\n</tr>\n<tr data-line=\"27\" class=\"code-line\">\n<td><strong><code>medium</code></strong></td>\n<td><code>string</code></td>\n<td>Medium effectのscaleです。</td>\n</tr>\n<tr data-line=\"28\" class=\"code-line\">\n<td><strong><code>large</code></strong></td>\n<td><code>string</code></td>\n<td>Large effectのscaleです。</td>\n</tr>\n<tr data-line=\"29\" class=\"code-line\">\n<td><strong><code>xlarge</code></strong></td>\n<td><code>string</code></td>\n<td>Extra Large effectのscaleです。</td>\n</tr>\n</tbody>\n</table></section>\n\n<h2 id=\"searchable-tab-bar\" data-line=\"31\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#searchable-tab-bar\" aria-hidden=\"true\"></a> Searchable Tab Bar</h2>\n<section class=\"api-entry\"><h4 id=\"function-attachtabbarsearchable\" data-line=\"33\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-attachtabbarsearchable\" aria-hidden=\"true\"></a> <code>function</code> attachTabBarSearchable</h4><p data-line=\"35\" class=\"code-line api-signature\"><code>(ionTabBar: HTMLElement, ionFabButton: HTMLElement, ionFooter: HTMLElement) =&gt; TabBarSearchableFunction</code></p><p data-line=\"37\" class=\"code-line\">Searchable Tab Barのtransitionを設定し、event handlerを返します。</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"enum-tabbarsearchabletype\" data-line=\"39\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#enum-tabbarsearchabletype\" aria-hidden=\"true\"></a> <code>enum</code> TabBarSearchableType</h4><table data-line=\"41\" class=\"code-line\">\n<thead data-line=\"41\" class=\"code-line\">\n<tr data-line=\"41\" class=\"code-line\">\n<th>Member</th>\n<th>Value</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"43\" class=\"code-line\">\n<tr data-line=\"43\" class=\"code-line\">\n<td><strong><code>Enter</code></strong></td>\n<td><code>\"enter\"</code></td>\n<td>Searchable modeへ入ります。</td>\n</tr>\n<tr data-line=\"44\" class=\"code-line\">\n<td><strong><code>Leave</code></strong></td>\n<td><code>\"leave\"</code></td>\n<td>Searchable modeから戻ります。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"type-alias-tabbarsearchablefunction\" data-line=\"46\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#type-alias-tabbarsearchablefunction\" aria-hidden=\"true\"></a> <code>type alias</code> TabBarSearchableFunction</h4><p data-line=\"48\" class=\"code-line api-signature\"><code>(event: Event, type: TabBarSearchableType) =&gt; Promise&lt;void&gt;</code></p></section>\n\n<h2 id=\"animation\" data-line=\"50\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#animation\" aria-hidden=\"true\"></a> Animation</h2>\n<section class=\"api-entry\"><h4 id=\"function-iostransitionanimation\" data-line=\"52\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-iostransitionanimation\" aria-hidden=\"true\"></a> <code>function</code> iosTransitionAnimation</h4><p data-line=\"54\" class=\"code-line api-signature\"><code>(navEl: HTMLElement, opts: TransitionOptions) =&gt; Animation</code></p><p data-line=\"56\" class=\"code-line\">PackageのiOS navigation transitionを生成します。</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-popoverenteranimation\" data-line=\"58\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-popoverenteranimation\" aria-hidden=\"true\"></a> <code>function</code> popoverEnterAnimation</h4><p data-line=\"60\" class=\"code-line api-signature\"><code>(baseEl: HTMLElement, opts?: any) =&gt; Animation</code></p><p data-line=\"62\" class=\"code-line\">iOS Popoverのenter animationを生成します。</p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"function-popoverleaveanimation\" data-line=\"64\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#function-popoverleaveanimation\" aria-hidden=\"true\"></a> <code>function</code> popoverLeaveAnimation</h4><p data-line=\"66\" class=\"code-line api-signature\"><code>(baseEl: HTMLElement) =&gt; Animation</code></p><p data-line=\"68\" class=\"code-line\">iOS Popoverのleave animationを生成します。</p></section>\n\n\n</div>",
+      "headings": [
+        {
+          "id": "effect",
+          "text": "Effect",
+          "level": 2
+        },
+        {
+          "id": "function-registertabbareffect",
+          "text": "function registerTabBarEffect",
+          "level": 4
+        },
+        {
+          "id": "function-registersegmenteffect",
+          "text": "function registerSegmentEffect",
+          "level": 4
+        },
+        {
+          "id": "interface-registeredeffect",
+          "text": "interface registeredEffect",
+          "level": 4
+        },
+        {
+          "id": "interface-effectscales",
+          "text": "interface EffectScales",
+          "level": 4
+        },
+        {
+          "id": "searchable-tab-bar",
+          "text": "Searchable Tab Bar",
+          "level": 2
+        },
+        {
+          "id": "function-attachtabbarsearchable",
+          "text": "function attachTabBarSearchable",
+          "level": 4
+        },
+        {
+          "id": "enum-tabbarsearchabletype",
+          "text": "enum TabBarSearchableType",
+          "level": 4
+        },
+        {
+          "id": "type-alias-tabbarsearchablefunction",
+          "text": "type alias TabBarSearchableFunction",
+          "level": 4
+        },
+        {
+          "id": "animation",
+          "text": "Animation",
+          "level": 2
+        },
+        {
+          "id": "function-iostransitionanimation",
+          "text": "function iosTransitionAnimation",
+          "level": 4
+        },
+        {
+          "id": "function-popoverenteranimation",
+          "text": "function popoverEnterAnimation",
+          "level": 4
+        },
+        {
+          "id": "function-popoverleaveanimation",
+          "text": "function popoverLeaveAnimation",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/api.md"
     }
   ]
 } as const;

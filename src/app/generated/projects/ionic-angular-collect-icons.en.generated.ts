@@ -152,6 +152,30 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/readme.md"
+    },
+    {
+      "title": "CLI API",
+      "navTitle": "CLI API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "Reference",
+      "path": "/projects/ionic-angular-collect-icons/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\">Command reference for <code>@rdlabo/ionic-angular-collect-icons</code> v2.1.0.</p>\n<h2 id=\"command\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#command\" aria-hidden=\"true\"></a> Command</h2>\n<section class=\"api-entry\"><h4 id=\"command-npx-%40rdlabo%2Fionic-angular-collect-icons\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#command-npx-%40rdlabo%2Fionic-angular-collect-icons\" aria-hidden=\"true\"></a> <code>command</code> npx @rdlabo/ionic-angular-collect-icons</h4><p data-line=\"6\" class=\"code-line\">Scans Angular source and templates, then writes the Ionicons used by the application to <code>src/use-icons.ts</code> by default.</p><table data-line=\"8\" class=\"code-line\">\n<thead data-line=\"8\" class=\"code-line\">\n<tr data-line=\"8\" class=\"code-line\">\n<th>Option</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"10\" class=\"code-line\">\n<tr data-line=\"10\" class=\"code-line\">\n<td><strong><code>--dry-run</code></strong></td>\n<td><code>boolean</code></td>\n<td>Reports changes without writing files.</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"11\" class=\"code-line\">\n<td><strong><code>--interactive</code></strong></td>\n<td><code>boolean</code></td>\n<td>Collects all options through prompts and enables result inspection.</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"12\" class=\"code-line\">\n<td><strong><code>--initialize</code></strong></td>\n<td><code>boolean</code></td>\n<td>Adds the <code>addIcons</code> initialization and removes component-level registrations.</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"13\" class=\"code-line\">\n<td><strong><code>--project-path</code></strong></td>\n<td><code>string</code></td>\n<td>Project directory whose <code>src</code> tree is scanned.</td>\n<td>current directory</td>\n</tr>\n<tr data-line=\"14\" class=\"code-line\">\n<td><strong><code>--icon-path</code></strong></td>\n<td><code>string</code></td>\n<td>Generated icon registration file.</td>\n<td><code>src/use-icons.ts</code></td>\n</tr>\n</tbody>\n</table></section>\n\n\n</div>",
+      "headings": [
+        {
+          "id": "command",
+          "text": "Command",
+          "level": 2
+        },
+        {
+          "id": "command-npx-%40rdlabo%2Fionic-angular-collect-icons",
+          "text": "command npx @rdlabo/ionic-angular-collect-icons",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/api.md"
     }
   ]
 } as const;

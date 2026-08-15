@@ -137,6 +137,115 @@ export const PROJECT = {
       "codes": [],
       "scrollMap": [],
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/readme.md"
+    },
+    {
+      "title": "API",
+      "navTitle": "API",
+      "slug": "api",
+      "file": "api.md",
+      "section": "リファレンス",
+      "path": "/projects/ionic-angular-photo-editor/docs/api",
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\"><code>@rdlabo/ionic-angular-photo-editor</code> v21.6.2 が公開するAPIのリファレンスです。ComponentのinputはIonic Modalの <code>componentProps</code> を通して渡します。</p>\n<h2 id=\"component\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#component\" aria-hidden=\"true\"></a> Component</h2>\n<section class=\"api-entry\"><h4 id=\"component-photoeditorpage\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#component-photoeditorpage\" aria-hidden=\"true\"></a> <code>component</code> PhotoEditorPage</h4><p data-line=\"6\" class=\"code-line\">画像EditorをIonic Modalで表示します。</p><table data-line=\"8\" class=\"code-line\">\n<thead data-line=\"8\" class=\"code-line\">\n<tr data-line=\"8\" class=\"code-line\">\n<th>Input</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"10\" class=\"code-line\">\n<tr data-line=\"10\" class=\"code-line\">\n<td><strong><code>value</code></strong></td>\n<td><code>string</code></td>\n<td>画像URLまたはbase64文字列。必須です。</td>\n<td></td>\n</tr>\n<tr data-line=\"11\" class=\"code-line\">\n<td><strong><code>requireSquare</code></strong></td>\n<td><code>boolean</code></td>\n<td>保存前に正方形への切り抜きを必須にします。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"12\" class=\"code-line\">\n<td><strong><code>labels</code></strong></td>\n<td><code>Partial&lt;IDictionaryForEditor&gt;</code></td>\n<td>Editorのラベルを上書きします。</td>\n<td><code>undefined</code></td>\n</tr>\n</tbody>\n</table></section>\n\n\n<section class=\"api-entry\"><h4 id=\"component-photoviewerpage\" data-line=\"14\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#component-photoviewerpage\" aria-hidden=\"true\"></a> <code>component</code> PhotoViewerPage</h4><p data-line=\"16\" class=\"code-line\">1件以上の画像をIonic Modalで表示します。</p><table data-line=\"18\" class=\"code-line\">\n<thead data-line=\"18\" class=\"code-line\">\n<tr data-line=\"18\" class=\"code-line\">\n<th>Input</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"20\" class=\"code-line\">\n<tr data-line=\"20\" class=\"code-line\">\n<td><strong><code>imageUrls</code></strong></td>\n<td><code>string[]</code></td>\n<td>画像URLまたはbase64文字列。必須です。</td>\n<td></td>\n</tr>\n<tr data-line=\"21\" class=\"code-line\">\n<td><strong><code>index</code></strong></td>\n<td><code>number</code></td>\n<td>最初に選択する画像のindexです。</td>\n<td><code>0</code></td>\n</tr>\n<tr data-line=\"22\" class=\"code-line\">\n<td><strong><code>isCircle</code></strong></td>\n<td><code>boolean</code></td>\n<td>画像を円形で表示します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"23\" class=\"code-line\">\n<td><strong><code>enableDelete</code></strong></td>\n<td><code>boolean</code></td>\n<td>削除ボタンを表示します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"24\" class=\"code-line\">\n<td><strong><code>enableFooterSafeArea</code></strong></td>\n<td><code>boolean</code></td>\n<td>iOSのFooter Safe Areaを追加します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"25\" class=\"code-line\">\n<td><strong><code>labels</code></strong></td>\n<td><code>Partial&lt;IDictionaryForViewer&gt;</code></td>\n<td>Viewerのラベルを上書きします。</td>\n<td><code>undefined</code></td>\n</tr>\n</tbody>\n</table></section>\n\n\n<h2 id=\"service\" data-line=\"27\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#service\" aria-hidden=\"true\"></a> Service</h2>\n<section class=\"api-entry\"><h4 id=\"class-photofileservice\" data-line=\"29\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#class-photofileservice\" aria-hidden=\"true\"></a> <code>class</code> PhotoFileService</h4><p data-line=\"31\" class=\"code-line\">カメラ、アルバム、またはブラウザのfile inputから写真を読み込み、リサイズしてbase64文字列を返します。</p><table data-line=\"33\" class=\"code-line\">\n<thead data-line=\"33\" class=\"code-line\">\n<tr data-line=\"33\" class=\"code-line\">\n<th>Member</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"35\" class=\"code-line\">\n<tr data-line=\"35\" class=\"code-line\">\n<td><strong><code>photoMaxSize</code></strong></td>\n<td><code>number</code></td>\n<td>出力する画像の幅または高さの最大pixel数です。</td>\n<td><code>1000</code></td>\n</tr>\n<tr data-line=\"36\" class=\"code-line\">\n<td><strong><code>labels</code></strong></td>\n<td><code>IDictionaryForService</code></td>\n<td>カメラ、アルバム、キャンセルのラベルを上書きします。</td>\n<td></td>\n</tr>\n<tr data-line=\"37\" class=\"code-line\">\n<td><strong><code>loadPhoto(limit)</code></strong></td>\n<td><code>(limit: number) =&gt; Promise&lt;string[]&gt;</code></td>\n<td>写真の取得元を表示し、最大 <code>limit</code> 件の画像を返します。</td>\n<td></td>\n</tr>\n</tbody>\n</table></section>\n\n\n<h2 id=\"modal-result-type\" data-line=\"39\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#modal-result-type\" aria-hidden=\"true\"></a> Modal result type</h2>\n<section class=\"api-entry\"><h4 id=\"interface-iphotoeditordismiss\" data-line=\"41\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-iphotoeditordismiss\" aria-hidden=\"true\"></a> <code>interface</code> IPhotoEditorDismiss</h4><table data-line=\"43\" class=\"code-line\">\n<thead data-line=\"43\" class=\"code-line\">\n<tr data-line=\"43\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"45\" class=\"code-line\">\n<tr data-line=\"45\" class=\"code-line\">\n<td><strong><code>value</code></strong></td>\n<td><code>string</code></td>\n<td>保存した画像のURLまたはbase64文字列です。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-iphotoviewerdismiss\" data-line=\"47\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-iphotoviewerdismiss\" aria-hidden=\"true\"></a> <code>interface</code> IPhotoViewerDismiss</h4><table data-line=\"49\" class=\"code-line\">\n<thead data-line=\"49\" class=\"code-line\">\n<tr data-line=\"49\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"51\" class=\"code-line\">\n<tr data-line=\"51\" class=\"code-line\">\n<td><strong><code>delete</code></strong></td>\n<td><code>{ index: number; value: string }</code></td>\n<td>削除した画像のindexと値です。</td>\n</tr>\n</tbody>\n</table></section>\n\n<h2 id=\"component-prop-type\" data-line=\"53\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#component-prop-type\" aria-hidden=\"true\"></a> Component prop type</h2>\n<section class=\"api-entry\"><h4 id=\"interface-photoeditorprops\" data-line=\"55\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-photoeditorprops\" aria-hidden=\"true\"></a> <code>interface</code> PhotoEditorProps</h4><table data-line=\"57\" class=\"code-line\">\n<thead data-line=\"57\" class=\"code-line\">\n<tr data-line=\"57\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"59\" class=\"code-line\">\n<tr data-line=\"59\" class=\"code-line\">\n<td><strong><code>value</code></strong></td>\n<td><code>string</code></td>\n<td>画像URLまたはbase64文字列。必須です。</td>\n<td></td>\n</tr>\n<tr data-line=\"60\" class=\"code-line\">\n<td><strong><code>requireSquare</code></strong></td>\n<td><code>boolean</code></td>\n<td>正方形への切り抜きを必須にします。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"61\" class=\"code-line\">\n<td><strong><code>labels</code></strong></td>\n<td><code>Partial&lt;IDictionaryForEditor&gt;</code></td>\n<td>Editorのラベルを上書きします。</td>\n<td><code>undefined</code></td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-photoviewerprops\" data-line=\"63\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-photoviewerprops\" aria-hidden=\"true\"></a> <code>interface</code> PhotoViewerProps</h4><table data-line=\"65\" class=\"code-line\">\n<thead data-line=\"65\" class=\"code-line\">\n<tr data-line=\"65\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"67\" class=\"code-line\">\n<tr data-line=\"67\" class=\"code-line\">\n<td><strong><code>imageUrls</code></strong></td>\n<td><code>string[]</code></td>\n<td>画像URLまたはbase64文字列。<code>PhotoViewerPage</code> の表示時は必須です。</td>\n<td></td>\n</tr>\n<tr data-line=\"68\" class=\"code-line\">\n<td><strong><code>index</code></strong></td>\n<td><code>number</code></td>\n<td>最初に選択する画像のindexです。</td>\n<td><code>0</code></td>\n</tr>\n<tr data-line=\"69\" class=\"code-line\">\n<td><strong><code>isCircle</code></strong></td>\n<td><code>boolean</code></td>\n<td>画像を円形で表示します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"70\" class=\"code-line\">\n<td><strong><code>enableDelete</code></strong></td>\n<td><code>boolean</code></td>\n<td>削除ボタンを表示します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"71\" class=\"code-line\">\n<td><strong><code>enableFooterSafeArea</code></strong></td>\n<td><code>boolean</code></td>\n<td>iOSのFooter Safe Areaを追加します。</td>\n<td><code>false</code></td>\n</tr>\n<tr data-line=\"72\" class=\"code-line\">\n<td><strong><code>labels</code></strong></td>\n<td><code>Partial&lt;IDictionaryForViewer&gt;</code></td>\n<td>Viewerのラベルを上書きします。</td>\n<td><code>undefined</code></td>\n</tr>\n</tbody>\n</table></section>\n\n<h2 id=\"dictionary\" data-line=\"74\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#dictionary\" aria-hidden=\"true\"></a> Dictionary</h2>\n<section class=\"api-entry\"><h4 id=\"interface-idictionaryforeditor\" data-line=\"76\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-idictionaryforeditor\" aria-hidden=\"true\"></a> <code>interface</code> IDictionaryForEditor</h4><table data-line=\"78\" class=\"code-line\">\n<thead data-line=\"78\" class=\"code-line\">\n<tr data-line=\"78\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"80\" class=\"code-line\">\n<tr data-line=\"80\" class=\"code-line\">\n<td><strong><code>save</code></strong></td>\n<td><code>string</code></td>\n<td>保存actionのラベルです。</td>\n</tr>\n<tr data-line=\"81\" class=\"code-line\">\n<td><strong><code>crop</code></strong></td>\n<td><code>string</code></td>\n<td>Crop toolのラベルです。</td>\n</tr>\n<tr data-line=\"82\" class=\"code-line\">\n<td><strong><code>filter</code></strong></td>\n<td><code>string</code></td>\n<td>Filter toolのラベルです。</td>\n</tr>\n<tr data-line=\"83\" class=\"code-line\">\n<td><strong><code>brightness</code></strong></td>\n<td><code>string</code></td>\n<td>Brightness toolのラベルです。</td>\n</tr>\n<tr data-line=\"84\" class=\"code-line\">\n<td><strong><code>original</code></strong></td>\n<td><code>string</code></td>\n<td>Original filterのラベルです。</td>\n</tr>\n<tr data-line=\"85\" class=\"code-line\">\n<td><strong><code>invert</code></strong></td>\n<td><code>string</code></td>\n<td>Invert filterのラベルです。</td>\n</tr>\n<tr data-line=\"86\" class=\"code-line\">\n<td><strong><code>sepia</code></strong></td>\n<td><code>string</code></td>\n<td>Sepia filterのラベルです。</td>\n</tr>\n<tr data-line=\"87\" class=\"code-line\">\n<td><strong><code>vintage</code></strong></td>\n<td><code>string</code></td>\n<td>Vintage filterのラベルです。</td>\n</tr>\n<tr data-line=\"88\" class=\"code-line\">\n<td><strong><code>blur</code></strong></td>\n<td><code>string</code></td>\n<td>Blur filterのラベルです。</td>\n</tr>\n<tr data-line=\"89\" class=\"code-line\">\n<td><strong><code>grayscale</code></strong></td>\n<td><code>string</code></td>\n<td>Grayscale filterのラベルです。</td>\n</tr>\n<tr data-line=\"90\" class=\"code-line\">\n<td><strong><code>sharpen</code></strong></td>\n<td><code>string</code></td>\n<td>Sharpen filterのラベルです。</td>\n</tr>\n<tr data-line=\"91\" class=\"code-line\">\n<td><strong><code>emboss</code></strong></td>\n<td><code>string</code></td>\n<td>Emboss filterのラベルです。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-idictionaryforviewer\" data-line=\"93\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-idictionaryforviewer\" aria-hidden=\"true\"></a> <code>interface</code> IDictionaryForViewer</h4><table data-line=\"95\" class=\"code-line\">\n<thead data-line=\"95\" class=\"code-line\">\n<tr data-line=\"95\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"97\" class=\"code-line\">\n<tr data-line=\"97\" class=\"code-line\">\n<td><strong><code>delete</code></strong></td>\n<td><code>string</code></td>\n<td>削除actionのラベルです。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-idictionaryforservice\" data-line=\"99\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-idictionaryforservice\" aria-hidden=\"true\"></a> <code>interface</code> IDictionaryForService</h4><table data-line=\"101\" class=\"code-line\">\n<thead data-line=\"101\" class=\"code-line\">\n<tr data-line=\"101\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"103\" class=\"code-line\">\n<tr data-line=\"103\" class=\"code-line\">\n<td><strong><code>camera</code></strong></td>\n<td><code>string</code></td>\n<td>カメラのラベルです。</td>\n</tr>\n<tr data-line=\"104\" class=\"code-line\">\n<td><strong><code>album</code></strong></td>\n<td><code>string</code></td>\n<td>アルバムのラベルです。</td>\n</tr>\n<tr data-line=\"105\" class=\"code-line\">\n<td><strong><code>cancel</code></strong></td>\n<td><code>string</code></td>\n<td>キャンセルactionのラベルです。</td>\n</tr>\n</tbody>\n</table></section>\n\n<h2 id=\"supporting-type\" data-line=\"107\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#supporting-type\" aria-hidden=\"true\"></a> Supporting type</h2>\n<section class=\"api-entry\"><h4 id=\"interface-ifilter\" data-line=\"109\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-ifilter\" aria-hidden=\"true\"></a> <code>interface</code> IFilter</h4><table data-line=\"111\" class=\"code-line\">\n<thead data-line=\"111\" class=\"code-line\">\n<tr data-line=\"111\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"113\" class=\"code-line\">\n<tr data-line=\"113\" class=\"code-line\">\n<td><strong><code>name</code></strong></td>\n<td><code>string</code></td>\n<td>Filter名です。</td>\n</tr>\n<tr data-line=\"114\" class=\"code-line\">\n<td><strong><code>type</code></strong></td>\n<td><code>string</code></td>\n<td>Filter typeです。</td>\n</tr>\n<tr data-line=\"115\" class=\"code-line\">\n<td><strong><code>option</code></strong></td>\n<td><code>any</code></td>\n<td>Filter固有のoptionです。</td>\n</tr>\n<tr data-line=\"116\" class=\"code-line\">\n<td><strong><code>data</code></strong></td>\n<td><code>string</code></td>\n<td>Filter適用後の画像dataです。</td>\n</tr>\n<tr data-line=\"117\" class=\"code-line\">\n<td><strong><code>width</code></strong></td>\n<td><code>number</code></td>\n<td>画像の幅です。</td>\n</tr>\n<tr data-line=\"118\" class=\"code-line\">\n<td><strong><code>height</code></strong></td>\n<td><code>number</code></td>\n<td>画像の高さです。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-ifilterpreset\" data-line=\"120\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-ifilterpreset\" aria-hidden=\"true\"></a> <code>interface</code> IFilterPreset</h4><table data-line=\"122\" class=\"code-line\">\n<thead data-line=\"122\" class=\"code-line\">\n<tr data-line=\"122\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"124\" class=\"code-line\">\n<tr data-line=\"124\" class=\"code-line\">\n<td><strong><code>name</code></strong></td>\n<td><code>string</code></td>\n<td>Preset名です。</td>\n</tr>\n<tr data-line=\"125\" class=\"code-line\">\n<td><strong><code>type</code></strong></td>\n<td><code>string</code></td>\n<td>Filter typeです。</td>\n</tr>\n<tr data-line=\"126\" class=\"code-line\">\n<td><strong><code>option</code></strong></td>\n<td><code>any</code></td>\n<td>Filter固有のoptionです。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"interface-isize\" data-line=\"128\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-isize\" aria-hidden=\"true\"></a> <code>interface</code> ISize</h4><table data-line=\"130\" class=\"code-line\">\n<thead data-line=\"130\" class=\"code-line\">\n<tr data-line=\"130\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"132\" class=\"code-line\">\n<tr data-line=\"132\" class=\"code-line\">\n<td><strong><code>width</code></strong></td>\n<td><code>number</code></td>\n<td>pixel単位の幅です。</td>\n</tr>\n<tr data-line=\"133\" class=\"code-line\">\n<td><strong><code>height</code></strong></td>\n<td><code>number</code></td>\n<td>pixel単位の高さです。</td>\n</tr>\n</tbody>\n</table></section>\n\n</div>",
+      "headings": [
+        {
+          "id": "component",
+          "text": "Component",
+          "level": 2
+        },
+        {
+          "id": "component-photoeditorpage",
+          "text": "component PhotoEditorPage",
+          "level": 4
+        },
+        {
+          "id": "component-photoviewerpage",
+          "text": "component PhotoViewerPage",
+          "level": 4
+        },
+        {
+          "id": "service",
+          "text": "Service",
+          "level": 2
+        },
+        {
+          "id": "class-photofileservice",
+          "text": "class PhotoFileService",
+          "level": 4
+        },
+        {
+          "id": "modal-result-type",
+          "text": "Modal result type",
+          "level": 2
+        },
+        {
+          "id": "interface-iphotoeditordismiss",
+          "text": "interface IPhotoEditorDismiss",
+          "level": 4
+        },
+        {
+          "id": "interface-iphotoviewerdismiss",
+          "text": "interface IPhotoViewerDismiss",
+          "level": 4
+        },
+        {
+          "id": "component-prop-type",
+          "text": "Component prop type",
+          "level": 2
+        },
+        {
+          "id": "interface-photoeditorprops",
+          "text": "interface PhotoEditorProps",
+          "level": 4
+        },
+        {
+          "id": "interface-photoviewerprops",
+          "text": "interface PhotoViewerProps",
+          "level": 4
+        },
+        {
+          "id": "dictionary",
+          "text": "Dictionary",
+          "level": 2
+        },
+        {
+          "id": "interface-idictionaryforeditor",
+          "text": "interface IDictionaryForEditor",
+          "level": 4
+        },
+        {
+          "id": "interface-idictionaryforviewer",
+          "text": "interface IDictionaryForViewer",
+          "level": 4
+        },
+        {
+          "id": "interface-idictionaryforservice",
+          "text": "interface IDictionaryForService",
+          "level": 4
+        },
+        {
+          "id": "supporting-type",
+          "text": "Supporting type",
+          "level": 2
+        },
+        {
+          "id": "interface-ifilter",
+          "text": "interface IFilter",
+          "level": 4
+        },
+        {
+          "id": "interface-ifilterpreset",
+          "text": "interface IFilterPreset",
+          "level": 4
+        },
+        {
+          "id": "interface-isize",
+          "text": "interface ISize",
+          "level": 4
+        }
+      ],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/api.md"
     }
   ]
 } as const;

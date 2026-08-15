@@ -110,6 +110,13 @@ export const PROJECTS_EN = [
         "slug": "optional-features",
         "section": "Reference",
         "path": "/projects/ionic-angular-kit/docs/optional-features"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/ionic-angular-kit/docs/api"
       }
     ]
   },
@@ -149,6 +156,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/ionic-angular-photo-editor/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/ionic-angular-photo-editor/docs/api"
       }
     ]
   },
@@ -188,6 +202,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/ionic-angular-scroll-header/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/ionic-angular-scroll-header/docs/api"
       }
     ]
   },
@@ -227,6 +248,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/ngx-cdk-scroll-strategies/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/api"
       }
     ]
   },
@@ -273,6 +301,13 @@ export const PROJECTS_EN = [
         "slug": "using-ion-item-group",
         "section": "Documentation",
         "path": "/projects/ionic-theme-ios26/docs/using-ion-item-group"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/ionic-theme-ios26/docs/api"
       }
     ]
   },
@@ -312,6 +347,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/ionic-theme-md3/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/ionic-theme-md3/docs/api"
       }
     ]
   },
@@ -351,6 +393,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/ionic-angular-collect-icons/docs/readme"
+      },
+      {
+        "title": "CLI API",
+        "navTitle": "CLI API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/ionic-angular-collect-icons/docs/api"
       }
     ]
   },
@@ -422,6 +471,13 @@ export const PROJECTS_EN = [
         "slug": "testing-operations",
         "section": "Reference",
         "path": "/projects/workers-hono-kit/docs/testing-operations"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/workers-hono-kit/docs/api"
       }
     ]
   },
@@ -479,6 +535,13 @@ export const PROJECTS_EN = [
         "slug": "rules",
         "section": "Reference",
         "path": "/projects/eslint-plugin-rules/docs/rules"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/eslint-plugin-rules/docs/api"
       },
       {
         "title": "component-property-use-readonly",
@@ -647,6 +710,13 @@ export const PROJECTS_EN = [
         "slug": "upstream-differences",
         "section": "Comparison",
         "path": "/projects/capacitor-docgen/docs/upstream-differences"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/capacitor-docgen/docs/api"
       }
     ]
   },
@@ -1012,6 +1082,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/capacitor-codescanner/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/capacitor-codescanner/docs/api"
       }
     ]
   },
@@ -1051,6 +1128,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/capacitor-screenshot-event/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/capacitor-screenshot-event/docs/api"
       }
     ]
   },
@@ -1090,6 +1174,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/capacitor-printer/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/capacitor-printer/docs/api"
       }
     ]
   },
@@ -1129,6 +1220,13 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/capacitor-brotherprint/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/capacitor-brotherprint/docs/api"
       }
     ]
   }
@@ -1203,6 +1301,13 @@ export const PROJECTS_JA = [
         "slug": "optional-features",
         "section": "リファレンス",
         "path": "/projects/ionic-angular-kit/docs/optional-features"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/ionic-angular-kit/docs/api"
       }
     ]
   },
@@ -1242,6 +1347,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/ionic-angular-photo-editor/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/ionic-angular-photo-editor/docs/api"
       }
     ]
   },
@@ -1281,6 +1393,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/ionic-angular-scroll-header/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/ionic-angular-scroll-header/docs/api"
       }
     ]
   },
@@ -1320,6 +1439,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/ngx-cdk-scroll-strategies/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/api"
       }
     ]
   },
@@ -1366,6 +1492,13 @@ export const PROJECTS_JA = [
         "slug": "using-ion-item-group",
         "section": "ドキュメント",
         "path": "/projects/ionic-theme-ios26/docs/using-ion-item-group"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/ionic-theme-ios26/docs/api"
       }
     ]
   },
@@ -1405,6 +1538,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/ionic-theme-md3/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/ionic-theme-md3/docs/api"
       }
     ]
   },
@@ -1444,6 +1584,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/ionic-angular-collect-icons/docs/readme"
+      },
+      {
+        "title": "CLI API",
+        "navTitle": "CLI API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/ionic-angular-collect-icons/docs/api"
       }
     ]
   },
@@ -1515,6 +1662,13 @@ export const PROJECTS_JA = [
         "slug": "testing-operations",
         "section": "リファレンス",
         "path": "/projects/workers-hono-kit/docs/testing-operations"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/workers-hono-kit/docs/api"
       }
     ]
   },
@@ -1572,6 +1726,13 @@ export const PROJECTS_JA = [
         "slug": "rules",
         "section": "リファレンス",
         "path": "/projects/eslint-plugin-rules/docs/rules"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/eslint-plugin-rules/docs/api"
       },
       {
         "title": "component-property-use-readonly",
@@ -1740,6 +1901,13 @@ export const PROJECTS_JA = [
         "slug": "upstream-differences",
         "section": "比較",
         "path": "/projects/capacitor-docgen/docs/upstream-differences"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/capacitor-docgen/docs/api"
       }
     ]
   },
@@ -2105,6 +2273,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/capacitor-codescanner/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/capacitor-codescanner/docs/api"
       }
     ]
   },
@@ -2144,6 +2319,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/capacitor-screenshot-event/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/capacitor-screenshot-event/docs/api"
       }
     ]
   },
@@ -2183,6 +2365,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/capacitor-printer/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/capacitor-printer/docs/api"
       }
     ]
   },
@@ -2222,6 +2411,13 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/capacitor-brotherprint/docs/readme"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/capacitor-brotherprint/docs/api"
       }
     ]
   }
