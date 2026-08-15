@@ -60,7 +60,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-angular-kit/docs/getting-started.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/getting-started.md"
     },
     {
       "title": "Storage and Overlays",
@@ -84,7 +84,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-angular-kit/docs/storage-overlays.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/storage-overlays.md"
     },
     {
       "title": "Authentication and HTTP",
@@ -108,7 +108,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-angular-kit/docs/auth-http.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/auth-http.md"
     },
     {
       "title": "Offline and Realtime",
@@ -132,7 +132,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-angular-kit/docs/offline-realtime.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/offline-realtime.md"
     },
     {
       "title": "Optional Features",
@@ -166,7 +166,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-angular-kit/docs/optional-features.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/optional-features.md"
     }
   ]
 } as const;

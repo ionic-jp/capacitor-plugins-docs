@@ -50,7 +50,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/workers-hono-kit/docs/getting-started.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/getting-started.md"
     },
     {
       "title": "HTTP and Authentication",
@@ -84,7 +84,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/workers-hono-kit/docs/http-auth.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/http-auth.md"
     },
     {
       "title": "Data Layer",
@@ -113,7 +113,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/workers-hono-kit/docs/data-layer.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/data-layer.md"
     },
     {
       "title": "Realtime and Offline",
@@ -137,7 +137,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/workers-hono-kit/docs/realtime-offline.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/realtime-offline.md"
     },
     {
       "title": "Testing and Operations",
@@ -171,7 +171,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/workers-hono-kit/docs/testing-operations.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/testing-operations.md"
     }
   ]
 } as const;

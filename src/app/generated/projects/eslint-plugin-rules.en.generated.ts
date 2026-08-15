@@ -60,7 +60,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/getting-started.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/getting-started.md"
     },
     {
       "title": "Configuration",
@@ -89,7 +89,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/configuration.md"
     },
     {
       "title": "Rules",
@@ -113,7 +113,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules.md"
     },
     {
       "title": "component-property-use-readonly",
@@ -152,7 +152,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/component-property-use-readonly.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/component-property-use-readonly.md"
     },
     {
       "title": "deny-constructor-di",
@@ -181,7 +181,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-constructor-di.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-constructor-di.md"
     },
     {
       "title": "deny-element",
@@ -215,7 +215,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-element.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-element.md"
     },
     {
       "title": "deny-import-from-ionic-module",
@@ -244,7 +244,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-import-from-ionic-module.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-import-from-ionic-module.md"
     },
     {
       "title": "deny-overlay-create",
@@ -273,7 +273,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-overlay-create.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-overlay-create.md"
     },
     {
       "title": "deny-soft-private-modifier",
@@ -297,7 +297,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-soft-private-modifier.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/deny-soft-private-modifier.md"
     },
     {
       "title": "implements-ionic-lifecycle",
@@ -326,7 +326,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/implements-ionic-lifecycle.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/implements-ionic-lifecycle.md"
     },
     {
       "title": "ionic-attr-type-check",
@@ -370,7 +370,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/ionic-attr-type-check.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/ionic-attr-type-check.md"
     },
     {
       "title": "no-component-method-except-lifecycle",
@@ -414,7 +414,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/no-component-method-except-lifecycle.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/no-component-method-except-lifecycle.md"
     },
     {
       "title": "no-component-writable-signal",
@@ -433,7 +433,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/no-component-writable-signal.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/no-component-writable-signal.md"
     },
     {
       "title": "no-reactive-forms",
@@ -452,7 +452,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/no-reactive-forms.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/no-reactive-forms.md"
     },
     {
       "title": "no-template-driven-forms",
@@ -471,7 +471,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/no-template-driven-forms.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/no-template-driven-forms.md"
     },
     {
       "title": "prefer-disable-handler",
@@ -510,7 +510,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/prefer-disable-handler.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/prefer-disable-handler.md"
     },
     {
       "title": "prefer-modal-launcher",
@@ -539,7 +539,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/prefer-modal-launcher.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/prefer-modal-launcher.md"
     },
     {
       "title": "require-viewmodel",
@@ -568,7 +568,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/require-viewmodel.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/require-viewmodel.md"
     },
     {
       "title": "restrict-try-block",
@@ -597,7 +597,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/restrict-try-block.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/restrict-try-block.md"
     },
     {
       "title": "signal-use-as-signal-template",
@@ -631,7 +631,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/signal-use-as-signal-template.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/signal-use-as-signal-template.md"
     },
     {
       "title": "signal-use-as-signal",
@@ -665,7 +665,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/eslint-plugin-rules/docs/rules/signal-use-as-signal.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/rules/signal-use-as-signal.md"
     }
   ]
 } as const;

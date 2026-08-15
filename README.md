@@ -4,7 +4,7 @@ Documentation portal for personal open source projects created and maintained by
 
 The `rdlabo` name is also used by 一般社団法人リレーションデザイン研究所, but every OSS project documented here is owned and maintained personally by rdlabo. This portal and its projects are not activities of that incorporated association.
 
-Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The repository will move to `rdlabo-dev/docs` in a later rollout. The legacy Netlify hostname forwards every path to `docs.rdlabo.dev`.
+Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The repository is `rdlabo-dev/docs`.
 
 ## Current projects
 
@@ -58,8 +58,6 @@ npm run docs:generate
 /ja/projects/:project/docs/:page
 ```
 
-The legacy Netlify hostname permanently forwards every path to the same path on `https://docs.rdlabo.dev` via a single catch-all in `netlify.toml`.
-
 ## Documentation format
 
 Narrative documentation uses Zenn Markdown. Markdown-only projects take their displayed version from the exactly pinned installed package. Capacitor API entries are expanded from the installed package's pinned `dist/docs.json` with placeholders such as:
@@ -85,4 +83,8 @@ at 450kB.
 
 ## Deployment
 
-Production deploys to Cloudflare Workers Static Assets on the custom domain only (`docs.rdlabo.dev`); `workers.dev` and preview URLs are disabled. Deploy on each release or docs update with `npm run deploy` or `npm run deploy:dry-run` after a local build. Cloudflare drops trailing slashes (`html_handling: drop-trailing-slash`) so URLs match canonical project and docs routes. The legacy Netlify hostname keeps a forced permanent catch-all that forwards every path to `https://docs.rdlabo.dev/:splat`.
+Production deploys to Cloudflare Workers Static Assets on the custom domain only (`docs.rdlabo.dev`); `workers.dev` and preview URLs are disabled. After `CI` succeeds for the current `main` revision, the separate `Deploy to Cloudflare` workflow checks out that exact verified commit, rebuilds the production assets, and deploys them with the repository-pinned Wrangler version. A completed CI run for an older revision is skipped, preventing an out-of-order build from rolling production back. The workflow can also be dispatched manually from `main`.
+
+The GitHub Actions repository secret `CLOUDFLARE_API_TOKEN` is required. Create a narrowly scoped Cloudflare API token that can edit Workers for the account declared in `wrangler.jsonc`; never commit the token. Local deployment remains available for recovery through `npm run deploy` and `npm run deploy:dry-run`, but is not part of the normal release flow.
+
+Cloudflare drops trailing slashes (`html_handling: drop-trailing-slash`) so URLs match canonical project and docs routes.

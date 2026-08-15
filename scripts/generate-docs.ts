@@ -18,7 +18,7 @@ import { enforceGeneratedHtmlPolicy } from './html-policy';
 import { normalizeImportedReadmeHeadings } from './markdown-headings';
 
 const root = resolve(process.cwd());
-const docsRepositoryUrl = 'https://github.com/ionic-jp/capacitor-plugins-docs';
+const docsRepositoryUrl = 'https://github.com/rdlabo-dev/docs';
 
 const stripHtml = (value: string) => value.replace(/<\/?code>/g, '`').replace(/<[^>]+>/g, '');
 const tagText = (tags: any[], name: string) => tags?.find((tag) => tag.name === name)?.text ?? '';

@@ -64,7 +64,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/configuration.md"
     },
     {
       "title": "Vanilla JS Quick start",
@@ -77,7 +77,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/vanilla-js.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/vanilla-js.md"
     },
     {
       "title": "Angular Quick start",
@@ -96,7 +96,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/angular.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/angular.md"
     },
     {
       "title": "React Quick start",
@@ -115,7 +115,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/react.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/react.md"
     },
     {
       "title": "Event Listeners",
@@ -299,7 +299,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/learn/event-listeners.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/learn/event-listeners.md"
     },
     {
       "title": "Server Integration",
@@ -333,7 +333,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/server-integration.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/server-integration.md"
     },
     {
       "title": "Initialize to your project",
@@ -392,7 +392,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/initialize.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/initialize.md"
     },
     {
       "title": "PaymentSheet",
@@ -523,7 +523,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/payment-sheet.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/payment-sheet.md"
     },
     {
       "title": "PaymentFlow",
@@ -678,7 +678,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/payment-flow.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/payment-flow.md"
     },
     {
       "title": "ApplePay",
@@ -872,7 +872,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/apple-pay.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/apple-pay.md"
     },
     {
       "title": "Google Pay",
@@ -1193,7 +1193,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/google-pay.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/google-pay.md"
     },
     {
       "title": "API",
@@ -1547,7 +1547,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/api.md"
     }
   ]
 } as const;

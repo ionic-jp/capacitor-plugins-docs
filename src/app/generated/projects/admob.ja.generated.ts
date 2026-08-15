@@ -60,7 +60,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/ja/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/configuration.md"
     },
     {
       "title": "同意管理",
@@ -94,7 +94,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/ja/consent.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/consent.md"
     },
     {
       "title": "バナー広告",
@@ -113,7 +113,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/ja/banner.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/banner.md"
     },
     {
       "title": "フルスクリーン広告",
@@ -142,7 +142,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/ja/full-screen-ads.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/full-screen-ads.md"
     },
     {
       "title": "アプリ起動時広告",
@@ -155,7 +155,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/ja/app-open.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/app-open.md"
     },
     {
       "title": "API",
@@ -614,7 +614,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/api.md"
     }
   ]
 } as const;

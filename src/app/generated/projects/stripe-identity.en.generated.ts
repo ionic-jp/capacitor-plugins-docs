@@ -56,7 +56,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-identity/docs/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-identity/docs/configuration.md"
     },
     {
       "title": "Identity Verification Sheet",
@@ -268,7 +268,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-identity/docs/identity-verification-sheet.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-identity/docs/identity-verification-sheet.md"
     },
     {
       "title": "API",
@@ -367,7 +367,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-identity/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-identity/docs/api.md"
     }
   ]
 } as const;

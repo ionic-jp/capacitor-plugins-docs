@@ -75,7 +75,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-terminal/docs/ja/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/ja/configuration.md"
     },
     {
       "title": "支払いを受け付ける",
@@ -394,7 +394,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-terminal/docs/ja/collect-a-payment.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/ja/collect-a-payment.md"
     },
     {
       "title": "リーダーのライフサイクル",
@@ -682,7 +682,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-terminal/docs/ja/reader-lifecycle.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/ja/reader-lifecycle.md"
     },
     {
       "title": "Tap to Pay",
@@ -886,7 +886,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-terminal/docs/ja/tap-to-pay.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/ja/tap-to-pay.md"
     },
     {
       "title": "API",
@@ -1270,7 +1270,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/stripe-terminal/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/ja/api.md"
     }
   ]
 } as const;

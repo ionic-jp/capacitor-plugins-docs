@@ -60,7 +60,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/configuration.md"
     },
     {
       "title": "Consent",
@@ -94,7 +94,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/consent.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/consent.md"
     },
     {
       "title": "Banner Ads",
@@ -113,7 +113,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/banner.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/banner.md"
     },
     {
       "title": "Full-screen Ads",
@@ -142,7 +142,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/full-screen-ads.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/full-screen-ads.md"
     },
     {
       "title": "App Open Ads",
@@ -155,7 +155,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/app-open.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/app-open.md"
     },
     {
       "title": "API",
@@ -614,7 +614,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/admob/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/api.md"
     }
   ]
 } as const;

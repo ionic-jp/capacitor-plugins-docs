@@ -146,7 +146,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-theme-ios26/docs/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/readme.md"
     },
     {
       "title": "Using ion-item-group",
@@ -195,7 +195,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-theme-ios26/docs/using-ion-item-group.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/using-ion-item-group.md"
     }
   ]
 } as const;

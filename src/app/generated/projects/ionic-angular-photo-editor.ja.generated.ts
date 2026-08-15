@@ -136,7 +136,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/ionic-angular-photo-editor/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/readme.md"
     }
   ]
 } as const;

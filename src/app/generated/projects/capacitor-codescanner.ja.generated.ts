@@ -96,7 +96,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/capacitor-codescanner/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-codescanner/docs/ja/readme.md"
     }
   ]
 } as const;

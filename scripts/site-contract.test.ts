@@ -66,18 +66,6 @@ test('pins every documentation source to the installed package version', async (
   }
 });
 
-test('Netlify legacy host forwards every path to docs.rdlabo.dev', async () => {
-  const config = await readFile(new URL('../netlify.toml', import.meta.url), 'utf8');
-  const blocks = config.split('[[redirects]]').slice(1);
-  assert.equal(blocks.length, 1, 'Netlify must declare exactly one redirect');
-  assert.match(
-    blocks[0],
-    /from\s*=\s*"\/\*"[\s\S]*?to\s*=\s*"https:\/\/docs\.rdlabo\.dev\/:splat"[\s\S]*?status\s*=\s*301[\s\S]*?force\s*=\s*true/,
-  );
-  assert.doesNotMatch(config, /status\s*=\s*404/);
-  assert.doesNotMatch(config, /from\s*=\s*"\/(?:stripe|admob|docs|projects)/);
-});
-
 test('serves locale-specific static 404 pages', async () => {
   const [english, japanese] = await Promise.all([
     readFile(new URL('../public/404.html', import.meta.url), 'utf8'),
@@ -100,6 +88,8 @@ test('rdlabo brand logo title is English-only', async () => {
 
 test('uses the rdlabo-dev GitHub owner throughout site sources', async () => {
   const legacyOwner = ['rdlabo', 'team'].join('-');
+  const legacyDocsRepository = ['ionic-jp', 'capacitor-plugins-docs'].join('/');
+  const docsRepositoryUrl = 'https://github.com/rdlabo-dev/docs';
   const roots = [
     new URL('../README.md', import.meta.url),
     new URL('../scripts/', import.meta.url),
@@ -118,10 +108,24 @@ test('uses the rdlabo-dev GitHub owner throughout site sources', async () => {
   for (const file of files) {
     const source = await readFile(file, 'utf8');
     assert.ok(!source.includes(legacyOwner), `${file.pathname} must not reference ${legacyOwner}`);
+    if (!/\.generated\.ts$/.test(file.pathname)) {
+      assert.ok(
+        !source.includes(legacyDocsRepository),
+        `${file.pathname} must not reference ${legacyDocsRepository}`,
+      );
+    }
   }
+
+  const generateDocs = await readFile(new URL('./generate-docs.ts', import.meta.url), 'utf8');
+  assert.match(
+    generateDocs,
+    new RegExp(`docsRepositoryUrl\\s*=\\s*'${docsRepositoryUrl.replaceAll('.', '\\.')}'`),
+  );
+  assert.match(generateDocs, /editUrl:\s*`\$\{docsRepositoryUrl\}\/edit\/main\//);
 
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
   assert.match(readme, /`rdlabo-dev\/docs`/);
+  assert.doesNotMatch(readme, /later rollout/);
 });
 
 test('favicon brand assets are wired for rdlabo.dev', async () => {
@@ -681,6 +685,50 @@ test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async ()
   await assert.rejects(() =>
     access(new URL('../public/_redirects', import.meta.url), constants.F_OK),
   );
+});
+
+test('deploys verified main revisions to Cloudflare', async () => {
+  const [workflow, workflowFiles] = await Promise.all([
+    readFile(new URL('../.github/workflows/deploy-cloudflare.yml', import.meta.url), 'utf8'),
+    readdir(new URL('../.github/workflows', import.meta.url)),
+  ]);
+
+  await assert.rejects(
+    () => access(new URL('../netlify.toml', import.meta.url), constants.F_OK),
+    (error: NodeJS.ErrnoException) => error.code === 'ENOENT',
+  );
+  assert.equal(
+    workflowFiles.some((fileName) => /netlify/i.test(fileName)),
+    false,
+  );
+
+  assert.match(workflow, /^name: Deploy to Cloudflare$/m);
+  assert.match(workflow, /^  workflow_run:$/m);
+  assert.match(workflow, /^    workflows: \[CI\]$/m);
+  assert.match(workflow, /^    branches: \[main\]$/m);
+  assert.match(workflow, /github\.event\.workflow_run\.conclusion == 'success'/);
+  assert.match(workflow, /github\.event\.workflow_run\.event == 'push'/);
+  assert.match(workflow, /github\.event\.workflow_run\.head_sha == github\.sha/);
+  assert.match(workflow, /github\.ref == 'refs\/heads\/main'/);
+  assert.match(workflow, /ref: \$\{\{ github\.event\.workflow_run\.head_sha \|\| github\.sha \}\}/);
+  assert.match(workflow, /^        run: npm ci$/m);
+  assert.match(workflow, /^        run: npm run build$/m);
+  assert.match(workflow, /^        run: npx wrangler deploy$/m);
+  const actionReferences = [...workflow.matchAll(/^\s+uses:\s+([^\s#]+)/gm)].map(
+    (match) => match[1],
+  );
+  assert.deepEqual(actionReferences, [
+    'actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09',
+    'actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444',
+  ]);
+  for (const reference of actionReferences) {
+    assert.match(reference, /^[\w.-]+\/[\w.-]+@[a-f0-9]{40}$/);
+  }
+  assert.match(
+    workflow,
+    /^          CLOUDFLARE_API_TOKEN: \$\{\{ secrets\.CLOUDFLARE_API_TOKEN \}\}$/m,
+  );
+  assert.doesNotMatch(workflow, /netlify/i);
 });
 
 test('uses docs.rdlabo.dev as the canonical origin in site SEO outputs', async () => {

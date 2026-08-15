@@ -86,7 +86,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/ionic-jp/capacitor-plugins-docs/edit/main/src/capacitor-screenshot-event/docs/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-screenshot-event/docs/readme.md"
     }
   ]
 } as const;
