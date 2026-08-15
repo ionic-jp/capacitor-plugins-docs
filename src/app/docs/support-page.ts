@@ -9,7 +9,7 @@ import { SeoService } from './seo.service';
         <ng-container i18n="@@supportEyebrow">Support open source</ng-container>
       </p>
       <h1
-        class="mt-5 mb-0 max-w-3xl text-[clamp(3rem,7vw,6rem)] leading-[0.95] font-semibold tracking-[-0.065em] text-[#211d1b]"
+        class="mt-5 mb-0 max-w-3xl text-[clamp(2.5rem,6vw,5.25rem)] leading-[1.04] font-semibold tracking-[-0.045em] text-[#211d1b]"
       >
         <ng-container i18n="@@supportHeading">Help rdlabo projects keep moving</ng-container>
       </h1>
