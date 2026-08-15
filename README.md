@@ -79,4 +79,4 @@ remain lazy-loaded, so the hard error stays at 450kB.
 
 ## Deployment
 
-Production deploys to Cloudflare Workers Static Assets (`docs.rdlabo.dev`) on each release or docs update. Use `npm run deploy` or `npm run deploy:dry-run` after a local build. Cloudflare drops trailing slashes (`html_handling: drop-trailing-slash`) so URLs match canonical project and docs routes. The legacy Netlify hostname keeps a forced permanent catch-all that forwards every path to `https://docs.rdlabo.dev/:splat`.
+Production deploys to Cloudflare Workers Static Assets on the custom domain only (`docs.rdlabo.dev`); `workers.dev` and preview URLs are disabled. Deploy on each release or docs update with `npm run deploy` or `npm run deploy:dry-run` after a local build. Cloudflare drops trailing slashes (`html_handling: drop-trailing-slash`) so URLs match canonical project and docs routes. The legacy Netlify hostname keeps a forced permanent catch-all that forwards every path to `https://docs.rdlabo.dev/:splat`.

@@ -520,8 +520,8 @@ test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async ()
   assert.equal(wrangler.name, 'docs');
   assert.equal(wrangler.account_id, '09b7a8355cbc8a838af7de40ed9ec7f8');
   assert.equal(wrangler.compatibility_date, '2026-08-15');
-  assert.equal(wrangler.workers_dev, true);
-  assert.equal(wrangler.preview_urls, true);
+  assert.equal(wrangler.workers_dev, false);
+  assert.equal(wrangler.preview_urls, false);
   assert.equal(wrangler.assets?.directory, './dist/capacitor-plugins-docs/browser');
   assert.equal(wrangler.assets?.not_found_handling, '404-page');
   assert.equal(wrangler.assets?.html_handling, 'drop-trailing-slash');
