@@ -609,6 +609,48 @@ export const PROJECTS_EN = [
     ]
   },
   {
+    "id": "capacitor-docgen",
+    "slug": "capacitor-docgen",
+    "name": "rdlabo Capacitor Docgen",
+    "shortName": "Capacitor Docgen",
+    "packageName": "@rdlabo/capacitor-docgen",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-docgen",
+    "category": "developer-tools",
+    "icon": "docs",
+    "version": "0.4.1",
+    "description": "Upstream-compatible Capacitor documentation generator with interface inheritance.",
+    "headline": "Generate Capacitor plugin docs with inherited interfaces",
+    "overview": "Keep the upstream docgen CLI, placeholders, output helpers, and exported functions while expanding inherited interface members into generated documentation.",
+    "featuresHeading": "Why use the fork",
+    "features": [
+      {
+        "title": "Upstream-compatible CLI",
+        "description": "Keep the same docgen binary, flags, placeholders, output commands, and exported functions as @capacitor/docgen."
+      },
+      {
+        "title": "Interface inheritance",
+        "description": "Resolve TypeScript extends clauses and append inherited methods and properties, including on the primary API."
+      }
+    ],
+    "path": "/projects/capacitor-docgen",
+    "pages": [
+      {
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
+        "slug": "getting-started",
+        "section": "Guide",
+        "path": "/projects/capacitor-docgen/docs/getting-started"
+      },
+      {
+        "title": "Differences from Upstream",
+        "navTitle": "Differences from Upstream",
+        "slug": "upstream-differences",
+        "section": "Comparison",
+        "path": "/projects/capacitor-docgen/docs/upstream-differences"
+      }
+    ]
+  },
+  {
     "id": "stripe",
     "slug": "capacitor-stripe",
     "name": "Capacitor Community Stripe",
@@ -1656,6 +1698,48 @@ export const PROJECTS_JA = [
         "slug": "rules/signal-use-as-signal",
         "section": "ルール",
         "path": "/projects/eslint-plugin-rules/docs/rules/signal-use-as-signal"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-docgen",
+    "slug": "capacitor-docgen",
+    "name": "rdlabo Capacitor Docgen",
+    "shortName": "Capacitor Docgen",
+    "packageName": "@rdlabo/capacitor-docgen",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-docgen",
+    "category": "developer-tools",
+    "icon": "docs",
+    "version": "0.4.1",
+    "description": "interface継承に対応した、本家互換のCapacitorドキュメント生成CLI。",
+    "headline": "継承したinterfaceを含めてCapacitorプラグインドキュメントを生成する",
+    "overview": "本家docgenのCLI、placeholder、出力helper、export functionを維持しつつ、継承したinterface memberを生成ドキュメントへ展開します。",
+    "featuresHeading": "forkを使う理由",
+    "features": [
+      {
+        "title": "本家互換CLI",
+        "description": "@capacitor/docgenと同じdocgenバイナリ、flag、placeholder、出力command、export functionを維持します。"
+      },
+      {
+        "title": "interface継承",
+        "description": "TypeScriptのextends句を解決し、primary APIを含む継承method・propertyを生成ドキュメントへ追加します。"
+      }
+    ],
+    "path": "/projects/capacitor-docgen",
+    "pages": [
+      {
+        "title": "はじめに",
+        "navTitle": "はじめに",
+        "slug": "getting-started",
+        "section": "ガイド",
+        "path": "/projects/capacitor-docgen/docs/getting-started"
+      },
+      {
+        "title": "本家との差分",
+        "navTitle": "本家との差分",
+        "slug": "upstream-differences",
+        "section": "比較",
+        "path": "/projects/capacitor-docgen/docs/upstream-differences"
       }
     ]
   },

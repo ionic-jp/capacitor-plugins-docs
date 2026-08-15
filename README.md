@@ -27,6 +27,7 @@ Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The reposit
 | rdlabo Ionic Angular Collect Icons | `src/ionic-angular-collect-icons/docs` |
 | rdlabo Workers Hono Kit | `src/workers-hono-kit/docs` |
 | rdlabo ESLint Plugin Rules | `src/eslint-plugin-rules/docs` |
+| rdlabo Capacitor Docgen | `src/capacitor-docgen/docs` |
 
 Project metadata, navigation, localized landing copy, and API input are declared in `scripts/project-manifest.ts`. The generator creates a small catalog plus one lazy module per project and locale.
 
@@ -77,8 +78,8 @@ bundle. `.npmrc` enables legacy peer resolution because those packages may docum
 Angular major than the portal itself; every source version remains exact in `package-lock.json`.
 
 Production `anyScript` budgets in `angular.json` warn at 405kB and fail at 450kB. The warning
-baseline covers the shared bilingual catalog and GitHub Star UI for 17 projects (the current
-production main is about 394.4kB); documentation bodies remain lazy-loaded, so the hard error stays
+baseline covers the shared bilingual catalog and GitHub Star UI for 18 projects (the current
+production main is about 397.7kB); documentation bodies remain lazy-loaded, so the hard error stays
 at 450kB.
 
 ## Deployment

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { access, constants, readFile, readdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import ts from 'typescript';
 import { projectDefinitions } from './project-manifest';
@@ -518,10 +519,20 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
   };
   const packageVersions = { ...packageJson.dependencies, ...packageJson.devDependencies };
 
-  assert.equal(
-    projectDefinitions.some((project) => project.id === 'capacitor-docgen'),
-    false,
-    'the upstream capacitor-docgen fork is intentionally held back',
+  const docgenProject = projectDefinitions.find((entry) => entry.id === 'capacitor-docgen');
+  assert.ok(docgenProject, 'capacitor-docgen must be declared in the manifest');
+  assert.equal(docgenProject.packageName, '@rdlabo/capacitor-docgen');
+  assert.equal(docgenProject.repositoryUrl, 'https://github.com/rdlabo-dev/capacitor-docgen');
+  assert.equal(docgenProject.category, 'developer-tools');
+  assert.equal(docgenProject.adapter, 'markdown');
+  assert.equal(docgenProject.icon, 'docs');
+  assert.equal(packageVersions['@rdlabo/capacitor-docgen'], '0.4.1');
+  assert.deepEqual(
+    docgenProject.pages.map((page) => [page.slug, page.file, page.section.en, page.section.ja]),
+    [
+      ['getting-started', 'getting-started.md', 'Guide', 'ガイド'],
+      ['upstream-differences', 'upstream-differences.md', 'Comparison', '比較'],
+    ],
   );
 
   for (const [projectId, [packageName, version, category]] of expectedProjects) {
@@ -640,6 +651,171 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
       .map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'))
       .join('\n'),
   );
+});
+
+test('documents the exact capacitor-docgen inheritance enhancement over upstream', async () => {
+  type DocgenMember = { name: string };
+  type DocgenInterface = {
+    name: string;
+    extends?: string[];
+    methods: DocgenMember[];
+    properties: DocgenMember[];
+  };
+  type DocgenData = {
+    api: DocgenInterface | null;
+    interfaces: DocgenInterface[];
+  };
+  type DocgenModule = {
+    parse(options: { inputFiles: string[] }): (api: string) => DocgenData;
+  };
+
+  const upstream = require('@capacitor/docgen') as DocgenModule;
+  const fork = require('@rdlabo/capacitor-docgen') as DocgenModule;
+  const packageJson = JSON.parse(
+    await readFile(new URL('../package.json', import.meta.url), 'utf8'),
+  ) as { devDependencies?: Record<string, string> };
+  assert.equal(packageJson.devDependencies?.['@capacitor/docgen'], '0.3.1');
+  assert.equal(packageJson.devDependencies?.['@rdlabo/capacitor-docgen'], '0.4.1');
+
+  const fixture = fileURLToPath(new URL('./fixtures/docgen-inheritance.ts', import.meta.url));
+  const upstreamData = upstream.parse({ inputFiles: [fixture] })('DocgenFixturePlugin');
+  const forkData = fork.parse({ inputFiles: [fixture] })('DocgenFixturePlugin');
+  const forkOrderData = fork.parse({ inputFiles: [fixture] })('OrderPlugin');
+  const upstreamOptions = upstreamData.interfaces.find((entry) => entry.name === 'DocgenOptions');
+  const forkOptions = forkData.interfaces.find((entry) => entry.name === 'DocgenOptions');
+  const forkOrderBase = forkOrderData.interfaces.find((entry) => entry.name === 'OrderBase');
+  const forkOrderDerived = forkOrderData.interfaces.find((entry) => entry.name === 'OrderDerived');
+
+  assert.ok(upstreamData.api);
+  assert.ok(forkData.api);
+  assert.ok(upstreamOptions);
+  assert.ok(forkOptions);
+  assert.ok(forkOrderBase);
+  assert.ok(forkOrderDerived);
+  assert.deepEqual(
+    upstreamData.api.methods.map((entry) => entry.name),
+    ['ownMethod'],
+  );
+  assert.equal(upstreamData.api.extends, undefined);
+  assert.deepEqual(upstreamOptions.methods, []);
+  assert.deepEqual(
+    upstreamOptions.properties.map((entry) => entry.name),
+    ['ownProperty', 'baseProperty'],
+  );
+
+  assert.deepEqual(forkData.api.extends, ['DocgenBasePlugin']);
+  assert.deepEqual(
+    forkData.api.methods.map((entry) => entry.name),
+    ['ownMethod', 'inheritedMethod'],
+  );
+  assert.deepEqual(forkOptions.extends, ['DocgenBase']);
+  assert.deepEqual(
+    forkOptions.methods.map((entry) => entry.name),
+    ['baseMethod'],
+  );
+  assert.deepEqual(
+    forkOptions.properties.map((entry) => entry.name),
+    ['ownProperty', 'baseProperty', 'baseProperty'],
+  );
+  assert.doesNotMatch(
+    JSON.stringify(forkOptions),
+    /grand(?:Method|Property)/,
+    'without prior base collection, v0.4.1 copies only the original direct base members',
+  );
+  assert.deepEqual(
+    forkOrderBase.properties.map((entry) => entry.name),
+    ['baseProperty', 'grandProperty'],
+  );
+  assert.deepEqual(
+    forkOrderDerived.properties.map((entry) => entry.name),
+    ['ownProperty', 'baseProperty', 'grandProperty'],
+    'an earlier base collection mutates the shared object and propagates ancestor members',
+  );
+
+  const upstreamPackageDirectory = dirname(require.resolve('@capacitor/docgen/package.json'));
+  const forkPackageDirectory = dirname(require.resolve('@rdlabo/capacitor-docgen/package.json'));
+  for (const file of [
+    'LICENSE',
+    'bin/docgen',
+    'dist/cli.d.ts',
+    'dist/cli.js',
+    'dist/formatting.d.ts',
+    'dist/formatting.js',
+    'dist/generate.d.ts',
+    'dist/generate.js',
+    'dist/index.d.ts',
+    'dist/index.js',
+    'dist/markdown.d.ts',
+    'dist/markdown.js',
+    'dist/output.d.ts',
+    'dist/output.js',
+    'dist/parse.d.ts',
+    'dist/transpile.d.ts',
+    'dist/transpile.js',
+    'dist/types.js',
+  ]) {
+    const [upstreamSource, forkSource] = await Promise.all([
+      readFile(join(upstreamPackageDirectory, file), 'utf8'),
+      readFile(join(forkPackageDirectory, file), 'utf8'),
+    ]);
+    assert.equal(forkSource, upstreamSource, `${file} must retain upstream behavior`);
+  }
+
+  const [
+    upstreamParser,
+    forkParser,
+    upstreamTypes,
+    forkTypes,
+    english,
+    japanese,
+    englishGettingStarted,
+    japaneseGettingStarted,
+  ] = await Promise.all([
+    readFile(join(upstreamPackageDirectory, 'dist', 'parse.js'), 'utf8'),
+    readFile(join(forkPackageDirectory, 'dist', 'parse.js'), 'utf8'),
+    readFile(join(upstreamPackageDirectory, 'dist', 'types.d.ts'), 'utf8'),
+    readFile(join(forkPackageDirectory, 'dist', 'types.d.ts'), 'utf8'),
+    readFile(
+      new URL('../src/capacitor-docgen/docs/upstream-differences.md', import.meta.url),
+      'utf8',
+    ),
+    readFile(
+      new URL('../src/capacitor-docgen/docs/ja/upstream-differences.md', import.meta.url),
+      'utf8',
+    ),
+    readFile(new URL('../src/capacitor-docgen/docs/getting-started.md', import.meta.url), 'utf8'),
+    readFile(
+      new URL('../src/capacitor-docgen/docs/ja/getting-started.md', import.meta.url),
+      'utf8',
+    ),
+  ]);
+  assert.doesNotMatch(upstreamParser, /heritageClauses/);
+  assert.match(forkParser, /heritageClauses/);
+  assert.notEqual(forkParser, upstreamParser);
+  assert.doesNotMatch(upstreamTypes, /extends:\s*string\[\]/);
+  assert.match(forkTypes, /extends:\s*string\[\]/);
+  assert.notEqual(forkTypes, upstreamTypes);
+  assert.deepEqual(fencedCodeBlocks(japanese), fencedCodeBlocks(english));
+  assert.deepEqual(
+    fencedCodeBlocks(japaneseGettingStarted),
+    fencedCodeBlocks(englishGettingStarted),
+  );
+
+  for (const markdown of [english, japanese]) {
+    assert.match(markdown, /@rdlabo\/capacitor-docgen@0\.4\.1/);
+    assert.match(markdown, /@capacitor\/docgen@0\.3\.1/);
+    assert.match(markdown, /blob\/v0\.4\.1\/src\/(?:parse|types)\.ts|tree\/v0\.4\.1/);
+    assert.match(markdown, /blob\/v0\.3\.1\/src\/(?:parse|types)\.ts|tree\/v0\.3\.1/);
+    assert.match(markdown, /object identity/);
+    assert.match(markdown, /in-place/);
+    assert.match(markdown, /--silent/);
+  }
+  assert.match(english, /collection order/);
+  assert.match(japanese, /収集順/);
+  for (const markdown of [englishGettingStarted, japaneseGettingStarted]) {
+    assert.match(markdown, /npx docgen --api MyPlugin/);
+    assert.doesNotMatch(markdown, /^docgen --api MyPlugin/m);
+  }
 });
 
 test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async () => {

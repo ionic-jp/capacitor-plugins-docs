@@ -8,7 +8,7 @@ import { PROJECT_LOADERS } from '../generated/project-loaders.generated';
 
 export type ProjectCategory = 'capacitor-plugins' | 'frontend-tools' | 'developer-tools';
 export type ProjectIcon =
-  'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme';
+  'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme' | 'docs';
 
 export interface CodeSample {
   file: string;

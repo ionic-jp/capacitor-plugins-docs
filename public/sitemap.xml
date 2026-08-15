@@ -577,6 +577,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/eslint-plugin-rules/docs/rules/signal-use-as-signal" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-docgen</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-docgen" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-docgen" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-docgen" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-docgen</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-docgen" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-docgen" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-docgen" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-docgen/docs/getting-started</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-docgen/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/getting-started" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-docgen/docs/getting-started</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-docgen/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/getting-started" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-docgen/docs/upstream-differences</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/upstream-differences" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-docgen/docs/upstream-differences" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/upstream-differences" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-docgen/docs/upstream-differences</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/upstream-differences" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-docgen/docs/upstream-differences" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-docgen/docs/upstream-differences" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-stripe</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-stripe" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-stripe" />

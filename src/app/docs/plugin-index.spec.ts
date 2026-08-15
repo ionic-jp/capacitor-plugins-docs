@@ -54,15 +54,16 @@ describe('PluginIndexComponent', () => {
       'Ionic Angular Collect Icons',
       'Workers Hono Kit',
       'ESLint Plugin Rules',
+      'Capacitor Docgen',
     ]);
-    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(17);
+    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(18);
   });
 
   it('keeps Japanese catalog metadata and lazy documentation in parity', async () => {
     const japaneseProjects = projectsForLocale('ja');
     expect(japaneseProjects).toHaveLength(projectCatalog.length);
-    expect(projectCatalog).toHaveLength(17);
-    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(68);
+    expect(projectCatalog).toHaveLength(18);
+    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(70);
     expect(japaneseProjects.find((project) => project.id === 'stripe')?.pages[0].navTitle).toBe(
       '設定',
     );
@@ -142,6 +143,6 @@ describe('PluginIndexComponent', () => {
         ?.projects.map((project) => project.id)
         .slice()
         .sort(),
-    ).toEqual(['eslint-plugin-rules', 'workers-hono-kit'].sort());
+    ).toEqual(['capacitor-docgen', 'eslint-plugin-rules', 'workers-hono-kit'].sort());
   });
 });

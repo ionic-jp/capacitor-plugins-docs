@@ -36,6 +36,10 @@ export const PROJECT_LOADERS = {
     en: () => import('./projects/eslint-plugin-rules.en.generated').then((module) => module.PROJECT),
     ja: () => import('./projects/eslint-plugin-rules.ja.generated').then((module) => module.PROJECT),
   },
+  "capacitor-docgen": {
+    en: () => import('./projects/capacitor-docgen.en.generated').then((module) => module.PROJECT),
+    ja: () => import('./projects/capacitor-docgen.ja.generated').then((module) => module.PROJECT),
+  },
   "stripe": {
     en: () => import('./projects/stripe.en.generated').then((module) => module.PROJECT),
     ja: () => import('./projects/stripe.ja.generated').then((module) => module.PROJECT),

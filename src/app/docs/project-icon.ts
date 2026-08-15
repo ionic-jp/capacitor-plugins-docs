@@ -164,6 +164,28 @@ import { ProjectIcon } from './docs-data';
           <circle cx="20.75" cy="11.75" r="1.35" fill="currentColor" />
         </svg>
       }
+      @case ('docs') {
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path
+            d="M9.5 4.5h9.5L23.5 9.5V27a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2Z"
+            stroke="currentColor"
+            stroke-linejoin="round"
+            stroke-width="1.75"
+          />
+          <path
+            d="M19 4.5V9h4.5"
+            stroke="currentColor"
+            stroke-linejoin="round"
+            stroke-width="1.75"
+          />
+          <path
+            d="M12 15h8M12 19.5h8M12 24h5"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="1.75"
+          />
+        </svg>
+      }
     }
   `,
   styles: `

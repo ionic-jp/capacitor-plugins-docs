@@ -35,7 +35,7 @@ export interface ProjectDefinition {
   packageName: string;
   repositoryUrl: string;
   category: ProjectCategoryId;
-  icon: 'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme';
+  icon: 'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme' | 'docs';
   adapter?: 'capacitor-docs-json' | 'markdown';
   description: LocalizedText;
   headline: LocalizedText;
@@ -653,6 +653,65 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       page('Configuration', '設定', 'configuration', 'configuration.md', 'Guide', 'ガイド'),
       page('Rules', 'ルール一覧', 'rules', 'rules.md', 'Reference', 'リファレンス'),
       ...eslintRulePages,
+    ],
+  },
+  {
+    id: 'capacitor-docgen',
+    slug: 'capacitor-docgen',
+    sourceDirectory: 'capacitor-docgen',
+    name: 'rdlabo Capacitor Docgen',
+    shortName: 'Capacitor Docgen',
+    packageName: '@rdlabo/capacitor-docgen',
+    repositoryUrl: 'https://github.com/rdlabo-dev/capacitor-docgen',
+    category: 'developer-tools',
+    icon: 'docs',
+    adapter: 'markdown',
+    description: text(
+      'Upstream-compatible Capacitor documentation generator with interface inheritance.',
+      'interface継承に対応した、本家互換のCapacitorドキュメント生成CLI。',
+    ),
+    headline: text(
+      'Generate Capacitor plugin docs with inherited interfaces',
+      '継承したinterfaceを含めてCapacitorプラグインドキュメントを生成する',
+    ),
+    overview: text(
+      'Keep the upstream docgen CLI, placeholders, output helpers, and exported functions while expanding inherited interface members into generated documentation.',
+      '本家docgenのCLI、placeholder、出力helper、export functionを維持しつつ、継承したinterface memberを生成ドキュメントへ展開します。',
+    ),
+    featuresHeading: text('Why use the fork', 'forkを使う理由'),
+    features: [
+      {
+        title: text('Upstream-compatible CLI', '本家互換CLI'),
+        description: text(
+          'Keep the same docgen binary, flags, placeholders, output commands, and exported functions as @capacitor/docgen.',
+          '@capacitor/docgenと同じdocgenバイナリ、flag、placeholder、出力command、export functionを維持します。',
+        ),
+      },
+      {
+        title: text('Interface inheritance', 'interface継承'),
+        description: text(
+          'Resolve TypeScript extends clauses and append inherited methods and properties, including on the primary API.',
+          'TypeScriptのextends句を解決し、primary APIを含む継承method・propertyを生成ドキュメントへ追加します。',
+        ),
+      },
+    ],
+    pages: [
+      page(
+        'Getting Started',
+        'はじめに',
+        'getting-started',
+        'getting-started.md',
+        'Guide',
+        'ガイド',
+      ),
+      page(
+        'Differences from Upstream',
+        '本家との差分',
+        'upstream-differences',
+        'upstream-differences.md',
+        'Comparison',
+        '比較',
+      ),
     ],
   },
   {
