@@ -18,6 +18,73 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Pagefind injects its controls at runtime, so the header search treatment belongs here. */
+pagefind-modal-trigger.docs-search {
+  --pf-border: #eadfd9;
+  --pf-border-focus: #ea572a;
+  --pf-hover: #fff7f2;
+  --pf-outline-focus: #ea572a;
+  --pf-text: #292320;
+  --pf-text-muted: #6f6661;
+  align-self: stretch;
+  border-left: 1px solid #eadfd9;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-btn {
+  width: auto;
+  height: 100%;
+  min-height: 67px;
+  gap: 10px;
+  border: 0;
+  border-radius: 0;
+  padding: 0 18px;
+  background: transparent;
+  color: #292320;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-btn:hover {
+  border-color: transparent;
+  background: #fff7f2;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-icon {
+  width: 16px;
+  height: 16px;
+  background: #6f6661;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-text {
+  color: #292320;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-shortcut {
+  margin-inline-start: 4px;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-key {
+  min-width: 19px;
+  height: 19px;
+  border: 1px solid #ded3cd;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 1px 0 #ded3cd;
+  color: #796e68;
+}
+
+@media (max-width: 639px) {
+  :is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-btn {
+    min-width: 48px;
+    padding: 0 16px;
+  }
+
+  :is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-text,
+  :is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-trigger.docs-search .pf-trigger-shortcut {
+    display: none;
+  }
+}
+
 .znc .msg-symbol {
   display: none;
 }
