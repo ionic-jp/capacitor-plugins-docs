@@ -1,6 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, LOCALE_ID, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProjectDocs } from './docs-data';
+import { GitHubStarsService } from './github-stars.service';
 import { SeoService } from './seo.service';
 
 @Component({
@@ -53,6 +55,29 @@ import { SeoService } from './seo.service';
             >
               <ng-container i18n="@@viewSource">View source</ng-container>
             </a>
+            <a
+              class="inline-flex items-center overflow-hidden rounded-full border border-[#d9cec8] font-semibold text-[#3b3430] no-underline transition hover:border-[#ea572a] hover:text-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
+              [href]="project.repositoryUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="flex items-center gap-2 px-5 py-3.5">
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="m12 3 2.72 5.51 6.08.88-4.4 4.29 1.04 6.06L12 16.88l-5.44 2.86 1.04-6.06-4.4-4.29 6.08-.88L12 3Z"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"
+                  />
+                </svg>
+                <ng-container i18n="@@starOnGitHub">Star on GitHub</ng-container>
+              </span>
+              @if (formattedStarCount(); as count) {
+                <span class="border-l border-[#d9cec8] bg-[#fffaf7] px-4 py-3.5">
+                  {{ count }}
+                </span>
+              }
+            </a>
           </div>
         </div>
 
@@ -78,6 +103,17 @@ import { SeoService } from './seo.service';
 export class LandingPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly seo = inject(SeoService);
+  private readonly stars = inject(GitHubStarsService);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly numberFormat = new Intl.NumberFormat(inject(LOCALE_ID), {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  });
+  private readonly starCount = signal<number | undefined>(undefined);
+  protected readonly formattedStarCount = () => {
+    const count = this.starCount();
+    return count === undefined ? undefined : this.numberFormat.format(count);
+  };
   project?: ProjectDocs;
 
   ngOnInit(): void {
@@ -88,5 +124,12 @@ export class LandingPageComponent implements OnInit {
       description: this.project.description,
       path: this.project.path,
     });
+    if (isPlatformBrowser(this.platformId)) {
+      void this.loadStarCount(this.project.repositoryUrl);
+    }
+  }
+
+  private async loadStarCount(repositoryUrl: string): Promise<void> {
+    this.starCount.set(await this.stars.count(repositoryUrl));
   }
 }

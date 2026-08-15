@@ -137,6 +137,14 @@
         <source>View source</source>
       </segment>
     </unit>
+    <unit id="starOnGitHub">
+      <notes>
+        <note category="location">src/app/docs/landing-page.ts</note>
+      </notes>
+      <segment>
+        <source>Star on GitHub</source>
+      </segment>
+    </unit>
     <unit id="notFoundHeading">
       <notes>
         <note category="location">src/app/docs/not-found.ts:12,14</note>

@@ -1,0 +1,138 @@
+---
+title: '@rdlabo/capacitor-codescanner'
+---
+
+# @rdlabo/capacitor-codescanner
+
+Capacitor Plugin for Code Scanner
+
+This is a barcode reader created for specific use cases. Unlike other Capacitor barcode reader plugins, this plugin opens a modal and performs scanning within it. Therefore, there is no need to manipulate web assets.
+
+## Install
+
+```bash
+npm install @rdlabo/capacitor-codescanner
+npx cap sync
+```
+
+
+## Usage
+
+```typescript
+import { CodeScanner } from '@rdlabo/capacitor-codescanner';
+
+// Scan a QR code
+const scanQRCode = async () => {
+  await CodeScanner.addListener('CodeScannerCatchEvent', (event) => {
+    console.log('Scanned code:', event.code);
+  });
+
+  await CodeScanner.present({
+    detectionWidth: 0.6,
+    detectionHeight: 0.15,
+    isMulti: false,
+  });
+};
+
+// Continuously scan codes
+const scanMultipleCodes = async () => {
+  await CodeScanner.addListener('CodeScannerCatchEvent', (event) => {
+    console.log('Scanned code:', event.code);
+  });
+
+  await CodeScanner.present({
+    detectionWidth: 0.8,
+    detectionHeight: 0.2,
+    isMulti: true,
+  });
+};
+```
+
+> **Known limitation in v8.0.3:** the public TypeScript interface exposes `metadataObjectTypes`,
+> but the native implementations still read the legacy `CodeTypes` key. Because the legacy key is
+> not part of `ScannerOption`, omit code-type filtering with this release.
+
+## Functions
+
+- **Automatic Light Control**: Flashlight automatically turns on when the scanner starts
+- **Vibration**: Provides vibration feedback when a code is detected
+- **Detection Area Display**: Visually displays the detection area with a red frame
+- **Detected Code Highlighting**: Highlights detected codes with a red frame
+- **Close Button**: You can close the scanner with the "✕" button in the upper left corner
+- **Multiple Scan Mode**: You can continuously scan multiple codes with `isMulti: true`
+
+
+## API
+
+<docgen-index>
+
+* [`present(...)`](#present)
+* [`addListener('CodeScannerCatchEvent', ...)`](#addlistenercodescannercatchevent-)
+* [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
+
+</docgen-index>
+
+<docgen-api>
+<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### present(...)
+
+```typescript
+present(scannerOption: ScannerOption) => Promise<void>
+```
+
+| Param               | Type                                                    |
+| ------------------- | ------------------------------------------------------- |
+| **`scannerOption`** | <code><a href="#scanneroption">ScannerOption</a></code> |
+
+--------------------
+
+
+### addListener('CodeScannerCatchEvent', ...)
+
+```typescript
+addListener(eventName: 'CodeScannerCatchEvent', listenerFunc: (event: { code: string; }) => void) => Promise<PluginListenerHandle>
+```
+
+| Param              | Type                                               |
+| ------------------ | -------------------------------------------------- |
+| **`eventName`**    | <code>'CodeScannerCatchEvent'</code>               |
+| **`listenerFunc`** | <code>(event: { code: string; }) =&gt; void</code> |
+
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
+
+--------------------
+
+
+### Interfaces
+
+
+#### ScannerOption
+
+| Prop                      | Type                               | Description                                                                                                                     |
+| ------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **`detectionWidth`**      | <code>number</code>                |                                                                                                                                 |
+| **`detectionHeight`**     | <code>number</code>                |                                                                                                                                 |
+| **`enableCloseButton`**   | <code>boolean</code>               | Enable close button on the top left of the scanning area (default: true)                                                        |
+| **`sheetScreenRatio`**    | <code>number</code>                | Specify the ratio of the scanning area (sheet modal size) to the screen size. Default is 0.9 for android, 1(pageSheet) for iOS. |
+| **`metadataObjectTypes`** | <code>MetadataObjectTypes[]</code> | Specify the types of codes to recognize (default: ["qr", "code39", "ean13"])                                                    |
+| **`isMulti`**             | <code>boolean</code>               | Enable multi scan mode (default: false)                                                                                         |
+| **`enableAutoLight`**     | <code>boolean</code>               | Enable auto light when environment is dark (default: true)                                                                      |
+
+
+#### PluginListenerHandle
+
+| Prop         | Type                                      |
+| ------------ | ----------------------------------------- |
+| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
+
+
+### Type Aliases
+
+
+#### MetadataObjectTypes
+
+<code>'aztec' | 'code128' | 'code39' | 'code39Mod43' | 'code93' | 'dataMatrix' | 'ean13' | 'ean8' | 'face' | 'interleaved2of5' | 'itf14' | 'pdf417' | 'qr' | 'upce' | 'catBody' | 'dogBody' | 'humanBody' | 'salientObject'</code>
+
+</docgen-api>

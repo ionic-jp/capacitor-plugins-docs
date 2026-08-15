@@ -14,12 +14,17 @@ Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The reposit
 | Capacitor Community Stripe Identity | `src/stripe-identity/docs` |
 | Capacitor Community Stripe Terminal | `src/stripe-terminal/docs` |
 | Capacitor Community AdMob | `src/admob/docs` |
+| rdlabo Capacitor Code Scanner | `src/capacitor-codescanner/docs` |
+| rdlabo Capacitor Screenshot Event | `src/capacitor-screenshot-event/docs` |
+| rdlabo Capacitor Printer | `src/capacitor-printer/docs` |
+| rdlabo Capacitor Brother Print | `src/capacitor-brotherprint/docs` |
 | rdlabo Ionic Angular Kit | `src/ionic-angular-kit/docs` |
 | rdlabo Ionic Angular Photo Editor | `src/ionic-angular-photo-editor/docs` |
 | rdlabo Ionic Angular Scroll Header | `src/ionic-angular-scroll-header/docs` |
 | rdlabo Angular CDK Scroll Strategies | `src/ngx-cdk-scroll-strategies/docs` |
 | rdlabo Ionic Theme iOS26 | `src/ionic-theme-ios26/docs` |
 | rdlabo Ionic Theme Material Design 3 | `src/ionic-theme-md3/docs` |
+| rdlabo Ionic Angular Collect Icons | `src/ionic-angular-collect-icons/docs` |
 | rdlabo Workers Hono Kit | `src/workers-hono-kit/docs` |
 | rdlabo ESLint Plugin Rules | `src/eslint-plugin-rules/docs` |
 
@@ -73,9 +78,10 @@ Documentation-source packages are inspected at generation time and are never imp
 bundle. `.npmrc` enables legacy peer resolution because those packages may document a different
 Angular major than the portal itself; every source version remains exact in `package-lock.json`.
 
-Production `anyScript` budgets in `angular.json` warn at 390kB and fail at 450kB. The warning
-baseline covers the shared catalog after adding the Ionic theme project summaries (~6.8kB); docs
-remain lazy-loaded, so the hard error stays at 450kB.
+Production `anyScript` budgets in `angular.json` warn at 405kB and fail at 450kB. The warning
+baseline covers the shared bilingual catalog and GitHub Star UI for 17 projects (the current
+production main is about 394.4kB); documentation bodies remain lazy-loaded, so the hard error stays
+at 450kB.
 
 ## Deployment
 

@@ -41,23 +41,28 @@ describe('PluginIndexComponent', () => {
       'Stripe Identity',
       'Stripe Terminal',
       'AdMob',
+      'Capacitor Code Scanner',
+      'Capacitor Screenshot Event',
+      'Capacitor Printer',
+      'Capacitor Brother Print',
       'Ionic Angular Kit',
       'Ionic Angular Photo Editor',
       'Ionic Angular Scroll Header',
       'Angular CDK Scroll Strategies',
       'Ionic Theme iOS26',
       'Ionic Theme MD3',
+      'Ionic Angular Collect Icons',
       'Workers Hono Kit',
       'ESLint Plugin Rules',
     ]);
-    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(12);
+    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(17);
   });
 
   it('keeps Japanese catalog metadata and lazy documentation in parity', async () => {
     const japaneseProjects = projectsForLocale('ja');
     expect(japaneseProjects).toHaveLength(projectCatalog.length);
-    expect(projectCatalog).toHaveLength(12);
-    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(63);
+    expect(projectCatalog).toHaveLength(17);
+    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(68);
     expect(japaneseProjects.find((project) => project.id === 'stripe')?.pages[0].navTitle).toBe(
       '設定',
     );
@@ -128,6 +133,7 @@ describe('PluginIndexComponent', () => {
         'ngx-cdk-scroll-strategies',
         'ionic-theme-ios26',
         'ionic-theme-md3',
+        'ionic-angular-collect-icons',
       ].sort(),
     );
     expect(

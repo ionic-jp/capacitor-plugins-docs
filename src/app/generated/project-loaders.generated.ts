@@ -24,6 +24,10 @@ export const PROJECT_LOADERS = {
     en: () => import('./projects/ionic-theme-md3.en.generated').then((module) => module.PROJECT),
     ja: () => import('./projects/ionic-theme-md3.ja.generated').then((module) => module.PROJECT),
   },
+  "ionic-angular-collect-icons": {
+    en: () => import('./projects/ionic-angular-collect-icons.en.generated').then((module) => module.PROJECT),
+    ja: () => import('./projects/ionic-angular-collect-icons.ja.generated').then((module) => module.PROJECT),
+  },
   "workers-hono-kit": {
     en: () => import('./projects/workers-hono-kit.en.generated').then((module) => module.PROJECT),
     ja: () => import('./projects/workers-hono-kit.ja.generated').then((module) => module.PROJECT),
@@ -47,5 +51,21 @@ export const PROJECT_LOADERS = {
   "admob": {
     en: () => import('./projects/admob.en.generated').then((module) => module.PROJECT),
     ja: () => import('./projects/admob.ja.generated').then((module) => module.PROJECT),
+  },
+  "capacitor-codescanner": {
+    en: () => import('./projects/capacitor-codescanner.en.generated').then((module) => module.PROJECT),
+    ja: () => import('./projects/capacitor-codescanner.ja.generated').then((module) => module.PROJECT),
+  },
+  "capacitor-screenshot-event": {
+    en: () => import('./projects/capacitor-screenshot-event.en.generated').then((module) => module.PROJECT),
+    ja: () => import('./projects/capacitor-screenshot-event.ja.generated').then((module) => module.PROJECT),
+  },
+  "capacitor-printer": {
+    en: () => import('./projects/capacitor-printer.en.generated').then((module) => module.PROJECT),
+    ja: () => import('./projects/capacitor-printer.ja.generated').then((module) => module.PROJECT),
+  },
+  "capacitor-brotherprint": {
+    en: () => import('./projects/capacitor-brotherprint.en.generated').then((module) => module.PROJECT),
+    ja: () => import('./projects/capacitor-brotherprint.ja.generated').then((module) => module.PROJECT),
   },
 } as const;

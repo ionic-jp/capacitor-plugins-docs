@@ -1,0 +1,95 @@
+---
+title: '@rdlabo/capacitor-screenshot-event'
+---
+
+# @rdlabo/capacitor-screenshot-event
+
+Notification that user shot screenshot
+
+## 💖 Support This Project
+
+Enjoying this project? Your support helps keep it alive and growing!  
+Sponsoring means you directly contribute to new features, improvements, and maintenance.
+
+[Become a Sponsor →](https://github.com/sponsors/rdlabo)
+
+## Install
+
+```bash
+npm install @rdlabo/capacitor-screenshot-event
+npx cap sync
+```
+
+## Usage
+
+```ts
+import { ScreenshotEvent } from '@rdlabo/capacitor-screenshot-event';
+
+(() => {
+  ScreenshotEvent.addListener('userDidTakeScreenshot', () => {
+    // Notice take screenshot
+  });
+
+  // Start watch take event
+  ScreenshotEvent.startWatchEvent();
+})();
+```
+
+## API
+
+<docgen-index>
+
+* [`startWatchEvent()`](#startwatchevent)
+* [`removeWatchEvent()`](#removewatchevent)
+* [`addListener('userDidTakeScreenshot', ...)`](#addlisteneruserdidtakescreenshot-)
+* [Interfaces](#interfaces)
+
+</docgen-index>
+
+<docgen-api>
+<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### startWatchEvent()
+
+```typescript
+startWatchEvent() => Promise<void>
+```
+
+--------------------
+
+
+### removeWatchEvent()
+
+```typescript
+removeWatchEvent() => Promise<void>
+```
+
+--------------------
+
+
+### addListener('userDidTakeScreenshot', ...)
+
+```typescript
+addListener(eventName: 'userDidTakeScreenshot', listenerFunc: () => void) => Promise<PluginListenerHandle>
+```
+
+| Param              | Type                                 |
+| ------------------ | ------------------------------------ |
+| **`eventName`**    | <code>'userDidTakeScreenshot'</code> |
+| **`listenerFunc`** | <code>() =&gt; void</code>           |
+
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
+
+--------------------
+
+
+### Interfaces
+
+
+#### PluginListenerHandle
+
+| Prop         | Type                                      |
+| ------------ | ----------------------------------------- |
+| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
+
+</docgen-api>

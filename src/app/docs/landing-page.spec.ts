@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, provideRouter } from '@angular/router';
+import { vi } from 'vitest';
 import { loadProject } from './docs-data';
+import { GitHubStarsService } from './github-stars.service';
 import { LandingPageComponent } from './landing-page';
 
 describe('LandingPageComponent', () => {
@@ -14,6 +16,7 @@ describe('LandingPageComponent', () => {
       providers: [
         provideRouter([]),
         { provide: ActivatedRoute, useValue: { snapshot: { data: { project } } } },
+        { provide: GitHubStarsService, useValue: { count: vi.fn().mockResolvedValue(1234) } },
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(LandingPageComponent);
@@ -32,6 +35,13 @@ describe('LandingPageComponent', () => {
     expect(
       compiled.querySelector('a[href="/projects/capacitor-stripe/docs/configuration"]'),
     ).not.toBeNull();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const starLink = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('a')).find((link) =>
+      link.textContent?.includes('Star on GitHub'),
+    );
+    expect(starLink?.href).toBe('https://github.com/capacitor-community/stripe');
+    expect(starLink?.textContent).toContain('1.2K');
   });
 
   it('renders AdMob from the same project presentation model', async () => {

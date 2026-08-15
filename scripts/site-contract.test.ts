@@ -3,6 +3,7 @@ import { access, constants, readFile, readdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import test from 'node:test';
+import ts from 'typescript';
 import { projectDefinitions } from './project-manifest';
 
 const require = createRequire(import.meta.url);
@@ -491,6 +492,152 @@ test('lists ionic theme packages and pins localized README imports', async () =>
   }
 });
 
+test('imports the remaining rdlabo utility READMEs from exact public releases', async () => {
+  const expectedProjects = new Map([
+    ['capacitor-codescanner', ['@rdlabo/capacitor-codescanner', '8.0.3', 'capacitor-plugins']],
+    [
+      'capacitor-screenshot-event',
+      ['@rdlabo/capacitor-screenshot-event', '8.0.0', 'capacitor-plugins'],
+    ],
+    ['capacitor-printer', ['@rdlabo/capacitor-printer', '8.0.1', 'capacitor-plugins']],
+    ['capacitor-brotherprint', ['@rdlabo/capacitor-brotherprint', '8.1.1', 'capacitor-plugins']],
+    [
+      'ionic-angular-collect-icons',
+      ['@rdlabo/ionic-angular-collect-icons', '2.1.0', 'frontend-tools'],
+    ],
+  ] as const);
+  const packageJson = JSON.parse(
+    await readFile(new URL('../package.json', import.meta.url), 'utf8'),
+  ) as {
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+  };
+  const packageVersions = { ...packageJson.dependencies, ...packageJson.devDependencies };
+
+  assert.equal(
+    projectDefinitions.some((project) => project.id === 'capacitor-docgen'),
+    false,
+    'the upstream capacitor-docgen fork is intentionally held back',
+  );
+
+  for (const [projectId, [packageName, version, category]] of expectedProjects) {
+    const project = projectDefinitions.find((entry) => entry.id === projectId);
+    assert.ok(project, `${projectId} must be declared in the manifest`);
+    assert.equal(project.packageName, packageName);
+    assert.equal(project.repositoryUrl, `https://github.com/rdlabo-dev/${projectId}`);
+    assert.equal(project.category, category);
+    assert.equal(project.adapter, 'markdown');
+    assert.equal(packageVersions[packageName], version);
+
+    const installedPackage = JSON.parse(
+      await readFile(
+        new URL(`../node_modules/${packageName}/package.json`, import.meta.url),
+        'utf8',
+      ),
+    ) as { version: string };
+    assert.equal(installedPackage.version, version);
+
+    const docsRoot = new URL(`../src/${projectId}/docs/`, import.meta.url);
+    const [english, japanese] = await Promise.all([
+      readFile(new URL('readme.md', docsRoot), 'utf8'),
+      readFile(new URL('ja/readme.md', docsRoot), 'utf8'),
+    ]);
+    assert.deepEqual(
+      fencedCodeBlocks(japanese),
+      fencedCodeBlocks(english),
+      `${projectId} fenced code blocks must match byte-for-byte between EN and JA`,
+    );
+    for (const markdown of [english, japanese]) {
+      assert.doesNotMatch(markdown, new RegExp(['rdlabo', 'team'].join('-')));
+      assert.doesNotMatch(markdown, new RegExp(`${projectId}/(?:blob|tree)/main`));
+      for (const link of markdown.matchAll(
+        new RegExp(`https://github\\.com/rdlabo-dev/${projectId}/(?:blob|tree)/[^\\s)\\]]+`, 'g'),
+      )) {
+        assert.ok(
+          link[0].includes(`/v${version}/`),
+          `${projectId} source link must use v${version}: ${link[0]}`,
+        );
+      }
+    }
+  }
+
+  const docs = async (projectId: string) =>
+    Promise.all([
+      readFile(new URL(`../src/${projectId}/docs/readme.md`, import.meta.url), 'utf8'),
+      readFile(new URL(`../src/${projectId}/docs/ja/readme.md`, import.meta.url), 'utf8'),
+    ]);
+  for (const markdown of await docs('capacitor-codescanner')) {
+    assert.match(markdown, /known limitation in v8\.0\.3|v8\.0\.3の既知の制限/i);
+    assert.match(
+      markdown,
+      /native implementations still read the legacy `CodeTypes`|native実装は従来の `CodeTypes`/,
+    );
+    assert.doesNotMatch(markdown, /^\s*(?:metadataObjectTypes|CodeTypes|detectionX|detectionY):/m);
+    assert.match(markdown, /upper left corner|左上/);
+  }
+  for (const markdown of await docs('capacitor-screenshot-event')) {
+    assert.match(
+      markdown,
+      /import \{ ScreenshotEvent \} from '@rdlabo\/capacitor-screenshot-event';/,
+    );
+  }
+  for (const markdown of await docs('capacitor-brotherprint')) {
+    assert.match(markdown, /searchPrinter\(port: BRLMPrinterPort\)/);
+    assert.doesNotMatch(markdown, /BRKM|[“”]/);
+    assert.match(markdown, /mobilesdk\/ios\/index\.html/);
+    assert.match(markdown, /iOS 15|iOS 15以降/);
+    assert.match(
+      markdown,
+      /import \{ Component, OnDestroy, OnInit, signal \} from '@angular\/core';/,
+    );
+    assert.match(
+      markdown,
+      /<key>UISupportedExternalAccessoryProtocols<\/key>\s*\n\+ <array>[\s\S]*?<string>com\.brother\.ptcbp<\/string>[\s\S]*?\+ <\/array>/,
+    );
+  }
+  for (const markdown of await docs('ionic-angular-collect-icons')) {
+    assert.match(markdown, /import \* as useIcons from '\.\/use-icons';/);
+    assert.doesNotMatch(markdown, /import \* as useIcons from '\.\.\/use-icons';/);
+  }
+
+  const [brotherReadme] = await docs('capacitor-brotherprint');
+  const brotherExample = fencedCodeBlocks(brotherReadme).find((block) =>
+    block.body.includes("selector: 'brother-print'"),
+  );
+  assert.ok(brotherExample, 'Brother Print README must include its Angular usage example');
+  const virtualFile = join(process.cwd(), 'brotherprint-readme-example.ts');
+  const compilerOptions: ts.CompilerOptions = {
+    experimentalDecorators: true,
+    module: ts.ModuleKind.NodeNext,
+    moduleResolution: ts.ModuleResolutionKind.NodeNext,
+    noEmit: true,
+    skipLibCheck: true,
+    strict: true,
+    target: ts.ScriptTarget.ES2022,
+  };
+  const host = ts.createCompilerHost(compilerOptions);
+  const originalFileExists = host.fileExists;
+  const originalGetSourceFile = host.getSourceFile;
+  const originalReadFile = host.readFile;
+  host.fileExists = (fileName) => fileName === virtualFile || originalFileExists(fileName);
+  host.readFile = (fileName) =>
+    fileName === virtualFile ? brotherExample.body : originalReadFile(fileName);
+  host.getSourceFile = (fileName, languageVersion, onError, shouldCreateNewSourceFile) =>
+    fileName === virtualFile
+      ? ts.createSourceFile(fileName, brotherExample.body, languageVersion, true)
+      : originalGetSourceFile(fileName, languageVersion, onError, shouldCreateNewSourceFile);
+  const diagnostics = ts.getPreEmitDiagnostics(
+    ts.createProgram({ rootNames: [virtualFile], options: compilerOptions, host }),
+  );
+  assert.deepEqual(
+    diagnostics,
+    [],
+    diagnostics
+      .map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'))
+      .join('\n'),
+  );
+});
+
 test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async () => {
   const [wranglerSource, packageJsonSource] = await Promise.all([
     readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8'),
@@ -562,7 +709,7 @@ test('uses docs.rdlabo.dev as the canonical origin in site SEO outputs', async (
   assert.doesNotMatch(robots, new RegExp(legacyOrigin.replaceAll('.', '\\.')));
 });
 
-test('locks production anyScript budgets after theme catalog growth', async () => {
+test('locks production anyScript budgets after catalog growth', async () => {
   const angularJson = JSON.parse(
     await readFile(new URL('../angular.json', import.meta.url), 'utf8'),
   ) as {
@@ -588,10 +735,10 @@ test('locks production anyScript budgets after theme catalog growth', async () =
     'capacitor-plugins-docs'
   ].architect.build.configurations.production.budgets.find((budget) => budget.type === 'anyScript');
   assert.ok(anyScript);
-  assert.equal(anyScript.maximumWarning, '390kB');
+  assert.equal(anyScript.maximumWarning, '405kB');
   assert.equal(anyScript.maximumError, '450kB');
 
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
-  assert.match(readme, /anyScript.*390kB/s);
+  assert.match(readme, /anyScript.*405kB/s);
   assert.match(readme, /450kB/);
 });

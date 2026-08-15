@@ -13,6 +13,7 @@ const ALLOWED_TAGS = new Set([
   'h4',
   'h5',
   'h6',
+  'hr',
   'img',
   'li',
   'ol',
@@ -44,6 +45,7 @@ const ALLOWED_ATTRIBUTES = new Set([
   'rel',
   'rowspan',
   'src',
+  'start',
   'style',
   'target',
   'title',
@@ -89,6 +91,9 @@ export function enforceGeneratedHtmlPolicy(html: string, context: string): strin
       }
       if (name === 'target' && attribute.value !== '_blank') {
         throw new Error(`${context} generated an unsupported link target`);
+      }
+      if (name === 'start' && (tag !== 'ol' || !/^[1-9]\d*$/.test(attribute.value))) {
+        throw new Error(`${context} generated an invalid start attribute on <${tag}>`);
       }
     }
     if (tag === 'a' && element.getAttribute('target') === '_blank') {

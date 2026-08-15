@@ -3,7 +3,7 @@ export const PROJECT_CATEGORIES_EN = [
   {
     "id": "capacitor-plugins",
     "label": "Capacitor plugins",
-    "description": "Native payments, identity verification, in-person payments, and mobile ads for Capacitor applications.",
+    "description": "Native payments, identity verification, in-person payments, mobile ads, scanning, screenshot events, and printing for Capacitor applications.",
     "order": 10
   },
   {
@@ -24,7 +24,7 @@ export const PROJECT_CATEGORIES_JA = [
   {
     "id": "capacitor-plugins",
     "label": "Capacitorプラグイン",
-    "description": "Capacitorアプリ向けのネイティブ決済、本人確認、対面決済、モバイル広告を提供します。",
+    "description": "Capacitorアプリ向けのネイティブ決済、本人確認、対面決済、モバイル広告、スキャン、スクリーンショット検知、印刷を提供します。",
     "order": 10
   },
   {
@@ -312,6 +312,45 @@ export const PROJECTS_EN = [
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/ionic-theme-md3/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "ionic-angular-collect-icons",
+    "slug": "ionic-angular-collect-icons",
+    "name": "rdlabo Ionic Angular Collect Icons",
+    "shortName": "Ionic Angular Collect Icons",
+    "packageName": "@rdlabo/ionic-angular-collect-icons",
+    "repositoryUrl": "https://github.com/rdlabo-dev/ionic-angular-collect-icons",
+    "category": "frontend-tools",
+    "icon": "app",
+    "version": "2.1.0",
+    "description": "Automate ionIcons collection and export for Ionic Angular projects.",
+    "headline": "Collect used ionIcons before production builds",
+    "overview": "Group unique ionIcons in a project and generate an export file—register all icons during development, then collect icons used in templates before production builds.",
+    "featuresHeading": "Icon workflow",
+    "features": [
+      {
+        "title": "Template collection",
+        "description": "Scan templates and generate a unique ionIcons export before production builds."
+      },
+      {
+        "title": "Development convenience",
+        "description": "Register all icons with addIcons during development for stress-free iteration."
+      },
+      {
+        "title": "Initialize CLI",
+        "description": "Wire addIcons automatically with --initialize and remove per-component calls."
+      }
+    ],
+    "path": "/projects/ionic-angular-collect-icons",
+    "pages": [
+      {
+        "title": "Ionic Angular Collect Icons",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "Documentation",
+        "path": "/projects/ionic-angular-collect-icons/docs/readme"
       }
     ]
   },
@@ -894,6 +933,162 @@ export const PROJECTS_EN = [
         "path": "/projects/capacitor-admob/docs/api"
       }
     ]
+  },
+  {
+    "id": "capacitor-codescanner",
+    "slug": "capacitor-codescanner",
+    "name": "rdlabo Capacitor Code Scanner",
+    "shortName": "Capacitor Code Scanner",
+    "packageName": "@rdlabo/capacitor-codescanner",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-codescanner",
+    "category": "capacitor-plugins",
+    "icon": "app",
+    "version": "8.0.3",
+    "description": "Barcode and QR scanning for Capacitor through a native modal.",
+    "headline": "Scan codes in a native modal without touching web assets",
+    "overview": "Present a modal scanner, listen for catch events, and configure the detection area and continuous multi-scan—without manipulating web assets.",
+    "featuresHeading": "What you can do",
+    "features": [
+      {
+        "title": "Modal scanning",
+        "description": "Open a native modal and scan inside it so web assets do not need to change."
+      },
+      {
+        "title": "Continuous multi-scan",
+        "description": "Keep scanning successive codes with isMulti mode."
+      },
+      {
+        "title": "Light and feedback",
+        "description": "Use automatic light control, vibration, and visible detection highlighting."
+      }
+    ],
+    "path": "/projects/capacitor-codescanner",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-codescanner",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "Documentation",
+        "path": "/projects/capacitor-codescanner/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-screenshot-event",
+    "slug": "capacitor-screenshot-event",
+    "name": "rdlabo Capacitor Screenshot Event",
+    "shortName": "Capacitor Screenshot Event",
+    "packageName": "@rdlabo/capacitor-screenshot-event",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-screenshot-event",
+    "category": "capacitor-plugins",
+    "icon": "app",
+    "version": "8.0.0",
+    "description": "Notify Capacitor apps when the user takes a screenshot.",
+    "headline": "React when users take screenshots",
+    "overview": "Start watching for screenshot events and handle userDidTakeScreenshot callbacks from Capacitor.",
+    "featuresHeading": "What you can do",
+    "features": [
+      {
+        "title": "Start watching",
+        "description": "Call startWatchEvent to begin listening for screenshot activity."
+      },
+      {
+        "title": "Screenshot listener",
+        "description": "Handle userDidTakeScreenshot when the user captures the screen."
+      },
+      {
+        "title": "Stop watching",
+        "description": "Call removeWatchEvent when screenshot monitoring is no longer needed."
+      }
+    ],
+    "path": "/projects/capacitor-screenshot-event",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-screenshot-event",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "Documentation",
+        "path": "/projects/capacitor-screenshot-event/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-printer",
+    "slug": "capacitor-printer",
+    "name": "rdlabo Capacitor Printer",
+    "shortName": "Capacitor Printer",
+    "packageName": "@rdlabo/capacitor-printer",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-printer",
+    "category": "capacitor-plugins",
+    "icon": "terminal",
+    "version": "8.0.1",
+    "description": "Native printing for files and WebView content in Capacitor apps.",
+    "headline": "Present the system print UI from Capacitor",
+    "overview": "Print a file or the current WebView through the platform printing interface on Android and iOS.",
+    "featuresHeading": "What you can do",
+    "features": [
+      {
+        "title": "Print files",
+        "description": "Present the printing UI for a file path or local URL on Android and iOS."
+      },
+      {
+        "title": "Print WebView",
+        "description": "Present the printing UI for the current WebView content."
+      },
+      {
+        "title": "Safe file lifecycle",
+        "description": "Await printFile until the OS no longer needs the source, then delete it safely."
+      }
+    ],
+    "path": "/projects/capacitor-printer",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-printer",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "Documentation",
+        "path": "/projects/capacitor-printer/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-brotherprint",
+    "slug": "capacitor-brotherprint",
+    "name": "rdlabo Capacitor Brother Print",
+    "shortName": "Capacitor Brother Print",
+    "packageName": "@rdlabo/capacitor-brotherprint",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-brotherprint",
+    "category": "capacitor-plugins",
+    "icon": "terminal",
+    "version": "8.1.1",
+    "description": "Native Brother Print SDK bindings for Capacitor on iOS and Android.",
+    "headline": "Print to Brother label printers from Capacitor",
+    "overview": "Search Brother printers over USB, Wi-Fi, Bluetooth, or BLE and print images to supported QL and TD models.",
+    "featuresHeading": "What you can do",
+    "features": [
+      {
+        "title": "Printer discovery",
+        "description": "Search nearby Brother printers by port and receive availability events."
+      },
+      {
+        "title": "Image printing",
+        "description": "Send base64 images with model, label, and channel settings to printImage."
+      },
+      {
+        "title": "Print lifecycle events",
+        "description": "Listen for print success, communication failure, and print error outcomes."
+      }
+    ],
+    "path": "/projects/capacitor-brotherprint",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-brotherprint",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "Documentation",
+        "path": "/projects/capacitor-brotherprint/docs/readme"
+      }
+    ]
   }
 ] as const;
 
@@ -1168,6 +1363,45 @@ export const PROJECTS_JA = [
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/ionic-theme-md3/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "ionic-angular-collect-icons",
+    "slug": "ionic-angular-collect-icons",
+    "name": "rdlabo Ionic Angular Collect Icons",
+    "shortName": "Ionic Angular Collect Icons",
+    "packageName": "@rdlabo/ionic-angular-collect-icons",
+    "repositoryUrl": "https://github.com/rdlabo-dev/ionic-angular-collect-icons",
+    "category": "frontend-tools",
+    "icon": "app",
+    "version": "2.1.0",
+    "description": "Ionic Angularプロジェクト向けのionIcons収集・エクスポート自動化。",
+    "headline": "本番ビルド前に使用中のionIconsを収集する",
+    "overview": "プロジェクト内のionIconsを一意にまとめエクスポート用ファイルを生成します。開発時は全アイコンを登録し、本番ビルド前にテンプレートで使われているアイコンを収集します。",
+    "featuresHeading": "アイコンワークフロー",
+    "features": [
+      {
+        "title": "テンプレート収集",
+        "description": "テンプレートを走査し、本番ビルド前に一意なionIconsエクスポートを生成します。"
+      },
+      {
+        "title": "開発時の利便性",
+        "description": "開発時はaddIconsに全アイコンを登録し、ストレスなく反復できます。"
+      },
+      {
+        "title": "初期化CLI",
+        "description": "--initializeでaddIconsを自動配線し、コンポーネント単位の呼び出しを削除します。"
+      }
+    ],
+    "path": "/projects/ionic-angular-collect-icons",
+    "pages": [
+      {
+        "title": "Ionic Angular Collect Icons",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "ドキュメント",
+        "path": "/projects/ionic-angular-collect-icons/docs/readme"
       }
     ]
   },
@@ -1748,6 +1982,162 @@ export const PROJECTS_JA = [
         "slug": "api",
         "section": "リファレンス",
         "path": "/projects/capacitor-admob/docs/api"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-codescanner",
+    "slug": "capacitor-codescanner",
+    "name": "rdlabo Capacitor Code Scanner",
+    "shortName": "Capacitor Code Scanner",
+    "packageName": "@rdlabo/capacitor-codescanner",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-codescanner",
+    "category": "capacitor-plugins",
+    "icon": "app",
+    "version": "8.0.3",
+    "description": "ネイティブモーダルでバーコード・QRコードをスキャンするCapacitorプラグイン。",
+    "headline": "Webアセットを操作せずネイティブモーダルでコードをスキャンする",
+    "overview": "モーダルでスキャナーを表示し、検出イベントを受け取り、検出エリアと連続マルチスキャンを設定できます。Webアセットの操作は不要です。",
+    "featuresHeading": "できること",
+    "features": [
+      {
+        "title": "モーダルスキャン",
+        "description": "ネイティブモーダルを開きその中でスキャンするため、Webアセットの変更は不要です。"
+      },
+      {
+        "title": "連続マルチスキャン",
+        "description": "isMultiモードでコードを連続スキャンできます。"
+      },
+      {
+        "title": "ライトとフィードバック",
+        "description": "自動ライト制御、バイブレーション、検出エリアの視覚表示を使います。"
+      }
+    ],
+    "path": "/projects/capacitor-codescanner",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-codescanner",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "ドキュメント",
+        "path": "/projects/capacitor-codescanner/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-screenshot-event",
+    "slug": "capacitor-screenshot-event",
+    "name": "rdlabo Capacitor Screenshot Event",
+    "shortName": "Capacitor Screenshot Event",
+    "packageName": "@rdlabo/capacitor-screenshot-event",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-screenshot-event",
+    "category": "capacitor-plugins",
+    "icon": "app",
+    "version": "8.0.0",
+    "description": "ユーザーがスクリーンショットを撮ったことをCapacitorアプリへ通知するプラグイン。",
+    "headline": "ユーザーのスクリーンショットに反応する",
+    "overview": "スクリーンショット監視を開始し、CapacitorからuserDidTakeScreenshotコールバックを処理します。",
+    "featuresHeading": "できること",
+    "features": [
+      {
+        "title": "監視開始",
+        "description": "startWatchEventを呼び出し、スクリーンショットの監視を開始します。"
+      },
+      {
+        "title": "スクリーンショットリスナー",
+        "description": "ユーザーが画面を撮影したときにuserDidTakeScreenshotを処理します。"
+      },
+      {
+        "title": "監視停止",
+        "description": "監視が不要になったらremoveWatchEventを呼び出します。"
+      }
+    ],
+    "path": "/projects/capacitor-screenshot-event",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-screenshot-event",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "ドキュメント",
+        "path": "/projects/capacitor-screenshot-event/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-printer",
+    "slug": "capacitor-printer",
+    "name": "rdlabo Capacitor Printer",
+    "shortName": "Capacitor Printer",
+    "packageName": "@rdlabo/capacitor-printer",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-printer",
+    "category": "capacitor-plugins",
+    "icon": "terminal",
+    "version": "8.0.1",
+    "description": "CapacitorアプリでファイルとWebView内容をネイティブ印刷するプラグイン。",
+    "headline": "Capacitorからシステム印刷UIを表示する",
+    "overview": "AndroidとiOSの印刷UIを通じて、ファイルまたは現在のWebViewを印刷します。",
+    "featuresHeading": "できること",
+    "features": [
+      {
+        "title": "ファイル印刷",
+        "description": "AndroidとiOSでファイルパスまたはローカルURLの印刷UIを表示します。"
+      },
+      {
+        "title": "WebView印刷",
+        "description": "現在のWebView内容の印刷UIを表示します。"
+      },
+      {
+        "title": "安全なファイルライフサイクル",
+        "description": "OSがソースを必要としなくなるまでprintFileを待ち、その後安全に削除できます。"
+      }
+    ],
+    "path": "/projects/capacitor-printer",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-printer",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "ドキュメント",
+        "path": "/projects/capacitor-printer/docs/readme"
+      }
+    ]
+  },
+  {
+    "id": "capacitor-brotherprint",
+    "slug": "capacitor-brotherprint",
+    "name": "rdlabo Capacitor Brother Print",
+    "shortName": "Capacitor Brother Print",
+    "packageName": "@rdlabo/capacitor-brotherprint",
+    "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-brotherprint",
+    "category": "capacitor-plugins",
+    "icon": "terminal",
+    "version": "8.1.1",
+    "description": "iOS・Android向けのネイティブBrother Print SDKをCapacitorから利用するプラグイン。",
+    "headline": "CapacitorからBrotherラベルプリンターへ印刷する",
+    "overview": "USB・Wi-Fi・Bluetooth・BLEでBrotherプリンターを検索し、対応するQL・TDモデルへ画像を印刷します。",
+    "featuresHeading": "できること",
+    "features": [
+      {
+        "title": "プリンター探索",
+        "description": "ポート指定でBrotherプリンターを探索し、利用可能イベントを受け取ります。"
+      },
+      {
+        "title": "画像印刷",
+        "description": "モデル・ラベル・チャネル設定付きのbase64画像をprintImageへ送ります。"
+      },
+      {
+        "title": "印刷ライフサイクルイベント",
+        "description": "印刷成功、通信失敗、印刷エラーの結果をリスナーで受け取ります。"
+      }
+    ],
+    "path": "/projects/capacitor-brotherprint",
+    "pages": [
+      {
+        "title": "@rdlabo/capacitor-brotherprint",
+        "navTitle": "README",
+        "slug": "readme",
+        "section": "ドキュメント",
+        "path": "/projects/capacitor-brotherprint/docs/readme"
       }
     ]
   }

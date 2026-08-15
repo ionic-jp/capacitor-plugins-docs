@@ -82,6 +82,7 @@
       <trans-unit id="growingCollection"><source>Growing collection</source><target>今後追加予定</target></trans-unit>
       <trans-unit id="upcomingProjects"><source>More rdlabo projects will be documented here as they are released.</source><target>rdlaboの新しいOSSをリリースにあわせて追加します。</target></trans-unit>
       <trans-unit id="viewSource"><source>View source</source><target>ソースを見る</target></trans-unit>
+      <trans-unit id="starOnGitHub"><source>Star on GitHub</source><target>GitHubでStarする</target></trans-unit>
       <trans-unit id="siteDescription"><source>Documentation for personal open source projects created and maintained by rdlabo.</source><target>rdlabo個人が開発・管理するオープンソースプロジェクトの公式ドキュメントです。</target></trans-unit>
       <trans-unit id="notFoundHeading"><source>Page not found</source><target>ページが見つかりません</target></trans-unit>
       <trans-unit id="notFoundDescription"><source>The page may have moved while the documentation was being reorganized.</source><target>ドキュメントの再編により、ページが移動した可能性があります。</target></trans-unit>
