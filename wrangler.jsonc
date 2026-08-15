@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "docs",
+  "account_id": "09b7a8355cbc8a838af7de40ed9ec7f8",
+  "compatibility_date": "2026-08-15",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist/capacitor-plugins-docs/browser",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash",
+  },
+  "routes": [
+    {
+      "pattern": "docs.rdlabo.dev",
+      "custom_domain": true,
+    },
+  ],
+}

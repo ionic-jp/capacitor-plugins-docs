@@ -1,26 +1,18 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  DestroyRef,
-  LOCALE_ID,
-  OnInit,
-  PLATFORM_ID,
-  inject,
-} from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CodePanel } from './code-panel';
-import { DocsHeading, DocsPage, PluginDocs, findPage, findPlugin } from './docs-data';
+import { DocsHeading, DocsPage, ProjectDocs } from './docs-data';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { ScrollSpyDirective } from './scroll-spy.directive';
+import { SeoService } from './seo.service';
 
 @Component({
   selector: 'app-docs-page',
   imports: [CodePanel, SafeHtmlPipe, ScrollSpyDirective],
   template: `
-    @if (page && plugin) {
+    @if (page && project) {
       <div class="mx-auto max-w-[1500px] pb-16">
         <div
           [class]="
@@ -40,6 +32,18 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
             [appScrollSpy]="headingKeys"
             (activeHeadingChange)="activate($event)"
           >
+            <span
+              aria-hidden="true"
+              class="sr-only"
+              [attr.data-pagefind-filter]="'project:' + project.id"
+              >{{ project.shortName }}</span
+            >
+            <span
+              aria-hidden="true"
+              class="sr-only"
+              [attr.data-pagefind-filter]="'category:' + project.category"
+              >{{ project.category }}</span
+            >
             <h1 id="document-title">{{ page.title }}</h1>
             <div [innerHTML]="page.html | safeHtml"></div>
             @if (page.codes.length) {
@@ -79,8 +83,8 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
                 @for (heading of tocHeadings; track heading.id) {
                   <li [class.pl-3]="heading.level === 3">
                     <a
-                      class="block py-1 text-[0.82rem] leading-5 font-normal text-[#526985] no-underline transition-colors hover:text-[#1b6dff] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1b6dff]"
-                      [class.!text-[#1b6dff]]="activeToc === heading.id"
+                      class="block py-1 text-[0.82rem] leading-5 font-normal break-words text-[#6b625d] no-underline transition-colors hover:text-[#c44320] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
+                      [class.!text-[#c44320]]="activeToc === heading.id"
                       [href]="'#' + heading.id"
                       >{{ heading.text }}</a
                     >
@@ -90,7 +94,7 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
             </nav>
             <div class="mt-5 border-t border-slate-200 pt-4">
               <a
-                class="inline-flex items-center gap-2 text-[0.82rem] leading-5 font-normal text-[#333] no-underline hover:text-[#0f83fd]"
+                class="inline-flex items-center gap-2 text-[0.82rem] leading-5 font-normal text-[#333] no-underline hover:text-[#c44320]"
                 [href]="page.editUrl"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -111,12 +115,11 @@ import { ScrollSpyDirective } from './scroll-spy.directive';
 })
 export class DocsPageComponent implements OnInit, AfterViewInit {
   private readonly route = inject(ActivatedRoute);
-  private readonly locale = inject(LOCALE_ID);
-  private readonly title = inject(Title);
+  private readonly seo = inject(SeoService);
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly destroyRef = inject(DestroyRef);
-  plugin?: PluginDocs;
+  project?: ProjectDocs;
   page?: DocsPage;
   headingKeys: readonly string[] = [];
   tocHeadings: readonly DocsHeading[] = [];
@@ -124,16 +127,18 @@ export class DocsPageComponent implements OnInit, AfterViewInit {
   activeLines: Record<string, readonly number[]> = {};
 
   ngOnInit(): void {
-    const pluginId = this.route.snapshot.data['pluginId'] as string;
     const slug = this.route.snapshot.data['pageSlug'] as string;
-    this.plugin = findPlugin(pluginId, this.locale);
-    this.page = findPage(pluginId, slug, this.locale);
-    if (!this.plugin || !this.page) return;
+    this.project = this.route.snapshot.data['project'] as ProjectDocs | undefined;
+    this.page = this.project?.pages.find((page) => page.slug === slug);
+    if (!this.project || !this.page) return;
     this.headingKeys = ['', ...this.page.headings.map((heading) => heading.id)];
     this.tocHeadings = this.page.headings.filter((heading) => heading.level <= 3);
     this.activeLines = { ...(this.page.scrollMap[0]?.activeLine ?? {}) };
-    const documentation = $localize`:@@documentationTitleSuffix:Documentation`;
-    this.title.setTitle(`${this.page.title} - ${this.plugin.packageName} ${documentation}`);
+    this.seo.setPage({
+      title: `${this.page.title} - ${this.project.shortName} - rdlabo.dev`,
+      description: `${this.page.title}. ${this.project.description}`,
+      path: this.page.path,
+    });
   }
 
   ngAfterViewInit(): void {

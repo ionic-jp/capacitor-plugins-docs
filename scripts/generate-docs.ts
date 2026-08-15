@@ -5,111 +5,20 @@ import markdownToHtml from 'zenn-markdown-html';
 import { formatDescription, formatType } from '@capacitor/docgen/dist/formatting';
 import { MarkdownTable } from '@capacitor/docgen/dist/markdown';
 import { JSDOM } from 'jsdom';
+import {
+  type Locale,
+  localize,
+  projectCategoryDefinitions,
+  projectDefinitions,
+  type ProjectDefinition,
+} from './project-manifest';
+import { localizedPublicPath } from '../src/app/locale-path';
+import { SITE_CONFIG } from '../src/app/site-config';
+import { enforceGeneratedHtmlPolicy } from './html-policy';
+import { normalizeImportedReadmeHeadings } from './markdown-headings';
 
 const root = resolve(process.cwd());
 const docsRepositoryUrl = 'https://github.com/ionic-jp/capacitor-plugins-docs';
-type Locale = 'en' | 'ja';
-
-const japanesePageCopy: Record<string, { title: string; section: string }> = {
-  'stripe/configuration': { title: '設定', section: 'クイックスタート' },
-  'stripe/vanilla-js': { title: 'Vanilla JS', section: 'クイックスタート' },
-  'stripe/angular': { title: 'Angular', section: 'クイックスタート' },
-  'stripe/react': { title: 'React', section: 'クイックスタート' },
-  'stripe/learn/event-listeners': { title: 'イベントリスナー', section: '学ぶ' },
-  'stripe/server-integration': { title: 'サーバー連携', section: '学ぶ' },
-  'stripe/initialize': { title: '初期化', section: 'メソッド' },
-  'stripe/payment-sheet': { title: 'PaymentSheet', section: 'メソッド' },
-  'stripe/payment-flow': { title: 'PaymentFlow', section: 'メソッド' },
-  'stripe/apple-pay': { title: 'Apple Pay', section: 'メソッド' },
-  'stripe/google-pay': { title: 'Google Pay', section: 'メソッド' },
-  'stripe/api': { title: 'API', section: 'リファレンス' },
-  'stripe-identity/configuration': { title: '設定', section: 'クイックスタート' },
-  'stripe-identity/identity-verification-sheet': {
-    title: '本人確認シート',
-    section: 'ガイド',
-  },
-  'stripe-identity/api': { title: 'API', section: 'リファレンス' },
-  'stripe-terminal/configuration': { title: '設定', section: 'クイックスタート' },
-  'stripe-terminal/collect-a-payment': { title: '支払いを受け付ける', section: 'ガイド' },
-  'stripe-terminal/reader-lifecycle': { title: 'リーダーのライフサイクル', section: 'ガイド' },
-  'stripe-terminal/tap-to-pay': { title: 'Tap to Pay', section: 'ガイド' },
-  'stripe-terminal/api': { title: 'API', section: 'リファレンス' },
-  'admob/configuration': { title: '設定', section: 'クイックスタート' },
-  'admob/consent': { title: '同意管理', section: 'ガイド' },
-  'admob/banner': { title: 'バナー広告', section: '広告フォーマット' },
-  'admob/full-screen-ads': { title: 'フルスクリーン広告', section: '広告フォーマット' },
-  'admob/app-open': { title: 'アプリ起動時広告', section: '広告フォーマット' },
-  'admob/api': { title: 'API', section: 'リファレンス' },
-};
-const plugins = [
-  {
-    id: 'stripe',
-    name: 'Capacitor Community Stripe',
-    packageName: '@capacitor-community/stripe',
-    repositoryUrl: 'https://github.com/capacitor-community/stripe',
-    description: 'Native Stripe payments for Capacitor applications.',
-    pages: [
-      ['Configuration', 'configuration', 'configuration.md', 'Quickstart'],
-      ['Vanilla JS', 'vanilla-js', 'vanilla-js.md', 'Quickstart'],
-      ['Angular', 'angular', 'angular.md', 'Quickstart'],
-      ['React', 'react', 'react.md', 'Quickstart'],
-      ['Event Listeners', 'learn/event-listeners', 'learn/event-listeners.md', 'Learn'],
-      ['Server Integration', 'server-integration', 'server-integration.md', 'Learn'],
-      ['Initialize', 'initialize', 'initialize.md', 'Method'],
-      ['PaymentSheet', 'payment-sheet', 'payment-sheet.md', 'Method'],
-      ['PaymentFlow', 'payment-flow', 'payment-flow.md', 'Method'],
-      ['Apple Pay', 'apple-pay', 'apple-pay.md', 'Method'],
-      ['Google Pay', 'google-pay', 'google-pay.md', 'Method'],
-      ['API', 'api', 'api.md', 'Reference'],
-    ],
-  },
-  {
-    id: 'stripe-identity',
-    name: 'Capacitor Community Stripe Identity',
-    packageName: '@capacitor-community/stripe-identity',
-    repositoryUrl: 'https://github.com/capacitor-community/stripe',
-    description: 'Stripe Identity SDK bindings for Capacitor applications.',
-    pages: [
-      ['Configuration', 'configuration', 'configuration.md', 'Quickstart'],
-      [
-        'Identity Verification Sheet',
-        'identity-verification-sheet',
-        'identity-verification-sheet.md',
-        'Guide',
-      ],
-      ['API', 'api', 'api.md', 'Reference'],
-    ],
-  },
-  {
-    id: 'stripe-terminal',
-    name: 'Capacitor Community Stripe Terminal',
-    packageName: '@capacitor-community/stripe-terminal',
-    repositoryUrl: 'https://github.com/capacitor-community/stripe',
-    description: 'Stripe Terminal SDK bindings for Capacitor applications.',
-    pages: [
-      ['Configuration', 'configuration', 'configuration.md', 'Quickstart'],
-      ['Collect a Payment', 'collect-a-payment', 'collect-a-payment.md', 'Guide'],
-      ['Reader Lifecycle', 'reader-lifecycle', 'reader-lifecycle.md', 'Guide'],
-      ['Tap to Pay', 'tap-to-pay', 'tap-to-pay.md', 'Guide'],
-      ['API', 'api', 'api.md', 'Reference'],
-    ],
-  },
-  {
-    id: 'admob',
-    name: 'Capacitor Community AdMob',
-    packageName: '@capacitor-community/admob',
-    repositoryUrl: 'https://github.com/capacitor-community/admob',
-    description: 'Native Google AdMob ads for Capacitor applications.',
-    pages: [
-      ['Configuration', 'configuration', 'configuration.md', 'Quickstart'],
-      ['Consent', 'consent', 'consent.md', 'Guide'],
-      ['Banner Ads', 'banner', 'banner.md', 'Ad formats'],
-      ['Full-screen Ads', 'full-screen-ads', 'full-screen-ads.md', 'Ad formats'],
-      ['App Open Ads', 'app-open', 'app-open.md', 'Ad formats'],
-      ['API', 'api', 'api.md', 'Reference'],
-    ],
-  },
-] as const;
 
 const stripHtml = (value: string) => value.replace(/<\/?code>/g, '`').replace(/<[^>]+>/g, '');
 const tagText = (tags: any[], name: string) => tags?.find((tag) => tag.name === name)?.text ?? '';
@@ -179,7 +88,9 @@ async function renderCode(markdown: string): Promise<{ file: string; lines: stri
       parsed.attributes.file ||
       parsed.attributes.title ||
       'example.ts',
-    lines: Array.from(code?.querySelectorAll(':scope > .line') ?? []).map((line) => line.innerHTML),
+    lines: Array.from(code?.querySelectorAll(':scope > .line') ?? []).map((line, index) =>
+      enforceGeneratedHtmlPolicy(line.innerHTML, `code example line ${index + 1}`),
+    ),
   };
 }
 
@@ -222,150 +133,255 @@ function formatApiReference(document: Document): void {
   body.appendChild(root);
 }
 
-async function generateLocale(locale: Locale): Promise<unknown[]> {
-  const generated = [];
-  for (const plugin of plugins) {
-    const docsJson = JSON.parse(
-      await readFile(join(root, 'node_modules', plugin.packageName, 'dist/docs.json'), 'utf8'),
+function localizeProject(project: ProjectDefinition, locale: Locale, version: string) {
+  return {
+    id: project.id,
+    slug: project.slug,
+    name: project.name,
+    shortName: project.shortName,
+    packageName: project.packageName,
+    repositoryUrl: project.repositoryUrl,
+    category: project.category,
+    icon: project.icon,
+    version,
+    description: localize(project.description, locale),
+    headline: localize(project.headline, locale),
+    overview: localize(project.overview, locale),
+    featuresHeading: localize(project.featuresHeading, locale),
+    features: project.features.map((feature) => ({
+      title: localize(feature.title, locale),
+      description: localize(feature.description, locale),
+    })),
+  };
+}
+
+function rewriteInternalLinks(html: string, project: ProjectDefinition, locale: Locale): string {
+  const localePrefix = locale === 'ja' ? '/ja' : '';
+  let rewritten = html.replace(
+    /href="\/docs\//g,
+    `href="${localePrefix}/projects/${project.slug}/docs/`,
+  );
+  for (const target of projectDefinitions) {
+    rewritten = rewritten.replaceAll(
+      `href="/${target.id}/docs/`,
+      `href="${localePrefix}/projects/${target.slug}/docs/`,
     );
-    const api = apiMarkdown(docsJson);
-    const pages = [];
-    for (const [title, slug, file, section] of plugin.pages) {
-      const sourcePath = join(
-        root,
-        'src',
-        plugin.id,
-        'docs',
-        ...(locale === 'ja' ? ['ja'] : []),
-        file,
+    rewritten = rewritten.replaceAll(
+      `href="/${target.id}"`,
+      `href="${localePrefix}/projects/${target.slug}"`,
+    );
+    rewritten = rewritten.replaceAll(
+      `href="/${target.id}/`,
+      `href="${localePrefix}/projects/${target.slug}/`,
+    );
+  }
+  return rewritten;
+}
+
+async function generateProject(project: ProjectDefinition, locale: Locale): Promise<any> {
+  const packageRoot = join(root, 'node_modules', project.packageName);
+  const packageJson = JSON.parse(await readFile(join(packageRoot, 'package.json'), 'utf8'));
+  const api =
+    project.adapter === 'markdown'
+      ? new Map<string, string>()
+      : apiMarkdown(JSON.parse(await readFile(join(packageRoot, 'dist/docs.json'), 'utf8')));
+  const pages = [];
+  for (const page of project.pages) {
+    const { slug, file } = page;
+    const sourcePath = join(
+      root,
+      'src',
+      project.sourceDirectory,
+      'docs',
+      ...(locale === 'ja' ? ['ja'] : []),
+      file,
+    );
+    const parsed = fm<any>(await readFile(sourcePath, 'utf8'));
+    const missingApiEntries: string[] = [];
+    const expanded = parsed.body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
+      const entry = api.get(id);
+      if (!entry) missingApiEntries.push(id);
+      return entry ?? '';
+    });
+    if (missingApiEntries.length) {
+      throw new Error(
+        `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
       );
-      const parsed = fm<any>(await readFile(sourcePath, 'utf8'));
-      const missingApiEntries: string[] = [];
-      const expanded = parsed.body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
-        const entry = api.get(id);
-        if (!entry) missingApiEntries.push(id);
-        return entry ?? '';
-      });
-      if (missingApiEntries.length) {
-        throw new Error(
-          `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
-        );
-      }
-      const codes = [];
-      for (const codePath of parsed.attributes.code ?? []) {
-        const normalized = String(codePath).replace(/^\/docs\/stripe\//, '');
-        codes.push(
-          await renderCode(
-            await readFile(join(root, 'src', plugin.id, 'docs', normalized), 'utf8'),
-          ),
-        );
-      }
-      const localePrefix = locale === 'ja' ? '/ja' : '';
-      let html = (await markdownToHtml(expanded))
-        .replace(/href="\/docs\//g, `href="${localePrefix}/${plugin.id}/docs/`)
-        .replace(
-          /href="\/(stripe(?:-identity|-terminal)?|admob)(\/|\")/g,
-          `href="${localePrefix}/$1$2`,
-        )
-        .replace('loading="lazy"', 'loading="eager" fetchpriority="high"');
-      const htmlDocument = new JSDOM(html).window.document;
-      const headingIds = Array.from(
-        htmlDocument.querySelectorAll<HTMLElement>('h1, h2, h3, h4'),
-      ).map((heading) => heading.id);
-      const scrollMap = (parsed.attributes.scrollActiveLine ?? []).map((entry: any) => {
-        if (locale !== 'ja' || !entry.id) return entry;
-        const localizedId = headingIds.find(
-          (headingId) => decodeURIComponent(headingId) === entry.id,
-        );
-        return localizedId ? { ...entry, id: localizedId } : entry;
-      });
-      const codeByFile = new Map(codes.map((code) => [code.file, code]));
-      let previousHeadingIndex = -1;
-      for (const entry of scrollMap) {
-        if (entry.id) {
-          const headingIndex = headingIds.indexOf(entry.id);
-          if (headingIndex < 0) {
-            throw new Error(
-              `${relative(root, sourcePath)} references missing heading: ${entry.id}`,
-            );
-          }
-          if (headingIndex <= previousHeadingIndex) {
-            throw new Error(
-              `${relative(root, sourcePath)} has an out-of-order or duplicate heading: ${entry.id}`,
-            );
-          }
-          previousHeadingIndex = headingIndex;
-        }
-        for (const [codeFile, range] of Object.entries<number[]>(entry.activeLine ?? {})) {
-          const code = codeByFile.get(codeFile);
-          if (!code) {
-            throw new Error(
-              `${relative(root, sourcePath)} references missing code file: ${codeFile}`,
-            );
-          }
-          if (
-            range.length !== 2 ||
-            !range.every(Number.isInteger) ||
-            range[0] < 0 ||
-            range[1] < range[0] ||
-            range[1] > code.lines.length + 1
-          ) {
-            throw new Error(
-              `${relative(root, sourcePath)} has an invalid ${codeFile} line range: ${range.join(', ')}`,
-            );
-          }
-        }
-      }
-      formatApiEntries(htmlDocument);
-      if (slug === 'api') formatApiReference(htmlDocument);
-      html = htmlDocument.body.innerHTML;
-      const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
-        (heading) => ({
-          id: heading.id,
-          text: heading.textContent?.trim() ?? '',
-          level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
-        }),
-      );
-      const localizedCopy = locale === 'ja' ? japanesePageCopy[`${plugin.id}/${slug}`] : undefined;
-      pages.push({
-        title: parsed.attributes.title || localizedCopy?.title || title,
-        navTitle: localizedCopy?.title || title,
-        slug,
-        file,
-        section: localizedCopy?.section || section,
-        path: `/${plugin.id}/docs/${slug}`,
-        html,
-        headings,
-        codes,
-        scrollMap,
-        editUrl: `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`,
-      });
     }
-    generated.push({
-      ...plugin,
-      name:
-        locale === 'ja'
-          ? plugin.name.replace('Capacitor Community', 'Capacitor Community')
-          : plugin.name,
-      description:
-        locale === 'ja' ? `${plugin.packageName} の日本語ドキュメント。` : plugin.description,
-      pages,
+    const codes = [];
+    for (const codePath of parsed.attributes.code ?? []) {
+      const normalized = String(codePath).replace(/^\/docs\/stripe\//, '');
+      codes.push(
+        await renderCode(
+          await readFile(join(root, 'src', project.sourceDirectory, 'docs', normalized), 'utf8'),
+        ),
+      );
+    }
+    let html = rewriteInternalLinks(await markdownToHtml(expanded), project, locale).replace(
+      'loading="lazy"',
+      'loading="eager" fetchpriority="high"',
+    );
+    const htmlDocument = new JSDOM(html).window.document;
+    if (
+      (project.id === 'eslint-plugin-rules' && slug.startsWith('rules/')) ||
+      file === 'readme.md' ||
+      file === 'using-ion-item-group.md'
+    ) {
+      normalizeImportedReadmeHeadings(htmlDocument);
+    }
+    const headingIds = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h1, h2, h3, h4')).map(
+      (heading) => heading.id,
+    );
+    const scrollMap = (parsed.attributes.scrollActiveLine ?? []).map((entry: any) => {
+      if (locale !== 'ja' || !entry.id) return entry;
+      const localizedId = headingIds.find(
+        (headingId) => decodeURIComponent(headingId) === entry.id,
+      );
+      return localizedId ? { ...entry, id: localizedId } : entry;
+    });
+    const codeByFile = new Map(codes.map((code) => [code.file, code]));
+    let previousHeadingIndex = -1;
+    for (const entry of scrollMap) {
+      if (entry.id) {
+        const headingIndex = headingIds.indexOf(entry.id);
+        if (headingIndex < 0) {
+          throw new Error(`${relative(root, sourcePath)} references missing heading: ${entry.id}`);
+        }
+        if (headingIndex <= previousHeadingIndex) {
+          throw new Error(
+            `${relative(root, sourcePath)} has an out-of-order or duplicate heading: ${entry.id}`,
+          );
+        }
+        previousHeadingIndex = headingIndex;
+      }
+      for (const [codeFile, range] of Object.entries<number[]>(entry.activeLine ?? {})) {
+        const code = codeByFile.get(codeFile);
+        if (!code) {
+          throw new Error(
+            `${relative(root, sourcePath)} references missing code file: ${codeFile}`,
+          );
+        }
+        if (
+          range.length !== 2 ||
+          !range.every(Number.isInteger) ||
+          range[0] < 0 ||
+          range[1] < range[0] ||
+          range[1] > code.lines.length + 1
+        ) {
+          throw new Error(
+            `${relative(root, sourcePath)} has an invalid ${codeFile} line range: ${range.join(', ')}`,
+          );
+        }
+      }
+    }
+    formatApiEntries(htmlDocument);
+    if (slug === 'api') formatApiReference(htmlDocument);
+    html = enforceGeneratedHtmlPolicy(htmlDocument.body.innerHTML, relative(root, sourcePath));
+    const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
+      (heading) => ({
+        id: heading.id,
+        text: heading.textContent?.trim() ?? '',
+        level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
+      }),
+    );
+    pages.push({
+      title: parsed.attributes.title || localize(page.title, locale),
+      navTitle: localize(page.title, locale),
+      slug,
+      file,
+      section: localize(page.section, locale),
+      path: `/projects/${project.slug}/docs/${slug}`,
+      html,
+      headings,
+      codes,
+      scrollMap,
+      editUrl: `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`,
     });
   }
-  return generated;
+  return {
+    ...localizeProject(project, locale, packageJson.version),
+    path: `/projects/${project.slug}`,
+    pages,
+  };
 }
 
 async function main(): Promise<void> {
-  const generatedEnglish = await generateLocale('en');
-  const generatedJapanese = await generateLocale('ja');
-  const destination = join(root, 'src/app/generated/plugin-docs.generated.ts');
-  await mkdir(dirname(destination), { recursive: true });
+  const generatedDirectory = join(root, 'src/app/generated');
+  const projectsDirectory = join(generatedDirectory, 'projects');
+  await mkdir(projectsDirectory, { recursive: true });
+  const projectsByLocale: Record<Locale, any[]> = { en: [], ja: [] };
+  for (const project of projectDefinitions) {
+    for (const locale of ['en', 'ja'] as const) {
+      const generated = await generateProject(project, locale);
+      projectsByLocale[locale].push(generated);
+      await writeFile(
+        join(projectsDirectory, `${project.id}.${locale}.generated.ts`),
+        `// Generated by scripts/generate-docs.ts. Do not edit.\nexport const PROJECT = ${JSON.stringify(generated, null, 2)} as const;\n`,
+      );
+    }
+  }
+
+  const catalogs = Object.fromEntries(
+    (['en', 'ja'] as const).map((locale) => [
+      locale,
+      projectsByLocale[locale].map(({ pages, ...project }) => ({
+        ...project,
+        pages: pages.map(
+          ({ html, headings, codes, scrollMap, editUrl, file, ...page }: any) => page,
+        ),
+      })),
+    ]),
+  ) as Record<Locale, any[]>;
+  const categories = Object.fromEntries(
+    (['en', 'ja'] as const).map((locale) => [
+      locale,
+      projectCategoryDefinitions.map((category) => ({
+        id: category.id,
+        label: localize(category.label, locale),
+        description: localize(category.description, locale),
+        order: category.order,
+      })),
+    ]),
+  ) as Record<Locale, any[]>;
   await writeFile(
-    destination,
-    `// Generated by scripts/generate-docs.ts. Do not edit.\nexport const PLUGINS_EN = ${JSON.stringify(generatedEnglish, null, 2)} as const;\n\nexport const PLUGINS_JA = ${JSON.stringify(generatedJapanese, null, 2)} as const;\n`,
+    join(generatedDirectory, 'project-catalog.generated.ts'),
+    `// Generated by scripts/generate-docs.ts. Do not edit.\nexport const PROJECT_CATEGORIES_EN = ${JSON.stringify(categories.en, null, 2)} as const;\n\nexport const PROJECT_CATEGORIES_JA = ${JSON.stringify(categories.ja, null, 2)} as const;\n\nexport const PROJECTS_EN = ${JSON.stringify(catalogs.en, null, 2)} as const;\n\nexport const PROJECTS_JA = ${JSON.stringify(catalogs.ja, null, 2)} as const;\n`,
   );
+  const loaderEntries = projectDefinitions
+    .map(
+      (project) =>
+        `  ${JSON.stringify(project.id)}: {\n    en: () => import('./projects/${project.id}.en.generated').then((module) => module.PROJECT),\n    ja: () => import('./projects/${project.id}.ja.generated').then((module) => module.PROJECT),\n  },`,
+    )
+    .join('\n');
+  await writeFile(
+    join(generatedDirectory, 'project-loaders.generated.ts'),
+    `// Generated by scripts/generate-docs.ts. Do not edit.\nexport const PROJECT_LOADERS = {\n${loaderEntries}\n} as const;\n`,
+  );
+  const canonicalPaths = [
+    '/',
+    ...catalogs.en.flatMap((project) => [
+      project.path,
+      ...project.pages.map((page: any) => page.path),
+    ]),
+  ];
+  const sitemapEntries = canonicalPaths
+    .map((path) => {
+      const englishUrl = `${SITE_CONFIG.origin}${localizedPublicPath('en', path)}`;
+      const japaneseUrl = `${SITE_CONFIG.origin}${localizedPublicPath('ja', path)}`;
+      return `  <url>\n    <loc>${englishUrl}</loc>\n    <xhtml:link rel="alternate" hreflang="en" href="${englishUrl}" />\n    <xhtml:link rel="alternate" hreflang="ja" href="${japaneseUrl}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${englishUrl}" />\n  </url>\n  <url>\n    <loc>${japaneseUrl}</loc>\n    <xhtml:link rel="alternate" hreflang="en" href="${englishUrl}" />\n    <xhtml:link rel="alternate" hreflang="ja" href="${japaneseUrl}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${englishUrl}" />\n  </url>`;
+    })
+    .join('\n');
+  await writeFile(
+    join(root, 'public/sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`,
+  );
+  await writeFile(
+    join(root, 'public/robots.txt'),
+    `User-agent: *\nAllow: /\n\nSitemap: ${SITE_CONFIG.origin}/sitemap.xml\n`,
+  );
+  const pageCount = projectsByLocale.en.reduce((count, project) => count + project.pages.length, 0);
   console.log(
-    `Generated ${generatedEnglish.reduce((count: number, plugin: any) => count + plugin.pages.length, 0) + generatedJapanese.reduce((count: number, plugin: any) => count + plugin.pages.length, 0)} localized documentation pages.`,
+    `Generated ${pageCount * 2} localized documentation pages in ${projectDefinitions.length * 2} lazy project modules.`,
   );
 }
 

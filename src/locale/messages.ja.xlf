@@ -2,14 +2,16 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" target-language="ja" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="skipToContent"><source>Skip to content</source><target>本文へ移動</target></trans-unit>
       <trans-unit id="toggleDocumentationMenu"><source>Toggle documentation menu</source><target>ドキュメントメニューを開閉</target></trans-unit>
       <trans-unit id="switchLanguage"><source>Switch language</source><target>言語を切り替える</target></trans-unit>
-      <trans-unit id="viewOnGitHub"><source>View plugin on GitHub</source><target>GitHubでプラグインを見る</target></trans-unit>
+      <trans-unit id="viewOnGitHub"><source>View on GitHub</source><target>GitHubで見る</target></trans-unit>
       <trans-unit id="closeDocumentationMenu"><source>Close documentation menu</source><target>ドキュメントメニューを閉じる</target></trans-unit>
       <trans-unit id="documentation"><source>Documentation</source><target>ドキュメント</target></trans-unit>
       <trans-unit id="pluginsNav"><source>Plugins</source><target>プラグイン</target></trans-unit>
       <trans-unit id="introductionNav"><source>Introduction</source><target>はじめに</target></trans-unit>
-      <trans-unit id="footerCopyright"><source>© 2026 RELATION DESIGN LABO, GENERAL INC. ASSOCIATION. Released under the MIT License.</source><target>© 2026 一般社団法人リレーションデザイン研究所。MITライセンスで公開しています。</target></trans-unit>
+      <trans-unit id="footerOwnership"><source>Personal open source projects maintained by rdlabo, independently of the incorporated association that also uses the rdlabo name.</source><target>rdlabo個人が開発・管理するオープンソースプロジェクトです。同じrdlabo名を使用する一般社団法人リレーションデザイン研究所の事業とは独立しています。</target></trans-unit>
+      <trans-unit id="footerCopyright"><source>© 2026 rdlabo. Released under the MIT License.</source><target>© 2026 rdlabo。MITライセンスで公開しています。</target></trans-unit>
       <trans-unit id="stripeCapability"><source>Accept PaymentSheet and PaymentFlow, plus Apple Pay and Google Pay, from one Capacitor codebase.</source><target>ひとつのCapacitorコードベースで、PaymentSheet、PaymentFlow、Apple Pay、Google Payに対応します。</target></trans-unit>
       <trans-unit id="identityCapability"><source>Present Stripe Identity verification on native platforms and the web, then handle the result events.</source><target>ネイティブとWebでStripe Identityの本人確認を表示し、結果イベントを処理します。</target></trans-unit>
       <trans-unit id="terminalCapability"><source>Discover and connect readers, collect in-person payments, and listen for reader events including Tap to Pay.</source><target>リーダーの探索と接続、対面決済、Tap to Payを含むリーダーイベントに対応します。</target></trans-unit>
@@ -58,7 +60,7 @@
       <trans-unit id="consentControlsFeature"><source>Use Google UMP and iOS tracking authorization APIs before requesting ads.</source><target>広告のリクエスト前にGoogle UMPとiOSのトラッキング許可APIを使います。</target></trans-unit>
       <trans-unit id="adRevenueTitle"><source>Ad revenue events</source><target>広告収益イベント</target></trans-unit>
       <trans-unit id="adRevenueFeature"><source>Listen for impression-level revenue data across supported ad formats.</source><target>対応する広告形式でインプレッション単位の収益データを受け取ります。</target></trans-unit>
-      <trans-unit id="getStarted"><source>Get Started</source><target>はじめる</target></trans-unit>
+      <trans-unit id="getStarted"><source>Get started</source><target>はじめる</target></trans-unit>
       <trans-unit id="learnCapacitor"><source>Learn Capacitor</source><target>Capacitorを学ぶ</target></trans-unit>
       <trans-unit id="usedBy"><source>Used</source><target>採用例</target></trans-unit>
       <trans-unit id="documentationTitleSuffix"><source>Documentation</source><target>ドキュメント</target></trans-unit>
@@ -66,6 +68,25 @@
       <trans-unit id="contents"><source>Contents</source><target>目次</target></trans-unit>
       <trans-unit id="onThisPage"><source>On this page</source><target>このページの内容</target></trans-unit>
       <trans-unit id="editOnGitHub"><source>Edit this page on GitHub</source><target>GitHubでこのページを編集</target></trans-unit>
+      <trans-unit id="projectsNav"><source>Projects</source><target>プロジェクト</target></trans-unit>
+      <trans-unit id="allProjectsNav"><source>All projects</source><target>すべてのプロジェクト</target></trans-unit>
+      <trans-unit id="capacitorPluginsNav"><source>Capacitor plugins</source><target>Capacitorプラグイン</target></trans-unit>
+      <trans-unit id="overviewNav"><source>Overview</source><target>概要</target></trans-unit>
+      <trans-unit id="openSourceDocumentation"><source>Open source documentation</source><target>オープンソースドキュメント</target></trans-unit>
+      <trans-unit id="projectsIntro"><source>Documentation for open source projects created and maintained by rdlabo.</source><target>rdlaboが開発・管理するオープンソースプロジェクトの公式ドキュメントです。</target></trans-unit>
+      <trans-unit id="personalOwnershipNotice"><source>Every OSS project listed here is developed and maintained personally by rdlabo. They are independent of the incorporated association that also uses the rdlabo name.</source><target>ここに掲載するOSSはすべて、rdlabo個人が開発・管理しています。同じrdlabo名を使用する一般社団法人リレーションデザイン研究所の事業ではありません。</target></trans-unit>
+      <trans-unit id="currentCollection"><source>Current collection</source><target>現在のコレクション</target></trans-unit>
+      <trans-unit id="capacitorPluginsHeading"><source>Capacitor plugins</source><target>Capacitorプラグイン</target></trans-unit>
+      <trans-unit id="collectionDescription"><source>Native payments, identity verification, in-person payments, and mobile ads for Capacitor applications.</source><target>Capacitorアプリ向けのネイティブ決済、本人確認、対面決済、モバイル広告を提供します。</target></trans-unit>
+      <trans-unit id="readDocumentation"><source>Read documentation</source><target>ドキュメントを読む</target></trans-unit>
+      <trans-unit id="growingCollection"><source>Growing collection</source><target>今後追加予定</target></trans-unit>
+      <trans-unit id="upcomingProjects"><source>More rdlabo projects will be documented here as they are released.</source><target>rdlaboの新しいOSSをリリースにあわせて追加します。</target></trans-unit>
+      <trans-unit id="viewSource"><source>View source</source><target>ソースを見る</target></trans-unit>
+      <trans-unit id="siteDescription"><source>Documentation for personal open source projects created and maintained by rdlabo.</source><target>rdlabo個人が開発・管理するオープンソースプロジェクトの公式ドキュメントです。</target></trans-unit>
+      <trans-unit id="notFoundHeading"><source>Page not found</source><target>ページが見つかりません</target></trans-unit>
+      <trans-unit id="notFoundDescription"><source>The page may have moved while the documentation was being reorganized.</source><target>ドキュメントの再編により、ページが移動した可能性があります。</target></trans-unit>
+      <trans-unit id="backToProjects"><source>Browse projects</source><target>プロジェクト一覧へ</target></trans-unit>
+      <trans-unit id="notFoundTitle"><source>Page not found - rdlabo.dev</source><target>ページが見つかりません - rdlabo.dev</target></trans-unit>
     </body>
   </file>
 </xliff>

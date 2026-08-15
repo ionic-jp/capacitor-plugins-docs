@@ -1,0 +1,47 @@
+---
+title: implements-ionic-lifecycle
+---
+
+# @rdlabo/rules/implements-ionic-lifecycle
+
+> This plugin recommend to implements Ionic Lifecycle.
+>
+> - ⭐️ This rule is included in `plugin:@rdlabo/rules/recommended` preset.
+> - ✒️ The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.
+
+## Rule Details
+
+❌ Incorrect: Using Ionic Lifecycle methods without implementing the interface
+
+```ts
+@Component({
+  selector: 'app-confirm',
+  templateUrl: './confirm.page.html',
+  styleUrls: ['./confirm.page.scss'],
+})
+export class SigninPage {
+  ionViewWillEnter() {}
+}
+```
+
+✅ Correct: Using Ionic Lifecycle methods with proper interface implementation
+
+```ts
+@Component({
+  selector: 'app-confirm',
+  templateUrl: './confirm.page.html',
+  styleUrls: ['./confirm.page.scss'],
+})
+export class SigninPage implements ionViewWillEnter {
+  ionViewWillEnter() {}
+}
+```
+
+## Options
+
+No Options.
+
+## Implementation
+
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/implements-ionic-lifecycle.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/implements-ionic-lifecycle.ts)

@@ -1,0 +1,8 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#fffaf7"/>
+  <rect x="64" y="64" width="1072" height="502" rx="36" fill="#ffffff" stroke="#eadfd9" stroke-width="2"/>
+  <image href="rdlabo-logo.svg" x="810" y="190" width="250" height="126"/>
+  <text x="132" y="186" fill="#c44320" font-family="Helvetica Neue, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">OPEN SOURCE DOCUMENTATION</text>
+  <text x="126" y="350" fill="#211d1b" font-family="Helvetica Neue, Arial, sans-serif" font-size="104" font-weight="700" letter-spacing="-5">rdlabo<tspan fill="#ea572a">.dev</tspan></text>
+  <text x="132" y="455" fill="#6f6661" font-family="Helvetica Neue, Arial, sans-serif" font-size="32">Personal open source documentation</text>
+</svg>

@@ -1,220 +1,92 @@
-import { Component, LOCALE_ID, OnInit, inject } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PluginDocs, findPlugin } from './docs-data';
-
-interface LandingFeature {
-  title: string;
-  description: string;
-}
-
-interface LandingCopy {
-  headline: string;
-  overview: string;
-  featuresHeading: string;
-  features: readonly LandingFeature[];
-}
-
-const LANDING_COPY: Record<string, LandingCopy> = {
-  stripe: {
-    headline: $localize`:@@stripeHeadline:Accept Stripe payments in Capacitor apps`,
-    overview: $localize`:@@stripeOverview:Use @capacitor-community/stripe to present native PaymentSheet and PaymentFlow, accept Apple Pay and Google Pay, and integrate payments on the web from the same Capacitor codebase.`,
-    featuresHeading: $localize`:@@whatYouCanBuild:What you can build`,
-    features: [
-      {
-        title: 'PaymentSheet',
-        description: $localize`:@@paymentSheetFeature:Collect payment in a single native flow with PaymentIntent or SetupIntent.`,
-      },
-      {
-        title: 'PaymentFlow',
-        description: $localize`:@@paymentFlowFeature:Collect payment details first, then confirm after an intermediate step in your app.`,
-      },
-      {
-        title: 'Apple Pay',
-        description: $localize`:@@applePayFeature:Present Apple Pay for instant checkout where it is available.`,
-      },
-      {
-        title: 'Google Pay',
-        description: $localize`:@@googlePayFeature:Present Google Pay for instant checkout where it is available.`,
-      },
-      {
-        title: $localize`:@@webIntegrationTitle:Web integration`,
-        description: $localize`:@@webIntegrationFeature:Use the same plugin APIs with web frameworks and browsers alongside native apps.`,
-      },
-    ],
-  },
-  'stripe-identity': {
-    headline: $localize`:@@identityHeadline:Present Stripe Identity verification in Capacitor apps`,
-    overview: $localize`:@@identityOverview:Use @capacitor-community/stripe-identity to present Stripe's identity verification sheet on native platforms and the web. Your app listens for result events; Stripe performs the verification.`,
-    featuresHeading: $localize`:@@whatYouCanDo:What you can do`,
-    features: [
-      {
-        title: $localize`:@@identitySheetTitle:Identity Verification Sheet`,
-        description: $localize`:@@identitySheetFeature:Create and present the verification sheet from Capacitor after your backend supplies the required session credentials.`,
-      },
-      {
-        title: $localize`:@@nativeWebTitle:Native and web`,
-        description: $localize`:@@nativeWebFeature:Use one API across platforms. On the web, call initialize before creating and presenting the sheet.`,
-      },
-      {
-        title: $localize`:@@resultEventsTitle:Result events`,
-        description: $localize`:@@resultEventsFeature:Register listeners for verification result events before presenting the sheet so outcomes are not missed.`,
-      },
-    ],
-  },
-  'stripe-terminal': {
-    headline: $localize`:@@terminalHeadline:Collect in-person payments with Stripe Terminal`,
-    overview: $localize`:@@terminalOverview:Use @capacitor-community/stripe-terminal to discover and connect readers, collect and confirm PaymentIntents, and respond to reader display, status, input, and software update events—including Tap to Pay where supported.`,
-    featuresHeading: $localize`:@@whatYouCanDo:What you can do`,
-    features: [
-      {
-        title: $localize`:@@inPersonTitle:In-person payments`,
-        description: $localize`:@@inPersonFeature:Collect a payment method on a connected reader and confirm the PaymentIntent.`,
-      },
-      {
-        title: $localize`:@@readerDiscoveryTitle:Reader discovery and connection`,
-        description: $localize`:@@readerDiscoveryFeature:Discover nearby or simulated readers, then connect before collecting payment details.`,
-      },
-      {
-        title: $localize`:@@readerDisplayTitle:Reader display, status, and input`,
-        description: $localize`:@@readerDisplayFeature:Set or clear reader display content and listen for status messages and input prompts during checkout.`,
-      },
-      {
-        title: $localize`:@@softwareUpdateTitle:Software update events`,
-        description: $localize`:@@softwareUpdateFeature:Listen for available reader software updates and track install progress while updates run.`,
-      },
-      {
-        title: 'Tap to Pay',
-        description: $localize`:@@tapToPayFeature:Connect with Tap to Pay on devices and configurations that support it.`,
-      },
-    ],
-  },
-  admob: {
-    headline: $localize`:@@admobHeadline:Monetize Capacitor apps with Google AdMob`,
-    overview: $localize`:@@admobOverview:Use @capacitor-community/admob to initialize Google Mobile Ads, manage privacy consent, and present native ad formats on iOS and Android.`,
-    featuresHeading: $localize`:@@whatYouCanDo:What you can do`,
-    features: [
-      {
-        title: $localize`:@@bannerAdsTitle:Banner ads`,
-        description: $localize`:@@bannerAdsFeature:Place adaptive or fixed-size banners at the top or bottom of the native view.`,
-      },
-      {
-        title: $localize`:@@fullScreenAdsTitle:Full-screen ads`,
-        description: $localize`:@@fullScreenAdsFeature:Prepare and show interstitial, rewarded, and rewarded interstitial ads.`,
-      },
-      {
-        title: $localize`:@@appOpenAdsTitle:App open ads`,
-        description: $localize`:@@appOpenAdsFeature:Load and present ads when users bring your app to the foreground.`,
-      },
-      {
-        title: $localize`:@@consentControlsTitle:Consent controls`,
-        description: $localize`:@@consentControlsFeature:Use Google UMP and iOS tracking authorization APIs before requesting ads.`,
-      },
-      {
-        title: $localize`:@@adRevenueTitle:Ad revenue events`,
-        description: $localize`:@@adRevenueFeature:Listen for impression-level revenue data across supported ad formats.`,
-      },
-    ],
-  },
-};
+import { ProjectDocs } from './docs-data';
+import { SeoService } from './seo.service';
 
 @Component({
   selector: 'app-landing-page',
   imports: [RouterLink],
   template: `
-    @if (plugin && copy) {
-      <section
-        class="mx-auto max-w-[800px] px-10 pt-[70px] pb-20 max-[960px]:pt-[55px] max-[576px]:px-[18px] max-[576px]:pt-[46px] max-[576px]:pb-[65px]"
-      >
-        <p class="text-[0.85rem] font-bold tracking-[0.06em] text-[#0f83fd] uppercase">
-          {{ plugin.packageName }}
-        </p>
-        <h1
-          class="mt-4 mb-7 max-w-[900px] text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] tracking-[-0.045em] max-[576px]:text-[2.5rem]"
+    @if (project) {
+      <article class="mx-auto max-w-5xl px-6 pt-16 pb-24 sm:px-10 sm:pt-24">
+        <span
+          aria-hidden="true"
+          class="sr-only"
+          [attr.data-pagefind-filter]="'project:' + project.id"
+          >{{ project.shortName }}</span
         >
-          {{ copy.headline }}
-        </h1>
-        <p
-          class="max-w-[820px] text-[1.25rem] leading-[1.65] text-[#505c64] max-[576px]:text-[1.05rem]"
+        <span
+          aria-hidden="true"
+          class="sr-only"
+          [attr.data-pagefind-filter]="'category:' + project.category"
+          >{{ project.category }}</span
         >
-          {{ copy.overview }}
-        </p>
-        <div class="mt-[34px] flex gap-3.5 max-[576px]:flex-wrap">
-          <a
-            class="rounded-[32px] border border-[rgba(92,147,187,0.2)] bg-[#119eff] px-[23px] py-[15px] text-white no-underline hover:opacity-80"
-            [routerLink]="plugin.pages[0].path"
-            ><ng-container i18n="@@getStarted">Get Started</ng-container></a
+        <div class="max-w-3xl">
+          <div class="flex flex-wrap items-center gap-3 text-sm">
+            <span
+              class="rounded-full bg-[#fff0ea] px-3 py-1 font-semibold tracking-wide text-[#c44320]"
+            >
+              {{ project.packageName }}
+            </span>
+            <span class="text-[#80736d]">v{{ project.version }}</span>
+          </div>
+          <h1
+            class="mt-7 mb-0 text-[clamp(2.8rem,7vw,5.4rem)] leading-[0.98] font-semibold tracking-[-0.055em] text-[#211d1b]"
           >
-          <a
-            class="rounded-[32px] border border-[rgba(92,147,187,0.2)] px-[23px] py-[15px] text-[#119eff] no-underline hover:opacity-80"
-            href="https://capacitorjs.jp/"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><ng-container i18n="@@learnCapacitor">Learn Capacitor</ng-container></a
-          >
+            {{ project.headline }}
+          </h1>
+          <p class="mt-8 max-w-2xl text-xl leading-8 text-[#675e59] sm:text-2xl sm:leading-9">
+            {{ project.overview }}
+          </p>
+          <div class="mt-9 flex flex-wrap gap-3">
+            <a
+              class="rounded-full bg-[#ea572a] px-6 py-3.5 font-semibold text-white no-underline transition hover:bg-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
+              [routerLink]="project.pages[0].path"
+            >
+              <ng-container i18n="@@getStarted">Get started</ng-container>
+            </a>
+            <a
+              class="rounded-full border border-[#d9cec8] px-6 py-3.5 font-semibold text-[#3b3430] no-underline transition hover:border-[#ea572a] hover:text-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
+              [href]="project.repositoryUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ng-container i18n="@@viewSource">View source</ng-container>
+            </a>
+          </div>
         </div>
 
-        <div class="mt-16 border-t border-[rgba(92,147,187,0.17)] pt-12">
-          <h2 class="mb-6 text-[1.25rem] font-semibold tracking-[-0.02em] text-[#333]">
-            {{ copy.featuresHeading }}
+        <section class="mt-20 border-t border-[#eadfd9] pt-12">
+          <h2 class="m-0 text-2xl font-semibold tracking-[-0.03em] text-[#211d1b]">
+            {{ project.featuresHeading }}
           </h2>
-          <ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
-            @for (feature of copy.features; track feature.title) {
-              <li class="rounded-2xl border border-[rgba(92,147,187,0.17)] px-5 py-5">
-                <h3 class="m-0 text-[1.05rem] font-semibold tracking-[-0.02em] text-[#333]">
+          <ul class="mt-7 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
+            @for (feature of project.features; track feature.title) {
+              <li class="rounded-2xl border border-[#eadfd9] bg-white px-5 py-5">
+                <h3 class="m-0 text-lg font-semibold tracking-[-0.02em] text-[#292320]">
                   {{ feature.title }}
                 </h3>
-                <p class="mt-2 mb-0 text-[0.95rem] leading-[1.55] text-[#505c64]">
-                  {{ feature.description }}
-                </p>
+                <p class="mt-2 mb-0 leading-7 text-[#6f6661]">{{ feature.description }}</p>
               </li>
             }
           </ul>
-        </div>
-      </section>
-      @if (plugin.id === 'stripe') {
-        <section class="mx-auto mb-[75px] max-w-[800px] px-10 max-[576px]:px-[18px]">
-          <h2 class="text-[1.25rem]" i18n="@@usedBy">Used</h2>
-          <div class="flex flex-wrap items-center gap-7">
-            <a href="https://www.doctr.ca/" target="_blank" rel="noopener noreferrer">
-              <img
-                class="h-auto max-h-[72px] w-[170px] object-contain max-[576px]:w-[130px]"
-                src="/assets/stripe/doctr.svg"
-                alt="Doctr"
-              />
-            </a>
-            <a href="https://www.sunset-palmi.it/" target="_blank" rel="noopener noreferrer">
-              <img
-                class="h-auto max-h-[72px] w-[170px] object-contain max-[576px]:w-[130px]"
-                src="/assets/stripe/sunset.png"
-                alt="Sunset"
-              />
-            </a>
-            <a href="https://www.vegasbuilt.com/" target="_blank" rel="noopener noreferrer">
-              <img
-                class="h-auto max-h-[72px] w-[170px] object-contain max-[576px]:w-[130px]"
-                src="/assets/stripe/vegasbuilt.svg"
-                alt="Vegas Built"
-              />
-            </a>
-          </div>
         </section>
-      }
+      </article>
     }
   `,
 })
 export class LandingPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
-  private readonly title = inject(Title);
-  private readonly locale = inject(LOCALE_ID);
-  plugin?: PluginDocs;
-  copy?: LandingCopy;
+  private readonly seo = inject(SeoService);
+  project?: ProjectDocs;
 
   ngOnInit(): void {
-    this.plugin = findPlugin(this.route.snapshot.data['pluginId'] as string, this.locale);
-    if (!this.plugin) return;
-    this.copy = LANDING_COPY[this.plugin.id];
-    const documentation = $localize`:@@documentationTitleSuffix:Documentation`;
-    this.title.setTitle(`${this.plugin.packageName} ${documentation}`);
+    this.project = this.route.snapshot.data['project'] as ProjectDocs | undefined;
+    if (!this.project) return;
+    this.seo.setPage({
+      title: `${this.project.shortName} - rdlabo.dev`,
+      description: this.project.description,
+      path: this.project.path,
+    });
   }
 }

@@ -2,3 +2,11 @@
   display: block;
   min-height: 100dvh;
 }
+
+@media (max-width: 1023px) {
+  .docs-shell:not(.layout-ready) #docs-sidebar {
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-100%);
+  }
+}

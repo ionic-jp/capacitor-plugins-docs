@@ -1,34 +1,57 @@
 import { Routes } from '@angular/router';
-import { pluginDocs } from './docs/docs-data';
 import { DocsPageComponent } from './docs/docs-page';
 import { LandingPageComponent } from './docs/landing-page';
+import { NotFoundComponent } from './docs/not-found';
 import { PluginIndexComponent } from './docs/plugin-index';
+import { projectCatalog } from './docs/docs-data';
+import { projectResolver } from './docs/project.resolver';
 
-const pluginRoutes: Routes = pluginDocs.flatMap((plugin) => [
-  { path: plugin.id, component: LandingPageComponent, data: { pluginId: plugin.id } },
-  ...plugin.pages.map((page) => ({
-    path: `${plugin.id}/docs/${page.slug}`,
+const projectRoutes: Routes = projectCatalog.flatMap((project) => [
+  {
+    path: `projects/${project.slug}`,
+    component: LandingPageComponent,
+    data: { projectId: project.id },
+    resolve: { project: projectResolver },
+  },
+  ...project.pages.map((page) => ({
+    path: `projects/${project.slug}/docs/${page.slug}`,
     component: DocsPageComponent,
-    data: { pluginId: plugin.id, pageSlug: page.slug },
+    data: { projectId: project.id, pageSlug: page.slug },
+    resolve: { project: projectResolver },
   })),
 ]);
 
-const legacyRoutes: Routes = pluginDocs
-  .find((plugin) => plugin.id === 'stripe')!
-  .pages.map((page) => ({
-    path: `docs/${page.slug}`,
-    redirectTo: page.path.slice(1),
+const projectLegacyRoutes: Routes = projectCatalog.flatMap((project) => [
+  {
+    path: project.id,
+    redirectTo: project.path,
     pathMatch: 'full' as const,
-  }));
+  },
+  ...project.pages.map((page) => ({
+    path: `${project.id}/docs/${page.slug}`,
+    redirectTo: page.path,
+    pathMatch: 'full' as const,
+  })),
+]);
+
+const stripe = projectCatalog.find((project) => project.id === 'stripe')!;
+const stripeLegacyRoutes: Routes = stripe.pages.map((page) => ({
+  path: `docs/${page.slug}`,
+  redirectTo: page.path,
+  pathMatch: 'full' as const,
+}));
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PluginIndexComponent },
+  { path: 'projects', pathMatch: 'full', redirectTo: '' },
   {
     path: 'docs/identity',
     pathMatch: 'full',
-    redirectTo: 'stripe-identity/docs/identity-verification-sheet',
+    redirectTo: '/projects/capacitor-stripe-identity/docs/identity-verification-sheet',
   },
-  ...legacyRoutes,
-  ...pluginRoutes,
-  { path: '**', redirectTo: 'stripe' },
+  ...stripeLegacyRoutes,
+  ...projectLegacyRoutes,
+  ...projectRoutes,
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent },
 ];

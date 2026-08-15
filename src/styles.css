@@ -25,14 +25,14 @@ a {
   margin: 1.8rem 0 !important;
 }
 .znc h1 {
-  border-bottom-color: rgba(92, 147, 187, 0.17);
+  border-bottom-color: rgba(234, 87, 42, 0.18);
 }
 
 .znc .api-reference > h2 {
   margin-bottom: 0.5rem;
 }
 .znc .api-entry {
-  border-top: 1px solid #e3eaf2;
+  border-top: 1px solid #e8e1dc;
   padding: 1.55rem 0 1.8rem;
 }
 .znc .api-reference > h2 + .api-entry,
@@ -41,9 +41,9 @@ a {
 }
 .znc .api-entry > h4 {
   margin: 0 0 1rem;
-  border-left: 3px solid #1b6dff;
+  border-left: 3px solid #ea572a;
   padding: 0.2rem 0 0.2rem 0.8rem;
-  color: #18263a;
+  color: #28221f;
   font-size: 1.08rem;
   font-weight: 600;
   line-height: 1.55;
@@ -51,9 +51,9 @@ a {
 .znc .api-entry > h4 > code {
   margin-right: 0.45rem;
   border-radius: 0.4rem;
-  background: #edf4ff;
+  background: #fff0e9;
   padding: 0.2rem 0.45rem;
-  color: #46617d;
+  color: #9d3e23;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -62,16 +62,16 @@ a {
 .znc .api-entry > p:not(.api-signature) {
   max-width: 68ch;
   margin: 0.65rem 0;
-  color: #44556a;
+  color: #5d5652;
   line-height: 1.75;
 }
 .znc .api-entry > .api-signature {
   max-width: 100%;
   margin: 1rem 0 0;
   overflow-x: auto;
-  border: 1px solid #dbe5f0;
+  border: 1px solid #e4ded9;
   border-radius: 0.65rem;
-  background: #f6f9fc;
+  background: #faf8f6;
   padding: 0.72rem 0.9rem;
   line-height: 1.5;
 }

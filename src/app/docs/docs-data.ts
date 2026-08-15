@@ -1,4 +1,14 @@
-import { PLUGINS_EN, PLUGINS_JA } from '../generated/plugin-docs.generated';
+import {
+  PROJECT_CATEGORIES_EN,
+  PROJECT_CATEGORIES_JA,
+  PROJECTS_EN,
+  PROJECTS_JA,
+} from '../generated/project-catalog.generated';
+import { PROJECT_LOADERS } from '../generated/project-loaders.generated';
+
+export type ProjectCategory = 'capacitor-plugins' | 'frontend-tools' | 'developer-tools';
+export type ProjectIcon =
+  'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme';
 
 export interface CodeSample {
   file: string;
@@ -16,13 +26,32 @@ export interface DocsHeading {
   level: 2 | 3 | 4;
 }
 
-export interface DocsPage {
+export interface ProjectFeature {
+  title: string;
+  description: string;
+}
+
+export interface ProjectCategorySummary {
+  id: ProjectCategory;
+  label: string;
+  description: string;
+  order: number;
+}
+
+export interface ProjectCategoryGroup extends ProjectCategorySummary {
+  projects: readonly ProjectSummary[];
+}
+
+export interface DocsPageSummary {
   title: string;
   navTitle: string;
   slug: string;
-  file: string;
   section: string;
   path: string;
+}
+
+export interface DocsPage extends DocsPageSummary {
+  file: string;
   html: string;
   headings: readonly DocsHeading[];
   codes: readonly CodeSample[];
@@ -30,33 +59,86 @@ export interface DocsPage {
   editUrl: string;
 }
 
-export interface PluginDocs {
+export interface ProjectSummary {
   id: string;
+  slug: string;
   name: string;
+  shortName: string;
   packageName: string;
   repositoryUrl: string;
+  category: ProjectCategory;
+  icon: ProjectIcon;
+  version: string;
   description: string;
+  headline: string;
+  overview: string;
+  featuresHeading: string;
+  features: readonly ProjectFeature[];
+  path: string;
+  pages: readonly DocsPageSummary[];
+}
+
+export interface ProjectDocs extends Omit<ProjectSummary, 'pages'> {
   pages: readonly DocsPage[];
 }
 
-export const pluginDocs = PLUGINS_EN as unknown as readonly PluginDocs[];
-const japanesePluginDocs = PLUGINS_JA as unknown as readonly PluginDocs[];
+type ProjectLoader = () => Promise<ProjectDocs>;
+const loaders = PROJECT_LOADERS as unknown as Record<
+  string,
+  { en: ProjectLoader; ja: ProjectLoader }
+>;
+const cache = new Map<string, Promise<ProjectDocs>>();
 
-export function docsForLocale(locale: string): readonly PluginDocs[] {
-  return locale.toLowerCase().startsWith('ja') ? japanesePluginDocs : pluginDocs;
+export const projectCatalog = PROJECTS_EN as unknown as readonly ProjectSummary[];
+const japaneseProjectCatalog = PROJECTS_JA as unknown as readonly ProjectSummary[];
+
+export function projectsForLocale(locale: string): readonly ProjectSummary[] {
+  return locale.toLowerCase().startsWith('ja') ? japaneseProjectCatalog : projectCatalog;
 }
 
-export function findPlugin(id: string, locale = 'en'): PluginDocs | undefined {
-  return docsForLocale(locale).find((plugin) => plugin.id === id);
+export function projectCategoriesForLocale(locale: string): readonly ProjectCategorySummary[] {
+  return (locale.toLowerCase().startsWith('ja')
+    ? PROJECT_CATEGORIES_JA
+    : PROJECT_CATEGORIES_EN) as unknown as readonly ProjectCategorySummary[];
 }
 
-export function findPage(pluginId: string, slug: string, locale = 'en'): DocsPage | undefined {
-  return findPlugin(pluginId, locale)?.pages.find((page) => page.slug === slug);
+export function projectGroupsForLocale(locale: string): readonly ProjectCategoryGroup[] {
+  const categories = projectCategoriesForLocale(locale);
+  const projects = projectsForLocale(locale);
+  return categories
+    .map((category) => ({
+      ...category,
+      projects: projects.filter((project) => project.category === category.id),
+    }))
+    .filter((category) => category.projects.length > 0)
+    .sort((left, right) => left.order - right.order);
 }
 
-export function sectionsFor(plugin: PluginDocs): { name: string; pages: readonly DocsPage[] }[] {
-  return [...new Set(plugin.pages.map((page) => page.section))].map((name) => ({
+export function findProjectSummary(id: string, locale = 'en'): ProjectSummary | undefined {
+  return projectsForLocale(locale).find((project) => project.id === id || project.slug === id);
+}
+
+export async function loadProject(id: string, locale = 'en'): Promise<ProjectDocs | undefined> {
+  const summary = findProjectSummary(id, locale);
+  if (!summary) return undefined;
+  const language = locale.toLowerCase().startsWith('ja') ? 'ja' : 'en';
+  const key = `${summary.id}:${language}`;
+  const loader = loaders[summary.id]?.[language];
+  if (!loader) return undefined;
+  let loaded = cache.get(key);
+  if (!loaded) {
+    loaded = loader();
+    cache.set(key, loaded);
+  }
+  return loaded;
+}
+
+export function sectionsFor(project: Pick<ProjectSummary, 'pages'>): {
+  name: string;
+  pages: readonly DocsPageSummary[];
+}[] {
+  return [...new Set(project.pages.map((page) => page.section))].map((name) => ({
     name,
-    pages: plugin.pages.filter((page) => page.section === name),
+    pages: project.pages.filter((page) => page.section === name),
   }));
 }

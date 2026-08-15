@@ -1,14 +1,33 @@
 import { Component, LOCALE_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-
 import { App } from './app';
 
-@Component({
-  standalone: true,
-  template: '',
-})
+@Component({ standalone: true, template: '' })
 class StubPage {}
+
+function mockMatchMedia(initialMatches: boolean) {
+  let matches = initialMatches;
+  let changeListener: ((event: MediaQueryListEvent) => void) | undefined;
+  Object.defineProperty(window, 'matchMedia', {
+    configurable: true,
+    value: () => ({
+      get matches() {
+        return matches;
+      },
+      addEventListener: vi.fn((_type: string, listener: (event: MediaQueryListEvent) => void) => {
+        changeListener = listener;
+      }),
+      removeEventListener: vi.fn(),
+    }),
+  });
+  return {
+    setMatches(next: boolean) {
+      matches = next;
+      changeListener?.({ matches: next } as MediaQueryListEvent);
+    },
+  };
+}
 
 describe('App', () => {
   beforeEach(async () => {
@@ -17,193 +36,325 @@ describe('App', () => {
       providers: [
         provideRouter([
           { path: '', pathMatch: 'full', component: StubPage },
-          { path: 'stripe', component: StubPage },
-          { path: 'stripe/docs/payment-sheet', component: StubPage },
-          { path: 'stripe-identity', component: StubPage },
-          { path: 'stripe-terminal', component: StubPage },
-          { path: 'admob', component: StubPage },
+          { path: 'projects/capacitor-stripe', component: StubPage },
+          { path: 'projects/capacitor-stripe/docs/configuration', component: StubPage },
+          { path: 'projects/capacitor-admob', component: StubPage },
         ]),
       ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it('should show the shared brand and no selected plugin on the index route', async () => {
+  it('renders the new brand and all projects in the sidebar', async () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
     await router.navigateByUrl('/');
     fixture.detectChanges();
-    await fixture.whenStable();
-    fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('header')?.textContent).toContain('capacitor-community/plugins');
-    const pluginsLink = compiled.querySelector<HTMLAnchorElement>(
-      'aside[aria-label="Documentation"] a[href="/"]',
+    expect(compiled.querySelector('header')?.textContent).toContain('rdlabo.dev');
+    const projectButtons = compiled.querySelectorAll<HTMLButtonElement>(
+      'nav[aria-label="Projects"] button[id^="project-button-"]',
     );
-    expect(pluginsLink?.textContent?.trim()).toBe('Plugins');
-    expect(pluginsLink?.classList.contains('bg-[#f0f6ff]')).toBe(true);
-    const accordionButtons = Array.from(
-      compiled.querySelectorAll('aside[aria-label="Documentation"] button[aria-controls]'),
-    );
-    expect(accordionButtons.map((button) => button.getAttribute('aria-expanded'))).toEqual([
-      'false',
-      'false',
-      'false',
-      'false',
-    ]);
+    expect(projectButtons).toHaveLength(12);
+    for (const button of Array.from(projectButtons)) {
+      expect(button.getAttribute('aria-expanded')).toBe('false');
+      expect(button.getAttribute('aria-controls')).toMatch(/^project-panel-/);
+    }
+    const panels = compiled.querySelectorAll<HTMLElement>('[id^="project-panel-"]');
+    expect(panels).toHaveLength(12);
+    for (const panel of Array.from(panels)) {
+      expect(panel.hasAttribute('inert')).toBe(true);
+      expect(panel.getAttribute('aria-hidden')).toBe('true');
+    }
+    expect(compiled.textContent).toContain('Stripe Identity');
+    expect(compiled.textContent).toContain('AdMob');
+    expect(compiled.textContent).toContain('ESLint Plugin Rules');
+    expect(compiled.textContent).toContain('Workers Hono Kit');
+    expect(compiled.textContent).toContain('Ionic Angular Kit');
+    const footer = compiled.querySelector('footer')?.textContent ?? '';
+    expect(footer).toContain('Personal open source projects maintained by rdlabo');
+    expect(footer).toContain('© 2026 rdlabo');
+    expect(footer).not.toContain('GENERAL INC. ASSOCIATION');
   });
 
-  it('should render plugin accordion in the documentation sidebar without top Plugins nav', async () => {
+  it('shows only the active project documentation tree', async () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
-    await router.navigateByUrl('/stripe');
-    fixture.detectChanges();
-    await fixture.whenStable();
+    await router.navigateByUrl('/projects/capacitor-stripe');
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('nav[aria-label="Plugins"]')).toBeNull();
-    expect(
-      compiled
-        .querySelector<HTMLAnchorElement>('aside[aria-label="Documentation"] a[href="/"]')
-        ?.textContent?.trim(),
-    ).toBe('Plugins');
+    const stripeButton = compiled.querySelector<HTMLButtonElement>('#project-button-stripe')!;
+    const stripePanel = compiled.querySelector<HTMLElement>('#project-panel-stripe')!;
+    const admobButton = compiled.querySelector<HTMLButtonElement>('#project-button-admob')!;
+    const admobPanel = compiled.querySelector<HTMLElement>('#project-panel-admob')!;
 
-    const accordionButtons = Array.from(
-      compiled.querySelectorAll('aside[aria-label="Documentation"] button[aria-controls]'),
-    ) as HTMLButtonElement[];
-    expect(accordionButtons.map((button) => button.getAttribute('aria-controls'))).toEqual([
-      'plugin-panel-stripe',
-      'plugin-panel-stripe-identity',
-      'plugin-panel-stripe-terminal',
-      'plugin-panel-admob',
-    ]);
-    expect(
-      accordionButtons.map((button) => button.querySelector('span')?.textContent?.trim()),
-    ).toEqual(['Stripe', 'Stripe Identity', 'Stripe Terminal', 'AdMob']);
-
-    expect(accordionButtons.map((button) => button.id)).toEqual([
-      'plugin-button-stripe',
-      'plugin-button-stripe-identity',
-      'plugin-button-stripe-terminal',
-      'plugin-button-admob',
-    ]);
-
-    const [stripeButton, identityButton, terminalButton] = accordionButtons;
     expect(stripeButton.getAttribute('aria-expanded')).toBe('true');
-    expect(identityButton.getAttribute('aria-expanded')).toBe('false');
-    expect(terminalButton.getAttribute('aria-expanded')).toBe('false');
-
-    const stripePanel = compiled.querySelector('#plugin-panel-stripe');
-    const identityPanel = compiled.querySelector('#plugin-panel-stripe-identity');
-    const terminalPanel = compiled.querySelector('#plugin-panel-stripe-terminal');
-    expect(stripePanel).not.toBeNull();
-    expect(identityPanel).not.toBeNull();
-    expect(terminalPanel).not.toBeNull();
-    expect(stripePanel?.getAttribute('aria-labelledby')).toBe('plugin-button-stripe');
-    expect(identityPanel?.getAttribute('aria-labelledby')).toBe('plugin-button-stripe-identity');
-    expect(terminalPanel?.getAttribute('aria-labelledby')).toBe('plugin-button-stripe-terminal');
-    expect(stripePanel?.getAttribute('aria-hidden')).toBe('false');
-    expect(identityPanel?.getAttribute('aria-hidden')).toBe('true');
-    expect(terminalPanel?.getAttribute('aria-hidden')).toBe('true');
-    expect(stripePanel?.hasAttribute('inert')).toBe(false);
-    expect(identityPanel?.hasAttribute('inert')).toBe(true);
-    expect(terminalPanel?.hasAttribute('inert')).toBe(true);
-    expect(compiled.textContent).toContain('Introduction');
-    expect(compiled.textContent).toContain('Configuration');
-    expect(compiled.textContent).not.toContain('Configuration platform');
+    expect(stripeButton.getAttribute('aria-controls')).toBe('project-panel-stripe');
+    expect(stripePanel.hasAttribute('inert')).toBe(false);
+    expect(stripePanel.getAttribute('aria-hidden')).toBe('false');
+    expect(admobButton.getAttribute('aria-expanded')).toBe('false');
+    expect(admobPanel.hasAttribute('inert')).toBe(true);
+    expect(admobPanel.getAttribute('aria-hidden')).toBe('true');
+    expect(compiled.textContent).toContain('PaymentSheet');
+    expect(compiled.textContent).toContain('Server Integration');
   });
 
-  it('should expand Stripe Identity and navigate when its accordion is clicked', async () => {
+  it('toggles project accordion panels and navigates when opening', async () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
-    await router.navigateByUrl('/stripe');
-    fixture.detectChanges();
-    await fixture.whenStable();
+    await router.navigateByUrl('/');
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const identityButton = Array.from(
-      compiled.querySelectorAll('aside[aria-label="Documentation"] button[aria-controls]'),
-    ).find((button) => button.getAttribute('aria-controls') === 'plugin-panel-stripe-identity') as
-      HTMLButtonElement | undefined;
-    expect(identityButton).toBeTruthy();
-    identityButton!.click();
-    await fixture.whenStable();
+    const stripeButton = compiled.querySelector<HTMLButtonElement>('#project-button-stripe')!;
+    const stripePanel = compiled.querySelector<HTMLElement>('#project-panel-stripe')!;
+    const admobButton = compiled.querySelector<HTMLButtonElement>('#project-button-admob')!;
+    const admobPanel = compiled.querySelector<HTMLElement>('#project-panel-admob')!;
+
+    stripeButton.click();
     fixture.detectChanges();
+    await fixture.whenStable();
+    expect(router.url).toBe('/projects/capacitor-stripe');
+    expect(stripeButton.getAttribute('aria-expanded')).toBe('true');
+    expect(stripePanel.hasAttribute('inert')).toBe(false);
+    expect(stripePanel.getAttribute('aria-hidden')).toBe('false');
+    expect(compiled.textContent).toContain('PaymentSheet');
 
-    expect(router.url).toBe('/stripe-identity');
-    expect(identityButton!.getAttribute('aria-expanded')).toBe('true');
+    stripeButton.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(router.url).toBe('/projects/capacitor-stripe');
+    expect(stripeButton.getAttribute('aria-expanded')).toBe('false');
+    expect(stripePanel.hasAttribute('inert')).toBe(true);
+    expect(stripePanel.getAttribute('aria-hidden')).toBe('true');
 
-    const stripePanel = compiled.querySelector('#plugin-panel-stripe');
-    const identityPanel = compiled.querySelector('#plugin-panel-stripe-identity');
-    expect(identityPanel).not.toBeNull();
-    expect(stripePanel).not.toBeNull();
-    expect(identityPanel?.getAttribute('aria-hidden')).toBe('false');
-    expect(stripePanel?.getAttribute('aria-hidden')).toBe('true');
-    expect(identityPanel?.hasAttribute('inert')).toBe(false);
-    expect(stripePanel?.hasAttribute('inert')).toBe(true);
+    admobButton.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(router.url).toBe('/projects/capacitor-admob');
+    expect(admobButton.getAttribute('aria-expanded')).toBe('true');
+    expect(admobPanel.hasAttribute('inert')).toBe(false);
+    expect(admobPanel.getAttribute('aria-hidden')).toBe('false');
+    expect(stripeButton.getAttribute('aria-expanded')).toBe('false');
+    expect(stripePanel.hasAttribute('inert')).toBe(true);
+    expect(stripePanel.getAttribute('aria-hidden')).toBe('true');
   });
 
-  it('should collapse the open plugin when its accordion is clicked again', async () => {
+  it('links to the matching Japanese route', async () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
-    await router.navigateByUrl('/stripe');
+    await router.navigateByUrl('/projects/capacitor-stripe/docs/configuration');
     fixture.detectChanges();
-    await fixture.whenStable();
+
+    expect(
+      (fixture.nativeElement as HTMLElement)
+        .querySelector<HTMLAnchorElement>('a[hreflang="ja"]')
+        ?.getAttribute('href'),
+    ).toBe('/ja/projects/capacitor-stripe/docs/configuration');
+  });
+
+  it('switches EN home language to /ja without a trailing slash', async () => {
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/');
+    fixture.detectChanges();
+
+    expect(
+      (fixture.nativeElement as HTMLElement)
+        .querySelector<HTMLAnchorElement>('a[hreflang="ja"]')
+        ?.getAttribute('href'),
+    ).toBe('/ja');
+  });
+
+  it('uses slashless locale home links in the header and sidebar', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [App],
+      providers: [
+        { provide: LOCALE_ID, useValue: 'ja' },
+        provideRouter([
+          { path: '', pathMatch: 'full', component: StubPage },
+          { path: 'projects/capacitor-stripe', component: StubPage },
+          { path: 'projects/capacitor-stripe/docs/configuration', component: StubPage },
+          { path: 'projects/capacitor-admob', component: StubPage },
+        ]),
+      ],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/');
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const stripeButton = compiled.querySelector<HTMLButtonElement>(
-      'button[aria-controls="plugin-panel-stripe"]',
-    );
-    expect(stripeButton).toBeTruthy();
-    expect(stripeButton!.getAttribute('aria-expanded')).toBe('true');
-
-    stripeButton!.click();
-    fixture.detectChanges();
-
-    const stripePanel = compiled.querySelector('#plugin-panel-stripe');
-    expect(router.url).toBe('/stripe');
-    expect(stripeButton!.getAttribute('aria-expanded')).toBe('false');
-    expect(stripePanel?.getAttribute('aria-hidden')).toBe('true');
-    expect(stripePanel?.hasAttribute('inert')).toBe(true);
+    const brand = compiled.querySelector<HTMLAnchorElement>('header a[href]')!;
+    const allProjects = compiled.querySelector<HTMLAnchorElement>(
+      'nav[aria-label="Projects"] > a',
+    )!;
+    expect(brand.getAttribute('href')).toBe('/ja');
+    expect(allProjects.getAttribute('href')).toBe('/ja');
   });
 
-  it('should link to the matching Japanese page from the English site', async () => {
+  it('does not intercept Japanese home clicks so the browser can follow /ja', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [App],
+      providers: [
+        { provide: LOCALE_ID, useValue: 'ja' },
+        provideRouter([
+          { path: '', pathMatch: 'full', component: StubPage },
+          { path: 'projects/capacitor-stripe', component: StubPage },
+          { path: 'projects/capacitor-stripe/docs/configuration', component: StubPage },
+          { path: 'projects/capacitor-admob', component: StubPage },
+        ]),
+      ],
+    }).compileComponents();
+
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
-    await router.navigateByUrl('/stripe/docs/payment-sheet');
-    fixture.detectChanges();
-    await fixture.whenStable();
+    await router.navigateByUrl('/projects/capacitor-stripe');
     fixture.detectChanges();
 
-    const compiled = fixture.nativeElement as HTMLElement;
-    const languageLink = compiled.querySelector<HTMLAnchorElement>('a[hreflang="ja"]');
-    expect(languageLink?.getAttribute('href')).toBe('/ja/stripe/docs/payment-sheet');
-    expect(languageLink?.textContent?.trim()).toBe('日本語');
+    const brand = (fixture.nativeElement as HTMLElement).querySelector<HTMLAnchorElement>(
+      'header a[href]',
+    )!;
+    expect(brand.getAttribute('href')).toBe('/ja');
+
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 });
+    (
+      fixture.componentInstance as unknown as {
+        navigateHome(event: MouseEvent): void;
+      }
+    ).navigateHome(event);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(event.defaultPrevented).toBe(false);
+    expect(router.url).toBe('/projects/capacitor-stripe');
   });
 
-  it('should render Japanese navigation and link back to the matching English page', async () => {
-    TestBed.overrideProvider(LOCALE_ID, { useValue: 'ja' });
+  it('uses SPA navigation for English home clicks', async () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
-    await router.navigateByUrl('/stripe/docs/payment-sheet');
-    fixture.detectChanges();
-    await fixture.whenStable();
+    await router.navigateByUrl('/projects/capacitor-stripe');
     fixture.detectChanges();
 
+    const brand = (fixture.nativeElement as HTMLElement).querySelector<HTMLAnchorElement>(
+      'header a[href]',
+    )!;
+    expect(brand.getAttribute('href')).toBe('/');
+
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 });
+    brand.dispatchEvent(event);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(event.defaultPrevented).toBe(true);
+    expect(router.url).toBe('/');
+  });
+
+  it('removes a closed mobile menu from focus order and restores focus on Escape', async () => {
+    mockMatchMedia(true);
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('クイックスタート');
-    expect(compiled.textContent).toContain('イベントリスナー');
-    const languageLink = compiled.querySelector<HTMLAnchorElement>('a[hreflang="en"]');
-    expect(languageLink?.getAttribute('href')).toBe('/stripe/docs/payment-sheet');
-    expect(languageLink?.textContent?.trim()).toBe('English');
+    const menu = compiled.querySelector<HTMLElement>('#docs-sidebar')!;
+    const button = compiled.querySelector<HTMLButtonElement>(
+      'button[aria-controls="docs-sidebar"]',
+    )!;
+
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(menu.hasAttribute('inert')).toBe(true);
+    expect(menu.getAttribute('aria-hidden')).toBe('true');
+    button.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    expect(menu.hasAttribute('inert')).toBe(false);
+    expect(document.activeElement).toBe(menu.querySelector('a'));
+
+    button.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(menu.hasAttribute('inert')).toBe(true);
+    expect(document.activeElement).toBe(button);
+
+    button.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    expect(menu.hasAttribute('inert')).toBe(false);
+    expect(document.activeElement).toBe(menu.querySelector('a'));
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(menu.hasAttribute('inert')).toBe(true);
+    expect(document.activeElement).toBe(button);
+  });
+
+  it('closes the mobile menu and restores focus after navigating from a sidebar project', async () => {
+    mockMatchMedia(true);
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/');
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const menu = compiled.querySelector<HTMLElement>('#docs-sidebar')!;
+    const button = compiled.querySelector<HTMLButtonElement>(
+      'button[aria-controls="docs-sidebar"]',
+    )!;
+
+    button.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const stripeButton = menu.querySelector<HTMLButtonElement>('#project-button-stripe')!;
+    stripeButton.focus();
+    expect(document.activeElement).toBe(stripeButton);
+
+    stripeButton.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(router.url).toBe('/projects/capacitor-stripe');
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(menu.hasAttribute('inert')).toBe(true);
+    expect(menu.getAttribute('aria-hidden')).toBe('true');
+    expect(document.activeElement).toBe(button);
+  });
+
+  it('ignores Escape on desktop, then closes and restores focus when the viewport becomes mobile', async () => {
+    const media = mockMatchMedia(false);
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const menu = compiled.querySelector<HTMLElement>('#docs-sidebar')!;
+    const button = compiled.querySelector<HTMLButtonElement>(
+      'button[aria-controls="docs-sidebar"]',
+    )!;
+    const link = menu.querySelector<HTMLAnchorElement>('a')!;
+
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    expect(menu.hasAttribute('inert')).toBe(false);
+    link.focus();
+    expect(document.activeElement).toBe(link);
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    expect(menu.hasAttribute('inert')).toBe(false);
+    expect(menu.hasAttribute('aria-hidden')).toBe(false);
+    expect(document.activeElement).toBe(link);
+
+    media.setMatches(true);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(menu.hasAttribute('inert')).toBe(true);
+    expect(menu.getAttribute('aria-hidden')).toBe('true');
+    expect(document.activeElement).toBe(button);
   });
 });

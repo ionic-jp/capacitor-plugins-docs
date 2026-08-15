@@ -5,86 +5,9 @@
 [build.environment]
   NODE_VERSION = "24"
 
-# Permanent redirects from URLs published by the previous Stripe-only site.
-[[redirects]]
-  from = "/docs/identity"
-  to = "/stripe-identity/docs/identity-verification-sheet"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/react-hooks"
-  to = "/stripe/docs/react"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/*"
-  to = "/stripe/docs/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/configuration"
-  to = "/stripe/docs/configuration"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/initialize"
-  to = "/stripe/docs/initialize"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/payment-sheet"
-  to = "/stripe/docs/payment-sheet"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/payment-flow"
-  to = "/stripe/docs/payment-flow"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/apple-pay"
-  to = "/stripe/docs/apple-pay"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/google-pay"
-  to = "/stripe/docs/google-pay"
-  status = 301
-  force = true
-
-# Keep legacy links inside the Japanese locale in the Japanese locale.
-[[redirects]]
-  from = "/ja/docs/identity"
-  to = "/ja/stripe-identity/docs/identity-verification-sheet"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/ja/docs/react-hooks"
-  to = "/ja/stripe/docs/react"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/ja/docs/*"
-  to = "/ja/stripe/docs/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/ja/*"
-  to = "/ja/index.html"
-  status = 200
-
+# Legacy Netlify hostname: force every path onto the Cloudflare production origin.
 [[redirects]]
   from = "/*"
-  to = "/index.html"
-  status = 200
+  to = "https://docs.rdlabo.dev/:splat"
+  status = 301
+  force = true

@@ -1,180 +1,126 @@
 import { Component, LOCALE_ID, OnInit, inject } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { docsForLocale } from './docs-data';
-
-interface PluginIndexCopy {
-  label: string;
-  capability: string;
-}
-
-const PLUGIN_INDEX_COPY: Record<string, PluginIndexCopy> = {
-  stripe: {
-    label: 'Stripe',
-    capability: $localize`:@@stripeCapability:Accept PaymentSheet and PaymentFlow, plus Apple Pay and Google Pay, from one Capacitor codebase.`,
-  },
-  'stripe-identity': {
-    label: 'Stripe Identity',
-    capability: $localize`:@@identityCapability:Present Stripe Identity verification on native platforms and the web, then handle the result events.`,
-  },
-  'stripe-terminal': {
-    label: 'Stripe Terminal',
-    capability: $localize`:@@terminalCapability:Discover and connect readers, collect in-person payments, and listen for reader events including Tap to Pay.`,
-  },
-  admob: {
-    label: 'AdMob',
-    capability: $localize`:@@admobCapability:Show banner, interstitial, rewarded, rewarded interstitial, and app open ads with consent controls.`,
-  },
-};
+import { projectGroupsForLocale } from './docs-data';
+import { ProjectIconComponent } from './project-icon';
+import { SeoService } from './seo.service';
 
 @Component({
-  selector: 'app-plugin-index',
-  imports: [RouterLink],
+  selector: 'app-project-index',
+  imports: [RouterLink, ProjectIconComponent],
   template: `
-    <section
-      class="mx-auto max-w-[800px] px-10 pt-[70px] pb-20 max-[960px]:pt-[55px] max-[576px]:px-[18px] max-[576px]:pt-[46px] max-[576px]:pb-[65px]"
-    >
-      <h1
-        class="mt-0 mb-7 max-w-[900px] text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] tracking-[-0.045em] max-[576px]:text-[2.5rem]"
+    <section class="overflow-hidden border-b border-[#eadfd9] bg-[#fffaf7]">
+      <div
+        class="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-10 sm:py-28 lg:grid-cols-[1fr_280px] lg:items-center"
       >
-        <ng-container i18n="@@pluginsHeading">Plugins</ng-container>
-      </h1>
-      <p
-        class="max-w-[820px] text-[1.25rem] leading-[1.65] text-[#505c64] max-[576px]:text-[1.05rem]"
-      >
-        <ng-container i18n="@@pluginsIntro"
-          >Capacitor Community plugins bring native payments, identity verification, in-person
-          payments, and mobile ads to one Capacitor codebase.</ng-container
-        >
-      </p>
-
-      <ul class="mt-16 grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-2 xl:grid-cols-3">
-        @for (card of cards; track card.id) {
-          <li class="min-h-[240px]">
-            <a
-              class="group flex h-full flex-col rounded-2xl border border-[rgba(92,147,187,0.17)] px-6 py-6 text-[#333] no-underline transition-[border-color,background-color,box-shadow] hover:border-[#119eff] hover:bg-[#f0f6ff] hover:shadow-[0_8px_24px_rgba(17,158,255,0.12)] focus-visible:border-[#119eff] focus-visible:bg-[#f0f6ff] focus-visible:shadow-[0_8px_24px_rgba(17,158,255,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#119eff]"
-              [routerLink]="card.path"
+        <div>
+          <p class="m-0 text-sm font-semibold tracking-[0.18em] text-[#c44320] uppercase">
+            <ng-container i18n="@@openSourceDocumentation">Open source documentation</ng-container>
+          </p>
+          <h1
+            class="mt-5 mb-0 max-w-4xl text-[clamp(3.4rem,8vw,7rem)] leading-[0.9] font-semibold tracking-[-0.07em] text-[#211d1b]"
+          >
+            rdlabo<span class="text-[#ea572a]">.dev</span>
+          </h1>
+          <p class="mt-8 max-w-2xl text-xl leading-8 text-[#675e59] sm:text-2xl sm:leading-9">
+            <ng-container i18n="@@projectsIntro"
+              >Documentation for open source projects created and maintained by
+              rdlabo.</ng-container
             >
-              <span
-                class="mb-5 flex size-14 items-center justify-center rounded-2xl bg-[#f0f6ff] text-[#0f83fd] transition-colors group-hover:bg-white group-focus-visible:bg-white"
-                aria-hidden="true"
-              >
-                @switch (card.id) {
-                  @case ('stripe') {
-                    <svg class="size-8" viewBox="0 0 32 32" fill="none">
-                      <rect
-                        x="3.5"
-                        y="8.5"
-                        width="25"
-                        height="15"
-                        rx="3"
-                        stroke="currentColor"
-                        stroke-width="1.75"
-                      />
-                      <path d="M3.5 13.5h25" stroke="currentColor" stroke-width="1.75" />
-                      <rect x="7" y="17.5" width="7" height="2.5" rx="0.75" fill="currentColor" />
-                    </svg>
-                  }
-                  @case ('stripe-identity') {
-                    <svg class="size-8" viewBox="0 0 32 32" fill="none">
-                      <path
-                        d="M16 4.75 7.5 8.5v7.25c0 5.4 3.55 8.85 8.5 10.5 4.95-1.65 8.5-5.1 8.5-10.5V8.5L16 4.75Z"
-                        stroke="currentColor"
-                        stroke-linejoin="round"
-                        stroke-width="1.75"
-                      />
-                      <path
-                        d="m12 16.25 2.5 2.5 5.5-5.5"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.75"
-                      />
-                    </svg>
-                  }
-                  @case ('stripe-terminal') {
-                    <svg class="size-8" viewBox="0 0 32 32" fill="none">
-                      <rect
-                        x="8.5"
-                        y="6.5"
-                        width="15"
-                        height="19"
-                        rx="3"
-                        stroke="currentColor"
-                        stroke-width="1.75"
-                      />
-                      <rect
-                        x="11.5"
-                        y="10"
-                        width="9"
-                        height="6"
-                        rx="1.25"
-                        stroke="currentColor"
-                        stroke-width="1.75"
-                      />
-                      <path
-                        d="M13 20.5h6M14.5 23.5h3"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-width="1.75"
-                      />
-                    </svg>
-                  }
-                  @case ('admob') {
-                    <svg class="size-8" viewBox="0 0 32 32" fill="none">
-                      <rect
-                        x="5"
-                        y="5"
-                        width="22"
-                        height="22"
-                        rx="5"
-                        stroke="currentColor"
-                        stroke-width="1.75"
-                      />
-                      <path
-                        d="M10 21.5 15.25 10h2.2L22 21.5M12.2 17h7.7"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.75"
-                      />
-                    </svg>
-                  }
-                }
-              </span>
-              <h2 class="m-0 text-[1.25rem] font-semibold tracking-[-0.02em] text-[#333]">
-                {{ card.label }}
-              </h2>
-              <p
-                class="mt-2 mb-0 font-[ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-[0.8rem] leading-[1.45] text-[#0f83fd]"
-              >
-                {{ card.packageName }}
-              </p>
-              <p class="mt-3 mb-0 text-[0.95rem] leading-[1.55] text-[#505c64]">
-                {{ card.capability }}
-              </p>
-            </a>
-          </li>
-        }
-      </ul>
+          </p>
+          <p
+            class="mt-5 max-w-2xl border-l-2 border-[#ea572a] pl-4 text-sm leading-6 text-[#675e59]"
+            i18n="@@personalOwnershipNotice"
+          >
+            Every OSS project listed here is developed and maintained personally by rdlabo. They are
+            independent of the incorporated association that also uses the rdlabo name.
+          </p>
+        </div>
+        <img
+          class="mx-auto w-full max-w-[260px] opacity-95"
+          src="/assets/brand/rdlabo-logo.svg"
+          alt=""
+          width="324"
+          height="163"
+        />
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-20 sm:px-10 sm:py-24">
+      <p class="m-0 text-sm font-semibold tracking-[0.16em] text-[#c44320] uppercase">
+        <ng-container i18n="@@currentCollection">Current collection</ng-container>
+      </p>
+      @for (group of projectGroups; track group.id) {
+        <section class="mt-8 first:mt-6">
+          <div>
+            <h2 class="m-0 text-3xl font-semibold tracking-[-0.04em] text-[#211d1b] sm:text-4xl">
+              {{ group.label }}
+            </h2>
+            <p class="mt-3 mb-0 max-w-2xl leading-7 text-[#746a65]">{{ group.description }}</p>
+          </div>
+
+          <ul class="mt-8 grid list-none grid-cols-1 gap-5 p-0 md:grid-cols-2">
+            @for (project of group.projects; track project.id) {
+              <li>
+                <a
+                  class="group flex h-full min-h-[260px] flex-col rounded-3xl border border-[#e5d9d3] bg-white p-7 text-[#292320] no-underline transition hover:-translate-y-1 hover:border-[#ea572a] hover:shadow-[0_18px_50px_rgba(72,43,30,0.1)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ea572a]"
+                  [routerLink]="project.path"
+                >
+                  <span
+                    class="flex size-14 items-center justify-center rounded-2xl bg-[#fff0ea] text-[#d64a23] transition group-hover:bg-[#ea572a] group-hover:text-white"
+                  >
+                    <app-project-icon [kind]="project.icon" />
+                  </span>
+                  <h3 class="mt-7 mb-0 text-2xl font-semibold tracking-[-0.035em]">
+                    {{ project.shortName }}
+                  </h3>
+                  <p class="mt-2 mb-0 font-mono text-xs leading-5 text-[#c44320]">
+                    {{ project.packageName }}
+                  </p>
+                  <p class="mt-4 mb-0 leading-7 text-[#6f6661]">{{ project.description }}</p>
+                  <span class="mt-auto pt-7 text-sm font-semibold text-[#c44320]">
+                    <ng-container i18n="@@readDocumentation">Read documentation</ng-container> →
+                  </span>
+                </a>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      <aside
+        class="mt-16 rounded-3xl bg-[#27211e] px-7 py-8 text-white sm:flex sm:items-center sm:justify-between sm:gap-8 sm:px-10"
+      >
+        <div>
+          <p class="m-0 text-sm font-semibold tracking-[0.15em] text-[#ff936f] uppercase">
+            <ng-container i18n="@@growingCollection">Growing collection</ng-container>
+          </p>
+          <h2 class="mt-3 mb-0 text-2xl font-semibold tracking-[-0.03em]">
+            <ng-container i18n="@@upcomingProjects"
+              >More rdlabo projects will be documented here as they are released.</ng-container
+            >
+          </h2>
+        </div>
+        <a
+          class="mt-6 inline-flex shrink-0 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-white no-underline transition hover:border-[#ff936f] hover:text-[#ff936f] sm:mt-0"
+          href="https://github.com/rdlabo-dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+      </aside>
     </section>
   `,
 })
 export class PluginIndexComponent implements OnInit {
-  private readonly title = inject(Title);
+  private readonly seo = inject(SeoService);
   private readonly locale = inject(LOCALE_ID);
-  protected readonly cards = docsForLocale(this.locale).map((plugin) => {
-    const copy = PLUGIN_INDEX_COPY[plugin.id];
-    return {
-      id: plugin.id,
-      path: '/' + plugin.id,
-      packageName: plugin.packageName,
-      label: copy?.label ?? plugin.name,
-      capability: copy?.capability ?? plugin.description,
-    };
-  });
+  protected readonly projectGroups = projectGroupsForLocale(this.locale);
 
   ngOnInit(): void {
-    this.title.setTitle($localize`:@@pluginIndexTitle:Capacitor Community plugins`);
+    this.seo.setPage({
+      title: 'rdlabo.dev',
+      description: $localize`:@@siteDescription:Documentation for personal open source projects created and maintained by rdlabo.`,
+      path: '/',
+    });
   }
 }

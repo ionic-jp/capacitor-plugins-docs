@@ -1,8 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-
-import { docsForLocale, pluginDocs } from './docs-data';
+import {
+  loadProject,
+  projectCatalog,
+  projectCategoriesForLocale,
+  projectGroupsForLocale,
+  projectsForLocale,
+} from './docs-data';
 import { PluginIndexComponent } from './plugin-index';
 
 describe('PluginIndexComponent', () => {
@@ -18,52 +23,119 @@ describe('PluginIndexComponent', () => {
     fixture.detectChanges();
   });
 
-  it('renders the intro and four plugin cards from pluginDocs', () => {
+  it('renders the rdlabo.dev brand and project catalog', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const title = TestBed.inject(Title);
+    expect(TestBed.inject(Title).getTitle()).toBe('rdlabo.dev');
+    expect(compiled.querySelector('h1')?.textContent).toContain('rdlabo.dev');
+    expect(compiled.textContent).toContain('developed and maintained personally by rdlabo');
+    expect(compiled.textContent).toContain('independent of the incorporated association');
+    expect(compiled.querySelector('img[src="/assets/brand/rdlabo-logo.svg"]')).not.toBeNull();
 
-    expect(title.getTitle()).toBe('Capacitor Community plugins');
-    expect(compiled.querySelector('h1')?.textContent?.trim()).toBe('Plugins');
-    expect(compiled.textContent).toContain('Capacitor Community plugins bring native payments');
-    expect(compiled.querySelectorAll('img')).toHaveLength(0);
-
-    const cards = Array.from(compiled.querySelectorAll('a[href]')) as HTMLAnchorElement[];
-    expect(cards.map((card) => card.getAttribute('href'))).toEqual([
-      '/stripe',
-      '/stripe-identity',
-      '/stripe-terminal',
-      '/admob',
-    ]);
-    expect(cards.map((card) => card.querySelector('h2')?.textContent?.trim())).toEqual([
+    const cards = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('li > a'));
+    const groupedProjects = projectGroupsForLocale('en').flatMap((group) => group.projects);
+    expect(cards.map((card) => card.getAttribute('href'))).toEqual(
+      groupedProjects.map((project) => project.path),
+    );
+    expect(cards.map((card) => card.querySelector('h3')?.textContent?.trim())).toEqual([
       'Stripe',
       'Stripe Identity',
       'Stripe Terminal',
       'AdMob',
+      'Ionic Angular Kit',
+      'Ionic Angular Photo Editor',
+      'Ionic Angular Scroll Header',
+      'Angular CDK Scroll Strategies',
+      'Ionic Theme iOS26',
+      'Ionic Theme MD3',
+      'Workers Hono Kit',
+      'ESLint Plugin Rules',
     ]);
-    expect(cards.map((card) => card.textContent)).toEqual(
-      pluginDocs.map((plugin) => expect.stringContaining(plugin.packageName)),
-    );
-    expect(compiled.textContent).toContain('PaymentSheet');
-    expect(compiled.textContent).toContain('identity verification');
-    expect(compiled.textContent).toContain('in-person payments');
-    expect(compiled.textContent).toContain('rewarded interstitial');
-    expect(compiled.querySelectorAll('svg')).toHaveLength(4);
+    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(12);
   });
 
-  it('provides Japanese navigation and documentation content for every page', () => {
-    const japaneseDocs = docsForLocale('ja');
-    expect(japaneseDocs).toHaveLength(pluginDocs.length);
-    expect(japaneseDocs.flatMap((plugin) => plugin.pages)).toHaveLength(26);
-    expect(japaneseDocs.find((plugin) => plugin.id === 'stripe')?.pages[0].navTitle).toBe('設定');
+  it('keeps Japanese catalog metadata and lazy documentation in parity', async () => {
+    const japaneseProjects = projectsForLocale('ja');
+    expect(japaneseProjects).toHaveLength(projectCatalog.length);
+    expect(projectCatalog).toHaveLength(12);
+    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(63);
+    expect(japaneseProjects.find((project) => project.id === 'stripe')?.pages[0].navTitle).toBe(
+      '設定',
+    );
+
+    const admob = await loadProject('admob', 'ja');
+    expect(admob?.pages.find((page) => page.slug === 'consent')?.html).toContain(
+      '広告をロードする前にプライバシー情報を取得します',
+    );
+    const eslint = await loadProject('eslint-plugin-rules', 'ja');
+    expect(eslint?.version).toBe('21.3.0');
+    expect(eslint?.pages.find((page) => page.slug === 'rules')?.html).toContain(
+      'signal-use-as-signal-template',
+    );
+    const restrictTryBlock = eslint?.pages.find((page) => page.slug === 'rules/restrict-try-block');
+    expect(restrictTryBlock?.path).toBe(
+      '/projects/eslint-plugin-rules/docs/rules/restrict-try-block',
+    );
+    expect(restrictTryBlock?.html).toMatch(/オプション|Options/);
+    expect(restrictTryBlock?.html).toContain('allowPromise');
+    expect(restrictTryBlock?.html).toContain('incorrect');
+    const hono = await loadProject('workers-hono-kit', 'ja');
+    expect(hono?.version).toBe('0.10.6');
+    expect(hono?.pages.find((page) => page.slug === 'data-layer')?.html).toContain(
+      'primaryHyperdrive',
+    );
+    const ionic = await loadProject('ionic-angular-kit', 'ja');
+    expect(ionic?.version).toBe('21.6.2');
+    expect(ionic?.pages.find((page) => page.slug === 'offline-realtime')?.html).toContain(
+      'createOfflineAuthBridge',
+    );
+    const iosTheme = await loadProject('ionic-theme-ios26', 'ja');
+    expect(iosTheme?.version).toBe('2.3.2');
+    expect(iosTheme?.pages.find((page) => page.slug === 'readme')?.html).toContain(
+      'iosTransitionAnimation',
+    );
+    expect(iosTheme?.pages.find((page) => page.slug === 'using-ion-item-group')?.html).toContain(
+      'md-ion-list-inset.css',
+    );
+    const md3Theme = await loadProject('ionic-theme-md3', 'ja');
+    expect(md3Theme?.version).toBe('1.1.0');
+    expect(md3Theme?.pages.find((page) => page.slug === 'readme')?.html).toContain(
+      'mdTransitionAnimation',
+    );
+  });
+
+  it('defines localized categories before adding non-Capacitor projects', () => {
+    expect(projectCategoriesForLocale('en').map((category) => category.id)).toEqual([
+      'capacitor-plugins',
+      'frontend-tools',
+      'developer-tools',
+    ]);
+    expect(projectCategoriesForLocale('ja').map((category) => category.label)).toEqual([
+      'Capacitorプラグイン',
+      'フロントエンドツール',
+      '開発ツール',
+    ]);
     expect(
-      japaneseDocs
-        .find((plugin) => plugin.id === 'stripe-identity')
-        ?.pages.find((page) => page.slug === 'identity-verification-sheet')?.html,
-    ).toContain('本人確認書類を検証します');
+      projectGroupsForLocale('en')
+        .find((group) => group.id === 'frontend-tools')
+        ?.projects.map((project) => project.id)
+        .slice()
+        .sort(),
+    ).toEqual(
+      [
+        'ionic-angular-kit',
+        'ionic-angular-photo-editor',
+        'ionic-angular-scroll-header',
+        'ngx-cdk-scroll-strategies',
+        'ionic-theme-ios26',
+        'ionic-theme-md3',
+      ].sort(),
+    );
     expect(
-      japaneseDocs
-        .find((plugin) => plugin.id === 'admob')
-        ?.pages.find((page) => page.slug === 'consent')?.html,
-    ).toContain('広告をロードする前にプライバシー情報を取得します');
+      projectGroupsForLocale('en')
+        .find((group) => group.id === 'developer-tools')
+        ?.projects.map((project) => project.id)
+        .slice()
+        .sort(),
+    ).toEqual(['eslint-plugin-rules', 'workers-hono-kit'].sort());
   });
 });

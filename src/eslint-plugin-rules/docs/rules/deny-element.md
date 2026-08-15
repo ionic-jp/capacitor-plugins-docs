@@ -1,0 +1,50 @@
+---
+title: deny-element
+---
+
+# @rdlabo/rules/deny-element
+
+> This plugin disallows the use of certain HTML tags.
+>
+> - ⭐️ This rule is included in `plugin:@rdlabo/rules/recommended` preset.
+
+This rule is particularly useful for Ionic applications where you want to enforce the use of Controller-based modals and action sheets instead of inline components.
+
+## Rule Details
+
+❌ Incorrect: Using disallowed elements in templates
+
+```html
+<ion-modal></ion-modal>
+<!-- error -->
+```
+
+✅ Correct: Configure the rule in `.eslintrc.json` to specify which elements to disallow
+
+## Rule Settings
+
+```json
+{
+  "rules": {
+    "@rdlabo/rules/deny-element": [
+      "error",
+      {
+        "elements": ["ion-modal"]
+      }
+    ]
+  }
+}
+```
+
+## Options
+
+```ts
+const options: {
+  elements: string[]; // Array of element names to disallow
+};
+```
+
+## Implementation
+
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/deny-element.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/deny-element.ts)
