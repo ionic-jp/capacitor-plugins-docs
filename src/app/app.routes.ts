@@ -5,6 +5,7 @@ import { NotFoundComponent } from './docs/not-found';
 import { PluginIndexComponent } from './docs/plugin-index';
 import { projectCatalog } from './docs/docs-data';
 import { projectResolver } from './docs/project.resolver';
+import { SupportPageComponent } from './docs/support-page';
 
 const projectRoutes: Routes = projectCatalog.flatMap((project) => [
   {
@@ -44,6 +45,7 @@ const stripeLegacyRoutes: Routes = stripe.pages.map((page) => ({
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PluginIndexComponent },
   { path: 'projects', pathMatch: 'full', redirectTo: '' },
+  { path: 'support', component: SupportPageComponent },
   {
     path: 'docs/identity',
     pathMatch: 'full',

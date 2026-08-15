@@ -19,7 +19,7 @@
     </unit>
     <unit id="switchLanguage">
       <notes>
-        <note category="location">src/app/app.html:50,52</note>
+        <note category="location">src/app/app.html:48,50</note>
       </notes>
       <segment>
         <source>Switch language</source>
@@ -27,7 +27,7 @@
     </unit>
     <unit id="viewOnGitHub">
       <notes>
-        <note category="location">src/app/app.html:64,67</note>
+        <note category="location">src/app/app.html:62,65</note>
       </notes>
       <segment>
         <source>View on GitHub</source>
@@ -35,7 +35,7 @@
     </unit>
     <unit id="closeDocumentationMenu">
       <notes>
-        <note category="location">src/app/app.html:76,78</note>
+        <note category="location">src/app/app.html:77,79</note>
       </notes>
       <segment>
         <source>Close documentation menu</source>
@@ -43,7 +43,7 @@
     </unit>
     <unit id="documentation">
       <notes>
-        <note category="location">src/app/app.html:89,91</note>
+        <note category="location">src/app/app.html:90,92</note>
       </notes>
       <segment>
         <source>Documentation</source>
@@ -51,7 +51,7 @@
     </unit>
     <unit id="projectsNav">
       <notes>
-        <note category="location">src/app/app.html:91,93</note>
+        <note category="location">src/app/app.html:92,94</note>
       </notes>
       <segment>
         <source>Projects</source>
@@ -59,15 +59,23 @@
     </unit>
     <unit id="allProjectsNav">
       <notes>
-        <note category="location">src/app/app.html:104,107</note>
+        <note category="location">src/app/app.html:106,110</note>
       </notes>
       <segment>
         <source>All projects</source>
       </segment>
     </unit>
+    <unit id="supportNav">
+      <notes>
+        <note category="location">src/app/app.html:123,126</note>
+      </notes>
+      <segment>
+        <source>Support</source>
+      </segment>
+    </unit>
     <unit id="overviewNav">
       <notes>
-        <note category="location">src/app/app.html:129,130</note>
+        <note category="location">src/app/app.html:179,180</note>
       </notes>
       <segment>
         <source>Overview</source>
@@ -75,15 +83,23 @@
     </unit>
     <unit id="footerOwnership">
       <notes>
-        <note category="location">src/app/app.html:164,167</note>
+        <note category="location">src/app/app.html:215,218</note>
       </notes>
       <segment>
         <source> Personal open source projects maintained by rdlabo, independently of the incorporated association that also uses the rdlabo name. </source>
       </segment>
     </unit>
+    <unit id="supportFooter">
+      <notes>
+        <note category="location">src/app/app.html:224,226</note>
+      </notes>
+      <segment>
+        <source>Support these projects</source>
+      </segment>
+    </unit>
     <unit id="footerCopyright">
       <notes>
-        <note category="location">src/app/app.html:169,172</note>
+        <note category="location">src/app/app.html:227,230</note>
       </notes>
       <segment>
         <source> © 2026 rdlabo. Released under the MIT License. </source>
@@ -123,7 +139,7 @@
     </unit>
     <unit id="getStarted">
       <notes>
-        <note category="location">src/app/docs/landing-page.ts:46,47</note>
+        <note category="location">src/app/docs/landing-page.ts:48,49</note>
       </notes>
       <segment>
         <source>Get started</source>
@@ -131,7 +147,7 @@
     </unit>
     <unit id="viewSource">
       <notes>
-        <note category="location">src/app/docs/landing-page.ts:54,55</note>
+        <note category="location">src/app/docs/landing-page.ts:56,57</note>
       </notes>
       <segment>
         <source>View source</source>
@@ -139,7 +155,7 @@
     </unit>
     <unit id="starOnGitHub">
       <notes>
-        <note category="location">src/app/docs/landing-page.ts</note>
+        <note category="location">src/app/docs/landing-page.ts:73,74</note>
       </notes>
       <segment>
         <source>Star on GitHub</source>
@@ -147,7 +163,7 @@
     </unit>
     <unit id="notFoundHeading">
       <notes>
-        <note category="location">src/app/docs/not-found.ts:12,14</note>
+        <note category="location">src/app/docs/not-found.ts:11,13</note>
       </notes>
       <segment>
         <source>Page not found</source>
@@ -155,7 +171,7 @@
     </unit>
     <unit id="notFoundDescription">
       <notes>
-        <note category="location">src/app/docs/not-found.ts:16,18</note>
+        <note category="location">src/app/docs/not-found.ts:15,17</note>
         <note category="location">src/app/docs/not-found.ts:34</note>
       </notes>
       <segment>
@@ -164,7 +180,7 @@
     </unit>
     <unit id="backToProjects">
       <notes>
-        <note category="location">src/app/docs/not-found.ts:23,25</note>
+        <note category="location">src/app/docs/not-found.ts:22,24</note>
       </notes>
       <segment>
         <source>Browse projects</source>
@@ -240,6 +256,78 @@
       </notes>
       <segment>
         <source>Documentation for personal open source projects created and maintained by rdlabo.</source>
+      </segment>
+    </unit>
+    <unit id="supportEyebrow">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:9,11</note>
+      </notes>
+      <segment>
+        <source>Support open source</source>
+      </segment>
+    </unit>
+    <unit id="supportHeading">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:14,16</note>
+      </notes>
+      <segment>
+        <source>Help rdlabo projects keep moving</source>
+      </segment>
+    </unit>
+    <unit id="supportIntro">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:18,20</note>
+      </notes>
+      <segment>
+        <source>The projects documented here are maintained personally by rdlabo. Sponsorship supports the collection as a whole, rather than one individual library.</source>
+      </segment>
+    </unit>
+    <unit id="supportSponsorHeading">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:28,30</note>
+      </notes>
+      <segment>
+        <source>Sponsor on GitHub</source>
+      </segment>
+    </unit>
+    <unit id="supportSponsorDescription">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:32,34</note>
+      </notes>
+      <segment>
+        <source>Your support helps fund maintenance, compatibility updates, documentation, and new features across rdlabo&apos;s open source projects.</source>
+      </segment>
+    </unit>
+    <unit id="becomeSponsor">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:44,45</note>
+      </notes>
+      <segment>
+        <source>Become a sponsor</source>
+      </segment>
+    </unit>
+    <unit id="supportIndependenceNotice">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:52,55</note>
+      </notes>
+      <segment>
+        <source>Sponsorship supports open source work maintained personally by rdlabo. It is independent of the incorporated association that also uses the rdlabo name.</source>
+      </segment>
+    </unit>
+    <unit id="supportPageTitle">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:64</note>
+      </notes>
+      <segment>
+        <source>Support open source - rdlabo.dev</source>
+      </segment>
+    </unit>
+    <unit id="supportPageDescription">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:65</note>
+      </notes>
+      <segment>
+        <source>Support maintenance, documentation, and development across rdlabo&apos;s open source projects.</source>
       </segment>
     </unit>
   </file>

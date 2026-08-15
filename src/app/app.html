@@ -106,6 +106,23 @@
         <span i18n="@@allProjectsNav">All projects</span>
       </a>
 
+      <a
+        class="mt-1 flex items-center gap-2.5 rounded-xl px-3 py-3 text-sm font-medium tracking-tight text-[#292320] no-underline hover:text-[#c44320]"
+        routerLink="/support"
+        [class.bg-[#fff0ea]]="isSupport()"
+        [class.!text-[#c44320]]="isSupport()"
+      >
+        <svg class="size-3.5 shrink-0" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path
+            d="M8 13.5S2.5 10.2 2.5 5.8A2.8 2.8 0 0 1 8 4.9a2.8 2.8 0 0 1 5.5.9C13.5 10.2 8 13.5 8 13.5Z"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span i18n="@@supportNav">Support</span>
+      </a>
+
       @for (group of projectGroups; track group.id) {
         <p
           class="mt-8 mb-2 px-3 text-[0.65rem] font-semibold tracking-[0.15em] text-[#6f6661] uppercase"
@@ -199,8 +216,16 @@
         association that also uses the rdlabo name.
       </p>
     </div>
-    <p class="m-0 sm:text-right" i18n="@@footerCopyright">
-      © 2026 rdlabo. Released under the MIT License.
-    </p>
+    <div class="sm:text-right">
+      <a
+        class="text-[#ff936f] no-underline hover:text-white"
+        routerLink="/support"
+        i18n="@@supportFooter"
+        >Support these projects</a
+      >
+      <p class="mt-2 mb-0" i18n="@@footerCopyright">
+        © 2026 rdlabo. Released under the MIT License.
+      </p>
+    </div>
   </div>
 </footer>

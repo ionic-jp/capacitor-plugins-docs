@@ -53,6 +53,7 @@ export class App {
     const path = this.currentUrl().split(/[?#]/)[0];
     return path === '/' || path === '/projects';
   });
+  protected readonly isSupport = computed(() => this.currentUrl().split(/[?#]/)[0] === '/support');
   protected readonly activeProject = computed(() => {
     const segments = this.currentUrl().split(/[?#]/)[0].split('/').filter(Boolean);
     const slug = segments[0] === 'projects' ? segments[1] : undefined;

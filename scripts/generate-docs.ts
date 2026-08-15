@@ -435,6 +435,7 @@ async function main(): Promise<void> {
   );
   const canonicalPaths = [
     '/',
+    '/support',
     ...catalogs.en.flatMap((project) => [
       project.path,
       ...project.pages.map((page: any) => page.path),

@@ -18,13 +18,6 @@ Android Design（Material Design 3）テーマも作成中です。ぜひチェ�
 
 👉️[rdlabo-dev/ionic-theme-md3](https://github.com/rdlabo-dev/ionic-theme-md3)
 
-## 💖 このプロジェクトを支援する
-
-このライブラリを気に入っていただけましたか？ご支援が継続的な改善と成長につながります。
-スポンサーになると、新機能、改善、メンテナンスに直接貢献できます。
-
-[Become a Sponsor →](https://github.com/sponsors/rdlabo)
-
 ## セットアップ
 
 これはIonicプロジェクトを拡張するためのCSSテーマです。単体では動作しないため、Ionic Frameworkと一緒に使ってください。

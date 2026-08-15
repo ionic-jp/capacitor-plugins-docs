@@ -18,13 +18,6 @@ I'm also working on the Android Design (Material Design 3) theme. Be sure to cat
 
 👉️[rdlabo-dev/ionic-theme-md3](https://github.com/rdlabo-dev/ionic-theme-md3)
 
-## 💖 Support This Project
-
-Enjoying this library? Your support helps keep it alive and growing!
-Sponsoring means you directly contribute to new features, improvements, and maintenance.
-
-[Become a Sponsor →](https://github.com/sponsors/rdlabo)
-
 ## Setup
 
 This is a CSS theme for extending your Ionic project. It does not work on its own, so use it together with the Ionic Framework.
