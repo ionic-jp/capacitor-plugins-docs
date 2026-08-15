@@ -28,13 +28,6 @@ If you need a more comprehensive Material Design 3 implementation, you may also 
 
 > **Note:** This theme is purpose-built for compatibility with Ionic's design approach and `@rdlabo/ionic-theme-ios26`; it is not intended as a strict, full MD3 recreation.
 
-## 💖 Support This Project
-
-Enjoying this library? Your support helps keep it alive and growing!
-Sponsoring means you directly contribute to new features, improvements, and maintenance.
-
-[Become a Sponsor →](https://github.com/sponsors/rdlabo)
-
 ## Setup
 
 This is a CSS theme for extending your Ionic project. It does not work on its own, so use it together with the Ionic Framework.

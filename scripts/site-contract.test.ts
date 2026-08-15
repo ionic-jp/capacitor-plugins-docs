@@ -921,6 +921,11 @@ test('uses docs.rdlabo.dev as the canonical origin in site SEO outputs', async (
   assert.doesNotMatch(siteConfig, new RegExp(legacyOrigin.replaceAll('.', '\\.')));
   assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll('.', '\\.')}/</loc>`));
   assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll('.', '\\.')}/ja</loc>`));
+  assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll('.', '\\.')}/support</loc>`));
+  assert.match(
+    sitemap,
+    new RegExp(`<loc>${canonicalOrigin.replaceAll('.', '\\.')}/ja/support</loc>`),
+  );
   assert.doesNotMatch(sitemap, new RegExp(`${canonicalOrigin.replaceAll('.', '\\.')}/ja/</`));
   assert.match(
     sitemap,

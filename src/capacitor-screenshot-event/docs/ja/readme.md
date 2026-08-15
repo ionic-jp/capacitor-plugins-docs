@@ -6,13 +6,6 @@ title: '@rdlabo/capacitor-screenshot-event'
 
 ユーザーがスクリーンショットを撮ったことを通知します
 
-## 💖 このプロジェクトを支援する
-
-このプロジェクトを気に入っていただけましたか？ご支援が継続的な改善と成長につながります。  
-スポンサーになると、新機能、改善、メンテナンスに直接貢献できます。
-
-[Become a Sponsor →](https://github.com/sponsors/rdlabo)
-
 ## インストール
 
 ```bash

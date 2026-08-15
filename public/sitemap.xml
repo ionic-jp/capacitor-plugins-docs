@@ -13,6 +13,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/support" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/support" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/support" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/support" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/support" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/support" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/ionic-angular-kit</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-kit" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-kit" />

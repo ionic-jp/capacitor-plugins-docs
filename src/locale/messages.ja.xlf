@@ -70,6 +70,8 @@
       <trans-unit id="editOnGitHub"><source>Edit this page on GitHub</source><target>GitHubでこのページを編集</target></trans-unit>
       <trans-unit id="projectsNav"><source>Projects</source><target>プロジェクト</target></trans-unit>
       <trans-unit id="allProjectsNav"><source>All projects</source><target>すべてのプロジェクト</target></trans-unit>
+      <trans-unit id="supportNav"><source>Support</source><target>支援する</target></trans-unit>
+      <trans-unit id="supportFooter"><source>Support these projects</source><target>プロジェクトを支援する</target></trans-unit>
       <trans-unit id="capacitorPluginsNav"><source>Capacitor plugins</source><target>Capacitorプラグイン</target></trans-unit>
       <trans-unit id="overviewNav"><source>Overview</source><target>概要</target></trans-unit>
       <trans-unit id="openSourceDocumentation"><source>Open source documentation</source><target>オープンソースドキュメント</target></trans-unit>
@@ -84,6 +86,15 @@
       <trans-unit id="viewSource"><source>View source</source><target>ソースを見る</target></trans-unit>
       <trans-unit id="starOnGitHub"><source>Star on GitHub</source><target>GitHubでStarする</target></trans-unit>
       <trans-unit id="siteDescription"><source>Documentation for personal open source projects created and maintained by rdlabo.</source><target>rdlabo個人が開発・管理するオープンソースプロジェクトの公式ドキュメントです。</target></trans-unit>
+      <trans-unit id="supportEyebrow"><source>Support open source</source><target>オープンソースを支援する</target></trans-unit>
+      <trans-unit id="supportHeading"><source>Help rdlabo projects keep moving</source><target>rdlaboのプロジェクトを、これからも前へ</target></trans-unit>
+      <trans-unit id="supportIntro"><source>The projects documented here are maintained personally by rdlabo. Sponsorship supports the collection as a whole, rather than one individual library.</source><target>ここに掲載するプロジェクトは、rdlabo個人が開発・管理しています。スポンサーからのご支援は、特定のライブラリではなく、プロジェクト全体の活動を支えます。</target></trans-unit>
+      <trans-unit id="supportSponsorHeading"><source>Sponsor on GitHub</source><target>GitHub Sponsorsで支援する</target></trans-unit>
+      <trans-unit id="supportSponsorDescription"><source>Your support helps fund maintenance, compatibility updates, documentation, and new features across rdlabo&apos;s open source projects.</source><target>いただいたご支援は、rdlaboのオープンソースプロジェクト全体のメンテナンス、互換性対応、ドキュメント整備、新機能開発に活用します。</target></trans-unit>
+      <trans-unit id="becomeSponsor"><source>Become a sponsor</source><target>スポンサーになる</target></trans-unit>
+      <trans-unit id="supportIndependenceNotice"><source>Sponsorship supports open source work maintained personally by rdlabo. It is independent of the incorporated association that also uses the rdlabo name.</source><target>スポンサーからのご支援は、rdlabo個人が管理するオープンソース活動に対するものです。同じrdlabo名を使用する一般社団法人リレーションデザイン研究所とは独立しています。</target></trans-unit>
+      <trans-unit id="supportPageTitle"><source>Support open source - rdlabo.dev</source><target>オープンソースを支援する - rdlabo.dev</target></trans-unit>
+      <trans-unit id="supportPageDescription"><source>Support maintenance, documentation, and development across rdlabo&apos;s open source projects.</source><target>rdlaboのオープンソースプロジェクト全体のメンテナンス、ドキュメント整備、開発を支援できます。</target></trans-unit>
       <trans-unit id="notFoundHeading"><source>Page not found</source><target>ページが見つかりません</target></trans-unit>
       <trans-unit id="notFoundDescription"><source>The page may have moved while the documentation was being reorganized.</source><target>ドキュメントの再編により、ページが移動した可能性があります。</target></trans-unit>
       <trans-unit id="backToProjects"><source>Browse projects</source><target>プロジェクト一覧へ</target></trans-unit>

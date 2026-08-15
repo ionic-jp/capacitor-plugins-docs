@@ -6,13 +6,6 @@ title: '@rdlabo/capacitor-screenshot-event'
 
 Notification that user shot screenshot
 
-## 💖 Support This Project
-
-Enjoying this project? Your support helps keep it alive and growing!  
-Sponsoring means you directly contribute to new features, improvements, and maintenance.
-
-[Become a Sponsor →](https://github.com/sponsors/rdlabo)
-
 ## Install
 
 ```bash
