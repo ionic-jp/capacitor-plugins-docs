@@ -4,7 +4,7 @@ code: []
 scrollActiveLine: []
 ---
 
-Add the Google Mobile Ads SDK and your AdMob app ID, then initialize the SDK before requesting ads. Google's Get started guides for [Android](https://developers.google.com/admob/android/quick-start) and [iOS](https://developers.google.com/admob/ios/quick-start) explain that setup. This page covers the Capacitor plugin install and `initialize`.
+Install the Capacitor plugin (it already ships Google Mobile Ads SDK), add your AdMob application ID, then call `initialize` before requesting ads. Google's Get started guides for [Android](https://developers.google.com/admob/android/quick-start) and [iOS](https://developers.google.com/admob/ios/quick-start) explain app IDs and SKAdNetwork identifiers; do not add a second Mobile Ads dependency.
 
 Install AdMob and synchronize the native Capacitor projects.
 

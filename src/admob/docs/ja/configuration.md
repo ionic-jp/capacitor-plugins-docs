@@ -4,7 +4,7 @@ code: []
 scrollActiveLine: []
 ---
 
-Google Mobile Ads SDK と AdMob アプリ ID を入れ、広告リクエストの前に SDK を初期化します。手順は Google の Get started（[Android](https://developers.google.com/admob/android/quick-start?hl=ja) / [iOS](https://developers.google.com/admob/ios/quick-start?hl=ja)）を見てください。このページは Capacitor プラグインのインストールと `initialize` です。
+Capacitor プラグインをインストールします（Google Mobile Ads SDK は同梱です）。続けて AdMob アプリ ID を入れ、広告リクエストの前に `initialize` を呼びます。アプリ ID と SKAdNetwork は Google の Get started（[Android](https://developers.google.com/admob/android/quick-start?hl=ja) / [iOS](https://developers.google.com/admob/ios/quick-start?hl=ja)）を見てください。Mobile Ads の依存関係を二重に足さないでください。
 
 AdMob をインストールし、Capacitor のネイティブプロジェクトを同期します。
 

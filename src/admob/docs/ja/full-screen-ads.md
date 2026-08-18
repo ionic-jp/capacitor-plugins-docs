@@ -4,13 +4,13 @@ code: []
 scrollActiveLine: []
 ---
 
-フルスクリーン広告はホストアプリの画面を覆います。このプラグインが扱う形式は、Google の [インタースティシャル](https://developers.google.com/admob/android/interstitial?hl=ja)、[リワード](https://developers.google.com/admob/android/rewarded?hl=ja)、[リワード付きインタースティシャル](https://developers.google.com/admob/android/rewarded-interstitial?hl=ja) です（[iOS のインタースティシャル](https://developers.google.com/admob/ios/interstitial?hl=ja)、[リワード](https://developers.google.com/admob/ios/rewarded?hl=ja)、[リワード付きインタースティシャル](https://developers.google.com/admob/ios/rewarded-interstitial?hl=ja)）。
+フルスクリーン広告はホストアプリの画面を覆います。このプラグインが扱うのはインタースティシャル、リワード、リワード付きインタースティシャルです。公式の形式ガイドは各節にあります。
 
 表示前に広告を準備します。先にリスナーを登録し、開発中はテスト広告ユニットを使い、体験の区切りでのみ表示します。共通のロード・表示・売上イベントは [広告イベント](/docs/events) にあります。
 
 ## インタースティシャル
 
-インタースティシャルは、画面遷移やゲームのレベル間など自然な区切りで出すフルスクリーン広告です。ユーザーは広告先へ進むか、閉じてアプリに戻れます。
+インタースティシャルは、画面遷移やゲームのレベル間など自然な区切りで出すフルスクリーン広告です。ユーザーは広告先へ進むか、閉じてアプリに戻れます。形式の説明は Google のインタースティシャル広告ガイド（[Android](https://developers.google.com/admob/android/interstitial?hl=ja) / [iOS](https://developers.google.com/admob/ios/interstitial?hl=ja)）を見てください。
 
 アプリ内報酬を渡さない自然な区切りでは、インタースティシャルを使います。
 
@@ -52,7 +52,7 @@ await AdMob.showInterstitial({ adId: 'ca-app-pub-xxx/interstitial-1' });
 
 ## リワード
 
-リワード広告は、動画・プレイアブル・アンケートへの操作と引き換えにアプリ内アイテムを渡す形式です。
+リワード広告は、動画・プレイアブル・アンケートへの操作と引き換えにアプリ内アイテムを渡す形式です。形式の説明は Google のリワード広告ガイド（[Android](https://developers.google.com/admob/android/rewarded?hl=ja) / [iOS](https://developers.google.com/admob/ios/rewarded?hl=ja)）を見てください。
 
 リワード広告は報酬フローとして扱います。報酬は戻り値または `Rewarded` イベントからのみ付与し、`Dismissed` では付与しません。
 
@@ -70,10 +70,10 @@ await AdMob.addListener(RewardAdPluginEvents.Rewarded, (reward: AdMobRewardItem)
 
 const options: RewardAdOptions = {
   adId: 'YOUR_AD_UNIT_ID',
-  ssv: {
-    userId: 'USER_ID',
-    customData: JSON.stringify({ placement: 'bonus' }),
-  },
+  // ssv: {
+  //   userId: 'USER_ID',
+  //   customData: JSON.stringify({ placement: 'bonus' }),
+  // },
 };
 
 await AdMob.prepareRewardVideoAd(options);
@@ -112,7 +112,7 @@ await AdMob.addListener(RewardAdPluginEvents.Rewarded, async () => {
 
 ## リワード付きインタースティシャル
 
-リワード付きインタースティシャルは、自然な遷移で自動表示される報酬付きフルスクリーン広告です。通常のリワードと違い、視聴のオプトインは不要です。
+リワード付きインタースティシャルは、自然な遷移で自動表示される報酬付きフルスクリーン広告です。通常のリワードと違い、視聴のオプトインは不要です。形式の説明は Google のリワード付きインタースティシャルガイド（[Android](https://developers.google.com/admob/android/rewarded-interstitial?hl=ja) / [iOS](https://developers.google.com/admob/ios/rewarded-interstitial?hl=ja)）を見てください。
 
 報酬体験がアプリの自然な遷移に乗る場合は、リワード付きインタースティシャルを使います。
 

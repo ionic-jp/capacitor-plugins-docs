@@ -6,7 +6,7 @@ scrollActiveLine: []
 
 Google の User Messaging Platform（UMP）SDK は、広告リクエストの前に同意を集めるプライバシー／メッセージングツールです。流れは Google の UMP ガイド（[Android](https://developers.google.com/admob/android/privacy?hl=ja) / [iOS](https://developers.google.com/admob/ios/privacy?hl=ja)）を見てください。
 
-このプラグインは UMP と iOS の App Tracking Transparency を共通 API で提供します。UMP を使う前に、AdMob で [GDPR メッセージ](https://support.google.com/admob/answer/10113207?hl=ja) を作成します。[広告主識別子（IDFA）メッセージ](https://support.google.com/admob/answer/10115027?hl=ja) も設定できます。IDFA メッセージを公開している場合、UMP が explainer と App Tracking Transparency のダイアログを出します。そのときは `requestTrackingAuthorization()` を呼ばないでください。
+このプラグインは UMP と iOS の App Tracking Transparency を共通 API で提供します。UMP を使う前に、AdMob で [GDPR（一般データ保護規則）メッセージ](https://support.google.com/admob/answer/10113207?hl=ja) を作成します。[広告主識別子（IDFA）メッセージ](https://support.google.com/admob/answer/10115027?hl=ja) も設定できます。IDFA メッセージを公開している場合、UMP が explainer と App Tracking Transparency のダイアログを出します。そのときは `requestTrackingAuthorization()` を呼ばないでください。
 
 ## 同意を取得する
 

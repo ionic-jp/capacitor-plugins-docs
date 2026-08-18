@@ -4,13 +4,13 @@ code: []
 scrollActiveLine: []
 ---
 
-Full-screen ads cover the host app. Google documents three formats this plugin wraps: [interstitial](https://developers.google.com/admob/android/interstitial), [rewarded](https://developers.google.com/admob/android/rewarded), and [rewarded interstitial](https://developers.google.com/admob/android/rewarded-interstitial) ([iOS interstitial](https://developers.google.com/admob/ios/interstitial), [rewarded](https://developers.google.com/admob/ios/rewarded), [rewarded interstitial](https://developers.google.com/admob/ios/rewarded-interstitial)).
+Full-screen ads cover the host app. This plugin wraps interstitial, rewarded, and rewarded interstitial ads. Official format guides are linked in each section.
 
 Prepare the ad before showing it. Register listeners first, use test ad units during development, and show ads only at a natural break in the experience. Shared load, show, and revenue events are listed on [Ad Events](/docs/events).
 
 ## Interstitial
 
-Interstitial ads are full-screen ads shown at a natural transition, such as between activities or game levels. The user can tap through or close the ad and return to the app.
+Interstitial ads are full-screen ads shown at a natural transition, such as between activities or game levels. The user can tap through or close the ad and return to the app. Google's interstitial guides for [Android](https://developers.google.com/admob/android/interstitial) and [iOS](https://developers.google.com/admob/ios/interstitial) explain the format.
 
 Use an interstitial when the user should not receive an in-app reward.
 
@@ -52,7 +52,7 @@ await AdMob.showInterstitial({ adId: 'ca-app-pub-xxx/interstitial-1' });
 
 ## Rewarded
 
-Rewarded ads let you give in-app items for interacting with video ads, playable ads, or surveys.
+Rewarded ads let you give in-app items for interacting with video ads, playable ads, or surveys. Google's rewarded guides for [Android](https://developers.google.com/admob/android/rewarded) and [iOS](https://developers.google.com/admob/ios/rewarded) explain the format.
 
 Treat rewarded ads as a reward flow. Grant the reward only from the returned result or the `Rewarded` event, not from `Dismissed`.
 
@@ -70,10 +70,10 @@ await AdMob.addListener(RewardAdPluginEvents.Rewarded, (reward: AdMobRewardItem)
 
 const options: RewardAdOptions = {
   adId: 'YOUR_AD_UNIT_ID',
-  ssv: {
-    userId: 'USER_ID',
-    customData: JSON.stringify({ placement: 'bonus' }),
-  },
+  // ssv: {
+  //   userId: 'USER_ID',
+  //   customData: JSON.stringify({ placement: 'bonus' }),
+  // },
 };
 
 await AdMob.prepareRewardVideoAd(options);
@@ -112,7 +112,7 @@ await AdMob.addListener(RewardAdPluginEvents.Rewarded, async () => {
 
 ## Rewarded interstitial
 
-Rewarded interstitial ads are incentivized full-screen ads that appear during natural app transitions. Unlike rewarded video, the user does not opt in first.
+Rewarded interstitial ads are incentivized full-screen ads that appear during natural app transitions. Unlike rewarded video, the user does not opt in first. Google's rewarded interstitial guides for [Android](https://developers.google.com/admob/android/rewarded-interstitial) and [iOS](https://developers.google.com/admob/ios/rewarded-interstitial) explain the format.
 
 Use a rewarded interstitial when the rewarded experience belongs at a natural transition in the app.
 
