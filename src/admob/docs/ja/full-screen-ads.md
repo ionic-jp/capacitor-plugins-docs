@@ -4,23 +4,51 @@ code: []
 scrollActiveLine: []
 ---
 
-フルスクリーン広告は表示前に準備します。先にリスナーを登録し、開発中はテスト広告ユニットを使います。
+フルスクリーン広告は表示前に準備します。先にリスナーを登録し、開発中はテスト広告ユニットを使い、体験の区切りでのみ表示します。共通のロード・表示・売上イベントは [広告イベント](/docs/events) にあります。
 
 ## インタースティシャル
 
+アプリ内報酬を渡さない自然な区切りでは、インタースティシャルを使います。
+
 ```ts
-import { AdMob, AdOptions, InterstitialAdPluginEvents } from '@capacitor-community/admob';
+import {
+  AdLoadInfo,
+  AdMob,
+  AdMobRevenueData,
+  AdOptions,
+  InterstitialAdPluginEvents,
+} from '@capacitor-community/admob';
 
+await AdMob.addListener(InterstitialAdPluginEvents.Loaded, (info: AdLoadInfo) => {
+  console.log('Interstitial loaded', info.adUnitId);
+});
 await AdMob.addListener(InterstitialAdPluginEvents.FailedToLoad, console.error);
+await AdMob.addListener(InterstitialAdPluginEvents.AdImpression, (data: AdMobRevenueData) => {
+  console.log(data);
+});
 
-const options: AdOptions = { adId: 'YOUR_AD_UNIT_ID' };
+const options: AdOptions = {
+  adId: 'YOUR_AD_UNIT_ID',
+  // isTesting: true,
+  // npa: true,
+  // immersiveMode: true,
+};
 const { adUnitId } = await AdMob.prepareInterstitial(options);
 await AdMob.showInterstitial({ adId: adUnitId });
 ```
 
-表示メソッドの `adId` を省略すると、最後に準備した広告を表示します。複数を準備する場合は、戻り値の `adUnitId` を指定します。
+`showInterstitial()` に `adId` を渡さないと、最後に準備した広告を表示します。複数を準備する場合は、戻り値の `adUnitId` を指定します。
+
+```ts
+await AdMob.prepareInterstitial({ adId: 'ca-app-pub-xxx/interstitial-1' });
+await AdMob.prepareInterstitial({ adId: 'ca-app-pub-xxx/interstitial-2' });
+
+await AdMob.showInterstitial({ adId: 'ca-app-pub-xxx/interstitial-1' });
+```
 
 ## リワード
+
+リワード広告は報酬フローとして扱います。報酬は戻り値または `Rewarded` イベントからのみ付与し、`Dismissed` では付与しません。
 
 ```ts
 import {
@@ -31,7 +59,7 @@ import {
 } from '@capacitor-community/admob';
 
 await AdMob.addListener(RewardAdPluginEvents.Rewarded, (reward: AdMobRewardItem) => {
-  console.log('獲得した報酬', reward.amount, reward.type);
+  console.log('Reward earned', reward.amount, reward.type);
 });
 
 const options: RewardAdOptions = {
@@ -46,9 +74,39 @@ await AdMob.prepareRewardVideoAd(options);
 const reward = await AdMob.showRewardVideoAd();
 ```
 
-テスト広告ではサーバーサイド検証のコールバックは送信されません。
+サーバーサイド検証（SSV）のコールバックは本番広告でのみ送られます。テスト広告では SSV エンドポイントは呼ばれません。`ssv` のペイロードをローカルで確認するには、`RewardAdPluginEvents.Rewarded` のあとにモックリクエストを送れます。`ENVIRONMENT_IS_DEVELOPMENT` は自分の開発用フラグに置き換えてください。
+
+```ts
+const userId = 'USER_ID';
+const customData = JSON.stringify({ placement: 'bonus' });
+
+await AdMob.addListener(RewardAdPluginEvents.Rewarded, async () => {
+  if (!ENVIRONMENT_IS_DEVELOPMENT) {
+    return;
+  }
+  try {
+    const params = new URLSearchParams({
+      ad_network: 'TEST',
+      ad_unit: 'TEST',
+      custom_data: customData,
+      reward_amount: 'TEST',
+      reward_item: 'TEST',
+      timestamp: 'TEST',
+      transaction_id: 'TEST',
+      user_id: userId,
+      signature: 'TEST',
+      key_id: 'TEST',
+    });
+    await fetch(`https://your-staging-ssv-endpoint?${params.toString()}`);
+  } catch (err) {
+    console.error(err);
+  }
+});
+```
 
 ## リワード付きインタースティシャル
+
+報酬体験がアプリの自然な遷移に乗る場合は、リワード付きインタースティシャルを使います。
 
 ```ts
 import { AdMob, RewardInterstitialAdOptions } from '@capacitor-community/admob';
@@ -58,4 +116,12 @@ const { adUnitId } = await AdMob.prepareRewardInterstitialAd(options);
 const reward = await AdMob.showRewardInterstitialAd({ adId: adUnitId });
 ```
 
-ロード、表示、閉じる操作、エラー、報酬、インプレッションは各広告形式に対応するイベント enum で監視できます。
+| オプション      | 説明                                                                    |
+| --------------- | ----------------------------------------------------------------------- |
+| `adId`          | 広告ユニット ID。                                                       |
+| `isTesting`     | Google のテスト広告をリクエストします。[テスト](/docs/testing) を参照。 |
+| `npa`           | 非パーソナライズ広告をリクエストします。                                |
+| `immersiveMode` | Android のみ。フルスクリーン広告をイマーシブモードで表示します。        |
+| `ssv`           | リワード形式のみ。`userId` または `customData` の少なくとも一方を指定。 |
+
+ロード、表示、閉じる操作、失敗、報酬、インプレッションは `InterstitialAdPluginEvents`、`RewardAdPluginEvents`、`RewardInterstitialAdPluginEvents` のいずれかで監視します。

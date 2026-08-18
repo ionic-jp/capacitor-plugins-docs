@@ -1038,6 +1038,20 @@ export const PROJECTS_EN = [
         "path": "/projects/capacitor-admob/docs/app-open"
       },
       {
+        "title": "Ad Events",
+        "navTitle": "Ad Events",
+        "slug": "events",
+        "section": "Guides",
+        "path": "/projects/capacitor-admob/docs/events"
+      },
+      {
+        "title": "Testing",
+        "navTitle": "Testing",
+        "slug": "testing",
+        "section": "Guides",
+        "path": "/projects/capacitor-admob/docs/testing"
+      },
+      {
         "title": "API",
         "navTitle": "API",
         "slug": "api",
@@ -2227,6 +2241,20 @@ export const PROJECTS_JA = [
         "slug": "app-open",
         "section": "広告フォーマット",
         "path": "/projects/capacitor-admob/docs/app-open"
+      },
+      {
+        "title": "広告イベント",
+        "navTitle": "広告イベント",
+        "slug": "events",
+        "section": "ガイド",
+        "path": "/projects/capacitor-admob/docs/events"
+      },
+      {
+        "title": "テスト",
+        "navTitle": "テスト",
+        "slug": "testing",
+        "section": "ガイド",
+        "path": "/projects/capacitor-admob/docs/testing"
       },
       {
         "title": "API",

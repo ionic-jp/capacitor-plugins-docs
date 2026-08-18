@@ -1093,6 +1093,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/app-open" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/testing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/api</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/api" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/api" />

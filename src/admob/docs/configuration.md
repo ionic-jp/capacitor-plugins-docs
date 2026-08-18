@@ -11,7 +11,9 @@ npm install @capacitor-community/admob
 npx cap sync
 ```
 
-This documentation targets `@capacitor-community/admob` **v8.1.0** and Capacitor 8. The plugin supports iOS 15 or later and Android API 24 or later.
+This documentation targets `@capacitor-community/admob` **v8.1.0** and Capacitor 8. The plugin supports iOS 15 or later and Android API 24 or later. If you still use Capacitor 7, install `@capacitor-community/admob@7`.
+
+Then add the Android and iOS application ID entries below. Call `initialize` before [consent](/docs/consent) or loading ads.
 
 ## Android
 
@@ -31,12 +33,13 @@ Then define the value in `android/app/src/main/res/values/strings.xml`:
 
 Replace `[APP_ID]` with the application ID from AdMob, not an ad unit ID.
 
-The plugin uses these optional Gradle project variables:
+You can leave these Gradle variables unset. Override them in your app's `variables.gradle` only when you need a specific artifact version:
 
-| Variable                 | Default  |
-| ------------------------ | -------- |
-| `playServicesAdsVersion` | `25.4.+` |
-| `androidxCoreKTXVersion` | `1.15.0` |
+| Variable                       | Artifact                                         | Default  |
+| ------------------------------ | ------------------------------------------------ | -------- |
+| `playServicesAdsVersion`       | `com.google.android.gms:play-services-ads`       | `25.4.+` |
+| `userMessagingPlatformVersion` | `com.google.android.ump:user-messaging-platform` | `4.0.0`  |
+| `androidxCoreKTXVersion`       | `androidx.core:core-ktx`                         | `1.15.0` |
 
 ## iOS
 
@@ -60,17 +63,30 @@ Add the following keys inside the outermost `<dict>` in `ios/App/App/Info.plist`
 
 Replace `[APP_ID]` with your AdMob application ID and describe your actual tracking use in `NSUserTrackingUsageDescription`.
 
+The `SKAdNetworkItems` snippet includes Google's own identifier. Add the other IDs from Google's [iOS setup guide](https://developers.google.com/admob/ios/quick-start#update_your_infoplist).
+
+If CocoaPods cannot resolve `Google-Mobile-Ads-SDK`, run `pod repo update` in `ios/`, then `npx cap sync ios` again.
+
 ## Initialize
 
-Call `initialize` once before requesting consent information or loading ads. Use Google-provided test ad units while developing. If you must test production-like ads, pass your test device IDs.
+Call `initialize` once before requesting consent information or loading ads.
 
 ```ts
 import { AdMob } from '@capacitor-community/admob';
 
-await AdMob.initialize({
-  testingDevices: ['YOUR_TEST_DEVICE_ID'],
-  initializeForTesting: true,
-});
+await AdMob.initialize();
 ```
 
-Google Mobile Ads SDK APIs and versions are intentionally pinned for the current plugin major to avoid behavior changes. Review the plugin release notes before overriding native SDK versions.
+During development, prefer Google [demo ad units](https://developers.google.com/admob/android/test-ads#demo_ad_units). To test production-like ads on a physical device, register that device as described in [Testing](/docs/testing). Do not ship `initializeForTesting: true` in production.
+
+| Option                         | Type                 | Description                                                                            |
+| ------------------------------ | -------------------- | -------------------------------------------------------------------------------------- |
+| `testingDevices`               | `string[]`           | Device IDs to treat as test devices when `initializeForTesting` is `true`.             |
+| `initializeForTesting`         | `boolean`            | Registers `testingDevices`. Defaults to `false`. Use only while developing.            |
+| `tagForChildDirectedTreatment` | `boolean`            | Children's Online Privacy Protection Act (COPPA) child-directed treatment tag.         |
+| `tagForUnderAgeOfConsent`      | `boolean`            | Tag For Users under the Age of Consent in Europe (TFUA).                               |
+| `maxAdContentRating`           | `MaxAdContentRating` | Maximum content rating applied to all ad requests. Ads above this rating are excluded. |
+
+Per-ad options such as `isTesting`, `npa` (non-personalized ads), and `immersiveMode` are set on each ad request, not on `initialize`. See the [API](/docs/api) for `AdMobInitializationOptions`.
+
+This major version pins Google Mobile Ads SDK **25.4.x** on Android and **13.6.0** on iOS. Leave those versions unless you have a specific need. Google's [Next-Gen SDK for Android](https://developers.google.com/admob/android/next-gen) waits until the next plugin major.

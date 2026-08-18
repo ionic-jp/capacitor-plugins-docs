@@ -1072,6 +1072,8 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         'Ad formats',
         '広告フォーマット',
       ),
+      page('Ad Events', '広告イベント', 'events', 'events.md', 'Guides', 'ガイド'),
+      page('Testing', 'テスト', 'testing', 'testing.md', 'Guides', 'ガイド'),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
