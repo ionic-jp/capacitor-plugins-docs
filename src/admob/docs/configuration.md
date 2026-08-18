@@ -4,7 +4,7 @@ code: []
 scrollActiveLine: []
 ---
 
-Install the Capacitor plugin (it already ships Google Mobile Ads SDK), add your AdMob application ID, then call `initialize` before requesting ads. Google's Get started guides for [Android](https://developers.google.com/admob/android/quick-start) and [iOS](https://developers.google.com/admob/ios/quick-start) explain app IDs and SKAdNetwork identifiers; do not add a second Mobile Ads dependency.
+Install the Capacitor plugin (it already ships Google Mobile Ads SDK), add your AdMob application ID, then call `initialize` before requesting ads. Google's Get started guides for [Android](https://developers.google.com/admob/android/quick-start) and [iOS](https://developers.google.com/admob/ios/quick-start) explain app IDs and SKAdNetwork identifiers (Apple's ad conversion IDs); do not add a second Mobile Ads dependency.
 
 Install AdMob and synchronize the native Capacitor projects.
 
@@ -83,6 +83,6 @@ During development, prefer Google [demo ad units](https://developers.google.com/
 
 !::AdMobInitializationOptions::
 
-Per-ad options such as `isTesting`, `npa` (non-personalized ads), and `immersiveMode` are set on each ad request, not on `initialize`.
+Per-ad options such as `isTesting`, `npa` (non-personalized ads), and `immersiveMode` (hide Android system bars on a full-screen ad) are set on each ad request, not on `initialize`.
 
 This major version pins Google Mobile Ads SDK **25.4.x** on Android and **13.6.0** on iOS. Leave those versions unless you have a specific need. Google's [Next-Gen SDK for Android](https://developers.google.com/admob/android/next-gen) waits until the next plugin major.

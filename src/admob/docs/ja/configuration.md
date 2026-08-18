@@ -4,7 +4,7 @@ code: []
 scrollActiveLine: []
 ---
 
-Capacitor プラグインをインストールします（Google Mobile Ads SDK は同梱です）。続けて AdMob アプリ ID を入れ、広告リクエストの前に `initialize` を呼びます。アプリ ID と SKAdNetwork は Google の Get started（[Android](https://developers.google.com/admob/android/quick-start?hl=ja) / [iOS](https://developers.google.com/admob/ios/quick-start?hl=ja)）を見てください。Mobile Ads の依存関係を二重に足さないでください。
+Capacitor プラグインをインストールします（Google Mobile Ads SDK は同梱です）。続けて AdMob アプリ ID を入れ、広告リクエストの前に `initialize` を呼びます。アプリ ID と SKAdNetwork（Apple の広告コンバージョン ID）は Google の Get started（[Android](https://developers.google.com/admob/android/quick-start?hl=ja) / [iOS](https://developers.google.com/admob/ios/quick-start?hl=ja)）を見てください。Mobile Ads の依存関係を二重に足さないでください。
 
 AdMob をインストールし、Capacitor のネイティブプロジェクトを同期します。
 
@@ -83,6 +83,6 @@ await AdMob.initialize();
 
 !::AdMobInitializationOptions::
 
-`isTesting`、`npa`（非パーソナライズ広告）、`immersiveMode` などの広告単位のオプションは `initialize` ではなく各リクエストに付けます。
+`isTesting`、`npa`（非パーソナライズ広告）、`immersiveMode`（フルスクリーン広告中に Android のシステムバーを隠す）などの広告単位のオプションは `initialize` ではなく各リクエストに付けます。
 
 このメジャーでは Android の Google Mobile Ads SDK を **25.4.x**、iOS を **13.6.0** に固定しています。必要がない限り上書きしないでください。Android 向け [Next-Gen SDK](https://developers.google.com/admob/android/next-gen) は次のプラグインメジャーまで待ちます。

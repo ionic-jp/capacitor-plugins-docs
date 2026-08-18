@@ -6,7 +6,7 @@ scrollActiveLine: []
 
 Banner ads are rectangular ads that occupy a portion of an app's layout. They can stay on screen while the user interacts with the app, typically anchored at the top or bottom. Google's banner guides for [Android](https://developers.google.com/admob/android/banner) and [iOS](https://developers.google.com/admob/ios/banner) explain the format.
 
-This plugin draws the banner on the native screen (above the web view). Register listeners before calling `showBanner` so the first load and size events are not missed.
+Call this after [initialize](/docs/configuration) and [consent](/docs/consent). This plugin draws the banner on the native screen (above the web view). Register listeners before calling `showBanner` so the first load and size events are not missed.
 
 ```ts
 import {
@@ -25,6 +25,7 @@ const handles = await Promise.all([
   }),
   AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size: AdMobBannerSize) => {
     console.log('Banner size', size.width, size.height);
+    // Inset your layout by size.height; see the next section.
   }),
   AdMob.addListener(BannerAdPluginEvents.FailedToLoad, (error) => {
     console.error(error);

@@ -6,7 +6,7 @@ scrollActiveLine: []
 
 Full-screen ads cover the host app. This plugin wraps interstitial, rewarded, and rewarded interstitial ads. Official format guides are linked in each section.
 
-Prepare the ad before showing it. Register listeners first, use test ad units during development, and show ads only at a natural break in the experience. Shared load, show, and revenue events are listed on [Ad Events](/docs/events).
+Prepare the ad before showing it. Call this after [initialize](/docs/configuration) and [consent](/docs/consent). Register listeners first, use test ad units during development, and show ads only at a natural break in the experience. Shared load, show, and revenue events are listed on [Ad Events](/docs/events).
 
 ## Interstitial
 
