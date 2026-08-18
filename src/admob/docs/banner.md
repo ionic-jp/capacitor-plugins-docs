@@ -50,26 +50,28 @@ Use `SizeChanged` to reserve layout space so the banner does not cover app conte
 
 ## Ionic: keep content above the banner
 
-The banner is a native overlay above the WebView. Ionic does not shrink `ion-content` for you.
-
-`ion-app` is positioned with `bottom: 0`. For `BOTTOM_CENTER`, set that `bottom` to `size.height` so pages, tab bars, and overlays inside `ion-app` move up together. When the height is `0`, clear the inline style. Do not also add the same offset to `ion-router-outlet` or `ion-tab-bar`; that double-counts.
+The banner is a native overlay above the WebView. Ionic does not shrink `ion-content` for you. The [Angular demo](https://github.com/capacitor-community/admob/tree/main/demo/angular) listens to `SizeChanged` and sets margin on `ion-router-outlet` ([`BannerViewportService`](https://github.com/capacitor-community/admob/blob/main/demo/angular/src/app/shared/banner-viewport.service.ts)):
 
 ```ts
 import { AdMob, BannerAdPluginEvents } from '@capacitor-community/admob';
 
-const app = document.querySelector<HTMLElement>('ion-app');
+const outlet = document.querySelector<HTMLElement>('ion-router-outlet');
 
 await AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size) => {
-  if (!app) {
+  if (!outlet) {
     return;
   }
-  app.style.bottom = size.height > 0 ? `${size.height}px` : '';
+  outlet.style.marginTop = '';
+  outlet.style.marginBottom = '';
+  if (size.height === 0) {
+    return;
+  }
+  const safeAreaBottom = window.getComputedStyle(document.body).getPropertyValue('--ion-safe-area-bottom');
+  outlet.style.marginBottom = `calc(${safeAreaBottom} + ${size.height}px)`;
 });
 ```
 
-If a modal is still covered because it is presented against the viewport, set that overlay's `bottom` as well.
-
-For `TOP_CENTER`, set `top` instead of `bottom`. When the keyboard opens, call `hideBanner()` and restore with `resumeBanner()` on close so the keyboard and banner do not stack.
+That snippet matches the demo's bottom banner. For `TOP_CENTER`, the demo sets `marginTop` to `${size.height}px` instead. `hideBanner` / `removeBanner` clear the margin; `resumeBanner` restores it.
 
 !::BannerAdOptions::
 

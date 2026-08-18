@@ -50,26 +50,28 @@ await AdMob.showBanner(options);
 
 ## Ionic: バナーとコンテンツを重ねない
 
-バナーは WebView の上のネイティブオーバーレイです。Ionic は `ion-content` を自動では縮めません。
-
-`ion-app` は `bottom: 0` で配置されています。`BOTTOM_CENTER` ではその `bottom` を `size.height` にして、ページ・タブバー・`ion-app` 内のオーバーレイをまとめて上げます。高さが `0` のときはインラインスタイルを消します。同じオフセットを `ion-router-outlet` や `ion-tab-bar` にも足すと二重になります。
+バナーは WebView の上のネイティブオーバーレイです。Ionic は `ion-content` を自動では縮めません。[Angular デモ](https://github.com/capacitor-community/admob/tree/main/demo/angular) は `SizeChanged` を購読し、`ion-router-outlet` に margin を付けます（[`BannerViewportService`](https://github.com/capacitor-community/admob/blob/main/demo/angular/src/app/shared/banner-viewport.service.ts)）。
 
 ```ts
 import { AdMob, BannerAdPluginEvents } from '@capacitor-community/admob';
 
-const app = document.querySelector<HTMLElement>('ion-app');
+const outlet = document.querySelector<HTMLElement>('ion-router-outlet');
 
 await AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size) => {
-  if (!app) {
+  if (!outlet) {
     return;
   }
-  app.style.bottom = size.height > 0 ? `${size.height}px` : '';
+  outlet.style.marginTop = '';
+  outlet.style.marginBottom = '';
+  if (size.height === 0) {
+    return;
+  }
+  const safeAreaBottom = window.getComputedStyle(document.body).getPropertyValue('--ion-safe-area-bottom');
+  outlet.style.marginBottom = `calc(${safeAreaBottom} + ${size.height}px)`;
 });
 ```
 
-モーダルがビューポート基準で出されてまだ隠れる場合は、そのオーバーレイの `bottom` も設定します。
-
-`TOP_CENTER` では `bottom` ではなく `top` を設定します。キーボード表示中は `hideBanner()`、閉じたら `resumeBanner()` にすると、キーボードとバナーが重なりません。
+このスニペットはデモの下バナーと同じです。`TOP_CENTER` ではデモは `marginTop` を `${size.height}px` にします。`hideBanner` / `removeBanner` は margin を消し、`resumeBanner` は戻します。
 
 !::BannerAdOptions::
 
