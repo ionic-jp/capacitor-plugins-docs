@@ -116,12 +116,10 @@ const { adUnitId } = await AdMob.prepareRewardInterstitialAd(options);
 const reward = await AdMob.showRewardInterstitialAd({ adId: adUnitId });
 ```
 
-| オプション      | 説明                                                                    |
-| --------------- | ----------------------------------------------------------------------- |
-| `adId`          | 広告ユニット ID。                                                       |
-| `isTesting`     | Google のテスト広告をリクエストします。[テスト](/docs/testing) を参照。 |
-| `npa`           | 非パーソナライズ広告をリクエストします。                                |
-| `immersiveMode` | Android のみ。フルスクリーン広告をイマーシブモードで表示します。        |
-| `ssv`           | リワード形式のみ。`userId` または `customData` の少なくとも一方を指定。 |
+!::AdOptions::
 
-ロード、表示、閉じる操作、失敗、報酬、インプレッションは `InterstitialAdPluginEvents`、`RewardAdPluginEvents`、`RewardInterstitialAdPluginEvents` のいずれかで監視します。
+!::RewardAdOptions::
+
+!::RewardInterstitialAdOptions::
+
+`isTesting` は [テスト](/docs/testing) を参照してください。ロード、表示、閉じる操作、失敗、報酬、インプレッションは `InterstitialAdPluginEvents`、`RewardAdPluginEvents`、`RewardInterstitialAdPluginEvents` のいずれかで監視します。

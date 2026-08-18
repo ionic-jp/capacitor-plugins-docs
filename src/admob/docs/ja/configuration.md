@@ -79,14 +79,8 @@ await AdMob.initialize();
 
 開発中は Google の [デモ広告ユニット](https://developers.google.com/admob/android/test-ads#demo_ad_units) を使ってください。実機で本番に近い広告を試す場合は [テスト](/docs/testing) の手順でデバイスを登録します。本番に `initializeForTesting: true` を入れないでください。
 
-| オプション                     | 型                   | 説明                                                                                         |
-| ------------------------------ | -------------------- | -------------------------------------------------------------------------------------------- |
-| `testingDevices`               | `string[]`           | `initializeForTesting` が `true` のときテストデバイスとして扱うデバイス ID。                 |
-| `initializeForTesting`         | `boolean`            | `testingDevices` を登録します。デフォルトは `false`。開発時のみ使います。                    |
-| `tagForChildDirectedTreatment` | `boolean`            | 児童オンラインプライバシー保護法（COPPA）の児童向け取り扱いタグ。                            |
-| `tagForUnderAgeOfConsent`      | `boolean`            | 欧州の同意年齢未満ユーザー向けタグ（TFUA）。                                                 |
-| `maxAdContentRating`           | `MaxAdContentRating` | すべての広告リクエストに適用する最大コンテンツレーティング。これを超える広告は除外されます。 |
+!::AdMobInitializationOptions::
 
-`isTesting`、`npa`（非パーソナライズ広告）、`immersiveMode` などの広告単位のオプションは `initialize` ではなく各リクエストに付けます。`AdMobInitializationOptions` は [API](/docs/api) を参照してください。
+`isTesting`、`npa`（非パーソナライズ広告）、`immersiveMode` などの広告単位のオプションは `initialize` ではなく各リクエストに付けます。
 
 このメジャーでは Android の Google Mobile Ads SDK を **25.4.x**、iOS を **13.6.0** に固定しています。必要がない限り上書きしないでください。Android 向け [Next-Gen SDK](https://developers.google.com/admob/android/next-gen) は次のプラグインメジャーまで待ちます。

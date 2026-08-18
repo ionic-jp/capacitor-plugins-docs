@@ -40,6 +40,8 @@ if (isLoaded) {
 }
 ```
 
-`AppOpenAdOptions` only has `adId`. There is no `isTesting` flag; during development set `adId` to Google's [App Open demo ad unit](https://developers.google.com/admob/android/test-ads#demo_ad_units).
+!::AppOpenAdOptions::
+
+There is no `isTesting` flag; during development set `adId` to Google's [App Open demo ad unit](https://developers.google.com/admob/android/test-ads#demo_ad_units).
 
 Use the `Closed` event to resume your app flow and begin loading the next ad. When no `adId` is passed to `showAppOpen()` or `isAppOpenLoaded()`, the most recently loaded ad is targeted. See [Ad Events](/docs/events).

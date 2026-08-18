@@ -31,19 +31,14 @@ await handle.remove();
 | `SizeChanged`             | バナーの寸法が変わった。                                 |
 | `AdImpression` / `AdPaid` | インプレッションが記録された。売上イベントは下記。       |
 
-`FailedToLoad` と `FailedToShow` のリスナーは `code` と `message` を持つ `AdMobError` を受け取ります。
+`FailedToLoad` と `FailedToShow` のリスナーは `AdMobError` を受け取ります。
+
+!::AdMobError::
 
 ## インプレッション単位の売上
 
 フルスクリーン形式は `AdImpression` で `AdMobRevenueData` を出します。バナーは同じペイロードを `AdPaid` で出します。バナーの `AdImpression` にペイロードはなく、インプレッションが記録されたことだけを知らせます。
 
-| プロパティ     | 型                 | 説明                                                                     |
-| -------------- | ------------------ | ------------------------------------------------------------------------ |
-| `adUnitId`     | `string`           | 有料イベントに紐づく広告ユニット。                                       |
-| `valueMicros`  | `number`           | マイクロ単位の価値。`1_000_000` マイクロが `currencyCode` の 1 単位。    |
-| `currencyCode` | `string`           | `valueMicros` の ISO 4217 通貨コード。                                   |
-| `precision`    | `AdValuePrecision` | 報告値の精度（`Unknown`、`Estimated`、`PublisherProvided`、`Precise`）。 |
-| `networkName`  | `string`           | 配信したメディエーションアダプタのクラス名。不明なときは空文字。         |
-| `impressionId` | `string`           | インプレッションのレスポンス識別子。不明なときは空文字。                 |
+!::AdMobRevenueData::
 
-[バナー広告](/docs/banner)、[フルスクリーン広告](/docs/full-screen-ads)、[アプリ起動時広告](/docs/app-open) を参照してください。メソッドと enum のシグネチャは [API](/docs/api) にあります。
+[バナー広告](/docs/banner)、[フルスクリーン広告](/docs/full-screen-ads)、[アプリ起動時広告](/docs/app-open) を参照してください。

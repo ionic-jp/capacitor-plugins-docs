@@ -116,12 +116,10 @@ const { adUnitId } = await AdMob.prepareRewardInterstitialAd(options);
 const reward = await AdMob.showRewardInterstitialAd({ adId: adUnitId });
 ```
 
-| Option          | Description                                                              |
-| --------------- | ------------------------------------------------------------------------ |
-| `adId`          | Ad unit ID.                                                              |
-| `isTesting`     | Request a Google test ad. See [Testing](/docs/testing).                  |
-| `npa`           | Request a non-personalized ad.                                           |
-| `immersiveMode` | Android only. Present the full-screen ad in immersive mode.              |
-| `ssv`           | Rewarded formats only. Provide at least one of `userId` or `customData`. |
+!::AdOptions::
 
-Listen to the matching event enum: `InterstitialAdPluginEvents`, `RewardAdPluginEvents`, or `RewardInterstitialAdPluginEvents`.
+!::RewardAdOptions::
+
+!::RewardInterstitialAdOptions::
+
+See [Testing](/docs/testing) for `isTesting`. Listen to the matching event enum: `InterstitialAdPluginEvents`, `RewardAdPluginEvents`, or `RewardInterstitialAdPluginEvents`.

@@ -46,14 +46,9 @@ await AdMob.showBanner(options);
 
 バナーがアプリのコンテンツを隠さないよう、`SizeChanged` でレイアウトの余白を確保します。非表示・削除・ロード失敗時は幅と高さがどちらも `0` になることがあります。
 
-| オプション  | 説明                                                                                        |
-| ----------- | ------------------------------------------------------------------------------------------- |
-| `adId`      | バナーの広告ユニット ID。                                                                   |
-| `adSize`    | バナーサイズ。新規導入では `ADAPTIVE_BANNER` を推奨します。デフォルトは `ADAPTIVE_BANNER`。 |
-| `position`  | `TOP_CENTER`、`CENTER`、`BOTTOM_CENTER`。デフォルトは `TOP_CENTER`。                        |
-| `margin`    | 論理ピクセル（dp / point）の余白。`BOTTOM_CENTER` は下、`TOP_CENTER` は上の余白です。       |
-| `isTesting` | Google のテスト広告をリクエストします。[テスト](/docs/testing) を参照してください。         |
-| `npa`       | 非パーソナライズ広告をリクエストします。                                                    |
+!::BannerAdOptions::
+
+`isTesting` は [テスト](/docs/testing) を参照してください。
 
 ## ライフサイクル
 
