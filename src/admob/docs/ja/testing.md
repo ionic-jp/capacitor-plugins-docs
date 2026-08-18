@@ -4,7 +4,9 @@ code: []
 scrollActiveLine: []
 ---
 
-開発トラフィックが無効トラフィック扱いにならないよう、Google のデモ広告ユニットか登録済みテストデバイスを使います。
+開発中はテスト広告を使い、広告主への課金やアカウントの無効トラフィック判定を避けます。デモ広告ユニットとテストデバイスは Google のテスト広告ガイド（[Android](https://developers.google.com/admob/android/test-ads?hl=ja) / [iOS](https://developers.google.com/admob/ios/test-ads?hl=ja)）を見てください。
+
+このプラグインでは、そのデモユニットを使うか、`initialize` でデバイスを登録できます。
 
 ## デモ広告ユニット
 

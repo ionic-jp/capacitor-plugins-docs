@@ -4,6 +4,8 @@ code: []
 scrollActiveLine: []
 ---
 
+Google Mobile Ads SDK は、各形式でロード・表示・クローズ・インプレッション・有料イベントを報告します。例として [バナーの広告イベント](https://developers.google.com/admob/android/banner?hl=ja#ad_events) を、有料ペイロードは [インプレッション単位の売上](https://developers.google.com/admob/android/impression-level-ad-revenue?hl=ja)（[iOS](https://developers.google.com/admob/ios/impression-level-ad-revenue?hl=ja)）を見てください。
+
 最初のライフサイクルとインプレッションを取りこぼさないよう、広告のロードや表示より前にリスナーを登録します。
 
 `AdMob.addListener` はハンドルを返します。登録を await し、画面を破棄するときに `remove()` します。

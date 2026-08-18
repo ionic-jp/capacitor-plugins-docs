@@ -4,6 +4,8 @@ code: []
 scrollActiveLine: []
 ---
 
+Add the Google Mobile Ads SDK and your AdMob app ID, then initialize the SDK before requesting ads. Google's Get started guides for [Android](https://developers.google.com/admob/android/quick-start) and [iOS](https://developers.google.com/admob/ios/quick-start) explain that setup. This page covers the Capacitor plugin install and `initialize`.
+
 Install AdMob and synchronize the native Capacitor projects.
 
 ```bash

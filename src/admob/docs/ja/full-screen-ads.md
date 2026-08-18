@@ -4,9 +4,13 @@ code: []
 scrollActiveLine: []
 ---
 
-フルスクリーン広告は表示前に準備します。先にリスナーを登録し、開発中はテスト広告ユニットを使い、体験の区切りでのみ表示します。共通のロード・表示・売上イベントは [広告イベント](/docs/events) にあります。
+フルスクリーン広告はホストアプリの画面を覆います。このプラグインが扱う形式は、Google の [インタースティシャル](https://developers.google.com/admob/android/interstitial?hl=ja)、[リワード](https://developers.google.com/admob/android/rewarded?hl=ja)、[リワード付きインタースティシャル](https://developers.google.com/admob/android/rewarded-interstitial?hl=ja) です（[iOS のインタースティシャル](https://developers.google.com/admob/ios/interstitial?hl=ja)、[リワード](https://developers.google.com/admob/ios/rewarded?hl=ja)、[リワード付きインタースティシャル](https://developers.google.com/admob/ios/rewarded-interstitial?hl=ja)）。
+
+表示前に広告を準備します。先にリスナーを登録し、開発中はテスト広告ユニットを使い、体験の区切りでのみ表示します。共通のロード・表示・売上イベントは [広告イベント](/docs/events) にあります。
 
 ## インタースティシャル
+
+インタースティシャルは、画面遷移やゲームのレベル間など自然な区切りで出すフルスクリーン広告です。ユーザーは広告先へ進むか、閉じてアプリに戻れます。
 
 アプリ内報酬を渡さない自然な区切りでは、インタースティシャルを使います。
 
@@ -48,6 +52,8 @@ await AdMob.showInterstitial({ adId: 'ca-app-pub-xxx/interstitial-1' });
 
 ## リワード
 
+リワード広告は、動画・プレイアブル・アンケートへの操作と引き換えにアプリ内アイテムを渡す形式です。
+
 リワード広告は報酬フローとして扱います。報酬は戻り値または `Rewarded` イベントからのみ付与し、`Dismissed` では付与しません。
 
 ```ts
@@ -74,7 +80,7 @@ await AdMob.prepareRewardVideoAd(options);
 const reward = await AdMob.showRewardVideoAd();
 ```
 
-サーバーサイド検証（SSV）のコールバックは本番広告でのみ送られます。テスト広告では SSV エンドポイントは呼ばれません。`ssv` のペイロードをローカルで確認するには、`RewardAdPluginEvents.Rewarded` のあとにモックリクエストを送れます。`ENVIRONMENT_IS_DEVELOPMENT` は自分の開発用フラグに置き換えてください。
+サーバーサイド検証（SSV）は、報酬が得られたことをバックエンドで確認するための仕組みです。Google の [SSV の説明](https://support.google.com/admob/answer/9603226?hl=ja) を見てください。コールバックは本番広告でのみ送られ、テスト広告では SSV エンドポイントは呼ばれません。`ssv` のペイロードをローカルで確認するには、`RewardAdPluginEvents.Rewarded` のあとにモックリクエストを送れます。`ENVIRONMENT_IS_DEVELOPMENT` は自分の開発用フラグに置き換えてください。
 
 ```ts
 const userId = 'USER_ID';
@@ -105,6 +111,8 @@ await AdMob.addListener(RewardAdPluginEvents.Rewarded, async () => {
 ```
 
 ## リワード付きインタースティシャル
+
+リワード付きインタースティシャルは、自然な遷移で自動表示される報酬付きフルスクリーン広告です。通常のリワードと違い、視聴のオプトインは不要です。
 
 報酬体験がアプリの自然な遷移に乗る場合は、リワード付きインタースティシャルを使います。
 
