@@ -46,32 +46,28 @@ const options: BannerAdOptions = {
 await AdMob.showBanner(options);
 ```
 
-バナーがアプリのコンテンツを隠さないよう、`SizeChanged` でレイアウトの余白を確保します。非表示・削除・ロード失敗時は幅と高さがどちらも `0` になることがあります。
+## バナーとコンテンツを重ねない
 
-## Ionic: バナーとコンテンツを重ねない
+バナーは WebView の上のネイティブ画面に描画されます。HTML 側のレイアウトは自動では動きません。自分のルート要素を `size.height`（論理ピクセル）だけ空けます。`BOTTOM_CENTER` なら下、`TOP_CENTER` なら上に padding または margin を付けます。
 
-バナーは WebView の上のネイティブオーバーレイです。Ionic は `ion-content` を自動では縮めません。[Angular デモ](https://github.com/capacitor-community/admob/tree/main/demo/angular) は `SizeChanged` を購読し、`ion-router-outlet` に margin を付けます（[`BannerViewportService`](https://github.com/capacitor-community/admob/blob/main/demo/angular/src/app/shared/banner-viewport.service.ts)）。
+```html
+<main id="content">Your app</main>
+```
 
 ```ts
 import { AdMob, BannerAdPluginEvents } from '@capacitor-community/admob';
 
-const outlet = document.querySelector<HTMLElement>('ion-router-outlet');
+const content = document.getElementById('content');
 
 await AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size) => {
-  if (!outlet) {
+  if (!content) {
     return;
   }
-  outlet.style.marginTop = '';
-  outlet.style.marginBottom = '';
-  if (size.height === 0) {
-    return;
-  }
-  const safeAreaBottom = window.getComputedStyle(document.body).getPropertyValue('--ion-safe-area-bottom');
-  outlet.style.marginBottom = `calc(${safeAreaBottom} + ${size.height}px)`;
+  content.style.paddingBottom = size.height > 0 ? `${size.height}px` : '';
 });
 ```
 
-このスニペットはデモの下バナーと同じです。`TOP_CENTER` ではデモは `marginTop` を `${size.height}px` にします。`hideBanner` / `removeBanner` は margin を消し、`resumeBanner` は戻します。
+非表示・削除・ロード失敗では高さが `0` になることがあるので、そのときは inset を消します。フレームワークでは、WebView を埋めている要素に同じ考え方を適用します。
 
 !::BannerAdOptions::
 
