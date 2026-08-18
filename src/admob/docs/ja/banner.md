@@ -52,32 +52,22 @@ await AdMob.showBanner(options);
 
 バナーは WebView の上のネイティブオーバーレイです。Ionic は `ion-content` を自動では縮めません。
 
-`BOTTOM_CENTER` では `ion-router-outlet` の `bottom` を `size.height` にします。シートが隠れないよう `ion-modal` にも同じオフセットを付けます。高さが `0` のときはオフセットを戻します。
+`ion-app` は `bottom: 0` で配置されています。`BOTTOM_CENTER` ではその `bottom` を `size.height` にして、ページ・タブバー・`ion-app` 内のオーバーレイをまとめて上げます。高さが `0` のときはインラインスタイルを消します。同じオフセットを `ion-router-outlet` や `ion-tab-bar` にも足すと二重になります。
 
 ```ts
 import { AdMob, BannerAdPluginEvents } from '@capacitor-community/admob';
 
-const outlet = document.querySelector<HTMLElement>('ion-router-outlet');
+const app = document.querySelector<HTMLElement>('ion-app');
 
 await AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size) => {
-  const offset = size.height > 0 ? `${size.height}px` : '0px';
-  if (outlet) {
-    outlet.style.bottom = offset;
+  if (!app) {
+    return;
   }
-  document.querySelectorAll<HTMLElement>('ion-modal').forEach((modal) => {
-    modal.style.bottom = offset;
-  });
-  document.documentElement.style.setProperty('--admob-banner-height', offset);
+  app.style.bottom = size.height > 0 ? `${size.height}px` : '';
 });
 ```
 
-`ion-tab-bar` が outlet の兄弟（よくある `ion-tabs` 構成）なら、同じ変数でタブバーを上げてバナーに隠れないようにします。
-
-```css
-ion-tab-bar {
-  margin-bottom: var(--admob-banner-height, 0px);
-}
-```
+モーダルがビューポート基準で出されてまだ隠れる場合は、そのオーバーレイの `bottom` も設定します。
 
 `TOP_CENTER` では `bottom` ではなく `top` を設定します。キーボード表示中は `hideBanner()`、閉じたら `resumeBanner()` にすると、キーボードとバナーが重なりません。
 
