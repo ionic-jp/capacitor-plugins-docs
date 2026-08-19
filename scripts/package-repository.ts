@@ -89,8 +89,25 @@ async function fetchFirstRepositoryPath(
   return undefined;
 }
 
-function packageEnglishPaths(sourceDirectory: string, file: string): string[] {
-  return [`docs/${file}`, `${sourceDirectory}/docs/${file}`];
+function packageEnglishPaths(
+  project: {
+    repositoryUrl: string;
+    sourceDirectory: string;
+  },
+  file: string,
+): string[] {
+  const { repositoryUrl, sourceDirectory } = project;
+  const paths = [`docs/${file}`, `${sourceDirectory}/docs/${file}`];
+
+  // Special-case: `capacitor-community/stripe` keeps its English guides under
+  // `packages/{payment|identity|terminal}/docs/*` rather than `docs/*`.
+  if (repositoryUrl === 'https://github.com/capacitor-community/stripe') {
+    if (sourceDirectory === 'stripe') paths.push(`packages/payment/docs/${file}`);
+    if (sourceDirectory === 'stripe-identity') paths.push(`packages/identity/docs/${file}`);
+    if (sourceDirectory === 'stripe-terminal') paths.push(`packages/terminal/docs/${file}`);
+  }
+
+  return paths;
 }
 
 export async function fetchEnglishProjectMarkdown(
@@ -107,7 +124,7 @@ export async function fetchEnglishProjectMarkdown(
   const fromPackage = await fetchFirstRepositoryPath(
     project.repositoryUrl,
     ref,
-    packageEnglishPaths(project.sourceDirectory, file),
+    packageEnglishPaths(project, file),
     cache,
   );
   if (fromPackage) {
@@ -158,7 +175,7 @@ export async function fetchEnglishProjectReadme(
     (await fetchFirstRepositoryPath(
       project.repositoryUrl,
       ref,
-      packageEnglishPaths(project.sourceDirectory, 'readme.md'),
+      packageEnglishPaths(project, 'readme.md'),
       cache,
     )) ??
     ((await portalEnglishTrackedLocally(project.sourceDirectory, 'readme.md'))
