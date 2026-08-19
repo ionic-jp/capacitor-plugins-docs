@@ -100,6 +100,21 @@ export function stripLeadingH1(markdown: string): string {
   return markdown.replace(/^# [^\n]+\r?\n+/, '');
 }
 
+const API_PLACEHOLDER = /^(?:<!--\s*)?!::([a-zA-Z0-9]+)::(?:\s*-->)?[ \t]*$/gm;
+
+export function expandApiPlaceholders(
+  markdown: string,
+  api: Map<string, string>,
+): { expanded: string; missing: string[] } {
+  const missing: string[] = [];
+  const expanded = markdown.replace(API_PLACEHOLDER, (_, id: string) => {
+    const entry = api.get(id);
+    if (!entry) missing.push(id);
+    return entry ?? '';
+  });
+  return { expanded, missing };
+}
+
 export function apiAnchorFragments(api: Map<string, string>): Map<string, string> {
   const fragments = new Map<string, string>();
   for (const [name, markdown] of api) {
@@ -137,7 +152,9 @@ export function rewritePackageDocLinks(
       return `](/docs/${landingSlug}${hash})`;
     }
 
-    const docFile = path.match(/^(?:\.\.\/)?(?:\.\/)?(?:docs\/)?([a-z0-9-]+)\.md$/i);
+    const docFile = path.match(
+      /^(?:\.\.\/)?(?:\.\/)?(?:docs\/)?((?:[a-z0-9-]+\/)*[a-z0-9-]+)\.md$/i,
+    );
     if (docFile) return `](/docs/${docFile[1]}${hash})`;
     return match;
   });

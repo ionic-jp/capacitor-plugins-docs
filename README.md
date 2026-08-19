@@ -64,8 +64,10 @@ npm run docs:generate
 Narrative documentation uses Zenn Markdown. Markdown-only projects take their displayed version from the exactly pinned installed package. Capacitor API entries are expanded from the installed package's pinned `dist/docs.json` with placeholders such as:
 
 ```md
-!::createPaymentSheet::
+<!-- !::createPaymentSheet:: -->
 ```
+
+The generator also accepts the bare `!::createPaymentSheet::` form. Package guides that GitHub renders should use the HTML-comment form so the placeholder stays hidden.
 
 Capacitor READMEs containing both `<docgen-index>` and `<docgen-api>` are automatically exposed as
 separate README and API pages. The source README remains the single file to update.

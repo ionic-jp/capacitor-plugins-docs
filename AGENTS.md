@@ -30,7 +30,7 @@
 
 The generator can produce API content from three sources:
 
-1. The installed package's `dist/docs.json` (when `adapter` is omitted). `!::Identifier::` placeholders can be used in **any page** to expand a `dist/docs.json` entry on its own line. The identifier must match the exact name in `dist/docs.json`.
+1. The installed package's `dist/docs.json` (when `adapter` is omitted). `!::Identifier::` placeholders can be used in **any page** to expand a `dist/docs.json` entry on its own line. The identifier must match the exact name in `dist/docs.json`. In package `docs/*.md` that GitHub renders, wrap the placeholder as `<!-- !::Identifier:: -->` so it is hidden on GitHub. The generator expands both the bare and commented forms.
 2. `<docgen-index>` + `<docgen-api>` blocks inside a `readme.md` (rdlabo Capacitor plugin landings).
 3. Hand-authored Markdown with semantic headings such as ``#### `method` foo``.
 
