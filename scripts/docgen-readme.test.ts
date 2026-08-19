@@ -26,6 +26,26 @@ npm install plugin
   });
 });
 
+test('splits docgen when an API heading sits between index and api blocks', () => {
+  const source = `## Index
+
+<docgen-index>
+* [\`initialize(...)\`](#initialize)
+</docgen-index>
+
+## API
+
+<docgen-api>
+### initialize(...)
+</docgen-api>
+`;
+
+  assert.deepEqual(splitDocgenReadme(source), {
+    readme: '## Index\n',
+    api: '* [`initialize(...)`](#initialize)\n\n### initialize(...)\n',
+  });
+});
+
 test('does not split ordinary Markdown or incomplete docgen output', () => {
   assert.equal(splitDocgenReadme('# README\n\n## API\n'), undefined);
   assert.equal(splitDocgenReadme('# README\n\n<docgen-api>\nAPI\n</docgen-api>\n'), undefined);
