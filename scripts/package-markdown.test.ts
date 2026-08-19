@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   apiAnchorFragments,
+  expandApiPlaceholders,
   extractPackageReadme,
   normalizePackageMarkdown,
   rewritePackageDocLinks,
@@ -195,6 +196,19 @@ test('rewrites package-relative guide and API links', () => {
     rewritePackageDocLinks(markdown, apiAnchorFragments(api)),
     'See [Installation](/docs/readme#installation), [initialize](/docs/api#method-initialize(...)), [`AdMobError`](/docs/api#interface-admoberror), [API](/docs/api), [Banner](/docs/banner), and [guides](/docs/consent).',
   );
+});
+
+test('expands bare and HTML-commented API placeholders', () => {
+  const api = new Map([['createPaymentSheet', '#### `method` createPaymentSheet(...)\n']]);
+  assert.equal(
+    expandApiPlaceholders('Before\n\n!::createPaymentSheet::\n\nAfter\n', api).expanded,
+    'Before\n\n#### `method` createPaymentSheet(...)\n\n\nAfter\n',
+  );
+  assert.equal(
+    expandApiPlaceholders('Before\n\n<!-- !::createPaymentSheet:: -->\n\nAfter\n', api).expanded,
+    'Before\n\n#### `method` createPaymentSheet(...)\n\n\nAfter\n',
+  );
+  assert.deepEqual(expandApiPlaceholders('!::missing::\n', api).missing, ['missing']);
 });
 
 test('rewrites nested package-relative guide links', () => {

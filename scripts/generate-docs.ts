@@ -20,6 +20,7 @@ import { normalizeImportedReadmeHeadings } from './markdown-headings';
 import { splitDocgenReadme } from './docgen-readme';
 import {
   apiAnchorFragments,
+  expandApiPlaceholders,
   extractPackageReadmeParts,
   normalizePackageMarkdown,
   rewritePackageDocLinks,
@@ -423,12 +424,7 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
     annotateDocgen,
   } of sourcePages) {
     const { slug, file } = page;
-    const missingApiEntries: string[] = [];
-    const expanded = body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
-      const entry = api.get(id);
-      if (!entry) missingApiEntries.push(id);
-      return entry ?? '';
-    });
+    const { expanded, missing: missingApiEntries } = expandApiPlaceholders(body, api);
     if (missingApiEntries.length) {
       throw new Error(
         `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
