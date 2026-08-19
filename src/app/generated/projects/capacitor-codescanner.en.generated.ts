@@ -3,7 +3,7 @@ export const PROJECT = {
   "id": "capacitor-codescanner",
   "slug": "capacitor-codescanner",
   "name": "rdlabo Capacitor Code Scanner",
-  "shortName": "Capacitor Code Scanner",
+  "shortName": "Code Scanner",
   "packageName": "@rdlabo/capacitor-codescanner",
   "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-codescanner",
   "category": "capacitor-plugins",

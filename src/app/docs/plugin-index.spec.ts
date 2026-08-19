@@ -41,10 +41,10 @@ describe('PluginIndexComponent', () => {
       'Stripe Identity',
       'Stripe Terminal',
       'AdMob',
-      'Capacitor Code Scanner',
-      'Capacitor Screenshot Event',
-      'Capacitor Printer',
-      'Capacitor Brother Print',
+      'Code Scanner',
+      'Screenshot Event',
+      'Printer',
+      'Brother Print',
       'Ionic Angular Kit',
       'Ionic Angular Photo Editor',
       'Ionic Angular Scroll Header',
@@ -54,7 +54,7 @@ describe('PluginIndexComponent', () => {
       'Ionic Angular Collect Icons',
       'Workers Hono Kit',
       'ESLint Plugin Rules',
-      'Capacitor Docgen',
+      'Docgen',
     ]);
     expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(18);
   });

@@ -3,7 +3,7 @@ export const PROJECT = {
   "id": "capacitor-docgen",
   "slug": "capacitor-docgen",
   "name": "rdlabo Capacitor Docgen",
-  "shortName": "Capacitor Docgen",
+  "shortName": "Docgen",
   "packageName": "@rdlabo/capacitor-docgen",
   "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-docgen",
   "category": "developer-tools",
