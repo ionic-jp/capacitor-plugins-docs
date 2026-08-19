@@ -32,7 +32,7 @@ Stripe Connect を利用する場合は任意で、Android Google Pay を連結�
 PaymentSheet でカードをスキャンできるよう、`NSCameraUsageDescription` を追加します。
 
 ```diff plist:ios/App/App/Info.plist
-    <key>UIViewControllerBasedStatusBarAppearance</key>
+  	<key>UIViewControllerBasedStatusBarAppearance</key>
 	  <true/>
 
 +   <key>NSCameraUsageDescription</key>

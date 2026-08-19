@@ -31,6 +31,17 @@ Web は `paymentIntentClientSecret` または `setupIntentClientSecret` と、�
 バックエンドからクライアントへ安全に渡せるシークレットを取得し、`paymentIntentClientSecret` と `setupIntentClientSecret` の**どちらか一方**を渡します。`customerId` を設定する場合は `customerEphemeralKeySecret` も必要です。
 
 ```ts
+import { firstValueFrom } from 'rxjs';
+import { PaymentFlowEventsEnum, Stripe } from '@capacitor-community/stripe';
+
+const { paymentIntent, ephemeralKey, customer } = await firstValueFrom(
+  this.http.post<{
+    paymentIntent: string;
+    ephemeralKey: string;
+    customer: string;
+  }>(environment.api + 'intent', {}),
+);
+
 await Stripe.createPaymentFlow({
   paymentIntentClientSecret: paymentIntent,
   customerEphemeralKeySecret: ephemeralKey,
@@ -47,8 +58,8 @@ await Stripe.createPaymentFlow({
 `createPaymentFlow` が成功した後だけ呼び出します。返される `cardNumber` はマスク済みで、この時点では Intent は未確定です。
 
 ```ts
-const result = await Stripe.presentPaymentFlow();
-console.log(result); // { cardNumber: "●●●● ●●●● ●●●● ****" }
+const presentResult = await Stripe.presentPaymentFlow();
+console.log(presentResult); // { cardNumber: "●●●● ●●●● ●●●● ****" }
 ```
 
 !::presentPaymentFlow::
@@ -58,9 +69,9 @@ console.log(result); // { cardNumber: "●●●● ●●●● ●●●● **
 ## 3. confirmPaymentFlow
 
 ```ts
-const result = await Stripe.confirmPaymentFlow();
-if (result.paymentResult === PaymentFlowEventsEnum.Completed) {
-  // UIだけを更新し、WebhookでIntentを確認します。
+const confirmResult = await Stripe.confirmPaymentFlow();
+if (confirmResult.paymentResult === PaymentFlowEventsEnum.Completed) {
+  // Update UI only. Confirm the Intent with a webhook before fulfilling.
 }
 ```
 
@@ -75,10 +86,18 @@ if (result.paymentResult === PaymentFlowEventsEnum.Completed) {
 
 ```ts
 await Promise.all([
-  Stripe.addListener(PaymentFlowEventsEnum.Created, (info) => console.log(info.cardNumber)),
-  Stripe.addListener(PaymentFlowEventsEnum.Completed, () => console.log('Completed')),
-  Stripe.addListener(PaymentFlowEventsEnum.Canceled, () => console.log('Canceled')),
-  Stripe.addListener(PaymentFlowEventsEnum.Failed, (error) => console.log(error)),
+  Stripe.addListener(PaymentFlowEventsEnum.Created, (info) => {
+    console.log(info.cardNumber);
+  }),
+  Stripe.addListener(PaymentFlowEventsEnum.Completed, () => {
+    console.log('PaymentFlowEventsEnum.Completed');
+  }),
+  Stripe.addListener(PaymentFlowEventsEnum.Canceled, () => {
+    console.log('PaymentFlowEventsEnum.Canceled');
+  }),
+  Stripe.addListener(PaymentFlowEventsEnum.Failed, (error) => {
+    console.log('PaymentFlowEventsEnum.Failed', error);
+  }),
 ]);
 ```
 

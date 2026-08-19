@@ -32,9 +32,17 @@ Web はネイティブ PaymentSheet を表示しません。Web の `createPayme
 iOS と Android では `paymentIntentClientSecret` と `setupIntentClientSecret` の**どちらか一方**を、Web では `paymentIntentClientSecret` を渡します。`customerId` と `customerEphemeralKeySecret` は任意ですが、`customerId` を設定する場合は両方が必要です。Customer を持たない PaymentIntent も有効です。
 
 ```ts
+import { firstValueFrom } from 'rxjs';
+import { PaymentSheetEventsEnum, Stripe } from '@capacitor-community/stripe';
+
 const { paymentIntent, ephemeralKey, customer } = await firstValueFrom(
-  this.http.post(environment.api + 'intent', {}),
+  this.http.post<{
+    paymentIntent: string;
+    ephemeralKey: string;
+    customer: string;
+  }>(environment.api + 'intent', {}),
 );
+
 await Stripe.createPaymentSheet({
   paymentIntentClientSecret: paymentIntent,
   customerId: customer,
@@ -55,7 +63,7 @@ await Stripe.createPaymentSheet({
 ```ts
 const result = await Stripe.presentPaymentSheet();
 if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
-  // UIだけを更新します。注文確定前にWebhookでIntentを確認してください。
+  // Update UI only. Confirm the Intent with a webhook before fulfilling.
 }
 ```
 
@@ -70,9 +78,15 @@ if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
 
 ```ts
 await Promise.all([
-  Stripe.addListener(PaymentSheetEventsEnum.Completed, () => console.log('Completed')),
-  Stripe.addListener(PaymentSheetEventsEnum.Canceled, () => console.log('Canceled')),
-  Stripe.addListener(PaymentSheetEventsEnum.Failed, (error) => console.log(error)),
+  Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
+    console.log('PaymentSheetEventsEnum.Completed');
+  }),
+  Stripe.addListener(PaymentSheetEventsEnum.Canceled, () => {
+    console.log('PaymentSheetEventsEnum.Canceled');
+  }),
+  Stripe.addListener(PaymentSheetEventsEnum.Failed, (error) => {
+    console.log('PaymentSheetEventsEnum.Failed', error);
+  }),
 ]);
 ```
 

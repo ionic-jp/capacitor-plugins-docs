@@ -11,10 +11,10 @@ npm install @rdlabo/workers-hono-kit
 使用する機能に必要なpeer dependencyだけを追加します。
 
 ```sh
-# HTTP、validation、Firebase、AWS
+# Core HTTP, validation, Firebase, and AWS helpers
 npm install hono zod @hono/zod-validator jose aws4fetch
 
-# Data layerとtesting
+# Data and testing entry points
 npm install drizzle-orm mysql2
 
 # AI Gateway
