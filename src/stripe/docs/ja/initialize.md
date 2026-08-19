@@ -16,8 +16,8 @@ export async function initialize(): Promise<void> {
 }
 ```
 
-!::initialize::
-!::StripeInitializationOptions::
+<!-- !::initialize:: -->
+<!-- !::StripeInitializationOptions:: -->
 
 [Stripe Dashboard](https://dashboard.stripe.com/register) で公開可能キーを作成します。シークレットキーをクライアントへ配布してはいけません。
 
