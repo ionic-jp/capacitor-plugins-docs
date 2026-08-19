@@ -37,6 +37,7 @@ Project metadata, navigation, localized landing copy, and API input are declared
 npm install
 npm start
 npm test
+npm run lint
 npm run build
 npm run fmt:check
 ```

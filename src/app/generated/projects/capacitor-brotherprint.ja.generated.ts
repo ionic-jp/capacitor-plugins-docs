@@ -451,7 +451,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/capacitor-brotherprint/blob/v8.1.1/README.md"
+      "editUrl": "https://github.com/rdlabo-dev/capacitor-brotherprint/edit/main/README.md"
     }
   ]
 } as const;

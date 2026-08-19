@@ -892,28 +892,28 @@ export const PROJECTS_EN = [
     "path": "/projects/capacitor-stripe",
     "pages": [
       {
-        "title": "Configuration platform",
+        "title": "Configuration",
         "navTitle": "Configuration",
         "slug": "configuration",
         "section": "Quickstart",
         "path": "/projects/capacitor-stripe/docs/configuration"
       },
       {
-        "title": "Vanilla JS Quick start",
+        "title": "Vanilla JS",
         "navTitle": "Vanilla JS",
         "slug": "vanilla-js",
         "section": "Quickstart",
         "path": "/projects/capacitor-stripe/docs/vanilla-js"
       },
       {
-        "title": "Angular Quick start",
+        "title": "Angular",
         "navTitle": "Angular",
         "slug": "angular",
         "section": "Quickstart",
         "path": "/projects/capacitor-stripe/docs/angular"
       },
       {
-        "title": "React Quick start",
+        "title": "React",
         "navTitle": "React",
         "slug": "react",
         "section": "Quickstart",
@@ -934,7 +934,7 @@ export const PROJECTS_EN = [
         "path": "/projects/capacitor-stripe/docs/server-integration"
       },
       {
-        "title": "Initialize to your project",
+        "title": "Initialize",
         "navTitle": "Initialize",
         "slug": "initialize",
         "section": "Methods",
@@ -955,7 +955,7 @@ export const PROJECTS_EN = [
         "path": "/projects/capacitor-stripe/docs/payment-flow"
       },
       {
-        "title": "ApplePay",
+        "title": "Apple Pay",
         "navTitle": "Apple Pay",
         "slug": "apple-pay",
         "section": "Methods",

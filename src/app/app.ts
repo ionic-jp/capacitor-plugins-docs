@@ -35,23 +35,23 @@ type GoogleAnalyticsWindow = Window & {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {
-  private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly locale = inject(LOCALE_ID);
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly document = inject(DOCUMENT);
-  @ViewChild('menuButton') private menuButton?: ElementRef<HTMLButtonElement>;
-  @ViewChild('docsSidebar') private docsSidebar?: ElementRef<HTMLElement>;
+  readonly #router = inject(Router);
+  readonly #destroyRef = inject(DestroyRef);
+  readonly #locale = inject(LOCALE_ID);
+  readonly #platformId = inject(PLATFORM_ID);
+  readonly #document = inject(DOCUMENT);
+  @ViewChild('menuButton') protected readonly menuButton?: ElementRef<HTMLButtonElement>;
+  @ViewChild('docsSidebar') protected readonly docsSidebar?: ElementRef<HTMLElement>;
   protected readonly menuOpen = signal(false);
   protected readonly mobileLayout = signal(false);
   protected readonly layoutReady = signal(false);
   protected readonly navigationHidden = computed(() => this.mobileLayout() && !this.menuOpen());
   protected readonly currentUrl = signal('/');
-  protected readonly projects = projectsForLocale(this.locale);
-  protected readonly projectGroups = projectGroupsForLocale(this.locale);
+  protected readonly projects = projectsForLocale(this.#locale);
+  protected readonly projectGroups = projectGroupsForLocale(this.#locale);
   protected readonly expandedProjectId = signal<string | null>(null);
-  protected readonly isJapanese = this.locale.toLowerCase().startsWith('ja');
-  protected readonly canonicalHomePath = canonicalHomePath(this.locale);
+  protected readonly isJapanese = this.#locale.toLowerCase().startsWith('ja');
+  protected readonly canonicalHomePath = canonicalHomePath(this.#locale);
   protected readonly sectionsFor = sectionsFor;
   protected readonly isIndex = computed(() => {
     const path = this.currentUrl().split(/[?#]/)[0];
@@ -65,15 +65,15 @@ export class App {
   });
 
   constructor() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.loadSearchAssets();
+    if (isPlatformBrowser(this.#platformId)) {
+      this.#loadSearchAssets();
     }
-    if (isPlatformBrowser(this.platformId) && typeof window.matchMedia === 'function') {
+    if (isPlatformBrowser(this.#platformId) && typeof window.matchMedia === 'function') {
       const media = window.matchMedia('(max-width: 1023px)');
       const updateLayout = () => {
         this.mobileLayout.set(media.matches);
         if (media.matches) {
-          this.closeMenu(this.sidebarContainsFocus());
+          this.closeMenu(this.#sidebarContainsFocus());
         } else {
           this.menuOpen.set(true);
         }
@@ -81,48 +81,48 @@ export class App {
       };
       updateLayout();
       media.addEventListener('change', updateLayout);
-      this.destroyRef.onDestroy(() => media.removeEventListener('change', updateLayout));
+      this.#destroyRef.onDestroy(() => media.removeEventListener('change', updateLayout));
     }
-    this.router.events
+    this.#router.events
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-        takeUntilDestroyed(this.destroyRef),
+        takeUntilDestroyed(this.#destroyRef),
       )
       .subscribe((event) => {
         this.currentUrl.set(event.urlAfterRedirects);
         const activeProject = this.activeProject();
         if (activeProject) this.expandedProjectId.set(activeProject.id);
-        if (this.mobileLayout()) this.closeMenu(this.sidebarContainsFocus());
-        this.sendPageView(event.urlAfterRedirects);
+        if (this.mobileLayout()) this.closeMenu(this.#sidebarContainsFocus());
+        this.#sendPageView(event.urlAfterRedirects);
       });
   }
 
-  private sendPageView(path: string): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const browserWindow = this.document.defaultView as GoogleAnalyticsWindow | null;
+  #sendPageView(path: string): void {
+    if (!isPlatformBrowser(this.#platformId)) return;
+    const browserWindow = this.#document.defaultView as GoogleAnalyticsWindow | null;
     if (!browserWindow?.gtag) return;
 
     browserWindow.gtag('event', 'page_view', {
-      page_title: this.document.title,
+      page_title: this.#document.title,
       page_location: browserWindow.location.href,
-      page_path: localizedPublicPath(this.locale, path),
+      page_path: localizedPublicPath(this.#locale, path),
     });
   }
 
-  private loadSearchAssets(): void {
-    if (!this.document.head.querySelector('link[data-pagefind-ui]')) {
-      const stylesheet = this.document.createElement('link');
+  #loadSearchAssets(): void {
+    if (!this.#document.head.querySelector('link[data-pagefind-ui]')) {
+      const stylesheet = this.#document.createElement('link');
       stylesheet.rel = 'stylesheet';
       stylesheet.href = '/pagefind/pagefind-component-ui.css';
       stylesheet.dataset['pagefindUi'] = '';
-      this.document.head.appendChild(stylesheet);
+      this.#document.head.appendChild(stylesheet);
     }
-    if (!this.document.head.querySelector('script[data-pagefind-ui]')) {
-      const script = this.document.createElement('script');
+    if (!this.#document.head.querySelector('script[data-pagefind-ui]')) {
+      const script = this.#document.createElement('script');
       script.type = 'module';
       script.src = '/pagefind/pagefind-component-ui.js';
       script.dataset['pagefindUi'] = '';
-      this.document.head.appendChild(script);
+      this.#document.head.appendChild(script);
     }
   }
 
@@ -137,7 +137,7 @@ export class App {
 
   protected closeMenu(returnFocus = true): void {
     if (!this.menuOpen()) {
-      if (returnFocus && this.sidebarContainsFocus()) {
+      if (returnFocus && this.#sidebarContainsFocus()) {
         queueMicrotask(() => this.menuButton?.nativeElement.focus());
       }
       return;
@@ -156,11 +156,11 @@ export class App {
       return;
     }
     this.expandedProjectId.set(project.id);
-    void this.router.navigateByUrl(project.path);
+    void this.#router.navigateByUrl(project.path);
   }
 
-  private sidebarContainsFocus(): boolean {
-    const activeElement = this.document.activeElement;
+  #sidebarContainsFocus(): boolean {
+    const activeElement = this.#document.activeElement;
     return (
       activeElement instanceof HTMLElement &&
       !!this.docsSidebar?.nativeElement.contains(activeElement)
@@ -193,7 +193,7 @@ export class App {
       return;
     }
     event.preventDefault();
-    void this.router.navigateByUrl('/');
+    void this.#router.navigateByUrl('/');
   }
 
   protected projectPanelId(project: ProjectSummary): string {

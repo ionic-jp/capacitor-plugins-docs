@@ -1,58 +1,78 @@
 # rdlabo-docs README/API conventions
 
-`rdlabo-docs` is the bilingual documentation portal for rdlabo OSS. It generates static Angular pages from source packages (pinned in `package-lock.json`) and hand-authored Markdown under `src/{project}/docs/`.
+`rdlabo-docs` is the bilingual documentation portal for rdlabo OSS. It generates static Angular pages from source packages (pinned in `package-lock.json`) and Markdown under `src/{project}/docs/`.
+
+## Content ownership
+
+| Content                                             | Source of truth                                                        | Edit in                                                                                                                |
+| --------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| English guides and landing pages                    | GitHub raw (package repository first, then this portal repository)     | The package repository when docs are published there; otherwise `src/{project}/docs/` in **this** repository on GitHub |
+| Japanese guides and landing pages                   | `src/{project}/docs/ja/*.md` only                                      | This portal                                                                                                            |
+| `!::Identifier::` API signatures in guides          | Installed npm package `dist/docs.json` (pinned in `package-lock.json`) | The package repository; release and bump the pin here                                                                  |
+| Docgen API page (`<docgen-index>` + `<docgen-api>`) | Package or portal `readme.md` on GitHub                                | Same repository as the English landing page                                                                            |
+| Code example files (`code:` references)             | `src/{project}/docs/` (not translated)                                 | This portal                                                                                                            |
+
+`docs:generate` **always** loads English guides from GitHub raw. It never reads English Markdown from the local filesystem. Resolution order:
+
+1. Package repository: `docs/{file}`, `{sourceDirectory}/docs/{file}`, and `README.md` for landing pages
+2. Portal repository (`rdlabo-dev/docs`): `src/{sourceDirectory}/docs/{file}`
+
+Japanese stays local under `src/{project}/docs/ja/`. For `@capacitor-community/admob` and rdlabo Capacitor plugins, English lives in the **package repository only** — do not copy those English files into `src/{project}/docs/`.
+
+Optional `englishDocsRef` overrides the Git ref for English guides fetched from the **package** repository (default: `main`). API signatures always follow the **installed npm version**, not the Git ref.
 
 ## TL;DR
 
-- The landing page (often `readme.md`, `getting-started.md`, or `configuration.md`) is for overview, install, setup, a short usage example, feature explanations, and links to the rest of the docs. For packages with `englishFromPackage`, that English landing is the package `README.md` after `<!-- rdlabo-docs-omit -->` regions are dropped. For rdlabo Capacitor plugins documented in this repo, `readme.md` is the source of truth for that landing plus `<docgen-index>` / `<docgen-api>`.
+- The landing page (often `readme.md`, `getting-started.md`, or `configuration.md`) is for overview, install, setup, a short usage example, feature explanations, and links to the rest of the docs.
 - Capacitor plugin guides are **one file per grouping object** (`code-scanner.md`, `payment-sheet.md`, `banner.md`), not one file per method. Related methods live as sections on that object page. Landing links to the grouping object; the grouping object page describes its methods.
 - Guide pages for libraries (for example `http-auth.md`) describe specific features or workflows with examples. They may also include `!::...::` placeholder expansions and method usage.
 - `api.md` is the formal, exhaustive API reference. For a plugin it lists every method, interface, and enum; for a large library it may be an entry-point or module map.
-- rdlabo Capacitor plugins keep `<docgen-index>` + `<docgen-api>` in `readme.md`; the generator splits that into a README page and an API page appended after the grouping guides.
+- rdlabo Capacitor plugins keep `<docgen-index>` + `<docgen-api>` in the OSS repository `readme.md`; the generator splits that into a README page and an API page appended after the grouping guides.
 
 ## Where to edit
 
-- `scripts/project-manifest.ts` — add/remove projects, change the page list, ordering, category, icon, or adapter.
-- `src/{project}/docs/*.md` and `src/{project}/docs/ja/*.md` — add or edit project documentation.
+- `scripts/project-manifest.ts` — add/remove projects, change the page list, ordering, category, icon, adapter, or `englishDocsRef`.
+- `src/{project}/docs/ja/` — Japanese documentation for every project.
+- `src/{project}/docs/` — English for projects not yet published to their package repository (for example Stripe guides). Commit here; the generator reads from GitHub, not your working tree.
+- OSS package repositories — preferred home for English guides, README docgen blocks, and package source linked from the portal.
 - `src/app/generated/` — generated by `npm run docs:generate`. Never edit by hand.
 
 ## Page roles
 
-| Page                                                                          | Role                                                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Landing page (`readme.md`, `getting-started.md`, etc.)                        | Project overview, install, setup, a short usage example, feature explanations, and links to grouping guides. Nav titles are `Getting Started` / `はじめに`. For rdlabo Capacitor plugins this file is the source of truth and may include `<docgen-index>` / `<docgen-api>`. |
-| Capacitor grouping pages (`code-scanner.md`, `payment-sheet.md`, `banner.md`) | One grouping object per file. File and slug are kebab-case of the object (`CodeScanner` → `code-scanner`). Nav title is the object identifier in both locales. Related methods are sections on that page. Landing links here; signatures stay on `api.md`.                   |
-| Guide pages (`http-auth.md`, `configuration.md`, etc.)                        | Feature or task documentation with examples for libraries and cross-cutting plugin topics (consent, events, testing). They may describe method usage inline and use `!::...::` placeholders where a formal signature helps.                                                  |
-| `api.md`                                                                      | Formal API reference. Full signatures, parameter tables, interfaces, type aliases, enums, defaults, and since tags when the API is small; otherwise an entry-point or module map that links to guide pages.                                                                  |
-| `code:`-referenced files (`.ts.md`, `.xml.md`, etc.)                          | Code examples and data. They are not translated and may use `file:` front matter or the ` ```lang:filename ` syntax.                                                                                                                                                         |
+| Page                                                                          | Role                                                                                                                                                                                                                                                                              |
+| ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Landing page (`readme.md`, `getting-started.md`, etc.)                        | Project overview, install, setup, a short usage example, feature explanations, and links to grouping guides. Nav titles are `Getting Started` / `はじめに`. For rdlabo Capacitor plugins this file lives in the OSS repository and may include `<docgen-index>` / `<docgen-api>`. |
+| Capacitor grouping pages (`code-scanner.md`, `payment-sheet.md`, `banner.md`) | One grouping object per file. File and slug are kebab-case of the object (`CodeScanner` → `code-scanner`). Nav title is the object identifier in both locales. Related methods are sections on that page. Landing links here; signatures stay on `api.md`.                        |
+| Guide pages (`http-auth.md`, `configuration.md`, etc.)                        | Feature or task documentation with examples for libraries and cross-cutting plugin topics (consent, events, testing). They may describe method usage inline and use `!::...::` placeholders where a formal signature helps.                                                       |
+| `api.md`                                                                      | Formal API reference. Full signatures, parameter tables, interfaces, type aliases, enums, defaults, and since tags when the API is small; otherwise an entry-point or module map that links to guide pages.                                                                       |
+| `code:`-referenced files (`.ts.md`, `.xml.md`, etc.)                          | Code examples and data. They are not translated and may use `file:` front matter or the ` ```lang:filename ` syntax.                                                                                                                                                              |
 
 ## API sources
 
 The generator can produce API content from three sources:
 
-1. The installed package's `dist/docs.json` (when `adapter` is omitted). `!::Identifier::` placeholders can be used in **any page** to expand a `dist/docs.json` entry on its own line. The identifier must match the exact name in `dist/docs.json`. In package `docs/*.md` that GitHub renders, wrap the placeholder as `<!-- !::Identifier:: -->` so it is hidden on GitHub. The generator expands both the bare and commented forms.
-2. `<docgen-index>` + `<docgen-api>` blocks inside a `readme.md` (rdlabo Capacitor plugin landings).
+1. The installed package's `dist/docs.json` (when `adapter` is omitted, or for `adapter: 'markdown'` when the file exists). `!::Identifier::` placeholders can be used in **any page** to expand a `dist/docs.json` entry on its own line. The identifier must match the exact name in `dist/docs.json`. In package `docs/*.md` that GitHub renders, wrap the placeholder as `<!-- !::Identifier:: -->` so it is hidden on GitHub. The generator expands both the bare and commented forms.
+2. `<docgen-index>` + `<docgen-api>` blocks inside a `readme.md` (rdlabo Capacitor plugin landings in the OSS repository).
 3. Hand-authored Markdown with semantic headings such as ``#### `method` foo``.
 
 ### Exception: rdlabo Capacitor plugin READMEs with docgen
 
-If a rdlabo Capacitor plugin `readme.md` contains both `<docgen-index>` and `<docgen-api>`, keep them. `scripts/generate-docs.ts` splits the file into a narrative README page and a separate API page appended after the grouping guides (see `scripts/docgen-readme.ts`). The README file remains the source of the generated API page.
+If a rdlabo Capacitor plugin `readme.md` contains both `<docgen-index>` and `<docgen-api>`, keep them in the OSS repository. `scripts/generate-docs.ts` splits the file into a narrative README page and a separate API page appended after the grouping guides (see `scripts/docgen-readme.ts`).
 
-This pattern is used for `capacitor-codescanner`, `capacitor-printer`, `capacitor-screenshot-event`, and `capacitor-brotherprint`. Grouping object pages live beside that README. Do not split one file per method, and do not use a catch-all `usage.md`.
+This pattern is used for `capacitor-codescanner`, `capacitor-printer`, `capacitor-screenshot-event`, and `capacitor-brotherprint`. Grouping object pages live in the OSS repository beside that README. Do not split one file per method, and do not use a catch-all `usage.md`.
 
 ## Adapter choice in `project-manifest.ts`
 
-The `adapter` field controls whether the generator loads the installed package's `dist/docs.json`.
+The `adapter` field controls whether the generator requires the installed package's `dist/docs.json`.
 
 - If the package does **not** publish `dist/docs.json` (for example Angular libraries, Workers Hono Kit, ESLint plugin, Capacitor Docgen), set `adapter: 'markdown'` and hand-author the docs. `!::...::` placeholders are not available without `dist/docs.json`; the `api.md` must use semantic headings.
 - If the package **does** publish `dist/docs.json` (for example `@capacitor-community/stripe`, `@capacitor-community/admob`, rdlabo Capacitor plugins):
   - Leave `adapter` unset when you want to author multiple guide pages in `rdlabo-docs` and use `!::...::` placeholders in guide or `api.md` pages.
-  - Set `adapter: 'markdown'` when the project is a rdlabo Capacitor plugin whose API page comes from `<docgen-index>` / `<docgen-api>` in `readme.md`. Grouping object pages still use `!::...::` placeholders; the generator loads `dist/docs.json` whenever that file exists.
-  - Set `englishFromPackage: true` when English pages should be generated from the installed package rather than `src/{project}/docs/`. `@capacitor-community/admob` uses this: English `readme.md` comes from the package `README.md` and other English guides come from package `docs/*.md`. Do not copy those English files into `src/admob/docs/`. Japanese stays in `src/{project}/docs/ja/`. `api.md` stays hand-authored with `!::...::` placeholders when the portal API is not the README docgen block. Do not leave `<docgen-index>` / `<docgen-api>` in a portal `readme.md` for this project, or the generator would also emit a duplicate API page.
+  - Set `adapter: 'markdown'` when the project is a rdlabo Capacitor plugin whose API page comes from `<docgen-index>` / `<docgen-api>` in the OSS `readme.md`. Grouping object pages still use `!::...::` placeholders; the generator loads `dist/docs.json` whenever that file exists.
 
 ## Package README omit blocks
 
-When `englishFromPackage` is set, the generator loads English from the installed package: `readme.md` / `getting-started.md` from `README.md`, and other pages from `docs/*.md` when that file exists. Missing package guides fall back to `src/{project}/docs/`. Japanese stays in `src/{project}/docs/ja/`. Wrap GitHub/npm-only regions in the **package** README with:
+English guides are fetched from GitHub at generation time. Wrap GitHub/npm-only regions in the **package** README with:
 
 ```html
 <!-- rdlabo-docs-omit -->
@@ -60,7 +80,7 @@ When `englishFromPackage` is set, the generator loads English from the installed
 <!-- /rdlabo-docs-omit -->
 ```
 
-The markers are HTML comments, so GitHub still renders the content between them. `docs:generate` drops those regions and auto-loads everything else. Typical omit targets: badges, maintainers, sponsors, demo screenshots, and License. For AdMob, also omit `## Index` through the README API and License, because the portal API page comes from `dist/docs.json`. Markers inside fenced code blocks are ignored. Unclosed markers fail the generator. READMEs without omit markers still fall back to `## Overview` … `## Index`.
+The markers are HTML comments, so GitHub still renders the content between them. `docs:generate` drops those regions and auto-loads everything else. Typical omit targets: badges, maintainers, sponsors, demo screenshots, and License. For AdMob, also omit `## Index` through the README docgen API and License, because the portal API page comes from README docgen and `!::` signatures from npm `dist/docs.json`. Markers inside fenced code blocks are ignored. Unclosed markers fail the generator. READMEs without omit markers still fall back to `## Overview` … `## Index`.
 
 ## Semantic API headings (hand-authored `api.md`)
 
@@ -76,7 +96,9 @@ Example:
 
 ## Bilingual rules
 
-- Every page declared in `project-manifest.ts` must have an English file and a Japanese counterpart. The Japanese file lives at `src/{project}/docs/ja/{file}`.
+- Every page declared in `project-manifest.ts` must have an English source on GitHub and a Japanese counterpart in `src/{project}/docs/ja/{file}`.
+- Package-hosted English (AdMob, rdlabo Capacitor plugins) must not be duplicated under `src/{project}/docs/`.
+- Portal-hosted English lives at `src/{project}/docs/{file}` in this repository on GitHub; the generator reads it via raw, not from the local checkout.
 - For paired EN/JA pages, the fenced code blocks must be identical byte-for-byte. Translate prose, but do not change code comments or examples.
 - Localize titles for guide and narrative pages. Identifiers, product names, rule names, and generic reference titles (for example `API`, `CLI API`, or `@rdlabo/...`) may remain the same in both locales.
 - Not every `.md` file needs a Japanese counterpart. Code example files and data files referenced via `code:` are not translated.

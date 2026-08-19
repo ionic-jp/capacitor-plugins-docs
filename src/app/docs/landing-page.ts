@@ -9,47 +9,47 @@ import { SeoService } from './seo.service';
   selector: 'app-landing-page',
   imports: [RouterLink],
   template: `
-    @if (project) {
+    @if (project(); as p) {
       <article class="mx-auto max-w-5xl px-6 pt-16 pb-24 sm:px-10 sm:pt-24">
         <span
           aria-hidden="true"
           class="sr-only"
-          [attr.data-pagefind-filter]="'project:' + project.id"
-          >{{ project.shortName }}</span
+          [attr.data-pagefind-filter]="'project:' + p.id"
+          >{{ p.shortName }}</span
         >
         <span
           aria-hidden="true"
           class="sr-only"
-          [attr.data-pagefind-filter]="'category:' + project.category"
-          >{{ project.category }}</span
+          [attr.data-pagefind-filter]="'category:' + p.category"
+          >{{ p.category }}</span
         >
         <div class="max-w-3xl">
           <div class="flex flex-wrap items-center gap-3 text-sm">
             <span
               class="rounded-full bg-[#fff0ea] px-3 py-1 font-semibold tracking-wide text-[#c44320]"
             >
-              {{ project.packageName }}
+              {{ p.packageName }}
             </span>
-            <span class="text-[#80736d]">v{{ project.version }}</span>
+            <span class="text-[#80736d]">v{{ p.version }}</span>
           </div>
           <h1
             class="mt-7 mb-0 text-[clamp(2.8rem,7vw,5.4rem)] leading-[0.98] font-semibold tracking-[-0.055em] text-[#211d1b]"
           >
-            {{ project.headline }}
+            {{ p.headline }}
           </h1>
           <p class="mt-8 max-w-2xl text-xl leading-8 text-[#675e59] sm:text-2xl sm:leading-9">
-            {{ project.overview }}
+            {{ p.overview }}
           </p>
           <div class="mt-9 flex flex-wrap gap-3">
             <a
               class="rounded-full bg-[#ea572a] px-6 py-3.5 font-semibold text-white no-underline transition hover:bg-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
-              [routerLink]="project.pages[0].path"
+              [routerLink]="p.pages[0].path"
             >
               <ng-container i18n="@@getStarted">Get started</ng-container>
             </a>
             <a
               class="rounded-full border border-[#d9cec8] px-6 py-3.5 font-semibold text-[#3b3430] no-underline transition hover:border-[#ea572a] hover:text-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
-              [href]="project.repositoryUrl"
+              [href]="p.repositoryUrl"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -57,7 +57,7 @@ import { SeoService } from './seo.service';
             </a>
             <a
               class="inline-flex items-center overflow-hidden rounded-full border border-[#d9cec8] font-semibold text-[#3b3430] no-underline transition hover:border-[#ea572a] hover:text-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
-              [href]="project.repositoryUrl"
+              [href]="p.repositoryUrl"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -83,10 +83,10 @@ import { SeoService } from './seo.service';
 
         <section class="mt-20 border-t border-[#eadfd9] pt-12">
           <h2 class="m-0 text-2xl font-semibold tracking-[-0.03em] text-[#211d1b]">
-            {{ project.featuresHeading }}
+            {{ p.featuresHeading }}
           </h2>
           <ul class="mt-7 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
-            @for (feature of project.features; track feature.title) {
+            @for (feature of p.features; track feature.title) {
               <li class="rounded-2xl border border-[#eadfd9] bg-white px-5 py-5">
                 <h3 class="m-0 text-lg font-semibold tracking-[-0.02em] text-[#292320]">
                   {{ feature.title }}
@@ -101,35 +101,36 @@ import { SeoService } from './seo.service';
   `,
 })
 export class LandingPageComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private readonly seo = inject(SeoService);
-  private readonly stars = inject(GitHubStarsService);
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly numberFormat = new Intl.NumberFormat(inject(LOCALE_ID), {
+  readonly #route = inject(ActivatedRoute);
+  readonly #seo = inject(SeoService);
+  readonly #stars = inject(GitHubStarsService);
+  readonly #platformId = inject(PLATFORM_ID);
+  readonly #numberFormat = new Intl.NumberFormat(inject(LOCALE_ID), {
     notation: 'compact',
     maximumFractionDigits: 1,
   });
-  private readonly starCount = signal<number | undefined>(undefined);
+  readonly #starCount = signal<number | undefined>(undefined);
   protected readonly formattedStarCount = () => {
-    const count = this.starCount();
-    return count === undefined ? undefined : this.numberFormat.format(count);
+    const count = this.#starCount();
+    return count === undefined ? undefined : this.#numberFormat.format(count);
   };
-  project?: ProjectDocs;
+  protected readonly project = signal<ProjectDocs | undefined>(undefined);
 
   ngOnInit(): void {
-    this.project = this.route.snapshot.data['project'] as ProjectDocs | undefined;
-    if (!this.project) return;
-    this.seo.setPage({
-      title: `${this.project.shortName} - rdlabo.dev`,
-      description: this.project.description,
-      path: this.project.path,
+    const project = this.#route.snapshot.data['project'] as ProjectDocs | undefined;
+    this.project.set(project);
+    if (!project) return;
+    this.#seo.setPage({
+      title: `${project.shortName} - rdlabo.dev`,
+      description: project.description,
+      path: project.path,
     });
-    if (isPlatformBrowser(this.platformId)) {
-      void this.loadStarCount(this.project.repositoryUrl);
+    if (isPlatformBrowser(this.#platformId)) {
+      void this.#loadStarCount(project.repositoryUrl);
     }
   }
 
-  private async loadStarCount(repositoryUrl: string): Promise<void> {
-    this.starCount.set(await this.stars.count(repositoryUrl));
+  async #loadStarCount(repositoryUrl: string): Promise<void> {
+    this.#starCount.set(await this.#stars.count(repositoryUrl));
   }
 }

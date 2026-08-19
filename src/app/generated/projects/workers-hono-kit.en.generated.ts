@@ -40,8 +40,13 @@ export const PROJECT = {
       "file": "getting-started.md",
       "section": "Guide",
       "path": "/projects/workers-hono-kit/docs/getting-started",
-      "html": "<p data-line=\"0\" class=\"code-line\"><code>@rdlabo/workers-hono-kit</code> provides infrastructure-layer helpers for Hono on Cloudflare Workers. Domain logic, database schemas, and application-specific policy stay in the consuming application.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/workers-hono-kit</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"6\" class=\"code-line\">Install only the peer dependencies required by the features you use:</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"8\"><span class=\"line\"><span style=\"color:#a0aab5\"># Core HTTP, validation, Firebase, and AWS helpers</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> hono</span><span style=\"color:#9ECBFF\"> zod</span><span style=\"color:#9ECBFF\"> @hono/zod-validator</span><span style=\"color:#9ECBFF\"> jose</span><span style=\"color:#9ECBFF\"> aws4fetch</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#a0aab5\"># Data and testing entry points</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> drizzle-orm</span><span style=\"color:#9ECBFF\"> mysql2</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#a0aab5\"># AI Gateway</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> ai</span><span style=\"color:#9ECBFF\"> ai-gateway-provider</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"19\" class=\"code-line\">Stripe is a direct dependency of the kit. The package is compiled ESM with declarations, uses Web-standard APIs such as <code>fetch</code>, <code>crypto.subtle</code>, and <code>Response</code>, and requires Node.js 20 or later for tooling.</p>\n<h2 id=\"entry-points\" data-line=\"21\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#entry-points\" aria-hidden=\"true\"></a> Entry points</h2>\n<table data-line=\"23\" class=\"code-line\">\n<thead data-line=\"23\" class=\"code-line\">\n<tr data-line=\"23\" class=\"code-line\">\n<th>Import</th>\n<th>Responsibility</th>\n</tr>\n</thead>\n<tbody data-line=\"25\" class=\"code-line\">\n<tr data-line=\"25\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit</code></td>\n<td>HTTP, auth, errors, Firebase, AWS, AI, Stripe, KV, queues, realtime primitives</td>\n</tr>\n<tr data-line=\"26\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/db</code></td>\n<td>Hyperdrive, MySQL, Drizzle, migrations, JST columns</td>\n</tr>\n<tr data-line=\"27\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/business-time</code></td>\n<td>JST business dates and date-times</td>\n</tr>\n<tr data-line=\"28\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/offline</code></td>\n<td>Offline replica wire, cursor, journal, and compatibility contracts</td>\n</tr>\n<tr data-line=\"29\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/realtime</code></td>\n<td>Durable Object WebSocket and retry helpers</td>\n</tr>\n<tr data-line=\"30\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/testing</code></td>\n<td>Test databases, auth helpers, fakes, and Stripe fixtures</td>\n</tr>\n</tbody>\n</table>\n<p data-line=\"32\" class=\"code-line\">Subpath imports keep optional database and testing dependencies out of the root runtime surface.</p>\n",
+      "html": "<hr data-line=\"0\" class=\"code-line\">\n<h2 id=\"title%3A-getting-started\" data-line=\"1\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#title%3A-getting-started\" aria-hidden=\"true\"></a> title: Getting Started</h2>\n<p data-line=\"4\" class=\"code-line\"><code>@rdlabo/workers-hono-kit</code> provides infrastructure-layer helpers for Hono on Cloudflare Workers. Domain logic, database schemas, and application-specific policy stay in the consuming application.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"6\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/workers-hono-kit</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"10\" class=\"code-line\">Install only the peer dependencies required by the features you use:</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"12\"><span class=\"line\"><span style=\"color:#a0aab5\"># Core HTTP, validation, Firebase, and AWS helpers</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> hono</span><span style=\"color:#9ECBFF\"> zod</span><span style=\"color:#9ECBFF\"> @hono/zod-validator</span><span style=\"color:#9ECBFF\"> jose</span><span style=\"color:#9ECBFF\"> aws4fetch</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#a0aab5\"># Data and testing entry points</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> drizzle-orm</span><span style=\"color:#9ECBFF\"> mysql2</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#a0aab5\"># AI Gateway</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> ai</span><span style=\"color:#9ECBFF\"> ai-gateway-provider</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"23\" class=\"code-line\">Stripe is a direct dependency of the kit. The package is compiled ESM with declarations, uses Web-standard APIs such as <code>fetch</code>, <code>crypto.subtle</code>, and <code>Response</code>, and requires Node.js 20 or later for tooling.</p>\n<h2 id=\"entry-points\" data-line=\"25\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#entry-points\" aria-hidden=\"true\"></a> Entry points</h2>\n<table data-line=\"27\" class=\"code-line\">\n<thead data-line=\"27\" class=\"code-line\">\n<tr data-line=\"27\" class=\"code-line\">\n<th>Import</th>\n<th>Responsibility</th>\n</tr>\n</thead>\n<tbody data-line=\"29\" class=\"code-line\">\n<tr data-line=\"29\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit</code></td>\n<td>HTTP, auth, errors, Firebase, AWS, AI, Stripe, KV, queues, realtime primitives</td>\n</tr>\n<tr data-line=\"30\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/db</code></td>\n<td>Hyperdrive, MySQL, Drizzle, migrations, JST columns</td>\n</tr>\n<tr data-line=\"31\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/business-time</code></td>\n<td>JST business dates and date-times</td>\n</tr>\n<tr data-line=\"32\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/offline</code></td>\n<td>Offline replica wire, cursor, journal, and compatibility contracts</td>\n</tr>\n<tr data-line=\"33\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/realtime</code></td>\n<td>Durable Object WebSocket and retry helpers</td>\n</tr>\n<tr data-line=\"34\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/testing</code></td>\n<td>Test databases, auth helpers, fakes, and Stripe fixtures</td>\n</tr>\n</tbody>\n</table>\n<p data-line=\"36\" class=\"code-line\">Subpath imports keep optional database and testing dependencies out of the root runtime surface.</p>\n",
       "headings": [
+        {
+          "id": "title%3A-getting-started",
+          "text": "title: Getting Started",
+          "level": 2
+        },
         {
           "id": "entry-points",
           "text": "Entry points",
@@ -84,7 +89,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/http-auth.md"
+      "editUrl": "https://github.com/rdlabo-dev/workers-hono-kit/edit/main/docs/http-auth.md"
     },
     {
       "title": "Data Layer",
@@ -113,7 +118,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/data-layer.md"
+      "editUrl": "https://github.com/rdlabo-dev/workers-hono-kit/edit/main/docs/data-layer.md"
     },
     {
       "title": "Realtime and Offline",
@@ -137,7 +142,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/realtime-offline.md"
+      "editUrl": "https://github.com/rdlabo-dev/workers-hono-kit/edit/main/docs/realtime-offline.md"
     },
     {
       "title": "Testing and Operations",
@@ -171,7 +176,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/testing-operations.md"
+      "editUrl": "https://github.com/rdlabo-dev/workers-hono-kit/edit/main/docs/testing-operations.md"
     },
     {
       "title": "API",
@@ -180,47 +185,11 @@ export const PROJECT = {
       "file": "api.md",
       "section": "Reference",
       "path": "/projects/workers-hono-kit/docs/api",
-      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\">Public entry-point map for <code>@rdlabo/workers-hono-kit</code> v0.10.6. Import from the narrowest entry point so Worker bundles include only the required infrastructure.</p>\n<h2 id=\"entry-points\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#entry-points\" aria-hidden=\"true\"></a> Entry points</h2>\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit</h4><p data-line=\"6\" class=\"code-line\">Core HTTP, authentication, Firebase verification, AWS signing, error handling, pagination, validation, logging, and middleware exports.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Fdb\" data-line=\"8\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Fdb\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/db</h4><p data-line=\"10\" class=\"code-line\">Drizzle configuration, secret resolution, decimal and JST column helpers, baseline migrations, and guarded-payment recovery.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Fbusiness-time\" data-line=\"12\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Fbusiness-time\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/business-time</h4><p data-line=\"14\" class=\"code-line\">Branded business date and datetime values with parsing, formatting, day-boundary, date arithmetic, and age calculations.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Foffline\" data-line=\"16\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Foffline\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/offline</h4><p data-line=\"18\" class=\"code-line\">Snapshot cursors, journal retention and mutation helpers, and offline wire-compatibility negotiation.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Frealtime\" data-line=\"20\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Frealtime\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/realtime</h4><p data-line=\"22\" class=\"code-line\">Cloudflare Durable Object WebSocket upgrade, hibernation, broadcast, close, retry, invocation, and protocol helpers.</p></section>\n\n<section class=\"api-entry\"><h4 id=\"module-%40rdlabo%2Fworkers-hono-kit%2Ftesting\" data-line=\"24\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#module-%40rdlabo%2Fworkers-hono-kit%2Ftesting\" aria-hidden=\"true\"></a> <code>module</code> @rdlabo/workers-hono-kit/testing</h4><p data-line=\"26\" class=\"code-line\">Database, Firebase, authentication, Stripe fixture, KV, Queue, and configurable-fake utilities for deterministic tests.</p></section>\n\n</div>",
-      "headings": [
-        {
-          "id": "entry-points",
-          "text": "Entry points",
-          "level": 2
-        },
-        {
-          "id": "module-%40rdlabo%2Fworkers-hono-kit",
-          "text": "module @rdlabo/workers-hono-kit",
-          "level": 4
-        },
-        {
-          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Fdb",
-          "text": "module @rdlabo/workers-hono-kit/db",
-          "level": 4
-        },
-        {
-          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Fbusiness-time",
-          "text": "module @rdlabo/workers-hono-kit/business-time",
-          "level": 4
-        },
-        {
-          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Foffline",
-          "text": "module @rdlabo/workers-hono-kit/offline",
-          "level": 4
-        },
-        {
-          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Frealtime",
-          "text": "module @rdlabo/workers-hono-kit/realtime",
-          "level": 4
-        },
-        {
-          "id": "module-%40rdlabo%2Fworkers-hono-kit%2Ftesting",
-          "text": "module @rdlabo/workers-hono-kit/testing",
-          "level": 4
-        }
-      ],
+      "html": "<div class=\"api-reference\"><p data-line=\"0\" class=\"code-line\"><code>@rdlabo/workers-hono-kit</code> exposes these entry points. This page maps each entry point to its dedicated reference page. For feature-level examples, see <a href=\"/projects/workers-hono-kit/docs/http-auth\">HTTP and Authentication</a>, <a href=\"/projects/workers-hono-kit/docs/data-layer\">Data Layer</a>, <a href=\"/projects/workers-hono-kit/docs/realtime-offline\">Realtime and Offline</a>, and <a href=\"/projects/workers-hono-kit/docs/testing-operations\">Testing and Operations</a>.</p>\n<table data-line=\"2\" class=\"code-line\">\n<thead data-line=\"2\" class=\"code-line\">\n<tr data-line=\"2\" class=\"code-line\">\n<th>Entry point</th>\n<th>Description</th>\n<th>Reference</th>\n</tr>\n</thead>\n<tbody data-line=\"4\" class=\"code-line\">\n<tr data-line=\"4\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit</code></td>\n<td>Web-standard helpers (middleware, HTTP, Firebase, AWS, AI, Stripe, KV, queues, idempotency).</td>\n<td><a href=\"/projects/workers-hono-kit/docs/api-root\">Root</a></td>\n</tr>\n<tr data-line=\"5\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/db</code></td>\n<td>MySQL data layer (mysql2 + Drizzle), JST column helpers, baseline migrations.</td>\n<td><a href=\"/projects/workers-hono-kit/docs/api-db\">DB</a></td>\n</tr>\n<tr data-line=\"6\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/business-time</code></td>\n<td>JST business calendar and date-time conversions.</td>\n<td><a href=\"/projects/workers-hono-kit/docs/api-business-time\">Business time</a></td>\n</tr>\n<tr data-line=\"7\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/offline</code></td>\n<td>Table-agnostic REST/DB method converters and replica wire helpers.</td>\n<td><a href=\"/projects/workers-hono-kit/docs/api-offline\">Offline</a></td>\n</tr>\n<tr data-line=\"8\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/realtime</code></td>\n<td>Durable Object WebSocket and retry helpers.</td>\n<td><a href=\"/projects/workers-hono-kit/docs/realtime-offline\">Realtime and Offline</a></td>\n</tr>\n<tr data-line=\"9\" class=\"code-line\">\n<td><code>@rdlabo/workers-hono-kit/testing</code></td>\n<td>Drizzle-backed test DB, fakes, fixtures, and binding doubles.</td>\n<td><a href=\"/projects/workers-hono-kit/docs/api-testing\">Testing</a></td>\n</tr>\n</tbody>\n</table>\n</div>",
+      "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/workers-hono-kit/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/workers-hono-kit/edit/main/docs/api.md"
     }
   ]
 } as const;

@@ -26,8 +26,7 @@ title: prefer-disable-handler
 次も誤りです。wrapperは `$event` と第2引数の `work` を受け取る必要があります。
 
 ```html
-<ion-button (click)="vm.disableHandler($event)">Save</ion-button>
-<ion-button (click)="vm.disableHandler(vm.save())">Save</ion-button>
+<ion-button (click)="vm.disableHandler($event)">Save</ion-button> <ion-button (click)="vm.disableHandler(vm.save())">Save</ion-button>
 ```
 
 ✅ 正しい（デフォルト）

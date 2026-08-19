@@ -38,7 +38,7 @@ export const PROJECT = {
   "path": "/projects/capacitor-stripe",
   "pages": [
     {
-      "title": "Configuration platform",
+      "title": "Configuration",
       "navTitle": "Configuration",
       "slug": "configuration",
       "file": "configuration.md",
@@ -67,7 +67,7 @@ export const PROJECT = {
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/configuration.md"
     },
     {
-      "title": "Vanilla JS Quick start",
+      "title": "Vanilla JS",
       "navTitle": "Vanilla JS",
       "slug": "vanilla-js",
       "file": "vanilla-js.md",
@@ -80,7 +80,7 @@ export const PROJECT = {
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/vanilla-js.md"
     },
     {
-      "title": "Angular Quick start",
+      "title": "Angular",
       "navTitle": "Angular",
       "slug": "angular",
       "file": "angular.md",
@@ -99,7 +99,7 @@ export const PROJECT = {
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/angular.md"
     },
     {
-      "title": "React Quick start",
+      "title": "React",
       "navTitle": "React",
       "slug": "react",
       "file": "react.md",
@@ -336,7 +336,7 @@ export const PROJECT = {
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/server-integration.md"
     },
     {
-      "title": "Initialize to your project",
+      "title": "Initialize",
       "navTitle": "Initialize",
       "slug": "initialize",
       "file": "initialize.md",
@@ -681,7 +681,7 @@ export const PROJECT = {
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/payment-flow.md"
     },
     {
-      "title": "ApplePay",
+      "title": "Apple Pay",
       "navTitle": "Apple Pay",
       "slug": "apple-pay",
       "file": "apple-pay.md",

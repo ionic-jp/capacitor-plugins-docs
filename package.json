@@ -17,12 +17,13 @@
     "build": "ng build && npm run static:prepare && pagefind --site dist/capacitor-plugins-docs/browser --output-subdir pagefind && tsx --test scripts/build-output.test.ts",
     "watch": "ng build --watch --configuration development",
     "pretest": "npm run docs:generate",
-    "test": "tsx --test scripts/docgen-readme.test.ts scripts/html-policy.test.ts scripts/markdown-headings.test.ts scripts/package-markdown.test.ts scripts/site-contract.test.ts && ng test --watch=false",
+    "test": "tsx --test scripts/docgen-readme.test.ts scripts/html-policy.test.ts scripts/markdown-headings.test.ts scripts/package-markdown.test.ts scripts/package-repository.test.ts scripts/site-contract.test.ts && ng test --watch=false",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "deploy": "npm run build && wrangler deploy",
     "deploy:dry-run": "npm run build && wrangler deploy --dry-run",
-    "serve:ssr:capacitor-plugins-docs": "node dist/capacitor-plugins-docs/server/server.mjs"
+    "serve:ssr:capacitor-plugins-docs": "node dist/capacitor-plugins-docs/server/server.mjs",
+    "lint": "ng lint"
   },
   "dependencies": {
     "@angular/common": "^22.1.0",
@@ -50,6 +51,7 @@
     "@capacitor-community/stripe": "8.2.1",
     "@capacitor-community/stripe-identity": "8.2.1",
     "@capacitor/docgen": "0.3.1",
+    "@eslint/js": "^10.0.1",
     "@rdlabo/capacitor-brotherprint": "8.1.1",
     "@rdlabo/capacitor-codescanner": "8.0.3",
     "@rdlabo/capacitor-docgen": "0.4.1",
@@ -68,14 +70,17 @@
     "@types/express": "^5.0.1",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^20.17.19",
+    "angular-eslint": "22.1.0",
+    "eslint": "^10.6.0",
     "jsdom": "^28.0.0",
     "pagefind": "1.5.2",
     "postcss": "^8.5.3",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.4",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.12",
     "tsx": "^4.20.6",
     "typescript": "~6.0.2",
+    "typescript-eslint": "8.62.1",
     "vitest": "^4.0.8",
     "wrangler": "4.123.0"
   }

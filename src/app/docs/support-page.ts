@@ -57,10 +57,10 @@ import { SeoService } from './seo.service';
   `,
 })
 export class SupportPageComponent implements OnInit {
-  private readonly seo = inject(SeoService);
+  readonly #seo = inject(SeoService);
 
   ngOnInit(): void {
-    this.seo.setPage({
+    this.#seo.setPage({
       title: $localize`:@@supportPageTitle:Support open source - rdlabo.dev`,
       description: $localize`:@@supportPageDescription:Support maintenance, documentation, and development across rdlabo's open source projects.`,
       path: '/support',
