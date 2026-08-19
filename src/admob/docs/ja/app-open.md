@@ -42,8 +42,10 @@ if (isLoaded) {
 }
 ```
 
-!::AppOpenAdOptions::
+リクエストのフィールドは [`AppOpenAdOptions`](/docs/api#interface-appopenadoptions) に定義されています。
 
 `isTesting` はありません。開発中は `adId` に Google の [アプリ起動時デモ広告ユニット](https://developers.google.com/admob/android/test-ads#demo_ad_units) を指定します。
 
-`Closed` イベントでアプリのフローを再開し、次の広告をロードします。`showAppOpen()` や `isAppOpenLoaded()` に `adId` を渡さないと、最後にロードした広告が対象になります。[広告イベント](/docs/events) を参照してください。
+`Closed` イベントでアプリのフローを再開し、次の広告をロードします。
+
+`showAppOpen()` や `isAppOpenLoaded()` に `adId` を渡さないと、最後にロードした広告が対象になります。イベント一覧は [広告イベント](/docs/events) を見てください。

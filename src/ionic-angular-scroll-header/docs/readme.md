@@ -1,10 +1,26 @@
 ---
-title: '@rdlabo/ionic-angular-scroll-header'
+title: Getting Started
+code: []
+scrollActiveLine: []
 ---
 
-# @rdlabo/ionic-angular-scroll-header
+## Overview
 
 This is directive for scroll with Header.
+
+## Features
+
+### Choose by header layout
+
+| Goal | Guide |
+| --- | --- |
+| Hide and reveal headers on IonContent | [IonContent](/docs/ion-content) |
+| Coordinate headers with CDK virtual scroll | [Virtual Scroll](/docs/virtual-scroll) |
+| Keep a native header always visible | [Safe Area](/docs/safe-area) |
+
+## Quick start
+
+After [Installation](#installation), attach the directive to `ion-content`. See [IonContent](/docs/ion-content).
 
 ## Installation
 
@@ -27,120 +43,11 @@ And import CSS for directive:
 + }
 ```
 
-## Usage
 
-### Scroll of IonContent
+## Documentation
 
-- Demo: https://rdlabo-ionic-angular-library.netlify.app/main/scroll-header
-- Source: https://github.com/rdlabo-dev/ionic-angular-library/blob/v21.6.2/projects/demo/src/app/scroll-header/scroll-header.page.html
+Start with [Installation](#installation), then pick a guide.
 
-```ts
-import { ScrollHeaderDirective } from '@rdlabo/ionic-angular-scroll-header';
-@Component({
-  ...
-  imports: [
-    ScrollHeaderDirective
-  ],
-})
-```
-
-```html
-<ion-header class="hidden"><ion-toolbar></ion-toolbar></ion-header>
-<!-- set hidden header for safe-area -->
-<ion-content rdlaboScrollHeader>
-  <ion-header>
-    <ion-toolbar>...</ion-toolbar>
-    <!-- Default Header for display -->
-  </ion-header>
-  ...Your Content
-</ion-content>
-```
-
-### Scroll of CdkVirtualScroll (Angular Material)
-
-- Demo: https://rdlabo-ionic-angular-library.netlify.app/main/virtual-scroll-header
-- Source: https://github.com/rdlabo-dev/ionic-angular-library/blob/v21.6.2/projects/demo/src/app/virtual-scroll-header/virtual-scroll-header.page.html
-
-```ts
-import { VirtualScrollHeaderDirective } from '@rdlabo/ionic-angular-scroll-header';
-
-@Component({
-  ...
-  imports: [
-    VirtualScrollHeaderDirective
-  ],
-})
-```
-
-```html
-<ion-header class="hidden"><ion-toolbar></ion-toolbar></ion-header>
-<!-- set hidden header for safe-area -->
-<ion-content rdlaboVirtualScrollHeader>
-  <ion-header>
-    <ion-toolbar>...</ion-toolbar>
-    <!-- Default Header for display -->
-  </ion-header>
-  <cdk-virtual-scroll-viewport
-    minBufferPx="900"
-    maxBufferPx="1350"
-    [itemSize]="44"
-    class="ion-content-scroll-host"
-  >
-    ...Your Content
-  </cdk-virtual-scroll-viewport>
-</ion-content>
-```
-
-### Fix https://github.com/angular/components/issues/27104
-
-> bug(COMPONENT): CDK Virtual Scroller jump back/flickers to items on top #27104
-
-```ts
-import { FixVirtualScrollElementDirective } from '@rdlabo/ionic-angular-scroll-header';
-
-@Component({
-  ...
-  imports: [
-  FixVirtualScrollElementDirective
-  ],
-})
-```
-
-```html
-<ion-content>
-  <cdk-virtual-scroll-viewport
-    rdlaboFixVirtualScrollElement
-    minBufferPx="900"
-    maxBufferPx="1350"
-    [itemSize]="44"
-    class="ion-content-scroll-host"
-  >
-    ...Your Content
-  </cdk-virtual-scroll-viewport>
-</ion-content>
-```
-
-# FAQ
-
-## Why do I need to set hidden header for safe-area?
-
-Of course, it is also possible to set a safe-area in ion-content as follows.
-
-```css
-ion-content {
-  padding-top: var(--ion-safe-area-top, 0);
-}
-```
-
-But I preferred to explicitly set up ion-header and ion-toolbar for safe-area.
-
-## I also need a Header that is always visible, apart from the Header that follows Scroll and hides it
-
-it is possible: by adding `native-header` to the class name, you can have two Headers more smoothly.
-
-```diff
-- <ion-header class="hidden"><ion-toolbar></ion-toolbar></ion-header>
-+ <ion-header class="native-header">
-+   <ion-toolbar><ion-title>Native Header</ion-title></ion-toolbar>
-+ </ion-header>
-```
+- [IonContent](/docs/ion-content) — scroll-aware Ionic headers.
+- [Virtual Scroll](/docs/virtual-scroll) — CDK viewports and the flicker fix.
+- [Safe Area](/docs/safe-area) — hidden and native headers.

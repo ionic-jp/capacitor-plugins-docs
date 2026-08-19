@@ -8,6 +8,8 @@ Google は各形式のページでライフサイクルコールバックを説�
 
 最初のライフサイクルとインプレッションを取りこぼさないよう、広告のロードや表示より前にリスナーを登録します。
 
+## リスナーの登録と解除
+
 `AdMob.addListener` はハンドルを返します。登録を await し、画面を破棄するときに `remove()` します。
 
 ```ts
@@ -33,14 +35,19 @@ await handle.remove();
 | `SizeChanged`             | バナーの寸法が変わった。                                 |
 | `AdImpression` / `AdPaid` | インプレッションが記録された。売上イベントは下記。       |
 
-`FailedToLoad` と `FailedToShow` のリスナーは `AdMobError` を受け取ります。
+## エラー
 
-!::AdMobError::
+`FailedToLoad` と `FailedToShow` のリスナーは [`AdMobError`](/docs/api#interface-admoberror) を受け取ります。
 
 ## インプレッション単位の売上
 
-フルスクリーン形式は `AdImpression` で `AdMobRevenueData` を出します。バナーは同じペイロードを `AdPaid` で出します。バナーの `AdImpression` にペイロードはなく、インプレッションが記録されたことだけを知らせます。
+フルスクリーン形式は `AdImpression` で [`AdMobRevenueData`](/docs/api#interface-admobrevenuedata) を出します。バナーは同じペイロードを `AdPaid` で出します。バナーの `AdImpression` にペイロードはなく、インプレッションが記録されたことだけを知らせます。
 
-!::AdMobRevenueData::
+## 形式ごとのガイド
 
-[バナー広告](/docs/banner)、[フルスクリーン広告](/docs/full-screen-ads)、[アプリ起動時広告](/docs/app-open) を参照してください。
+- [アプリ起動時広告](/docs/app-open)
+- [バナー広告](/docs/banner)
+- [インタースティシャル広告](/docs/interstitial)
+- [リワード広告](/docs/rewarded)
+
+メソッドと enum のシグネチャは [API リファレンス](/docs/api) にあります。

@@ -70,9 +70,7 @@ await AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size) => {
 
 非表示・削除・ロード失敗では高さが `0` になることがあるので、そのときは inset を消します。フレームワークでは、WebView を埋めている要素に同じ考え方を適用します。
 
-!::BannerAdOptions::
-
-`isTesting` は [テスト](/docs/testing) を参照してください。
+リクエストのフィールドは [`BannerAdOptions`](/docs/api#interface-banneradoptions) に定義されています。`isTesting` は [テスト](/docs/testing) を参照してください。
 
 ## ライフサイクル
 

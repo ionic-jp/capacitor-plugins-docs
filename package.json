@@ -17,7 +17,7 @@
     "build": "ng build && npm run static:prepare && pagefind --site dist/capacitor-plugins-docs/browser --output-subdir pagefind && tsx --test scripts/build-output.test.ts",
     "watch": "ng build --watch --configuration development",
     "pretest": "npm run docs:generate",
-    "test": "tsx --test scripts/docgen-readme.test.ts scripts/html-policy.test.ts scripts/markdown-headings.test.ts scripts/site-contract.test.ts && ng test --watch=false",
+    "test": "tsx --test scripts/docgen-readme.test.ts scripts/html-policy.test.ts scripts/markdown-headings.test.ts scripts/package-markdown.test.ts scripts/site-contract.test.ts && ng test --watch=false",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "deploy": "npm run build && wrangler deploy",

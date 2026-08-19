@@ -1,8 +1,8 @@
 ---
-title: '@rdlabo/ionic-theme-md3'
+title: Getting Started
+code: []
+scrollActiveLine: []
 ---
-
-# Ionic Theme Material Design 3
 
 A CSS/JS theme library that applies Material Design 3 design system to Ionic applications.
 
@@ -28,7 +28,12 @@ If you need a more comprehensive Material Design 3 implementation, you may also 
 
 > **Note:** This theme is purpose-built for compatibility with Ionic's design approach and `@rdlabo/ionic-theme-ios26`; it is not intended as a strict, full MD3 recreation.
 
-## Setup
+
+## Quick start
+
+After [Installation](#installation), import the theme CSS and set `navAnimation` as shown below.
+
+## Installation
 
 This is a CSS theme for extending your Ionic project. It does not work on its own, so use it together with the Ionic Framework.
 
@@ -71,36 +76,7 @@ createApp(App)
 })
 ```
 
-## Development & Testing
 
-### Demo Application
+## Documentation
 
-The `demo/` directory contains an Angular application for testing and demonstrating the theme. To run the demo:
-
-```bash
-cd demo
-npm install
-npm start
-```
-
-### Visual Regression Testing
-
-We use Playwright for visual regression testing to ensure consistent styling across all components. The test suite automatically captures screenshots of all routes in both light and dark modes.
-
-#### Running Tests
-
-```bash
-cd demo
-
-# Run all E2E tests
-npm run test:e2e
-
-# Run tests in UI mode (interactive)
-npm run test:e2e:ui
-
-# Debug tests
-npm run test:e2e:debug
-
-# Update baseline screenshots (when intentionally changing UI)
-npm run test:e2e:update
-```
+Start with [Installation](#installation). Pair this theme with [@rdlabo/ionic-theme-ios26](/ionic-theme-ios26/) when you need both platforms from one markup tree.

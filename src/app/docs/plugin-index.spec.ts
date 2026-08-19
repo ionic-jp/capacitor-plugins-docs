@@ -63,7 +63,9 @@ describe('PluginIndexComponent', () => {
     const japaneseProjects = projectsForLocale('ja');
     expect(japaneseProjects).toHaveLength(projectCatalog.length);
     expect(projectCatalog).toHaveLength(18);
-    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(84);
+    expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(
+      projectCatalog.flatMap((project) => project.pages).length,
+    );
     for (const project of japaneseProjects) {
       expect(project.pages).toEqual(
         expect.arrayContaining([expect.objectContaining({ slug: 'api', section: 'リファレンス' })]),
@@ -96,7 +98,7 @@ describe('PluginIndexComponent', () => {
 
     const admob = await loadProject('admob', 'ja');
     expect(admob?.pages.find((page) => page.slug === 'consent')?.html).toContain(
-      '広告をロードする前にプライバシー情報を取得します',
+      '広告リクエストの前に同意を集める',
     );
     const eslint = await loadProject('eslint-plugin-rules', 'ja');
     expect(eslint?.version).toBe('21.3.0');

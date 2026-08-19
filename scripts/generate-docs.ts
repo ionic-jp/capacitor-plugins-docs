@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, relative, resolve } from 'node:path';
 import fm from 'front-matter';
 import markdownToHtml from 'zenn-markdown-html';
@@ -11,12 +11,21 @@ import {
   projectCategoryDefinitions,
   projectDefinitions,
   type ProjectDefinition,
+  type ProjectPageDefinition,
 } from './project-manifest';
 import { localizedPublicPath } from '../src/app/locale-path';
 import { SITE_CONFIG } from '../src/app/site-config';
 import { enforceGeneratedHtmlPolicy } from './html-policy';
 import { normalizeImportedReadmeHeadings } from './markdown-headings';
 import { splitDocgenReadme } from './docgen-readme';
+import {
+  apiAnchorFragments,
+  extractPackageReadmeParts,
+  normalizePackageMarkdown,
+  rewritePackageDocLinks,
+  stripLeadingH1,
+  stripRdlaboDocsOmit,
+} from './package-markdown';
 
 const root = resolve(process.cwd());
 const docsRepositoryUrl = 'https://github.com/rdlabo-dev/docs';
@@ -231,6 +240,72 @@ function rewriteInternalLinks(html: string, project: ProjectDefinition, locale: 
   return rewritten;
 }
 
+function pageEditUrl(
+  fromPackage: boolean,
+  repositoryUrl: string,
+  version: string,
+  file: string,
+  sourcePath: string,
+): string {
+  if (fromPackage) {
+    const packagePath = sourcePath.endsWith('README.md') ? 'README.md' : `docs/${file}`;
+    return `${repositoryUrl}/blob/v${version}/${packagePath}`;
+  }
+  return `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`;
+}
+
+const PACKAGE_LANDING_FILES = new Set(['readme.md', 'getting-started.md']);
+
+function landingPageSlug(project: ProjectDefinition): string {
+  return project.pages.find((page) => PACKAGE_LANDING_FILES.has(page.file))?.slug ?? 'readme';
+}
+
+function srcDocsPath(project: ProjectDefinition, locale: Locale, file: string): string {
+  return join(
+    root,
+    'src',
+    project.sourceDirectory,
+    'docs',
+    ...(locale === 'ja' ? ['ja'] : []),
+    file,
+  );
+}
+
+async function fileExists(path: string): Promise<boolean> {
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function resolvePageSource(
+  project: ProjectDefinition,
+  locale: Locale,
+  file: string,
+  packageRoot: string,
+): Promise<{ sourcePath: string; fromPackage: boolean }> {
+  const srcPath = srcDocsPath(project, locale, file);
+  if (locale === 'ja' || file === 'api.md' || !project.englishFromPackage) {
+    return { sourcePath: srcPath, fromPackage: false };
+  }
+
+  if (PACKAGE_LANDING_FILES.has(file)) {
+    const packagedLanding = join(packageRoot, 'docs', file);
+    if (file !== 'readme.md' && (await fileExists(packagedLanding))) {
+      return { sourcePath: packagedLanding, fromPackage: true };
+    }
+    return { sourcePath: join(packageRoot, 'README.md'), fromPackage: true };
+  }
+
+  const packagedGuide = join(packageRoot, 'docs', file);
+  if (await fileExists(packagedGuide)) {
+    return { sourcePath: packagedGuide, fromPackage: true };
+  }
+  return { sourcePath: srcPath, fromPackage: false };
+}
+
 async function generateProject(project: ProjectDefinition, locale: Locale): Promise<any> {
   const packageRoot = join(root, 'node_modules', project.packageName);
   const packageJson = JSON.parse(await readFile(join(packageRoot, 'package.json'), 'utf8'));
@@ -238,141 +313,224 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
     project.adapter === 'markdown'
       ? new Map<string, string>()
       : apiMarkdown(JSON.parse(await readFile(join(packageRoot, 'dist/docs.json'), 'utf8')));
+  const apiAnchors = apiAnchorFragments(api);
+  const packageLandingSlug = landingPageSlug(project);
   const pages = [];
+  type SourcePage = {
+    page: ProjectPageDefinition;
+    body: string;
+    useFrontMatterTitle: boolean;
+    parsed: ReturnType<typeof fm<any>>;
+    sourcePath: string;
+    fromPackage: boolean;
+    annotateDocgen: boolean;
+  };
+  const sourcePages: SourcePage[] = [];
+  let docgenApiPage: SourcePage | undefined;
+  const declaresApiPage = project.pages.some((entry) => entry.slug === 'api');
   for (const declaredPage of project.pages) {
     const { file } = declaredPage;
-    const sourcePath = join(
-      root,
-      'src',
-      project.sourceDirectory,
-      'docs',
-      ...(locale === 'ja' ? ['ja'] : []),
-      file,
-    );
+    const { sourcePath, fromPackage } = await resolvePageSource(project, locale, file, packageRoot);
     const parsed = fm<any>(await readFile(sourcePath, 'utf8'));
-    const splitReadme = file === 'readme.md' ? splitDocgenReadme(parsed.body) : undefined;
-    const sourcePages = splitReadme
-      ? [
-          { page: declaredPage, body: splitReadme.readme, useFrontMatterTitle: true },
-          {
-            page: {
-              title: { en: 'API', ja: 'API' },
-              section: { en: 'Reference', ja: 'リファレンス' },
-              slug: 'api',
-              file,
-            },
-            body: splitReadme.api,
-            useFrontMatterTitle: false,
-          },
-        ]
-      : [{ page: declaredPage, body: parsed.body, useFrontMatterTitle: true }];
-
-    for (const { page, body, useFrontMatterTitle } of sourcePages) {
-      const { slug } = page;
-      const missingApiEntries: string[] = [];
-      const expanded = body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
-        const entry = api.get(id);
-        if (!entry) missingApiEntries.push(id);
-        return entry ?? '';
-      });
-      if (missingApiEntries.length) {
-        throw new Error(
-          `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
+    const isPackageLanding = fromPackage && PACKAGE_LANDING_FILES.has(file);
+    let preparedBody = parsed.body;
+    let splitReadme =
+      !fromPackage && file === 'readme.md' ? splitDocgenReadme(parsed.body) : undefined;
+    if (fromPackage) {
+      if (isPackageLanding) {
+        const extracted = extractPackageReadmeParts(parsed.body);
+        preparedBody = normalizePackageMarkdown(
+          rewritePackageDocLinks(extracted.readme, apiAnchors, packageLandingSlug),
         );
-      }
-      const codes = [];
-      for (const codePath of parsed.attributes.code ?? []) {
-        const normalized = String(codePath).replace(/^\/docs\/stripe\//, '');
-        codes.push(
-          await renderCode(
-            await readFile(join(root, 'src', project.sourceDirectory, 'docs', normalized), 'utf8'),
+        if (extracted.api && !declaresApiPage) {
+          splitReadme = { readme: preparedBody, api: extracted.api };
+        }
+      } else {
+        preparedBody = normalizePackageMarkdown(
+          rewritePackageDocLinks(
+            stripLeadingH1(stripRdlaboDocsOmit(parsed.body)),
+            apiAnchors,
+            packageLandingSlug,
           ),
         );
       }
-      let html = rewriteInternalLinks(await markdownToHtml(expanded), project, locale).replace(
-        'loading="lazy"',
-        'loading="eager" fetchpriority="high"',
-      );
-      const htmlDocument = new JSDOM(html).window.document;
-      if (
-        (project.id === 'eslint-plugin-rules' && slug.startsWith('rules/')) ||
-        slug === 'readme' ||
-        file === 'using-ion-item-group.md'
-      ) {
-        normalizeImportedReadmeHeadings(htmlDocument);
-      }
-      const headingIds = Array.from(
-        htmlDocument.querySelectorAll<HTMLElement>('h1, h2, h3, h4'),
-      ).map((heading) => heading.id);
-      const scrollMap = (parsed.attributes.scrollActiveLine ?? []).map((entry: any) => {
-        if (locale !== 'ja' || !entry.id) return entry;
-        const localizedId = headingIds.find(
-          (headingId) => decodeURIComponent(headingId) === entry.id,
-        );
-        return localizedId ? { ...entry, id: localizedId } : entry;
-      });
-      const codeByFile = new Map(codes.map((code) => [code.file, code]));
-      let previousHeadingIndex = -1;
-      for (const entry of scrollMap) {
-        if (entry.id) {
-          const headingIndex = headingIds.indexOf(entry.id);
-          if (headingIndex < 0) {
-            throw new Error(
-              `${relative(root, sourcePath)} references missing heading: ${entry.id}`,
-            );
-          }
-          if (headingIndex <= previousHeadingIndex) {
-            throw new Error(
-              `${relative(root, sourcePath)} has an out-of-order or duplicate heading: ${entry.id}`,
-            );
-          }
-          previousHeadingIndex = headingIndex;
-        }
-        for (const [codeFile, range] of Object.entries<number[]>(entry.activeLine ?? {})) {
-          const code = codeByFile.get(codeFile);
-          if (!code) {
-            throw new Error(
-              `${relative(root, sourcePath)} references missing code file: ${codeFile}`,
-            );
-          }
-          if (
-            range.length !== 2 ||
-            !range.every(Number.isInteger) ||
-            range[0] < 0 ||
-            range[1] < range[0] ||
-            range[1] > code.lines.length + 1
-          ) {
-            throw new Error(
-              `${relative(root, sourcePath)} has an invalid ${codeFile} line range: ${range.join(', ')}`,
-            );
-          }
-        }
-      }
-      if (splitReadme && slug === 'api') annotateDocgenApiEntries(htmlDocument);
-      formatApiEntries(htmlDocument);
-      if (slug === 'api') formatApiReference(htmlDocument);
-      html = enforceGeneratedHtmlPolicy(htmlDocument.body.innerHTML, relative(root, sourcePath));
-      const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
-        (heading) => ({
-          id: heading.id,
-          text: heading.textContent?.trim() ?? '',
-          level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
-        }),
-      );
-      pages.push({
-        title: (useFrontMatterTitle && parsed.attributes.title) || localize(page.title, locale),
-        navTitle: localize(page.title, locale),
-        slug,
-        file,
-        section: localize(page.section, locale),
-        path: `/projects/${project.slug}/docs/${slug}`,
-        html,
-        headings,
-        codes,
-        scrollMap,
-        editUrl: `${docsRepositoryUrl}/edit/main/${relative(root, sourcePath)}`,
-      });
     }
+    sourcePages.push({
+      page: declaredPage,
+      body: splitReadme ? splitReadme.readme : preparedBody,
+      useFrontMatterTitle: !fromPackage,
+      parsed,
+      sourcePath,
+      fromPackage,
+      annotateDocgen: false,
+    });
+    if (splitReadme) {
+      docgenApiPage = {
+        page: {
+          title: { en: 'API', ja: 'API' },
+          section: { en: 'Reference', ja: 'リファレンス' },
+          slug: 'api',
+          file,
+        },
+        body: splitReadme.api,
+        useFrontMatterTitle: false,
+        parsed,
+        sourcePath,
+        fromPackage,
+        annotateDocgen: true,
+      };
+    }
+  }
+  if (
+    !docgenApiPage &&
+    !declaresApiPage &&
+    locale === 'ja' &&
+    project.englishFromPackage &&
+    project.adapter === 'markdown'
+  ) {
+    const packageReadmePath = join(packageRoot, 'README.md');
+    if (await fileExists(packageReadmePath)) {
+      const extracted = extractPackageReadmeParts(await readFile(packageReadmePath, 'utf8'));
+      if (extracted.api) {
+        docgenApiPage = {
+          page: {
+            title: { en: 'API', ja: 'API' },
+            section: { en: 'Reference', ja: 'リファレンス' },
+            slug: 'api',
+            file: 'readme.md',
+          },
+          body: extracted.api,
+          useFrontMatterTitle: false,
+          parsed: fm(''),
+          sourcePath: packageReadmePath,
+          fromPackage: true,
+          annotateDocgen: true,
+        };
+      }
+    }
+  }
+  if (docgenApiPage) {
+    sourcePages.push(docgenApiPage);
+  }
+
+  for (const {
+    page,
+    body,
+    useFrontMatterTitle,
+    parsed,
+    sourcePath,
+    fromPackage,
+    annotateDocgen,
+  } of sourcePages) {
+    const { slug, file } = page;
+    const missingApiEntries: string[] = [];
+    const expanded = body.replace(/^!::([a-zA-Z0-9]+)::$/gm, (_, id: string) => {
+      const entry = api.get(id);
+      if (!entry) missingApiEntries.push(id);
+      return entry ?? '';
+    });
+    if (missingApiEntries.length) {
+      throw new Error(
+        `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
+      );
+    }
+    const codes = [];
+    for (const codePath of parsed.attributes.code ?? []) {
+      const normalized = String(codePath).replace(/^\/docs\/stripe\//, '');
+      codes.push(
+        await renderCode(
+          await readFile(join(root, 'src', project.sourceDirectory, 'docs', normalized), 'utf8'),
+        ),
+      );
+    }
+    let html = rewriteInternalLinks(await markdownToHtml(expanded), project, locale).replace(
+      'loading="lazy"',
+      'loading="eager" fetchpriority="high"',
+    );
+    const htmlDocument = new JSDOM(html).window.document;
+    if (
+      fromPackage ||
+      (project.id === 'eslint-plugin-rules' && slug.startsWith('rules/')) ||
+      slug === 'readme' ||
+      file === 'using-ion-item-group.md'
+    ) {
+      normalizeImportedReadmeHeadings(htmlDocument);
+    }
+    const headingIds = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h1, h2, h3, h4')).map(
+      (heading) => heading.id,
+    );
+    const scrollMap = (parsed.attributes.scrollActiveLine ?? []).map((entry: any) => {
+      if (locale !== 'ja' || !entry.id) return entry;
+      const localizedId = headingIds.find(
+        (headingId) => decodeURIComponent(headingId) === entry.id,
+      );
+      return localizedId ? { ...entry, id: localizedId } : entry;
+    });
+    const codeByFile = new Map(codes.map((code) => [code.file, code]));
+    let previousHeadingIndex = -1;
+    for (const entry of scrollMap) {
+      if (entry.id) {
+        const headingIndex = headingIds.indexOf(entry.id);
+        if (headingIndex < 0) {
+          throw new Error(`${relative(root, sourcePath)} references missing heading: ${entry.id}`);
+        }
+        if (headingIndex <= previousHeadingIndex) {
+          throw new Error(
+            `${relative(root, sourcePath)} has an out-of-order or duplicate heading: ${entry.id}`,
+          );
+        }
+        previousHeadingIndex = headingIndex;
+      }
+      for (const [codeFile, range] of Object.entries<number[]>(entry.activeLine ?? {})) {
+        const code = codeByFile.get(codeFile);
+        if (!code) {
+          throw new Error(
+            `${relative(root, sourcePath)} references missing code file: ${codeFile}`,
+          );
+        }
+        if (
+          range.length !== 2 ||
+          !range.every(Number.isInteger) ||
+          range[0] < 0 ||
+          range[1] < range[0] ||
+          range[1] > code.lines.length + 1
+        ) {
+          throw new Error(
+            `${relative(root, sourcePath)} has an invalid ${codeFile} line range: ${range.join(', ')}`,
+          );
+        }
+      }
+    }
+    if (annotateDocgen) annotateDocgenApiEntries(htmlDocument);
+    formatApiEntries(htmlDocument);
+    if (slug === 'api') formatApiReference(htmlDocument);
+    html = enforceGeneratedHtmlPolicy(htmlDocument.body.innerHTML, relative(root, sourcePath));
+    const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
+      (heading) => ({
+        id: heading.id,
+        text: heading.textContent?.trim() ?? '',
+        level: Number(heading.tagName.slice(1)) as 2 | 3 | 4,
+      }),
+    );
+    pages.push({
+      title: (useFrontMatterTitle && parsed.attributes.title) || localize(page.title, locale),
+      navTitle: localize(page.title, locale),
+      slug,
+      file,
+      section: localize(page.section, locale),
+      path: `/projects/${project.slug}/docs/${slug}`,
+      html,
+      headings,
+      codes,
+      scrollMap,
+      editUrl: pageEditUrl(
+        fromPackage,
+        project.repositoryUrl,
+        packageJson.version,
+        file,
+        sourcePath,
+      ),
+    });
   }
   return {
     ...localizeProject(project, locale, packageJson.version),

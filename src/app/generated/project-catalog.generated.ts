@@ -151,11 +151,39 @@ export const PROJECTS_EN = [
     "path": "/projects/ionic-angular-photo-editor",
     "pages": [
       {
-        "title": "@rdlabo/ionic-angular-photo-editor",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/ionic-angular-photo-editor/docs/readme"
+      },
+      {
+        "title": "Theme",
+        "navTitle": "Theme",
+        "slug": "theme",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-photo-editor/docs/theme"
+      },
+      {
+        "title": "PhotoFileService",
+        "navTitle": "PhotoFileService",
+        "slug": "photo-file",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-photo-editor/docs/photo-file"
+      },
+      {
+        "title": "Photo Editor",
+        "navTitle": "Photo Editor",
+        "slug": "editor",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-photo-editor/docs/editor"
+      },
+      {
+        "title": "Photo Viewer",
+        "navTitle": "Photo Viewer",
+        "slug": "viewer",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-photo-editor/docs/viewer"
       },
       {
         "title": "API",
@@ -197,11 +225,32 @@ export const PROJECTS_EN = [
     "path": "/projects/ionic-angular-scroll-header",
     "pages": [
       {
-        "title": "@rdlabo/ionic-angular-scroll-header",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/ionic-angular-scroll-header/docs/readme"
+      },
+      {
+        "title": "IonContent",
+        "navTitle": "IonContent",
+        "slug": "ion-content",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-scroll-header/docs/ion-content"
+      },
+      {
+        "title": "Virtual Scroll",
+        "navTitle": "Virtual Scroll",
+        "slug": "virtual-scroll",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-scroll-header/docs/virtual-scroll"
+      },
+      {
+        "title": "Safe Area",
+        "navTitle": "Safe Area",
+        "slug": "safe-area",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-scroll-header/docs/safe-area"
       },
       {
         "title": "API",
@@ -243,11 +292,39 @@ export const PROJECTS_EN = [
     "path": "/projects/ngx-cdk-scroll-strategies",
     "pages": [
       {
-        "title": "@rdlabo/ngx-cdk-scroll-strategies",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/ngx-cdk-scroll-strategies/docs/readme"
+      },
+      {
+        "title": "Simple Usage",
+        "navTitle": "Simple Usage",
+        "slug": "simple",
+        "section": "Guides",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/simple"
+      },
+      {
+        "title": "Advanced Usage",
+        "navTitle": "Advanced Usage",
+        "slug": "advanced",
+        "section": "Guides",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/advanced"
+      },
+      {
+        "title": "Reverse Scroll",
+        "navTitle": "Reverse Scroll",
+        "slug": "reverse",
+        "section": "Guides",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/reverse"
+      },
+      {
+        "title": "FAQ",
+        "navTitle": "FAQ",
+        "slug": "faq",
+        "section": "Guides",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/faq"
       },
       {
         "title": "API",
@@ -289,18 +366,46 @@ export const PROJECTS_EN = [
     "path": "/projects/ionic-theme-ios26",
     "pages": [
       {
-        "title": "@rdlabo/ionic-theme-ios26",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/ionic-theme-ios26/docs/readme"
       },
       {
         "title": "Using ion-item-group",
         "navTitle": "Using ion-item-group",
         "slug": "using-ion-item-group",
-        "section": "Documentation",
+        "section": "Guides",
         "path": "/projects/ionic-theme-ios26/docs/using-ion-item-group"
+      },
+      {
+        "title": "Features",
+        "navTitle": "Features",
+        "slug": "features",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-ios26/docs/features"
+      },
+      {
+        "title": "Experimental Animation",
+        "navTitle": "Experimental Animation",
+        "slug": "experimental-animation",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-ios26/docs/experimental-animation"
+      },
+      {
+        "title": "iOS 18",
+        "navTitle": "iOS 18",
+        "slug": "ios-18",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-ios26/docs/ios-18"
+      },
+      {
+        "title": "Migration",
+        "navTitle": "Migration",
+        "slug": "migration",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-ios26/docs/migration"
       },
       {
         "title": "API",
@@ -342,8 +447,8 @@ export const PROJECTS_EN = [
     "path": "/projects/ionic-theme-md3",
     "pages": [
       {
-        "title": "@rdlabo/ionic-theme-md3",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
         "section": "Documentation",
         "path": "/projects/ionic-theme-md3/docs/readme"
@@ -388,11 +493,39 @@ export const PROJECTS_EN = [
     "path": "/projects/ionic-angular-collect-icons",
     "pages": [
       {
-        "title": "Ionic Angular Collect Icons",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/ionic-angular-collect-icons/docs/readme"
+      },
+      {
+        "title": "Initialize",
+        "navTitle": "Initialize",
+        "slug": "initialize",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-collect-icons/docs/initialize"
+      },
+      {
+        "title": "Usage",
+        "navTitle": "Usage",
+        "slug": "usage",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-collect-icons/docs/usage"
+      },
+      {
+        "title": "CLI Options",
+        "navTitle": "CLI Options",
+        "slug": "options",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-collect-icons/docs/options"
+      },
+      {
+        "title": "FAQ",
+        "navTitle": "FAQ",
+        "slug": "faq",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-collect-icons/docs/faq"
       },
       {
         "title": "CLI API",
@@ -1003,8 +1136,15 @@ export const PROJECTS_EN = [
     "path": "/projects/capacitor-admob",
     "pages": [
       {
-        "title": "Configuration",
-        "navTitle": "Configuration",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
+        "slug": "readme",
+        "section": "Quickstart",
+        "path": "/projects/capacitor-admob/docs/readme"
+      },
+      {
+        "title": "Initialize",
+        "navTitle": "Initialize",
         "slug": "configuration",
         "section": "Quickstart",
         "path": "/projects/capacitor-admob/docs/configuration"
@@ -1024,11 +1164,18 @@ export const PROJECTS_EN = [
         "path": "/projects/capacitor-admob/docs/banner"
       },
       {
-        "title": "Full-screen Ads",
-        "navTitle": "Full-screen Ads",
-        "slug": "full-screen-ads",
+        "title": "Interstitial Ads",
+        "navTitle": "Interstitial Ads",
+        "slug": "interstitial",
         "section": "Ad formats",
-        "path": "/projects/capacitor-admob/docs/full-screen-ads"
+        "path": "/projects/capacitor-admob/docs/interstitial"
+      },
+      {
+        "title": "Rewarded Ads",
+        "navTitle": "Rewarded Ads",
+        "slug": "rewarded",
+        "section": "Ad formats",
+        "path": "/projects/capacitor-admob/docs/rewarded"
       },
       {
         "title": "App Open Ads",
@@ -1050,6 +1197,13 @@ export const PROJECTS_EN = [
         "slug": "testing",
         "section": "Guides",
         "path": "/projects/capacitor-admob/docs/testing"
+      },
+      {
+        "title": "Migration",
+        "navTitle": "Migration",
+        "slug": "migration",
+        "section": "Guides",
+        "path": "/projects/capacitor-admob/docs/migration"
       },
       {
         "title": "API",
@@ -1091,11 +1245,18 @@ export const PROJECTS_EN = [
     "path": "/projects/capacitor-codescanner",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-codescanner",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/capacitor-codescanner/docs/readme"
+      },
+      {
+        "title": "CodeScanner",
+        "navTitle": "CodeScanner",
+        "slug": "code-scanner",
+        "section": "Guides",
+        "path": "/projects/capacitor-codescanner/docs/code-scanner"
       },
       {
         "title": "API",
@@ -1137,11 +1298,18 @@ export const PROJECTS_EN = [
     "path": "/projects/capacitor-screenshot-event",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-screenshot-event",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/capacitor-screenshot-event/docs/readme"
+      },
+      {
+        "title": "ScreenshotEvent",
+        "navTitle": "ScreenshotEvent",
+        "slug": "screenshot-event",
+        "section": "Guides",
+        "path": "/projects/capacitor-screenshot-event/docs/screenshot-event"
       },
       {
         "title": "API",
@@ -1183,11 +1351,25 @@ export const PROJECTS_EN = [
     "path": "/projects/capacitor-printer",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-printer",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/capacitor-printer/docs/readme"
+      },
+      {
+        "title": "PDF",
+        "navTitle": "PDF",
+        "slug": "pdf",
+        "section": "Guides",
+        "path": "/projects/capacitor-printer/docs/pdf"
+      },
+      {
+        "title": "Web",
+        "navTitle": "Web",
+        "slug": "web",
+        "section": "Guides",
+        "path": "/projects/capacitor-printer/docs/web"
       },
       {
         "title": "API",
@@ -1229,11 +1411,39 @@ export const PROJECTS_EN = [
     "path": "/projects/capacitor-brotherprint",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-brotherprint",
-        "navTitle": "README",
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
         "slug": "readme",
-        "section": "Documentation",
+        "section": "Quickstart",
         "path": "/projects/capacitor-brotherprint/docs/readme"
+      },
+      {
+        "title": "Installation",
+        "navTitle": "Installation",
+        "slug": "installation",
+        "section": "Guides",
+        "path": "/projects/capacitor-brotherprint/docs/installation"
+      },
+      {
+        "title": "Search",
+        "navTitle": "Search",
+        "slug": "search",
+        "section": "Guides",
+        "path": "/projects/capacitor-brotherprint/docs/search"
+      },
+      {
+        "title": "Print",
+        "navTitle": "Print",
+        "slug": "print",
+        "section": "Guides",
+        "path": "/projects/capacitor-brotherprint/docs/print"
+      },
+      {
+        "title": "Events",
+        "navTitle": "Events",
+        "slug": "events",
+        "section": "Guides",
+        "path": "/projects/capacitor-brotherprint/docs/events"
       },
       {
         "title": "API",
@@ -1356,11 +1566,39 @@ export const PROJECTS_JA = [
     "path": "/projects/ionic-angular-photo-editor",
     "pages": [
       {
-        "title": "@rdlabo/ionic-angular-photo-editor",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/ionic-angular-photo-editor/docs/readme"
+      },
+      {
+        "title": "テーマ",
+        "navTitle": "テーマ",
+        "slug": "theme",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-photo-editor/docs/theme"
+      },
+      {
+        "title": "PhotoFileService",
+        "navTitle": "PhotoFileService",
+        "slug": "photo-file",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-photo-editor/docs/photo-file"
+      },
+      {
+        "title": "Photo Editor",
+        "navTitle": "Photo Editor",
+        "slug": "editor",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-photo-editor/docs/editor"
+      },
+      {
+        "title": "Photo Viewer",
+        "navTitle": "Photo Viewer",
+        "slug": "viewer",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-photo-editor/docs/viewer"
       },
       {
         "title": "API",
@@ -1402,11 +1640,32 @@ export const PROJECTS_JA = [
     "path": "/projects/ionic-angular-scroll-header",
     "pages": [
       {
-        "title": "@rdlabo/ionic-angular-scroll-header",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/ionic-angular-scroll-header/docs/readme"
+      },
+      {
+        "title": "IonContent",
+        "navTitle": "IonContent",
+        "slug": "ion-content",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-scroll-header/docs/ion-content"
+      },
+      {
+        "title": "Virtual Scroll",
+        "navTitle": "Virtual Scroll",
+        "slug": "virtual-scroll",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-scroll-header/docs/virtual-scroll"
+      },
+      {
+        "title": "Safe Area",
+        "navTitle": "Safe Area",
+        "slug": "safe-area",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-scroll-header/docs/safe-area"
       },
       {
         "title": "API",
@@ -1448,11 +1707,39 @@ export const PROJECTS_JA = [
     "path": "/projects/ngx-cdk-scroll-strategies",
     "pages": [
       {
-        "title": "@rdlabo/ngx-cdk-scroll-strategies",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/ngx-cdk-scroll-strategies/docs/readme"
+      },
+      {
+        "title": "シンプルな使い方",
+        "navTitle": "シンプルな使い方",
+        "slug": "simple",
+        "section": "ガイド",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/simple"
+      },
+      {
+        "title": "応用的な使い方",
+        "navTitle": "応用的な使い方",
+        "slug": "advanced",
+        "section": "ガイド",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/advanced"
+      },
+      {
+        "title": "リバーススクロール",
+        "navTitle": "リバーススクロール",
+        "slug": "reverse",
+        "section": "ガイド",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/reverse"
+      },
+      {
+        "title": "FAQ",
+        "navTitle": "FAQ",
+        "slug": "faq",
+        "section": "ガイド",
+        "path": "/projects/ngx-cdk-scroll-strategies/docs/faq"
       },
       {
         "title": "API",
@@ -1494,18 +1781,46 @@ export const PROJECTS_JA = [
     "path": "/projects/ionic-theme-ios26",
     "pages": [
       {
-        "title": "@rdlabo/ionic-theme-ios26",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/ionic-theme-ios26/docs/readme"
       },
       {
         "title": "ion-item-groupの使用方法",
         "navTitle": "ion-item-groupの使用方法",
         "slug": "using-ion-item-group",
-        "section": "ドキュメント",
+        "section": "ガイド",
         "path": "/projects/ionic-theme-ios26/docs/using-ion-item-group"
+      },
+      {
+        "title": "機能",
+        "navTitle": "機能",
+        "slug": "features",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-ios26/docs/features"
+      },
+      {
+        "title": "実験的なアニメーション",
+        "navTitle": "実験的なアニメーション",
+        "slug": "experimental-animation",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-ios26/docs/experimental-animation"
+      },
+      {
+        "title": "iOS 18",
+        "navTitle": "iOS 18",
+        "slug": "ios-18",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-ios26/docs/ios-18"
+      },
+      {
+        "title": "移行",
+        "navTitle": "移行",
+        "slug": "migration",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-ios26/docs/migration"
       },
       {
         "title": "API",
@@ -1547,8 +1862,8 @@ export const PROJECTS_JA = [
     "path": "/projects/ionic-theme-md3",
     "pages": [
       {
-        "title": "@rdlabo/ionic-theme-md3",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
         "section": "ドキュメント",
         "path": "/projects/ionic-theme-md3/docs/readme"
@@ -1593,11 +1908,39 @@ export const PROJECTS_JA = [
     "path": "/projects/ionic-angular-collect-icons",
     "pages": [
       {
-        "title": "Ionic Angular Collect Icons",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/ionic-angular-collect-icons/docs/readme"
+      },
+      {
+        "title": "初期化",
+        "navTitle": "初期化",
+        "slug": "initialize",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-collect-icons/docs/initialize"
+      },
+      {
+        "title": "使い方",
+        "navTitle": "使い方",
+        "slug": "usage",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-collect-icons/docs/usage"
+      },
+      {
+        "title": "CLI オプション",
+        "navTitle": "CLI オプション",
+        "slug": "options",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-collect-icons/docs/options"
+      },
+      {
+        "title": "FAQ",
+        "navTitle": "FAQ",
+        "slug": "faq",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-collect-icons/docs/faq"
       },
       {
         "title": "CLI API",
@@ -2208,8 +2551,15 @@ export const PROJECTS_JA = [
     "path": "/projects/capacitor-admob",
     "pages": [
       {
-        "title": "設定",
-        "navTitle": "設定",
+        "title": "はじめに",
+        "navTitle": "はじめに",
+        "slug": "readme",
+        "section": "クイックスタート",
+        "path": "/projects/capacitor-admob/docs/readme"
+      },
+      {
+        "title": "初期化",
+        "navTitle": "初期化",
         "slug": "configuration",
         "section": "クイックスタート",
         "path": "/projects/capacitor-admob/docs/configuration"
@@ -2229,11 +2579,18 @@ export const PROJECTS_JA = [
         "path": "/projects/capacitor-admob/docs/banner"
       },
       {
-        "title": "フルスクリーン広告",
-        "navTitle": "フルスクリーン広告",
-        "slug": "full-screen-ads",
+        "title": "インタースティシャル広告",
+        "navTitle": "インタースティシャル広告",
+        "slug": "interstitial",
         "section": "広告フォーマット",
-        "path": "/projects/capacitor-admob/docs/full-screen-ads"
+        "path": "/projects/capacitor-admob/docs/interstitial"
+      },
+      {
+        "title": "リワード広告",
+        "navTitle": "リワード広告",
+        "slug": "rewarded",
+        "section": "広告フォーマット",
+        "path": "/projects/capacitor-admob/docs/rewarded"
       },
       {
         "title": "アプリ起動時広告",
@@ -2255,6 +2612,13 @@ export const PROJECTS_JA = [
         "slug": "testing",
         "section": "ガイド",
         "path": "/projects/capacitor-admob/docs/testing"
+      },
+      {
+        "title": "移行",
+        "navTitle": "移行",
+        "slug": "migration",
+        "section": "ガイド",
+        "path": "/projects/capacitor-admob/docs/migration"
       },
       {
         "title": "API",
@@ -2296,11 +2660,18 @@ export const PROJECTS_JA = [
     "path": "/projects/capacitor-codescanner",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-codescanner",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/capacitor-codescanner/docs/readme"
+      },
+      {
+        "title": "CodeScanner",
+        "navTitle": "CodeScanner",
+        "slug": "code-scanner",
+        "section": "ガイド",
+        "path": "/projects/capacitor-codescanner/docs/code-scanner"
       },
       {
         "title": "API",
@@ -2342,11 +2713,18 @@ export const PROJECTS_JA = [
     "path": "/projects/capacitor-screenshot-event",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-screenshot-event",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/capacitor-screenshot-event/docs/readme"
+      },
+      {
+        "title": "ScreenshotEvent",
+        "navTitle": "ScreenshotEvent",
+        "slug": "screenshot-event",
+        "section": "ガイド",
+        "path": "/projects/capacitor-screenshot-event/docs/screenshot-event"
       },
       {
         "title": "API",
@@ -2388,11 +2766,25 @@ export const PROJECTS_JA = [
     "path": "/projects/capacitor-printer",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-printer",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/capacitor-printer/docs/readme"
+      },
+      {
+        "title": "PDF",
+        "navTitle": "PDF",
+        "slug": "pdf",
+        "section": "ガイド",
+        "path": "/projects/capacitor-printer/docs/pdf"
+      },
+      {
+        "title": "Web",
+        "navTitle": "Web",
+        "slug": "web",
+        "section": "ガイド",
+        "path": "/projects/capacitor-printer/docs/web"
       },
       {
         "title": "API",
@@ -2434,11 +2826,39 @@ export const PROJECTS_JA = [
     "path": "/projects/capacitor-brotherprint",
     "pages": [
       {
-        "title": "@rdlabo/capacitor-brotherprint",
-        "navTitle": "README",
+        "title": "はじめに",
+        "navTitle": "はじめに",
         "slug": "readme",
-        "section": "ドキュメント",
+        "section": "クイックスタート",
         "path": "/projects/capacitor-brotherprint/docs/readme"
+      },
+      {
+        "title": "インストール",
+        "navTitle": "インストール",
+        "slug": "installation",
+        "section": "ガイド",
+        "path": "/projects/capacitor-brotherprint/docs/installation"
+      },
+      {
+        "title": "Search",
+        "navTitle": "Search",
+        "slug": "search",
+        "section": "ガイド",
+        "path": "/projects/capacitor-brotherprint/docs/search"
+      },
+      {
+        "title": "Print",
+        "navTitle": "Print",
+        "slug": "print",
+        "section": "ガイド",
+        "path": "/projects/capacitor-brotherprint/docs/print"
+      },
+      {
+        "title": "Events",
+        "navTitle": "Events",
+        "slug": "events",
+        "section": "ガイド",
+        "path": "/projects/capacitor-brotherprint/docs/events"
       },
       {
         "title": "API",
