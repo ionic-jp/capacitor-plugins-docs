@@ -1,10 +1,12 @@
 ---
-title: ScreenshotEvent
+title: 'ScreenshotEvent'
 code: []
 scrollActiveLine: []
 ---
 
-`ScreenshotEvent` はスクリーンショットを監視します。[インストール](/docs/readme#インストール) のあとで呼び出します。最初のスクリーンショットを取りこぼさないよう、`startWatchEvent` より前に `addListener` を登録します。
+# ScreenshotEvent
+
+`ScreenshotEvent` watches for screenshot activity. Call this after [Installation](/docs/readme#installation). Register `addListener` before `startWatchEvent` so the first screenshot is not missed.
 
 ## addListener
 
@@ -18,9 +20,9 @@ const handle = await ScreenshotEvent.addListener('userDidTakeScreenshot', () => 
 await handle.remove();
 ```
 
-!::addListener::
+<!-- !::addListener:: -->
 
-!::PluginListenerHandle::
+<!-- !::PluginListenerHandle:: -->
 
 ## startWatchEvent
 
@@ -34,7 +36,7 @@ ScreenshotEvent.addListener('userDidTakeScreenshot', () => {
 ScreenshotEvent.startWatchEvent();
 ```
 
-!::startWatchEvent::
+<!-- !::startWatchEvent:: -->
 
 ## removeWatchEvent
 
@@ -44,4 +46,4 @@ import { ScreenshotEvent } from '@rdlabo/capacitor-screenshot-event';
 ScreenshotEvent.removeWatchEvent();
 ```
 
-!::removeWatchEvent::
+<!-- !::removeWatchEvent:: -->

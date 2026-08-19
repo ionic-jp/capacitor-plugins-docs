@@ -22,6 +22,10 @@ const handle = await AdMob.addListener(BannerAdPluginEvents.Loaded, () => {
 await handle.remove();
 ```
 
+!::addListener::
+
+!::PluginListenerHandle::
+
 ## 共通のライフサイクルイベント
 
 | イベント                  | 発行されるとき                                           |
@@ -37,11 +41,15 @@ await handle.remove();
 
 ## エラー
 
-`FailedToLoad` と `FailedToShow` のリスナーは [`AdMobError`](/docs/api#interface-admoberror) を受け取ります。
+`FailedToLoad` と `FailedToShow` のリスナーは `AdMobError` ペイロードを受け取ります。
+
+!::AdMobError::
 
 ## インプレッション単位の売上
 
-フルスクリーン形式は `AdImpression` で [`AdMobRevenueData`](/docs/api#interface-admobrevenuedata) を出します。バナーは同じペイロードを `AdPaid` で出します。バナーの `AdImpression` にペイロードはなく、インプレッションが記録されたことだけを知らせます。
+フルスクリーン形式は `AdImpression` で `AdMobRevenueData` を出します。バナーは同じペイロードを `AdPaid` で出します。バナーの `AdImpression` にペイロードはなく、インプレッションが記録されたことだけを知らせます。
+
+!::AdMobRevenueData::
 
 ## 形式ごとのガイド
 
@@ -50,4 +58,12 @@ await handle.remove();
 - [インタースティシャル広告](/docs/interstitial)
 - [リワード広告](/docs/rewarded)
 
-メソッドと enum のシグネチャは [API リファレンス](/docs/api) にあります。
+!::AppOpenAdPluginEvents::
+
+!::BannerAdPluginEvents::
+
+!::InterstitialAdPluginEvents::
+
+!::RewardAdPluginEvents::
+
+!::RewardInterstitialAdPluginEvents::

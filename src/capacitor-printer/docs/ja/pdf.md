@@ -18,4 +18,8 @@ try {
 }
 ```
 
-Android はファイルパス、`file://` URL、`content://` URL に対応します。iOS はファイルパスとローカル `file://` URL です。`mimeType` は Android のみです。シグネチャは [API](/docs/api#printfile) ページにあります。
+Android はファイルパス、`file://` URL、`content://` URL に対応します。iOS はファイルパスとローカル `file://` URL です。`mimeType` は Android のみです。
+
+!::printFile::
+
+!::PrintFileOptions::

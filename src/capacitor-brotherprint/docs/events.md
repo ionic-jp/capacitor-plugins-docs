@@ -1,10 +1,12 @@
 ---
-title: Events
+title: 'Events'
 code: []
 scrollActiveLine: []
 ---
 
-見つかったプリンターと印刷結果を受け取ります。最初のイベントを取りこぼさないよう、[Search](/docs/search) と [Print](/docs/print) より前にリスナーを登録します。
+# Events
+
+Listen for discovered printers and print results. Register listeners before [Search](/docs/search) and [Print](/docs/print) so the first events are not missed.
 
 ```typescript
 import type { PluginListenerHandle } from '@capacitor/core';
@@ -40,21 +42,21 @@ const removePrintListeners = async () => {
 };
 ```
 
-| イベント                     | 発行されるとき                   |
-| ---------------------------- | -------------------------------- |
-| `onPrinterAvailable`         | 接続できるプリンターが見つかった |
-| `onPrint`                    | 印刷が成功した                   |
-| `onPrintFailedCommunication` | プリンターに到達できなかった     |
-| `onPrintError`               | 印刷が失敗した                   |
+| Event                        | When it fires                        |
+| ---------------------------- | ------------------------------------ |
+| `onPrinterAvailable`         | A printer that can connect was found |
+| `onPrint`                    | Print succeeded                      |
+| `onPrintFailedCommunication` | The printer could not be reached     |
+| `onPrintError`               | Print failed                         |
 
-完全なページはデモを見てください:
+See the demo for a complete page:
 
 https://github.com/rdlabo-dev/capacitor-brotherprint/blob/v8.1.1/demo/src/app/home/home.page.ts
 
-!::addListener::
+<!-- !::addListener:: -->
 
-!::BrotherPrintEventsEnum::
+<!-- !::BrotherPrintEventsEnum:: -->
 
-!::PluginListenerHandle::
+<!-- !::PluginListenerHandle:: -->
 
-!::ErrorInfo::
+<!-- !::ErrorInfo:: -->

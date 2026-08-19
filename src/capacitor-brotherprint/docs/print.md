@@ -1,10 +1,12 @@
 ---
-title: Print
+title: 'Print'
 code: []
 scrollActiveLine: []
 ---
 
-`printImage` は base64 画像を Brother プリンターへ送ります。[インストール](/docs/readme#インストール) のあとで呼び出します。プリンターの探索は [Search](/docs/search)、印刷結果は [Events](/docs/events) です。
+# Print
+
+`printImage` sends a base64 image to a Brother printer. Call this after [Installation](/docs/readme#installation). Discover printers with [Search](/docs/search) and register [Events](/docs/events) for print results.
 
 ```typescript
 import {
@@ -30,10 +32,10 @@ const printImage = async () => {
 };
 ```
 
-`port` と `channelInfo` は `onPrinterAvailable` の結果から取ります。完全なページはデモを見てください:
+`port` and `channelInfo` come from an `onPrinterAvailable` result. See the demo for a complete page:
 
 https://github.com/rdlabo-dev/capacitor-brotherprint/blob/v8.1.1/demo/src/app/home/home.page.ts
 
-!::printImage::
+<!-- !::printImage:: -->
 
-!::BRLMPrintOptions::
+<!-- !::BRLMPrintOptions:: -->

@@ -25,6 +25,10 @@ await AdMob.initialize({
 });
 ```
 
+!::initialize::
+
+!::AdMobInitializationOptions::
+
 デバイス ID は、最初の広告リクエスト後のネイティブログに出ます。
 
 - Android: Logcat の `Ads` タグ（`Use RequestConfiguration.Builder.setTestDeviceIds(...)`）。
@@ -44,6 +48,12 @@ const consentInfo = await AdMob.requestConsentInfo({
   testDeviceIdentifiers: ['YOUR_TEST_DEVICE_ID'],
 });
 ```
+
+!::requestConsentInfo::
+
+!::AdmobConsentRequestOptions::
+
+!::AdmobConsentDebugGeography::
 
 テスト用フォームで同意を拒否する（Manage → Confirm Choices）と、広告がロードされないことがあります。テスト環境では想定どおりで、本番でユーザーが同意したあとの挙動を示すものではありません。
 

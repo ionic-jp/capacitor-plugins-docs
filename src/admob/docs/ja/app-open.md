@@ -42,7 +42,13 @@ if (isLoaded) {
 }
 ```
 
-リクエストのフィールドは [`AppOpenAdOptions`](/docs/api#interface-appopenadoptions) に定義されています。
+!::loadAppOpen::
+
+!::isAppOpenLoaded::
+
+!::showAppOpen::
+
+!::AppOpenAdOptions::
 
 `isTesting` はありません。開発中は `adId` に Google の [アプリ起動時デモ広告ユニット](https://developers.google.com/admob/android/test-ads#demo_ad_units) を指定します。
 

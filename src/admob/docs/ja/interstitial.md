@@ -35,6 +35,12 @@ const { adUnitId } = await AdMob.prepareInterstitial(options);
 await AdMob.showInterstitial({ adId: adUnitId });
 ```
 
+!::prepareInterstitial::
+
+!::showInterstitial::
+
+!::AdOptions::
+
 `showInterstitial()` に `adId` を渡さないと、最後に準備した広告を表示します。
 
 ## 複数の広告を準備する
@@ -46,6 +52,6 @@ await AdMob.prepareInterstitial({ adId: 'ca-app-pub-xxx/interstitial-2' });
 await AdMob.showInterstitial({ adId: 'ca-app-pub-xxx/interstitial-1' });
 ```
 
-リクエストのフィールドは [`AdOptions`](/docs/api#interface-adoptions) に定義されています。`isTesting` は [テスト](/docs/testing) を参照してください。
+`isTesting` は [テスト](/docs/testing) を参照してください。
 
 ロード、表示、閉じる操作、失敗のイベントは [広告イベント](/docs/events) にあります。

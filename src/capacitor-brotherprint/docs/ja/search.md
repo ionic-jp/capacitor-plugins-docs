@@ -19,7 +19,11 @@ await BrotherPrint.search({
 });
 ```
 
-`searchDuration` は `wifi` と `bluetoothLowEnergy` で使います。`usb` は Android のみです。見つからない場合はエラーにはならず、プリンターも届きません。シグネチャは [API](/docs/api#brlmsearchoption) ページにあります。
+`searchDuration` は `wifi` と `bluetoothLowEnergy` で使います。`usb` は Android のみです。見つからない場合はエラーにはならず、プリンターも届きません。
+
+!::search::
+
+!::BRLMSearchOption::
 
 ## isChannelAvailable
 
@@ -40,7 +44,11 @@ const checkChannel = async (lastPrinter: BRLMChannelResult) => {
 };
 ```
 
-シグネチャは [API](/docs/api#ischannelavailableresult) ページにあります。
+!::isChannelAvailable::
+
+!::isChannelAvailableResult::
+
+!::BRLMChannelResult::
 
 ## cancelSearchWiFiPrinter / cancelSearchBluetoothPrinter
 
@@ -52,3 +60,7 @@ import { BrotherPrint } from '@rdlabo/capacitor-brotherprint';
 await BrotherPrint.cancelSearchWiFiPrinter();
 await BrotherPrint.cancelSearchBluetoothPrinter();
 ```
+
+!::cancelSearchWiFiPrinter::
+
+!::cancelSearchBluetoothPrinter::

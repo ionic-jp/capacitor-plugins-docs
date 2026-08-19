@@ -30,6 +30,16 @@ if (consentInfo.canRequestAds) {
 }
 ```
 
+!::requestConsentInfo::
+
+!::AdmobConsentRequestOptions::
+
+!::AdmobConsentInfo::
+
+!::AdmobConsentStatus::
+
+!::showConsentForm::
+
 広告リクエスト可否の判定には `canRequestAds` を使います。設定したメッセージとユーザーによっては、同意フォームが不要または利用できないことがあります。
 
 ## iOS のトラッキング許可
@@ -49,6 +59,12 @@ if (tracking.status === 'notDetermined') {
 
 `requestTrackingAuthorization()` は Android、Web、iOS 14 未満では何もしません。
 
+!::trackingAuthorizationStatus::
+
+!::TrackingAuthorizationStatusInterface::
+
+!::requestTrackingAuthorization::
+
 ## プライバシーオプション
 
 プライバシーメッセージがアプリ内の入口を必要とする場合は、設定画面などから次を呼び出せるようにします。
@@ -57,8 +73,12 @@ if (tracking.status === 'notDetermined') {
 await AdMob.showPrivacyOptionsForm();
 ```
 
+!::showPrivacyOptionsForm::
+
 ## 同意のリセット
 
 `resetConsentInfo()` はテスト用です。本番ユーザーの同意選択の消去に使わないでください。
+
+!::resetConsentInfo::
 
 デバッグ用の地域設定とテストデバイス ID は [テスト](/docs/testing) を参照してください。

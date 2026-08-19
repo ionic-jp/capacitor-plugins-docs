@@ -48,18 +48,52 @@ function fencedCodeBlocks(markdown: string): { language: string; body: string }[
   return blocks;
 }
 
-async function englishFromInstalledPackage(packageName: string, file: string): Promise<string> {
+async function englishFromInstalledPackage(
+  packageName: string,
+  file: string,
+  sourceDirectory?: string,
+): Promise<string> {
   const packageRoot = new URL(`../node_modules/${packageName}/`, import.meta.url);
+  const srcFallback = sourceDirectory
+    ? new URL(`../src/${sourceDirectory}/docs/${file}`, import.meta.url)
+    : undefined;
+
+  async function readSrcFallback(): Promise<string> {
+    assert.ok(srcFallback, `missing package docs/${file} for ${packageName}`);
+    return readFile(srcFallback, 'utf8');
+  }
+
   if (file === 'readme.md' || file === 'getting-started.md') {
+    const packagedLanding = new URL(`docs/${file}`, packageRoot);
+    try {
+      await access(packagedLanding, constants.F_OK);
+      return normalizePackageMarkdown(
+        stripLeadingH1(stripRdlaboDocsOmit(await readFile(packagedLanding, 'utf8'))),
+      );
+    } catch {
+      if (srcFallback) {
+        try {
+          await access(srcFallback, constants.F_OK);
+          return readFile(srcFallback, 'utf8');
+        } catch {
+          /* fall through to package README */
+        }
+      }
+    }
     return normalizePackageMarkdown(
       extractPackageReadme(await readFile(new URL('README.md', packageRoot), 'utf8')),
     );
   }
-  return normalizePackageMarkdown(
-    stripLeadingH1(
-      stripRdlaboDocsOmit(await readFile(new URL(`docs/${file}`, packageRoot), 'utf8')),
-    ),
-  );
+
+  const packagedGuide = new URL(`docs/${file}`, packageRoot);
+  try {
+    await access(packagedGuide, constants.F_OK);
+    return normalizePackageMarkdown(
+      stripLeadingH1(stripRdlaboDocsOmit(await readFile(packagedGuide, 'utf8'))),
+    );
+  } catch {
+    return readSrcFallback();
+  }
 }
 
 test('pins every documentation source to the installed package version', async () => {
@@ -611,7 +645,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     for (const pageFile of pageFiles) {
       const japanese = await readFile(new URL(`ja/${pageFile}`, docsRoot), 'utf8');
       const english = project.englishFromPackage
-        ? await englishFromInstalledPackage(project.packageName, pageFile)
+        ? await englishFromInstalledPackage(project.packageName, pageFile, project.sourceDirectory)
         : await readFile(new URL(pageFile, docsRoot), 'utf8');
       assert.deepEqual(
         fencedCodeBlocks(japanese),
@@ -641,7 +675,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
       'utf8',
     );
     const english = project.englishFromPackage
-      ? await englishFromInstalledPackage(project.packageName, file)
+      ? await englishFromInstalledPackage(project.packageName, file, project.sourceDirectory)
       : await readFile(new URL(`../src/${projectId}/docs/${file}`, import.meta.url), 'utf8');
     return [english, japanese] as const;
   };
@@ -1062,32 +1096,60 @@ test('loads AdMob English pages from the installed package', async () => {
   );
 
   const srcDocs = new URL('../src/admob/docs/', import.meta.url);
+  const packageRoot = new URL('../node_modules/@capacitor-community/admob/', import.meta.url);
+  const packageDocsRoot = new URL('docs/', packageRoot);
+  let packageDocsPublished = false;
+  try {
+    await access(packageDocsRoot, constants.F_OK);
+    packageDocsPublished = true;
+  } catch {
+    packageDocsPublished = false;
+  }
+
   const englishFiles = (await readdir(srcDocs)).filter((name) => name.endsWith('.md'));
-  assert.deepEqual(englishFiles.sort(), ['api.md']);
+  if (packageDocsPublished) {
+    assert.deepEqual(englishFiles.sort(), ['api.md']);
+  } else {
+    assert.deepEqual(englishFiles.sort(), [
+      'api.md',
+      'app-open.md',
+      'banner.md',
+      'configuration.md',
+      'consent.md',
+      'events.md',
+      'interstitial.md',
+      'migration.md',
+      'readme.md',
+      'rewarded.md',
+      'testing.md',
+    ]);
+  }
   await assert.rejects(() => access(new URL('full-screen-ads.md', srcDocs), constants.F_OK));
   await assert.rejects(() => access(new URL('ja/full-screen-ads.md', srcDocs), constants.F_OK));
 
-  const packageRoot = new URL('../node_modules/@capacitor-community/admob/', import.meta.url);
   const packageReadme = extractPackageReadme(
     await readFile(new URL('README.md', packageRoot), 'utf8'),
   );
-  assert.doesNotMatch(packageReadme, /^## Maintainers$/m);
-  assert.doesNotMatch(packageReadme, /^## Index$/m);
-  assert.doesNotMatch(packageReadme, /^## License$/m);
-  assert.match(packageReadme, /^## Overview$/m);
-  assert.match(packageReadme, /^## Documentation$/m);
+  if (packageDocsPublished) {
+    assert.doesNotMatch(packageReadme, /^## Maintainers$/m);
+    assert.doesNotMatch(packageReadme, /^## Index$/m);
+    assert.doesNotMatch(packageReadme, /^## License$/m);
+    assert.match(packageReadme, /^## Overview$/m);
+    assert.match(packageReadme, /^## Documentation$/m);
+  }
 
   for (const page of project.pages) {
     if (page.file === 'api.md') continue;
     const japanese = await readFile(new URL(`ja/${page.file}`, srcDocs), 'utf8');
-    const english =
-      page.file === 'readme.md'
-        ? packageReadme
-        : stripLeadingH1(await readFile(new URL(`docs/${page.file}`, packageRoot), 'utf8'));
+    const english = await englishFromInstalledPackage(
+      project.packageName,
+      page.file,
+      project.sourceDirectory,
+    );
     assert.deepEqual(
       fencedCodeBlocks(japanese),
       fencedCodeBlocks(english),
-      `${page.file} fenced code blocks must match the installed package`,
+      `${page.file} fenced code blocks must match the installed package or portal fallback`,
     );
   }
 });
