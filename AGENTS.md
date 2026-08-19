@@ -44,10 +44,10 @@ This pattern is used for `capacitor-codescanner`, `capacitor-printer`, `capacito
 
 The `adapter` field controls whether the generator loads the installed package's `dist/docs.json`.
 
-- If the package does **not** publish `dist/docs.json` (for example Angular libraries, Workers Hono Kit, ESLint plugin, Capacitor Docgen), set `adapter: 'markdown'` and hand-author the docs. `!::...::` placeholders are not available with this adapter; the `api.md` must use semantic headings.
-- If the package **does** publish `dist/docs.json` (for example `@capacitor-community/stripe`, `@capacitor-community/admob`):
+- If the package does **not** publish `dist/docs.json` (for example Angular libraries, Workers Hono Kit, ESLint plugin, Capacitor Docgen), set `adapter: 'markdown'` and hand-author the docs. `!::...::` placeholders are not available without `dist/docs.json`; the `api.md` must use semantic headings.
+- If the package **does** publish `dist/docs.json` (for example `@capacitor-community/stripe`, `@capacitor-community/admob`, rdlabo Capacitor plugins):
   - Leave `adapter` unset when you want to author multiple guide pages in `rdlabo-docs` and use `!::...::` placeholders in guide or `api.md` pages.
-  - Set `adapter: 'markdown'` when the project is a rdlabo Capacitor plugin whose API comes from `<docgen-index>` / `<docgen-api>` in `readme.md`. Grouping object pages are separate files; `!::...::` placeholders are not used.
+  - Set `adapter: 'markdown'` when the project is a rdlabo Capacitor plugin whose API page comes from `<docgen-index>` / `<docgen-api>` in `readme.md`. Grouping object pages still use `!::...::` placeholders; the generator loads `dist/docs.json` whenever that file exists.
   - Set `englishFromPackage: true` when English pages should be generated from the installed package rather than `src/{project}/docs/`. `@capacitor-community/admob` uses this: English `readme.md` comes from the package `README.md` and other English guides come from package `docs/*.md`. Do not copy those English files into `src/admob/docs/`. Japanese stays in `src/{project}/docs/ja/`. `api.md` stays hand-authored with `!::...::` placeholders when the portal API is not the README docgen block. Do not leave `<docgen-index>` / `<docgen-api>` in a portal `readme.md` for this project, or the generator would also emit a duplicate API page.
 
 ## Package README omit blocks

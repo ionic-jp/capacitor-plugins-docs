@@ -1,10 +1,12 @@
 ---
-title: CodeScanner
+title: 'CodeScanner'
 code: []
 scrollActiveLine: []
 ---
 
-`CodeScanner` はネイティブのスキャナーモーダルを開き、スキャン結果を届けます。[インストール](/docs/readme#インストール) のあとで呼び出します。最初の検出を取りこぼさないよう、`present` より前に `addListener` を登録します。
+# CodeScanner
+
+`CodeScanner` opens a native scanner modal and delivers scanned values. Call this after [Installation](/docs/readme#installation). Register `addListener` before `present` so the first catch is not missed.
 
 ## present
 
@@ -38,13 +40,13 @@ const scanMultipleCodes = async () => {
 };
 ```
 
-`isMulti: true` だとモーダルを開いたまま複数コードをスキャンできます。
+`isMulti: true` keeps the modal open so you can scan many codes.
 
-!::present::
+<!-- !::present:: -->
 
-!::ScannerOption::
+<!-- !::ScannerOption:: -->
 
-!::MetadataObjectTypes::
+<!-- !::MetadataObjectTypes:: -->
 
 ## addListener
 
@@ -58,6 +60,6 @@ const handle = await CodeScanner.addListener('CodeScannerCatchEvent', (event) =>
 await handle.remove();
 ```
 
-!::addListener::
+<!-- !::addListener:: -->
 
-!::PluginListenerHandle::
+<!-- !::PluginListenerHandle:: -->

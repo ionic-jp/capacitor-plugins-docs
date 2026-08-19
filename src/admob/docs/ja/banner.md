@@ -47,6 +47,14 @@ const options: BannerAdOptions = {
 await AdMob.showBanner(options);
 ```
 
+!::showBanner::
+
+!::BannerAdOptions::
+
+!::BannerAdSize::
+
+!::BannerAdPosition::
+
 ## バナーとコンテンツを重ねない
 
 バナーは WebView の上のネイティブ画面に描画されます。HTML 側のレイアウトは自動では動きません。自分のルート要素を `size.height`（論理ピクセル）だけ空けます。`BOTTOM_CENTER` なら下、`TOP_CENTER` なら上に padding または margin を付けます。
@@ -70,13 +78,19 @@ await AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size) => {
 
 非表示・削除・ロード失敗では高さが `0` になることがあるので、そのときは inset を消します。フレームワークでは、WebView を埋めている要素に同じ考え方を適用します。
 
-リクエストのフィールドは [`BannerAdOptions`](/docs/api#interface-banneradoptions) に定義されています。`isTesting` は [テスト](/docs/testing) を参照してください。
+`isTesting` は [テスト](/docs/testing) を参照してください。
 
 ## ライフサイクル
 
 - `hideBanner()` は現在のバナーを一時的に隠します。
 - `resumeBanner()` は隠したバナーを再表示します。
 - `removeBanner()` はバナーを破棄します。作り直すときは `showBanner()` を呼びます。
+
+!::hideBanner::
+
+!::resumeBanner::
+
+!::removeBanner::
 
 画面を破棄するときはリスナーとバナーを解放します。
 

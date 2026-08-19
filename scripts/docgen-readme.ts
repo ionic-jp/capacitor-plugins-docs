@@ -1,5 +1,5 @@
 const DOCGEN_SECTION =
-  /(?:^#{1,6}[ \t]+API[ \t]*\r?\n[ \t]*\r?\n)?<docgen-index>[ \t]*\r?\n([\s\S]*?)\r?\n[ \t]*<\/docgen-index>[ \t]*\r?\n[ \t]*\r?\n<docgen-api>[ \t]*\r?\n([\s\S]*?)\r?\n[ \t]*<\/docgen-api>/m;
+  /(?:^#{1,6}[ \t]+API[ \t]*\r?\n[ \t]*\r?\n)?<docgen-index>[ \t]*\r?\n([\s\S]*?)\r?\n[ \t]*<\/docgen-index>(?:[ \t]*\r?\n)+(?:^#{1,6}[ \t]+API[ \t]*\r?\n(?:[ \t]*\r?\n)?)?<docgen-api>[ \t]*\r?\n([\s\S]*?)\r?\n[ \t]*<\/docgen-api>/m;
 
 export interface SplitDocgenReadme {
   readme: string;

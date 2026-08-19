@@ -49,6 +49,14 @@ const rewardItem = await AdMob.showRewardVideoAd();
 console.log(rewardItem);
 ```
 
+!::prepareRewardVideoAd::
+
+!::showRewardVideoAd::
+
+!::RewardAdOptions::
+
+!::AdMobRewardItem::
+
 `showRewardVideoAd()` に `adId` を渡さないと、最後に準備した広告を表示します。
 
 ### 複数の広告を準備する
@@ -86,7 +94,15 @@ const rewardItem: AdMobRewardInterstitialItem = await AdMob.showRewardInterstiti
 console.log(rewardItem);
 ```
 
-リクエストのフィールドは [`RewardAdOptions`](/docs/api#interface-rewardadoptions) と [`RewardInterstitialAdOptions`](/docs/api#interface-rewardinterstitialadoptions) に定義されています。`isTesting` は [テスト](/docs/testing) を参照してください。
+!::prepareRewardInterstitialAd::
+
+!::showRewardInterstitialAd::
+
+!::RewardInterstitialAdOptions::
+
+!::AdMobRewardInterstitialItem::
+
+`isTesting` は [テスト](/docs/testing) を参照してください。
 
 ## サーバーサイド検証
 

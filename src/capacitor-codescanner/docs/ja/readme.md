@@ -15,6 +15,42 @@ npm install @rdlabo/capacitor-codescanner
 npx cap sync
 ```
 
+```typescript
+import { CodeScanner } from '@rdlabo/capacitor-codescanner';
+
+// 基本的なQRコードスキャン
+const scanQRCode = async () => {
+  await CodeScanner.addListener('CodeScannerCatchEvent', (event) => {
+    console.log('スキャンされたコード:', event.code);
+  });
+
+  await CodeScanner.present({
+    detectionX: 0.2,
+    detectionY: 0.35,
+    detectionWidth: 0.6,
+    detectionHeight: 0.15,
+    isMulti: false,
+    CodeTypes: ['qr']
+  });
+};
+
+// 複数のバーコードタイプを連続スキャン
+const scanMultipleCodes = async () => {
+  await CodeScanner.addListener('CodeScannerCatchEvent', (event) => {
+    console.log('スキャンされたコード:', event.code);
+  });
+
+  await CodeScanner.present({
+    detectionX: 0.1,
+    detectionY: 0.3,
+    detectionWidth: 0.8,
+    detectionHeight: 0.2,
+    isMulti: true,
+    CodeTypes: ['qr', 'code39', 'ean13', 'code128']
+  });
+};
+```
+
 ## 使い方
 
 モーダルを出してスキャン結果を受け取るには [CodeScanner](/docs/code-scanner) です。

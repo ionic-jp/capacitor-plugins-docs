@@ -294,8 +294,11 @@ async function resolvePageSource(
 
   if (PACKAGE_LANDING_FILES.has(file)) {
     const packagedLanding = join(packageRoot, 'docs', file);
-    if (file !== 'readme.md' && (await fileExists(packagedLanding))) {
+    if (await fileExists(packagedLanding)) {
       return { sourcePath: packagedLanding, fromPackage: true };
+    }
+    if (file === 'readme.md' && (await fileExists(srcPath))) {
+      return { sourcePath: srcPath, fromPackage: false };
     }
     return { sourcePath: join(packageRoot, 'README.md'), fromPackage: true };
   }
@@ -310,10 +313,13 @@ async function resolvePageSource(
 async function generateProject(project: ProjectDefinition, locale: Locale): Promise<any> {
   const packageRoot = join(root, 'node_modules', project.packageName);
   const packageJson = JSON.parse(await readFile(join(packageRoot, 'package.json'), 'utf8'));
-  const api =
-    project.adapter === 'markdown'
-      ? new Map<string, string>()
-      : apiMarkdown(JSON.parse(await readFile(join(packageRoot, 'dist/docs.json'), 'utf8')));
+  const docsJsonPath = join(packageRoot, 'dist/docs.json');
+  const api = (await fileExists(docsJsonPath))
+    ? apiMarkdown(JSON.parse(await readFile(docsJsonPath, 'utf8')))
+    : new Map<string, string>();
+  if (project.adapter !== 'markdown' && api.size === 0) {
+    throw new Error(`${project.packageName} is missing dist/docs.json`);
+  }
   const apiAnchors = apiAnchorFragments(api);
   const packageLandingSlug = landingPageSlug(project);
   const pages = [];
@@ -337,6 +343,15 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
     let preparedBody = parsed.body;
     let splitReadme =
       !fromPackage && file === 'readme.md' ? splitDocgenReadme(parsed.body) : undefined;
+    if (!fromPackage && locale === 'en' && project.englishFromPackage && file !== 'api.md') {
+      preparedBody = normalizePackageMarkdown(
+        rewritePackageDocLinks(
+          stripLeadingH1(stripRdlaboDocsOmit(parsed.body)),
+          apiAnchors,
+          packageLandingSlug,
+        ),
+      );
+    }
     if (fromPackage) {
       if (isPackageLanding) {
         const extracted = extractPackageReadmeParts(parsed.body);
@@ -382,13 +397,7 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       };
     }
   }
-  if (
-    !docgenApiPage &&
-    !declaresApiPage &&
-    locale === 'ja' &&
-    project.englishFromPackage &&
-    project.adapter === 'markdown'
-  ) {
+  if (!docgenApiPage && !declaresApiPage && project.englishFromPackage) {
     const packageReadmePath = join(packageRoot, 'README.md');
     if (await fileExists(packageReadmePath)) {
       const extracted = extractPackageReadmeParts(await readFile(packageReadmePath, 'utf8'));

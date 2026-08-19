@@ -12,4 +12,8 @@ import { Printer } from '@rdlabo/capacitor-printer';
 await Printer.printWebView({ name: 'Document' });
 ```
 
-`name` は印刷ジョブ名で、既定値は `'Document'` です。シグネチャは [API](/docs/api#printwebview) ページにあります。
+`name` は印刷ジョブ名で、既定値は `'Document'` です。
+
+!::printWebView::
+
+!::PrintWebViewOptions::
