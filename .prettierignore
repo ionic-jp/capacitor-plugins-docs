@@ -13,6 +13,7 @@ src/stripe/config
 src/stripe-identity/docs
 src/stripe-identity/config
 src/app/generated
+src/**/docs
 *.png
 *.ico
 *.svg

@@ -25,11 +25,11 @@ import { SeoService } from './seo.service';
   `,
 })
 export class NotFoundComponent implements OnInit {
-  private readonly seo = inject(SeoService);
+  readonly #seo = inject(SeoService);
   protected readonly canonicalHomePath = canonicalHomePath(inject(LOCALE_ID));
 
   ngOnInit(): void {
-    this.seo.setPage({
+    this.#seo.setPage({
       title: $localize`:@@notFoundTitle:Page not found - rdlabo.dev`,
       description: $localize`:@@notFoundDescription:The page may have moved while the documentation was being reorganized.`,
       path: '/not-found',

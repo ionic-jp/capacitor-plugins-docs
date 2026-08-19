@@ -8,6 +8,7 @@ import {
   ViewChild,
   PLATFORM_ID,
   inject,
+  signal,
 } from '@angular/core';
 import { CodeSample } from './docs-data';
 import { SafeHtmlPipe } from './safe-html.pipe';
@@ -33,8 +34,8 @@ import { SafeHtmlPipe } from './safe-html.pipe';
             type="button"
             role="tab"
             class="shrink-0 cursor-pointer rounded-[18px] border-0 bg-transparent px-2.5 py-[5px] font-[ui-monospace,SFMono-Regular,Menlo,monospace] text-[12px] text-white/50 [&.active]:bg-[#ea572a] [&.active]:text-white"
-            [attr.aria-selected]="activeFile === code.file"
-            [class.active]="activeFile === code.file"
+            [attr.aria-selected]="activeFile() === code.file"
+            [class.active]="activeFile() === code.file"
             (click)="select(code.file)"
           >
             {{ code.file }}
@@ -43,7 +44,7 @@ import { SafeHtmlPipe } from './safe-html.pipe';
       </div>
       <div #scroller class="h-[calc(100%-58px)] overflow-auto scroll-smooth">
         @for (code of codes; track code.file) {
-          @if (activeFile === code.file) {
+          @if (activeFile() === code.file) {
             <pre
               class="m-0 min-w-max px-6 pt-5 pb-12 font-[ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-[13px]/[1.3]"
             ><code
@@ -61,46 +62,49 @@ import { SafeHtmlPipe } from './safe-html.pipe';
   `,
 })
 export class CodePanel implements OnChanges {
-  private readonly document = inject(DOCUMENT);
-  private readonly platformId = inject(PLATFORM_ID);
-  @ViewChild('scroller') private scroller?: ElementRef<HTMLElement>;
+  readonly #document = inject(DOCUMENT);
+  readonly #platformId = inject(PLATFORM_ID);
+  @ViewChild('scroller') protected readonly scroller?: ElementRef<HTMLElement>;
+  /** @Input bindings are assigned by Angular; readonly breaks parent template binding. */
+  // eslint-disable-next-line @rdlabo/rules/component-property-use-readonly -- @Input
   @Input({ required: true }) codes: readonly CodeSample[] = [];
+  // eslint-disable-next-line @rdlabo/rules/component-property-use-readonly -- @Input
   @Input() activeLines: Record<string, readonly number[]> = {};
-  activeFile = '';
+  readonly activeFile = signal('');
 
   ngOnChanges(changes: SimpleChanges): void {
     const mappedFile = Object.keys(this.activeLines).find((file) =>
       this.codes.some((code) => code.file === file),
     );
-    if (mappedFile) this.activeFile = mappedFile;
-    else if (!this.codes.some((code) => code.file === this.activeFile))
-      this.activeFile = this.codes[0]?.file ?? '';
+    if (mappedFile) this.activeFile.set(mappedFile);
+    else if (!this.codes.some((code) => code.file === this.activeFile()))
+      this.activeFile.set(this.codes[0]?.file ?? '');
     if (changes['activeLines']) this.scrollToHighlight();
   }
 
   select(file: string): void {
-    this.activeFile = file;
+    this.activeFile.set(file);
   }
 
   isHighlighted(file: string, line: number): boolean {
     const range = this.activeLines[file];
-    return this.hasActiveExclusiveRange(range) && line > range[0] && line < range[1];
+    return this.#hasActiveExclusiveRange(range) && line > range[0] && line < range[1];
   }
 
   isDimmed(file: string, line: number): boolean {
     const range = this.activeLines[file];
-    return this.hasActiveExclusiveRange(range) && !(line > range[0] && line < range[1]);
+    return this.#hasActiveExclusiveRange(range) && !(line > range[0] && line < range[1]);
   }
 
-  private hasActiveExclusiveRange(
+  #hasActiveExclusiveRange(
     range: readonly number[] | undefined,
   ): range is readonly number[] {
     return !!range?.length && range[1] > range[0];
   }
 
-  private scrollToHighlight(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const view = this.document.defaultView;
+  scrollToHighlight(): void {
+    if (!isPlatformBrowser(this.#platformId)) return;
+    const view = this.#document.defaultView;
     if (!view) return;
     view.requestAnimationFrame(() => {
       const row = this.scroller?.nativeElement.querySelector<HTMLElement>('.code-row.highlight');

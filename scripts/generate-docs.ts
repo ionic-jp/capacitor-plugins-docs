@@ -1,5 +1,5 @@
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join, relative, resolve } from 'node:path';
+import { join, relative, resolve } from 'node:path';
 import fm from 'front-matter';
 import markdownToHtml from 'zenn-markdown-html';
 import { formatDescription, formatType } from '@capacitor/docgen/dist/formatting';
@@ -18,6 +18,11 @@ import { SITE_CONFIG } from '../src/app/site-config';
 import { enforceGeneratedHtmlPolicy } from './html-policy';
 import { normalizeImportedReadmeHeadings } from './markdown-headings';
 import { splitDocgenReadme } from './docgen-readme';
+import {
+  fetchEnglishProjectMarkdown,
+  fetchEnglishProjectReadme,
+  repositorySourceLabel,
+} from './package-repository';
 import {
   apiAnchorFragments,
   expandApiPlaceholders,
@@ -247,7 +252,12 @@ function pageEditUrl(
   version: string,
   file: string,
   sourcePath: string,
+  repositoryRef?: string,
+  repositoryPath?: string,
 ): string {
+  if (fromPackage && repositoryPath && repositoryRef) {
+    return `${repositoryUrl}/edit/${repositoryRef}/${repositoryPath}`;
+  }
   if (fromPackage) {
     const packagePath = sourcePath.endsWith('README.md') ? 'README.md' : `docs/${file}`;
     return `${repositoryUrl}/blob/v${version}/${packagePath}`;
@@ -281,33 +291,44 @@ async function fileExists(path: string): Promise<boolean> {
   }
 }
 
+type ResolvedPageSource = {
+  content: string;
+  sourcePath: string;
+  fromPackage: boolean;
+  repositoryUrl: string;
+  repositoryPath?: string;
+  repositoryRef?: string;
+};
+
 async function resolvePageSource(
   project: ProjectDefinition,
   locale: Locale,
   file: string,
-  packageRoot: string,
-): Promise<{ sourcePath: string; fromPackage: boolean }> {
-  const srcPath = srcDocsPath(project, locale, file);
-  if (locale === 'ja' || file === 'api.md' || !project.englishFromPackage) {
-    return { sourcePath: srcPath, fromPackage: false };
+  repositoryCache: Map<string, string>,
+): Promise<ResolvedPageSource> {
+  if (locale === 'ja') {
+    const srcPath = srcDocsPath(project, locale, file);
+    return {
+      content: await readFile(srcPath, 'utf8'),
+      sourcePath: srcPath,
+      fromPackage: false,
+      repositoryUrl: project.repositoryUrl,
+    };
   }
 
-  if (PACKAGE_LANDING_FILES.has(file)) {
-    const packagedLanding = join(packageRoot, 'docs', file);
-    if (await fileExists(packagedLanding)) {
-      return { sourcePath: packagedLanding, fromPackage: true };
-    }
-    if (file === 'readme.md' && (await fileExists(srcPath))) {
-      return { sourcePath: srcPath, fromPackage: false };
-    }
-    return { sourcePath: join(packageRoot, 'README.md'), fromPackage: true };
-  }
-
-  const packagedGuide = join(packageRoot, 'docs', file);
-  if (await fileExists(packagedGuide)) {
-    return { sourcePath: packagedGuide, fromPackage: true };
-  }
-  return { sourcePath: srcPath, fromPackage: false };
+  const fetched = await fetchEnglishProjectMarkdown(project, file, repositoryCache);
+  return {
+    content: fetched.content,
+    sourcePath: repositorySourceLabel(
+      fetched.repositoryUrl,
+      fetched.repositoryRef,
+      fetched.repositoryPath,
+    ),
+    fromPackage: true,
+    repositoryUrl: fetched.repositoryUrl,
+    repositoryPath: fetched.repositoryPath,
+    repositoryRef: fetched.repositoryRef,
+  };
 }
 
 async function generateProject(project: ProjectDefinition, locale: Locale): Promise<any> {
@@ -330,31 +351,26 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
     parsed: ReturnType<typeof fm<any>>;
     sourcePath: string;
     fromPackage: boolean;
+    repositoryPath?: string;
+    repositoryRef?: string;
+    repositoryUrl: string;
     annotateDocgen: boolean;
   };
   const sourcePages: SourcePage[] = [];
   let docgenApiPage: SourcePage | undefined;
   const declaresApiPage = project.pages.some((entry) => entry.slug === 'api');
+  const repositoryCache = new Map<string, string>();
   for (const declaredPage of project.pages) {
     const { file } = declaredPage;
-    const { sourcePath, fromPackage } = await resolvePageSource(project, locale, file, packageRoot);
-    const parsed = fm<any>(await readFile(sourcePath, 'utf8'));
-    const isPackageLanding = fromPackage && PACKAGE_LANDING_FILES.has(file);
-    let preparedBody = parsed.body;
+    const resolved = await resolvePageSource(project, locale, file, repositoryCache);
+    const parsed = fm<any>(resolved.content);
+    const isPackageLanding = resolved.fromPackage && PACKAGE_LANDING_FILES.has(file);
+    let preparedBody = parsed.body || resolved.content;
     let splitReadme =
-      !fromPackage && file === 'readme.md' ? splitDocgenReadme(parsed.body) : undefined;
-    if (!fromPackage && locale === 'en' && project.englishFromPackage && file !== 'api.md') {
-      preparedBody = normalizePackageMarkdown(
-        rewritePackageDocLinks(
-          stripLeadingH1(stripRdlaboDocsOmit(parsed.body)),
-          apiAnchors,
-          packageLandingSlug,
-        ),
-      );
-    }
-    if (fromPackage) {
+      !resolved.fromPackage && file === 'readme.md' ? splitDocgenReadme(parsed.body) : undefined;
+    if (resolved.fromPackage) {
       if (isPackageLanding) {
-        const extracted = extractPackageReadmeParts(parsed.body);
+        const extracted = extractPackageReadmeParts(resolved.content);
         preparedBody = normalizePackageMarkdown(
           rewritePackageDocLinks(extracted.readme, apiAnchors, packageLandingSlug),
         );
@@ -364,7 +380,10 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       } else {
         preparedBody = normalizePackageMarkdown(
           rewritePackageDocLinks(
-            stripLeadingH1(stripRdlaboDocsOmit(parsed.body)),
+            // `fm()` has already stripped YAML front matter when present.
+            // For non-landing package pages we must use `parsed.body` (not `resolved.content`)
+            // to avoid leaking front matter into generated HTML.
+            stripLeadingH1(stripRdlaboDocsOmit(parsed.body || resolved.content)),
             apiAnchors,
             packageLandingSlug,
           ),
@@ -374,10 +393,13 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
     sourcePages.push({
       page: declaredPage,
       body: splitReadme ? splitReadme.readme : preparedBody,
-      useFrontMatterTitle: !fromPackage,
+      useFrontMatterTitle: !resolved.fromPackage,
       parsed,
-      sourcePath,
-      fromPackage,
+      sourcePath: resolved.sourcePath,
+      fromPackage: resolved.fromPackage,
+      repositoryPath: resolved.repositoryPath,
+      repositoryRef: resolved.repositoryRef,
+      repositoryUrl: resolved.repositoryUrl,
       annotateDocgen: false,
     });
     if (splitReadme) {
@@ -391,16 +413,19 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
         body: splitReadme.api,
         useFrontMatterTitle: false,
         parsed,
-        sourcePath,
-        fromPackage,
+        sourcePath: resolved.sourcePath,
+        fromPackage: resolved.fromPackage,
+        repositoryPath: resolved.repositoryPath,
+        repositoryRef: resolved.repositoryRef,
+        repositoryUrl: resolved.repositoryUrl,
         annotateDocgen: true,
       };
     }
   }
-  if (!docgenApiPage && !declaresApiPage && project.englishFromPackage) {
-    const packageReadmePath = join(packageRoot, 'README.md');
-    if (await fileExists(packageReadmePath)) {
-      const extracted = extractPackageReadmeParts(await readFile(packageReadmePath, 'utf8'));
+  if (!docgenApiPage && !declaresApiPage) {
+    const readme = await fetchEnglishProjectReadme(project, repositoryCache);
+    if (readme) {
+      const extracted = extractPackageReadmeParts(readme.content);
       if (extracted.api) {
         docgenApiPage = {
           page: {
@@ -412,8 +437,15 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
           body: extracted.api,
           useFrontMatterTitle: false,
           parsed: fm(''),
-          sourcePath: packageReadmePath,
+          sourcePath: repositorySourceLabel(
+            readme.repositoryUrl,
+            readme.repositoryRef,
+            readme.repositoryPath,
+          ),
           fromPackage: true,
+          repositoryPath: readme.repositoryPath,
+          repositoryRef: readme.repositoryRef,
+          repositoryUrl: readme.repositoryUrl,
           annotateDocgen: true,
         };
       }
@@ -430,14 +462,16 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
     parsed,
     sourcePath,
     fromPackage,
+    repositoryPath,
+    repositoryRef,
+    repositoryUrl,
     annotateDocgen,
   } of sourcePages) {
     const { slug, file } = page;
+    const context = fromPackage ? sourcePath : relative(root, sourcePath);
     const { expanded, missing: missingApiEntries } = expandApiPlaceholders(body, api);
     if (missingApiEntries.length) {
-      throw new Error(
-        `${relative(root, sourcePath)} references missing API entries: ${missingApiEntries.join(', ')}`,
-      );
+      throw new Error(`${context} references missing API entries: ${missingApiEntries.join(', ')}`);
     }
     const codes = [];
     for (const codePath of parsed.attributes.code ?? []) {
@@ -477,21 +511,17 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       if (entry.id) {
         const headingIndex = headingIds.indexOf(entry.id);
         if (headingIndex < 0) {
-          throw new Error(`${relative(root, sourcePath)} references missing heading: ${entry.id}`);
+          throw new Error(`${context} references missing heading: ${entry.id}`);
         }
         if (headingIndex <= previousHeadingIndex) {
-          throw new Error(
-            `${relative(root, sourcePath)} has an out-of-order or duplicate heading: ${entry.id}`,
-          );
+          throw new Error(`${context} has an out-of-order or duplicate heading: ${entry.id}`);
         }
         previousHeadingIndex = headingIndex;
       }
       for (const [codeFile, range] of Object.entries<number[]>(entry.activeLine ?? {})) {
         const code = codeByFile.get(codeFile);
         if (!code) {
-          throw new Error(
-            `${relative(root, sourcePath)} references missing code file: ${codeFile}`,
-          );
+          throw new Error(`${context} references missing code file: ${codeFile}`);
         }
         if (
           range.length !== 2 ||
@@ -500,16 +530,14 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
           range[1] < range[0] ||
           range[1] > code.lines.length + 1
         ) {
-          throw new Error(
-            `${relative(root, sourcePath)} has an invalid ${codeFile} line range: ${range.join(', ')}`,
-          );
+          throw new Error(`${context} has an invalid ${codeFile} line range: ${range.join(', ')}`);
         }
       }
     }
     if (annotateDocgen) annotateDocgenApiEntries(htmlDocument);
     formatApiEntries(htmlDocument);
     if (slug === 'api') formatApiReference(htmlDocument);
-    html = enforceGeneratedHtmlPolicy(htmlDocument.body.innerHTML, relative(root, sourcePath));
+    html = enforceGeneratedHtmlPolicy(htmlDocument.body.innerHTML, context);
     const headings = Array.from(htmlDocument.querySelectorAll<HTMLElement>('h2, h3, h4')).map(
       (heading) => ({
         id: heading.id,
@@ -530,10 +558,12 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       scrollMap,
       editUrl: pageEditUrl(
         fromPackage,
-        project.repositoryUrl,
+        repositoryUrl,
         packageJson.version,
         file,
         sourcePath,
+        repositoryRef,
+        repositoryPath,
       ),
     });
   }

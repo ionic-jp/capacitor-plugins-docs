@@ -36,17 +36,32 @@ export const PROJECT = {
       "file": "readme.md",
       "section": "Quickstart",
       "path": "/projects/capacitor-printer/docs/readme",
-      "html": "<p data-line=\"0\" class=\"code-line\">printer plugin for capacitor</p>\n<h2 id=\"install\" data-line=\"2\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#install\" aria-hidden=\"true\"></a> Install</h2>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"4\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/capacitor-printer</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npx</span><span style=\"color:#9ECBFF\"> cap</span><span style=\"color:#9ECBFF\"> sync</span></span>\n<span class=\"line\"></span></code></pre></div>",
+      "html": "<p data-line=\"0\" class=\"code-line\">Print files or the current web view from a Capacitor app.</p>\n<p data-line=\"2\" class=\"code-line\">This plugin wraps the native printing UI on iOS and Android. You can print a local file (for example, a PDF generated in your app) or the content of the current web view.</p>\n<p data-line=\"4\" class=\"code-line\"><strong>Documentation:</strong> <a href=\"https://docs.rdlabo.dev/projects/capacitor-printer\" target=\"_blank\" rel=\"nofollow noopener noreferrer\">Read the full documentation</a></p>\n<h2 id=\"install\" data-line=\"6\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#install\" aria-hidden=\"true\"></a> Install</h2>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"8\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/capacitor-printer</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npx</span><span style=\"color:#9ECBFF\"> cap</span><span style=\"color:#9ECBFF\"> sync</span></span>\n<span class=\"line\"></span></code></pre></div><h2 id=\"usage\" data-line=\"13\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#usage\" aria-hidden=\"true\"></a> Usage</h2>\n<p data-line=\"15\" class=\"code-line\">See <a href=\"/projects/capacitor-printer/docs/pdf\">PDF</a> to print a file and <a href=\"/projects/capacitor-printer/docs/web\">Web</a> to print the current WebView.</p>\n<h2 id=\"when-to-use\" data-line=\"17\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#when-to-use\" aria-hidden=\"true\"></a> When to use</h2>\n<p data-line=\"19\" class=\"code-line\">Use this plugin when your app needs to present the system print dialog, such as:</p>\n<ul data-line=\"21\" class=\"code-line\">\n<li data-line=\"21\" class=\"code-line\">Printing a receipt or invoice as PDF.</li>\n<li data-line=\"22\" class=\"code-line\">Printing a report generated in the app.</li>\n<li data-line=\"23\" class=\"code-line\">Printing the contents of the current page.</li>\n</ul>\n<h2 id=\"platform-notes\" data-line=\"25\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#platform-notes\" aria-hidden=\"true\"></a> Platform notes</h2>\n<ul data-line=\"27\" class=\"code-line\">\n<li data-line=\"27\" class=\"code-line\"><strong>iOS and Android</strong>: <code>printFile</code> and <code>printWebView</code> are both supported.</li>\n<li data-line=\"28\" class=\"code-line\"><strong>Web</strong>: Not supported because browsers already provide <code>window.print()</code>.</li>\n</ul>\n",
       "headings": [
         {
           "id": "install",
           "text": "Install",
           "level": 2
+        },
+        {
+          "id": "usage",
+          "text": "Usage",
+          "level": 2
+        },
+        {
+          "id": "when-to-use",
+          "text": "When to use",
+          "level": 2
+        },
+        {
+          "id": "platform-notes",
+          "text": "Platform notes",
+          "level": 2
         }
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/capacitor-printer/blob/v8.0.1/README.md"
+      "editUrl": "https://github.com/rdlabo-dev/capacitor-printer/edit/main/README.md"
     },
     {
       "title": "PDF",
@@ -55,22 +70,11 @@ export const PROJECT = {
       "file": "pdf.md",
       "section": "Guides",
       "path": "/projects/capacitor-printer/docs/pdf",
-      "html": "<p data-line=\"0\" class=\"code-line\">Present the system print UI for a PDF or other file. Only Android and iOS. Call this after <a href=\"/projects/capacitor-printer/docs/readme#installation\">Installation</a>. Print the current WebView with <a href=\"/projects/capacitor-printer/docs/web\">Web</a>.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#F97583\">import</span><span style=\"color:#E1E4E8\"> { Printer } </span><span style=\"color:#F97583\">from</span><span style=\"color:#9ECBFF\"> '@rdlabo/capacitor-printer'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">const</span><span style=\"color:#79B8FF\"> filePath</span><span style=\"color:#F97583\"> =</span><span style=\"color:#9ECBFF\"> '/path/to/document.pdf'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">try</span><span style=\"color:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"color:#F97583\">  await</span><span style=\"color:#E1E4E8\"> Printer.</span><span style=\"color:#B392F0\">printFile</span><span style=\"color:#E1E4E8\">({ path: filePath });</span></span>\n<span class=\"line\"><span style=\"color:#E1E4E8\">} </span><span style=\"color:#F97583\">finally</span><span style=\"color:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"color:#a0aab5\">  // The promise settles after the OS no longer needs the source file.</span></span>\n<span class=\"line\"><span style=\"color:#E1E4E8\">}</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"14\" class=\"code-line\">Android supports file paths, <code>file://</code> URLs, and <code>content://</code> URLs. iOS supports file paths and local <code>file://</code> URLs. <code>mimeType</code> is Android-only.</p>\n<section class=\"api-entry\"><h4 id=\"method-printfile(...)\" data-line=\"16\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#method-printfile(...)\" aria-hidden=\"true\"></a> <code>method</code> printFile(...)</h4><p data-line=\"17\" class=\"code-line\">Present the printing user interface to print a file.</p><p data-line=\"19\" class=\"code-line\">The promise settles after the operating system no longer needs the source<br>\nfile, so the file can be safely deleted in a <code>finally</code> block.</p><p data-line=\"22\" class=\"code-line\">Only available on Android and iOS.</p><p data-line=\"24\" class=\"code-line api-signature\"><code>printFile(options: PrintFileOptions) =&gt; Promise&lt;void&gt;</code></p></section>\n\n\n\n\n<section class=\"api-entry\"><h4 id=\"interface-printfileoptions\" data-line=\"27\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interface-printfileoptions\" aria-hidden=\"true\"></a> <code>interface</code> PrintFileOptions</h4><table data-line=\"29\" class=\"code-line\">\n<thead data-line=\"29\" class=\"code-line\">\n<tr data-line=\"29\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"31\" class=\"code-line\">\n<tr data-line=\"31\" class=\"code-line\">\n<td><strong><code>path</code></strong></td>\n<td><code>string</code></td>\n<td>The path to the file. Android supports file paths, <code>file://</code> URLs, and <code>content://</code> URLs. iOS supports file paths and local <code>file://</code> URLs.</td>\n</tr>\n<tr data-line=\"32\" class=\"code-line\">\n<td><strong><code>mimeType</code></strong></td>\n<td><code>string</code></td>\n<td>The MIME type of the file. Only used on Android.</td>\n</tr>\n</tbody>\n</table></section>\n\n",
-      "headings": [
-        {
-          "id": "method-printfile(...)",
-          "text": "method printFile(...)",
-          "level": 4
-        },
-        {
-          "id": "interface-printfileoptions",
-          "text": "interface PrintFileOptions",
-          "level": 4
-        }
-      ],
+      "html": "<p data-line=\"0\" class=\"code-line\">Present the system print UI for a PDF or other file. Only Android and iOS. Call this after <a href=\"/projects/capacitor-printer/docs/readme#installation\">Installation</a>. Print the current WebView with <a href=\"/projects/capacitor-printer/docs/web\">Web</a>.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#F97583\">import</span><span style=\"color:#E1E4E8\"> { Printer } </span><span style=\"color:#F97583\">from</span><span style=\"color:#9ECBFF\"> '@rdlabo/capacitor-printer'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">const</span><span style=\"color:#79B8FF\"> filePath</span><span style=\"color:#F97583\"> =</span><span style=\"color:#9ECBFF\"> '/path/to/document.pdf'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">try</span><span style=\"color:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"color:#F97583\">  await</span><span style=\"color:#E1E4E8\"> Printer.</span><span style=\"color:#B392F0\">printFile</span><span style=\"color:#E1E4E8\">({ path: filePath });</span></span>\n<span class=\"line\"><span style=\"color:#E1E4E8\">} </span><span style=\"color:#F97583\">finally</span><span style=\"color:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"color:#a0aab5\">  // The promise settles after the OS no longer needs the source file.</span></span>\n<span class=\"line\"><span style=\"color:#E1E4E8\">}</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"14\" class=\"code-line\">Android supports file paths, <code>file://</code> URLs, and <code>content://</code> URLs. iOS supports file paths and local <code>file://</code> URLs. <code>mimeType</code> is Android-only. Signatures are on the <a href=\"/projects/capacitor-printer/docs/api#printfile\">API</a> page.</p>\n",
+      "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/pdf.md"
+      "editUrl": "https://github.com/rdlabo-dev/capacitor-printer/edit/main/docs/pdf.md"
     },
     {
       "title": "Web",
@@ -79,22 +83,11 @@ export const PROJECT = {
       "file": "web.md",
       "section": "Guides",
       "path": "/projects/capacitor-printer/docs/web",
-      "html": "<p data-line=\"0\" class=\"code-line\">Present the system print UI for the current WebView content. Only Android and iOS. Call this after <a href=\"/projects/capacitor-printer/docs/readme#installation\">Installation</a>. Print a PDF or other file with <a href=\"/projects/capacitor-printer/docs/pdf\">PDF</a>.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#F97583\">import</span><span style=\"color:#E1E4E8\"> { Printer } </span><span style=\"color:#F97583\">from</span><span style=\"color:#9ECBFF\"> '@rdlabo/capacitor-printer'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">await</span><span style=\"color:#E1E4E8\"> Printer.</span><span style=\"color:#B392F0\">printWebView</span><span style=\"color:#E1E4E8\">({ name: </span><span style=\"color:#9ECBFF\">'Document'</span><span style=\"color:#E1E4E8\"> });</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"8\" class=\"code-line\"><code>name</code> is the print job name and defaults to <code>'Document'</code>.</p>\n<section class=\"api-entry\"><h4 id=\"method-printwebview(...)\" data-line=\"10\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#method-printwebview(...)\" aria-hidden=\"true\"></a> <code>method</code> printWebView(...)</h4><p data-line=\"11\" class=\"code-line\">Present the printing user interface to print the web view content.</p><p data-line=\"13\" class=\"code-line api-signature\"><code>printWebView(options?: PrintOptions | undefined) =&gt; Promise&lt;void&gt;</code></p></section>\n\n\n<section class=\"api-entry\"><h4 id=\"type-alias-printwebviewoptions\" data-line=\"16\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#type-alias-printwebviewoptions\" aria-hidden=\"true\"></a> <code>type alias</code> PrintWebViewOptions</h4><p data-line=\"17\" class=\"code-line api-signature\"><code>PrintOptions</code></p></section>\n\n",
-      "headings": [
-        {
-          "id": "method-printwebview(...)",
-          "text": "method printWebView(...)",
-          "level": 4
-        },
-        {
-          "id": "type-alias-printwebviewoptions",
-          "text": "type alias PrintWebViewOptions",
-          "level": 4
-        }
-      ],
+      "html": "<p data-line=\"0\" class=\"code-line\">Present the system print UI for the current WebView content. Only Android and iOS. Call this after <a href=\"/projects/capacitor-printer/docs/readme#installation\">Installation</a>. Print a PDF or other file with <a href=\"/projects/capacitor-printer/docs/pdf\">PDF</a>.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#F97583\">import</span><span style=\"color:#E1E4E8\"> { Printer } </span><span style=\"color:#F97583\">from</span><span style=\"color:#9ECBFF\"> '@rdlabo/capacitor-printer'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">await</span><span style=\"color:#E1E4E8\"> Printer.</span><span style=\"color:#B392F0\">printWebView</span><span style=\"color:#E1E4E8\">({ name: </span><span style=\"color:#9ECBFF\">'Document'</span><span style=\"color:#E1E4E8\"> });</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"8\" class=\"code-line\"><code>name</code> is the print job name and defaults to <code>'Document'</code>. Signatures are on the <a href=\"/projects/capacitor-printer/docs/api#printwebview\">API</a> page.</p>\n",
+      "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/web.md"
+      "editUrl": "https://github.com/rdlabo-dev/capacitor-printer/edit/main/docs/web.md"
     },
     {
       "title": "API",
@@ -143,7 +136,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/capacitor-printer/blob/v8.0.1/README.md"
+      "editUrl": "https://github.com/rdlabo-dev/capacitor-printer/edit/main/README.md"
     }
   ]
 } as const;

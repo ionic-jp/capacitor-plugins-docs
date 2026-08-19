@@ -112,12 +112,12 @@ import { SeoService } from './seo.service';
   `,
 })
 export class PluginIndexComponent implements OnInit {
-  private readonly seo = inject(SeoService);
-  private readonly locale = inject(LOCALE_ID);
-  protected readonly projectGroups = projectGroupsForLocale(this.locale);
+  readonly #seo = inject(SeoService);
+  readonly #locale = inject(LOCALE_ID);
+  protected readonly projectGroups = projectGroupsForLocale(this.#locale);
 
   ngOnInit(): void {
-    this.seo.setPage({
+    this.#seo.setPage({
       title: 'rdlabo.dev',
       description: $localize`:@@siteDescription:Documentation for personal open source projects created and maintained by rdlabo.`,
       path: '/',

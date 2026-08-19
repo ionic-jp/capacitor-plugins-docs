@@ -20,15 +20,15 @@ ChromeHeadless でのユニットテストは `main.ts` を読みません。そ
 
 ```ts
 @Component({
-  selector: 'app-example',
+  selector: "app-example",
   template: ` <ion-icon [name]="iconName"></ion-icon> `,
 })
 export class ExampleComponent {
-  iconName = 'add';
+  iconName = "add";
 
   ionViewWillEnter() {
     setTimeout(() => {
-      this.iconName = 'remove';
+      this.iconName = "remove";
     }, 1000);
   }
 }

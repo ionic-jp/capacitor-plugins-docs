@@ -37,7 +37,8 @@ export interface ProjectDefinition {
   category: ProjectCategoryId;
   icon: 'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme' | 'docs';
   adapter?: 'capacitor-docs-json' | 'markdown';
-  englishFromPackage?: boolean;
+  /** Git ref for English guide Markdown fetched from the OSS repository (default: `main`). */
+  englishDocsRef?: string;
   description: LocalizedText;
   headline: LocalizedText;
   overview: LocalizedText;
@@ -1046,7 +1047,6 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     repositoryUrl: 'https://github.com/capacitor-community/admob',
     category: 'capacitor-plugins',
     icon: 'ads',
-    englishFromPackage: true,
     description: text(
       'Native Google AdMob ads for Capacitor applications.',
       'Capacitor アプリで Google AdMob のネイティブ広告を表示するプラグイン。',
@@ -1142,7 +1142,6 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'app',
     adapter: 'markdown',
-    englishFromPackage: true,
     description: text(
       'Barcode and QR scanning for Capacitor through a native modal.',
       'ネイティブモーダルでバーコード・QRコードをスキャンするCapacitorプラグイン。',
@@ -1195,7 +1194,6 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'app',
     adapter: 'markdown',
-    englishFromPackage: true,
     description: text(
       'Notify Capacitor apps when the user takes a screenshot.',
       'ユーザーがスクリーンショットを撮ったことをCapacitorアプリへ通知するプラグイン。',
@@ -1245,7 +1243,6 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'terminal',
     adapter: 'markdown',
-    englishFromPackage: true,
     description: text(
       'Native printing for files and WebView content in Capacitor apps.',
       'CapacitorアプリでファイルとWebView内容をネイティブ印刷するプラグイン。',
@@ -1299,7 +1296,6 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'terminal',
     adapter: 'markdown',
-    englishFromPackage: true,
     description: text(
       'Native Brother Print SDK bindings for Capacitor on iOS and Android.',
       'iOS・Android向けのネイティブBrother Print SDKをCapacitorから利用するプラグイン。',

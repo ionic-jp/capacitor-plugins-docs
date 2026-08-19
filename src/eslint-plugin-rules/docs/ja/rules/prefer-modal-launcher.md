@@ -49,10 +49,7 @@ export interface OtherProps {
 }
 export type OtherDismiss = { saved: boolean } | undefined;
 
-export const launchOtherPage = (
-  helper: HelperService,
-  props: OtherProps,
-): Promise<OtherDismiss> => {
+export const launchOtherPage = (helper: HelperService, props: OtherProps): Promise<OtherDismiss> => {
   return helper.presentModal(OtherPage, props, { watchKeyboard: false });
 };
 

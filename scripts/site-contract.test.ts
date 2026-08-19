@@ -12,6 +12,7 @@ import {
   stripLeadingH1,
   stripRdlaboDocsOmit,
 } from './package-markdown';
+import { fetchEnglishProjectMarkdown } from './package-repository';
 
 const require = createRequire(import.meta.url);
 
@@ -48,52 +49,20 @@ function fencedCodeBlocks(markdown: string): { language: string; body: string }[
   return blocks;
 }
 
-async function englishFromInstalledPackage(
-  packageName: string,
+async function englishGuideSource(
+  project: {
+    repositoryUrl: string;
+    englishDocsRef?: string;
+    packageName: string;
+    sourceDirectory: string;
+  },
   file: string,
-  sourceDirectory?: string,
 ): Promise<string> {
-  const packageRoot = new URL(`../node_modules/${packageName}/`, import.meta.url);
-  const srcFallback = sourceDirectory
-    ? new URL(`../src/${sourceDirectory}/docs/${file}`, import.meta.url)
-    : undefined;
-
-  async function readSrcFallback(): Promise<string> {
-    assert.ok(srcFallback, `missing package docs/${file} for ${packageName}`);
-    return readFile(srcFallback, 'utf8');
-  }
-
+  const { content } = await fetchEnglishProjectMarkdown(project, file);
   if (file === 'readme.md' || file === 'getting-started.md') {
-    const packagedLanding = new URL(`docs/${file}`, packageRoot);
-    try {
-      await access(packagedLanding, constants.F_OK);
-      return normalizePackageMarkdown(
-        stripLeadingH1(stripRdlaboDocsOmit(await readFile(packagedLanding, 'utf8'))),
-      );
-    } catch {
-      if (srcFallback) {
-        try {
-          await access(srcFallback, constants.F_OK);
-          return readFile(srcFallback, 'utf8');
-        } catch {
-          /* fall through to package README */
-        }
-      }
-    }
-    return normalizePackageMarkdown(
-      extractPackageReadme(await readFile(new URL('README.md', packageRoot), 'utf8')),
-    );
+    return normalizePackageMarkdown(extractPackageReadme(content));
   }
-
-  const packagedGuide = new URL(`docs/${file}`, packageRoot);
-  try {
-    await access(packagedGuide, constants.F_OK);
-    return normalizePackageMarkdown(
-      stripLeadingH1(stripRdlaboDocsOmit(await readFile(packagedGuide, 'utf8'))),
-    );
-  } catch {
-    return readSrcFallback();
-  }
+  return normalizePackageMarkdown(stripLeadingH1(stripRdlaboDocsOmit(content)));
 }
 
 test('pins every documentation source to the installed package version', async () => {
@@ -260,20 +229,21 @@ test('imports every installed ESLint rule README with matching EN/JA code fences
 
   const docsRoot = new URL('../src/eslint-plugin-rules/docs/', import.meta.url);
   const [englishRulesIndex, japaneseRulesIndex] = await Promise.all([
-    readFile(new URL('rules.md', docsRoot), 'utf8'),
+    englishGuideSource(eslintProject, 'rules.md'),
     readFile(new URL('ja/rules.md', docsRoot), 'utf8'),
   ]);
 
   for (const ruleName of manifestRuleNames) {
-    const englishPath = new URL(`rules/${ruleName}.md`, docsRoot);
     const japanesePath = new URL(`ja/rules/${ruleName}.md`, docsRoot);
     const [english, japanese] = await Promise.all([
-      readFile(englishPath, 'utf8'),
+      englishGuideSource(eslintProject, `rules/${ruleName}.md`),
       readFile(japanesePath, 'utf8'),
     ]);
 
-    assert.equal(yamlTitle(english), ruleName);
     assert.equal(yamlTitle(japanese), ruleName);
+    if (/^---\r?\n[\s\S]*?\r?\n---/.test(english)) {
+      assert.equal(yamlTitle(english), ruleName);
+    }
 
     const englishBlocks = fencedCodeBlocks(english);
     const japaneseBlocks = fencedCodeBlocks(japanese);
@@ -297,10 +267,12 @@ test('imports every installed ESLint rule README with matching EN/JA code fences
           /https:\/\/github\.com\/rdlabo-dev\/eslint-plugin-rules\/blob\/[^\s)\]]+/g,
         ),
       ].map((match) => match[0]);
-      assert.ok(
-        githubBlobLinks.length > 0,
-        `${locale} ${ruleName} must include GitHub blob implementation/test links`,
-      );
+      if (locale === 'JA') {
+        assert.ok(
+          githubBlobLinks.length > 0,
+          `${locale} ${ruleName} must include GitHub blob implementation/test links`,
+        );
+      }
       for (const link of githubBlobLinks) {
         assert.ok(
           link.startsWith(pinnedBlobPrefix),
@@ -310,19 +282,17 @@ test('imports every installed ESLint rule README with matching EN/JA code fences
     }
 
     const localRoute = `/eslint-plugin-rules/docs/rules/${ruleName}`;
-    assert.match(englishRulesIndex, new RegExp(localRoute.replaceAll('/', '\\/')));
+    assert.match(englishRulesIndex, new RegExp(`rules/${ruleName}(?:\\.md)?`));
     assert.match(japaneseRulesIndex, new RegExp(localRoute.replaceAll('/', '\\/')));
   }
 
   // v21.3.0 tagged the deny-constructor-di test file with a historical typo.
   const denyConstructorDiDocs = await Promise.all([
-    readFile(new URL('rules/deny-constructor-di.md', docsRoot), 'utf8'),
+    englishGuideSource(eslintProject, 'rules/deny-constructor-di.md'),
     readFile(new URL('ja/rules/deny-constructor-di.md', docsRoot), 'utf8'),
   ]);
-  for (const markdown of denyConstructorDiDocs) {
-    assert.match(markdown, /\/blob\/v21\.3\.0\/tests\/rules\/deny-costructor-di\.ts/);
-    assert.doesNotMatch(markdown, /\/tests\/rules\/deny-constructor-di\.ts/);
-  }
+  assert.match(denyConstructorDiDocs[1], /\/blob\/v21\.3\.0\/tests\/rules\/deny-costructor-di\.ts/);
+  assert.doesNotMatch(denyConstructorDiDocs[1], /\/tests\/rules\/deny-constructor-di\.ts/);
 });
 
 test('lists every ionic-angular-library package and imports localized READMEs', async () => {
@@ -390,7 +360,7 @@ test('lists every ionic-angular-library package and imports localized READMEs', 
     const allJapanese: string[] = [];
     for (const pageFile of pageFiles) {
       const [english, japanese] = await Promise.all([
-        readFile(new URL(pageFile, docsRoot), 'utf8'),
+        englishGuideSource(project, pageFile),
         readFile(new URL(`ja/${pageFile}`, docsRoot), 'utf8'),
       ]);
       allEnglish.push(english);
@@ -473,7 +443,7 @@ test('lists ionic theme packages and pins localized README imports', async () =>
     const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
     for (const pageFile of pageFiles) {
       const [english, japanese] = await Promise.all([
-        readFile(new URL(pageFile, docsRoot), 'utf8'),
+        englishGuideSource(project, pageFile),
         readFile(new URL(`ja/${pageFile}`, docsRoot), 'utf8'),
       ]);
       assert.deepEqual(
@@ -485,8 +455,9 @@ test('lists ionic theme packages and pins localized README imports', async () =>
         assert.doesNotMatch(markdown, new RegExp(['rdlabo', 'team'].join('-')));
         assert.doesNotMatch(markdown, new RegExp(`${projectId}/(?:blob|tree)/main`));
         if (pageFile === 'readme.md') {
+          const portalReadme = await readFile(new URL(pageFile, docsRoot), 'utf8');
           assert.match(
-            markdown,
+            portalReadme,
             new RegExp(
               `raw\\.githubusercontent\\.com/rdlabo-dev/${projectId}/v${expected.version}/screenshots/`,
             ),
@@ -513,19 +484,16 @@ test('lists ionic theme packages and pins localized README imports', async () =>
   assert.notEqual(usingPage.title.ja, usingPage.title.en);
   assert.match(usingPage.title.ja, /[\u3040-\u30ff\u4e00-\u9fff]/);
 
-  const [iosReadme, iosReadmeJa, usingDoc, usingDocJa, iosMigration, iosMigrationJa] =
+  const [iosReadme, _iosReadmeJa, usingDoc, usingDocJa, iosMigration, iosMigrationJa] =
     await Promise.all([
-      readFile(new URL('../src/ionic-theme-ios26/docs/readme.md', import.meta.url), 'utf8'),
+      englishGuideSource(iosProject, 'readme.md'),
       readFile(new URL('../src/ionic-theme-ios26/docs/ja/readme.md', import.meta.url), 'utf8'),
-      readFile(
-        new URL('../src/ionic-theme-ios26/docs/using-ion-item-group.md', import.meta.url),
-        'utf8',
-      ),
+      englishGuideSource(iosProject, 'using-ion-item-group.md'),
       readFile(
         new URL('../src/ionic-theme-ios26/docs/ja/using-ion-item-group.md', import.meta.url),
         'utf8',
       ),
-      readFile(new URL('../src/ionic-theme-ios26/docs/migration.md', import.meta.url), 'utf8'),
+      englishGuideSource(iosProject, 'migration.md'),
       readFile(new URL('../src/ionic-theme-ios26/docs/ja/migration.md', import.meta.url), 'utf8'),
     ]);
   assert.match(iosReadme, /\]\(\/docs\/using-ion-item-group\)/);
@@ -534,10 +502,14 @@ test('lists ionic theme packages and pins localized README imports', async () =>
     /https:\/\/github\.com\/rdlabo-dev\/ionic-theme-ios26\/blob\/v2\.3\.2\/USING_ION_ITEM_GROUP\.md/,
   );
 
-  assert.equal(yamlTitle(usingDoc), 'Using ion-item-group');
   assert.equal(yamlTitle(usingDocJa), 'ion-item-groupの使用方法');
-  assert.notEqual(yamlTitle(usingDocJa), yamlTitle(usingDoc));
+  assert.notEqual(yamlTitle(usingDocJa), usingPage.title.en);
   assert.match(yamlTitle(usingDocJa), /[\u3040-\u30ff\u4e00-\u9fff]/);
+  if (/^---\r?\n[\s\S]*?\r?\n---/.test(usingDoc)) {
+    assert.equal(yamlTitle(usingDoc), 'Using ion-item-group');
+  } else {
+    assert.equal(usingPage.title.en, 'Using ion-item-group');
+  }
   assert.match(usingDocJa, /^# ion-item-groupの使用方法\s*$/m);
   assert.match(usingDoc, /when the following condition is met/);
   assert.doesNotMatch(usingDoc, /when \*\*both\*\* of the following conditions are met/);
@@ -644,9 +616,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
     for (const pageFile of pageFiles) {
       const japanese = await readFile(new URL(`ja/${pageFile}`, docsRoot), 'utf8');
-      const english = project.englishFromPackage
-        ? await englishFromInstalledPackage(project.packageName, pageFile, project.sourceDirectory)
-        : await readFile(new URL(pageFile, docsRoot), 'utf8');
+      const english = await englishGuideSource(project, pageFile);
       assert.deepEqual(
         fencedCodeBlocks(japanese),
         fencedCodeBlocks(english),
@@ -674,9 +644,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
       new URL(`../src/${projectId}/docs/ja/${file}`, import.meta.url),
       'utf8',
     );
-    const english = project.englishFromPackage
-      ? await englishFromInstalledPackage(project.packageName, file, project.sourceDirectory)
-      : await readFile(new URL(`../src/${projectId}/docs/${file}`, import.meta.url), 'utf8');
+    const english = await englishGuideSource(project, file);
     return [english, japanese] as const;
   };
   for (const markdown of await docs('capacitor-codescanner', 'code-scanner.md')) {
@@ -863,6 +831,9 @@ test('documents the exact capacitor-docgen inheritance enhancement over upstream
     assert.equal(forkSource, upstreamSource, `${file} must retain upstream behavior`);
   }
 
+  const docgenProject = projectDefinitions.find((entry) => entry.id === 'capacitor-docgen');
+  assert.ok(docgenProject, 'capacitor-docgen must be declared in the manifest');
+
   const [
     upstreamParser,
     forkParser,
@@ -877,15 +848,12 @@ test('documents the exact capacitor-docgen inheritance enhancement over upstream
     readFile(join(forkPackageDirectory, 'dist', 'parse.js'), 'utf8'),
     readFile(join(upstreamPackageDirectory, 'dist', 'types.d.ts'), 'utf8'),
     readFile(join(forkPackageDirectory, 'dist', 'types.d.ts'), 'utf8'),
-    readFile(
-      new URL('../src/capacitor-docgen/docs/upstream-differences.md', import.meta.url),
-      'utf8',
-    ),
+    englishGuideSource(docgenProject, 'upstream-differences.md'),
     readFile(
       new URL('../src/capacitor-docgen/docs/ja/upstream-differences.md', import.meta.url),
       'utf8',
     ),
-    readFile(new URL('../src/capacitor-docgen/docs/getting-started.md', import.meta.url), 'utf8'),
+    englishGuideSource(docgenProject, 'getting-started.md'),
     readFile(
       new URL('../src/capacitor-docgen/docs/ja/getting-started.md', import.meta.url),
       'utf8',
@@ -939,7 +907,7 @@ test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async ()
       not_found_handling?: string;
       html_handling?: string;
     };
-    routes?: Array<{ pattern?: string; custom_domain?: boolean }>;
+    routes?: { pattern?: string; custom_domain?: boolean }[];
   };
   const packageJson = JSON.parse(packageJsonSource) as {
     scripts?: Record<string, string>;
@@ -981,17 +949,17 @@ test('deploys verified main revisions to Cloudflare', async () => {
   );
 
   assert.match(workflow, /^name: Deploy to Cloudflare$/m);
-  assert.match(workflow, /^  workflow_run:$/m);
-  assert.match(workflow, /^    workflows: \[CI\]$/m);
-  assert.match(workflow, /^    branches: \[main\]$/m);
+  assert.match(workflow, /^ {2}workflow_run:$/m);
+  assert.match(workflow, /^ {4}workflows: \[CI\]$/m);
+  assert.match(workflow, /^ {4}branches: \[main\]$/m);
   assert.match(workflow, /github\.event\.workflow_run\.conclusion == 'success'/);
   assert.match(workflow, /github\.event\.workflow_run\.event == 'push'/);
   assert.match(workflow, /github\.event\.workflow_run\.head_sha == github\.sha/);
   assert.match(workflow, /github\.ref == 'refs\/heads\/main'/);
   assert.match(workflow, /ref: \$\{\{ github\.event\.workflow_run\.head_sha \|\| github\.sha \}\}/);
-  assert.match(workflow, /^        run: npm ci$/m);
-  assert.match(workflow, /^        run: npm run build$/m);
-  assert.match(workflow, /^        run: npx wrangler deploy$/m);
+  assert.match(workflow, /^ {8}run: npm ci$/m);
+  assert.match(workflow, /^ {8}run: npm run build$/m);
+  assert.match(workflow, /^ {8}run: npx wrangler deploy$/m);
   const actionReferences = [...workflow.matchAll(/^\s+uses:\s+([^\s#]+)/gm)].map(
     (match) => match[1],
   );
@@ -1002,10 +970,7 @@ test('deploys verified main revisions to Cloudflare', async () => {
   for (const reference of actionReferences) {
     assert.match(reference, /^[\w.-]+\/[\w.-]+@[a-f0-9]{40}$/);
   }
-  assert.match(
-    workflow,
-    /^          CLOUDFLARE_API_TOKEN: \$\{\{ secrets\.CLOUDFLARE_API_TOKEN \}\}$/m,
-  );
+  assert.match(workflow, /^ {10}CLOUDFLARE_API_TOKEN: \$\{\{ secrets\.CLOUDFLARE_API_TOKEN \}\}$/m);
   assert.doesNotMatch(workflow, /netlify/i);
 });
 
@@ -1050,11 +1015,11 @@ test('locks production anyScript budgets after catalog growth', async () => {
           build: {
             configurations: {
               production: {
-                budgets: Array<{
+                budgets: {
                   type: string;
                   maximumWarning?: string;
                   maximumError?: string;
-                }>;
+                }[];
               };
             };
           };
@@ -1074,10 +1039,36 @@ test('locks production anyScript budgets after catalog growth', async () => {
   assert.match(readme, /450kB/);
 });
 
-test('loads AdMob English pages from the installed package', async () => {
+const packageEnglishOnlyProjects = new Set([
+  'admob',
+  'capacitor-codescanner',
+  'capacitor-screenshot-event',
+  'capacitor-printer',
+  'capacitor-brotherprint',
+]);
+
+test('package-hosted English docs are not duplicated under src', async () => {
+  for (const project of projectDefinitions.filter((entry) =>
+    packageEnglishOnlyProjects.has(entry.id),
+  )) {
+    const srcDocs = new URL(`../src/${project.id}/docs/`, import.meta.url);
+    const englishFiles = (await readdir(srcDocs)).filter((name) => name.endsWith('.md'));
+    assert.deepEqual(
+      englishFiles.sort(),
+      [],
+      `${project.id} must not store English Markdown under src/${project.id}/docs/`,
+    );
+
+    for (const page of project.pages) {
+      if (page.file === 'api.md') continue;
+      await access(new URL(`ja/${page.file}`, srcDocs), constants.F_OK);
+    }
+  }
+});
+
+test('loads AdMob English pages from GitHub', async () => {
   const project = projectDefinitions.find((entry) => entry.id === 'admob');
   assert.ok(project, 'admob must be declared in the manifest');
-  assert.equal(project.englishFromPackage, true);
   assert.deepEqual(
     project.pages.map((page) => page.slug),
     [
@@ -1095,59 +1086,28 @@ test('loads AdMob English pages from the installed package', async () => {
   );
 
   const srcDocs = new URL('../src/admob/docs/', import.meta.url);
-  const packageRoot = new URL('../node_modules/@capacitor-community/admob/', import.meta.url);
-  const packageDocsRoot = new URL('docs/', packageRoot);
-  let packageDocsPublished = false;
-  try {
-    await access(packageDocsRoot, constants.F_OK);
-    packageDocsPublished = true;
-  } catch {
-    packageDocsPublished = false;
-  }
-
   const englishFiles = (await readdir(srcDocs)).filter((name) => name.endsWith('.md'));
-  if (packageDocsPublished) {
-    assert.deepEqual(englishFiles.sort(), []);
-  } else {
-    assert.deepEqual(englishFiles.sort(), [
-      'app-open.md',
-      'banner.md',
-      'configuration.md',
-      'consent.md',
-      'events.md',
-      'interstitial.md',
-      'migration.md',
-      'readme.md',
-      'rewarded.md',
-      'testing.md',
-    ]);
-  }
+  assert.deepEqual(englishFiles.sort(), []);
   await assert.rejects(() => access(new URL('full-screen-ads.md', srcDocs), constants.F_OK));
   await assert.rejects(() => access(new URL('ja/full-screen-ads.md', srcDocs), constants.F_OK));
 
-  const packageReadme = extractPackageReadme(
-    await readFile(new URL('README.md', packageRoot), 'utf8'),
+  const repositoryReadme = extractPackageReadme(
+    (await fetchEnglishProjectMarkdown(project, 'readme.md')).content,
   );
-  if (packageDocsPublished) {
-    assert.doesNotMatch(packageReadme, /^## Maintainers$/m);
-    assert.doesNotMatch(packageReadme, /^## Index$/m);
-    assert.doesNotMatch(packageReadme, /^## License$/m);
-    assert.match(packageReadme, /^## Overview$/m);
-    assert.match(packageReadme, /^## Documentation$/m);
-  }
+  assert.doesNotMatch(repositoryReadme, /^## Maintainers$/m);
+  assert.doesNotMatch(repositoryReadme, /^## Index$/m);
+  assert.doesNotMatch(repositoryReadme, /^## License$/m);
+  assert.match(repositoryReadme, /^## Overview$/m);
+  assert.match(repositoryReadme, /^## Documentation$/m);
 
   for (const page of project.pages) {
     if (page.file === 'api.md') continue;
     const japanese = await readFile(new URL(`ja/${page.file}`, srcDocs), 'utf8');
-    const english = await englishFromInstalledPackage(
-      project.packageName,
-      page.file,
-      project.sourceDirectory,
-    );
+    const english = await englishGuideSource(project, page.file);
     assert.deepEqual(
       fencedCodeBlocks(japanese),
       fencedCodeBlocks(english),
-      `${page.file} fenced code blocks must match the installed package or portal fallback`,
+      `${page.file} fenced code blocks must match the OSS repository`,
     );
   }
 });
