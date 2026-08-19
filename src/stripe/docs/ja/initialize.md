@@ -34,24 +34,59 @@ await Stripe.initialize({
 
 Android の Google Pay は、アプリケーションメタデータの `com.getcapacitor.community.stripe.stripe_account` も読み取れます。[Google Pay](/docs/google-pay)を参照してください。
 
-## handleURLCallback
+## リダイレクトベースの支払い方法（iOS）
 
-`handleURLCallback` は iOS 専用です。PaymentSheet または PaymentFlow の `returnURL` と組み合わせ、利用者が銀行ページから戻った後に Stripe が [3D Secure](https://stripe.com/docs/payments/3d-secure#return-url) を完了できるようにします。
+認証のためにアプリから離脱する支払い方法（PayPal や一部の銀行決済方法など）では、returnURL が必要です。iOS では、`returnURL` が設定されていない場合、PaymentSheet または PaymentFlow でリダイレクトベースの決済方法として適切なものを Stripe は提供しません。[iOS return URL guide](https://docs.stripe.com/payments/mobile/accept-payment?platform=ios#ios-set-up-return-url) を参照してください。
 
-```ts
-await Stripe.createPaymentSheet({
-  paymentIntentClientSecret,
-  returnURL: 'your-app://stripe-redirect',
-});
+アプリの `ios/App/App/Info.plist` にカスタム URL スキームを登録します。`your-app` をアプリ固有のスキームに置き換えてください:
 
-// iOS の URL オープンハンドラーから、返された URL を渡して呼び出します。
-await Stripe.handleURLCallback({ url });
+```xml plist:ios/App/App/Info.plist
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLName</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>your-app</string>
+    </array>
+  </dict>
+</array>
 ```
 
-!::handleURLCallback::
-!::StripeURLHandlingOptions::
+そのスキームを使って `createPaymentSheet` または `createPaymentFlow` に URL を渡し、条件に一致する app-open イベントを Stripe に転送します:
 
-このメソッドは Android と Web では未実装です。Stripe が URL を処理しなかった場合、Promise は拒否されるため、通常のディープリンク処理を続けてください。
+```ts
+import { App } from '@capacitor/app';
+import { Stripe } from '@capacitor-community/stripe';
+
+const STRIPE_RETURN_URL = 'your-app://stripe-redirect';
+
+await App.addListener('appUrlOpen', async ({ url }) => {
+  if (url.startsWith(STRIPE_RETURN_URL)) {
+    await Stripe.handleURLCallback({ url });
+  }
+});
+
+await Stripe.createPaymentSheet({
+  paymentIntentClientSecret,
+  returnURL: STRIPE_RETURN_URL,
+});
+```
+
+`createPaymentFlow` でも同じ設定を行います。Info.plist のカスタムスキーム、returnURL のスキーム、そしてリスナーがチェックする URL は一致している必要があります。支払い方法の利用可否は、Intent、通貨、国、Stripe アカウント、ダッシュボード設定、そして Stripe SDK のサポート状況にも依存します。
+
+### handleURLCallback
+
+`handleURLCallback` は iOS 専用です。受け取った return URL を Stripe SDK に渡すことで、リダイレクトベースの認証を完了し、ブラウザを閉じられるようにします。
+
+<!-- !::handleURLCallback:: -->
+
+<!-- !::StripeURLHandlingOptions:: -->
+
+このメソッドは Android または Web では未実装です。一致する Stripe の returnURL のみを渡してください。Stripe が URL を処理できない場合、Promise は拒否されるため、通常のディープリンク処理を続けてください。
 
 ## 使用例
 
