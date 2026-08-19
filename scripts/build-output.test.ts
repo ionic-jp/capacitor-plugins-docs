@@ -93,6 +93,26 @@ test('prerendered docs shell stays layout-neutral before bootstrap', async () =>
   );
 });
 
+test('prerendered locales include reusable hydration data', async () => {
+  const pages = await Promise.all(
+    ['index.html', 'ja/index.html'].map((path) =>
+      readFile(new URL(`../dist/capacitor-plugins-docs/browser/${path}`, import.meta.url), 'utf8'),
+    ),
+  );
+
+  for (const html of pages) {
+    assert.doesNotMatch(html, /\bngskiphydration\b/);
+    assert.match(html, /\bngh="/);
+
+    const serializedState = html.match(
+      /<script id="ng-state" type="application\/json">([^<]+)<\/script>/,
+    )?.[1];
+    assert.ok(serializedState, 'prerendered page must include Angular hydration state');
+    const hydrationData = (JSON.parse(serializedState) as { __nghData__?: unknown[] }).__nghData__;
+    assert.ok(hydrationData?.length, 'Angular hydration state must include reusable views');
+  }
+});
+
 test('builds bounded English and Japanese search indexes with the component UI', async () => {
   const searchDirectory = new URL(
     '../dist/capacitor-plugins-docs/browser/pagefind/',
