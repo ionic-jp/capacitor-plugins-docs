@@ -164,9 +164,12 @@ Keep this.
 <!-- /rdlabo-docs-omit -->
 `;
 
-  assert.equal(extractPackageReadme(markdown).trim(), `## Overview
+  assert.equal(
+    extractPackageReadme(markdown).trim(),
+    `## Overview
 
-Keep this.`);
+Keep this.`,
+  );
   assert.match(extractPackageReadmeParts(markdown).api ?? '', /### initialize\(\.\.\.\)/);
 });
 
