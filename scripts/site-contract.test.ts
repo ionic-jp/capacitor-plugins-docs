@@ -646,12 +646,8 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     return [english, japanese] as const;
   };
   for (const markdown of await docs('capacitor-codescanner', 'code-scanner.md')) {
-    assert.match(markdown, /known limitation in v8\.0\.3|v8\.0\.3の既知の制限/i);
-    assert.match(
-      markdown,
-      /native implementations still read the legacy `CodeTypes`|native実装は従来の `CodeTypes`/,
-    );
-    assert.doesNotMatch(markdown, /^\s*(?:metadataObjectTypes|CodeTypes|detectionX|detectionY):/m);
+    assert.match(markdown, /CodeTypes: \['qr'\]/);
+    assert.doesNotMatch(markdown, /^\s*(?:metadataObjectTypes|detectionX|detectionY):/m);
   }
   for (const markdown of await docs('capacitor-codescanner')) {
     assert.match(markdown, /upper right corner|右上/);
