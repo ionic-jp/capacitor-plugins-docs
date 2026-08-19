@@ -196,3 +196,13 @@ test('rewrites package-relative guide and API links', () => {
     'See [Installation](/docs/readme#installation), [initialize](/docs/api#method-initialize(...)), [`AdMobError`](/docs/api#interface-admoberror), [API](/docs/api), [Banner](/docs/banner), and [guides](/docs/consent).',
   );
 });
+
+test('rewrites nested package-relative guide links', () => {
+  assert.equal(
+    rewritePackageDocLinks(
+      'See [Event Listeners](./docs/learn/event-listeners.md) and [the same page](./learn/event-listeners.md).',
+      new Map(),
+    ),
+    'See [Event Listeners](/docs/learn/event-listeners) and [the same page](/docs/learn/event-listeners).',
+  );
+});

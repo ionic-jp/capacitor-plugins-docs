@@ -137,7 +137,7 @@ export function rewritePackageDocLinks(
       return `](/docs/${landingSlug}${hash})`;
     }
 
-    const docFile = path.match(/^(?:\.\.\/)?(?:\.\/)?(?:docs\/)?([a-z0-9-]+)\.md$/i);
+    const docFile = path.match(/^(?:\.\.\/)?(?:\.\/)?(?:docs\/)?((?:[a-z0-9-]+\/)*[a-z0-9-]+)\.md$/i);
     if (docFile) return `](/docs/${docFile[1]}${hash})`;
     return match;
   });
