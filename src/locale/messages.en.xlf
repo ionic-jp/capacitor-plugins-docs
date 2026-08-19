@@ -311,7 +311,7 @@
         <note category="location">src/app/docs/support-page.ts:52,55</note>
       </notes>
       <segment>
-        <source>Sponsorship supports open source work maintained personally by rdlabo. It is independent of the incorporated association that also uses the rdlabo name.</source>
+        <source>Sponsorship supports open source work maintained personally by rdlabo.</source>
       </segment>
     </unit>
     <unit id="supportPageTitle">

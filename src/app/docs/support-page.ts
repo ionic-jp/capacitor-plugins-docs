@@ -49,8 +49,7 @@ import { SeoService } from './seo.service';
 
       <p class="mt-10 max-w-2xl border-l-2 border-[#ea572a] pl-4 text-sm leading-6 text-[#675e59]">
         <ng-container i18n="@@supportIndependenceNotice"
-          >Sponsorship supports open source work maintained personally by rdlabo. It is independent
-          of the incorporated association that also uses the rdlabo name.</ng-container
+          >Sponsorship supports open source work maintained personally by rdlabo.</ng-container
         >
       </p>
     </article>
