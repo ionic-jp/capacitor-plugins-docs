@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/scroll-strategies/README.md"
     },
     {
       "title": "Simple Usage",

@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/photo-editor/README.md"
     },
     {
       "title": "Theme",

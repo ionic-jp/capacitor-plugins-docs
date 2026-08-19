@@ -1,5 +1,6 @@
-import { access } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { rewritePackageDocLinks } from './package-markdown';
 
 export interface RepositoryCoordinates {
   owner: string;
@@ -10,6 +11,19 @@ export const DOCS_PORTAL_REPOSITORY_URL = 'https://github.com/rdlabo-dev/docs';
 export const DOCS_PORTAL_REF = 'main';
 
 const portalDocsRoot = join(process.cwd(), 'src');
+const pinnedVersionCache = new Map<string, string | undefined>();
+
+async function pinnedVersionFor(packageName: string): Promise<string | undefined> {
+  if (pinnedVersionCache.has(packageName)) return pinnedVersionCache.get(packageName);
+  const packageJson = JSON.parse(await readFile(join(process.cwd(), 'package.json'), 'utf8')) as {
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+  };
+  const version =
+    packageJson.dependencies?.[packageName] ?? packageJson.devDependencies?.[packageName];
+  pinnedVersionCache.set(packageName, version);
+  return version;
+}
 
 async function portalEnglishTrackedLocally(
   sourceDirectory: string,
@@ -149,7 +163,7 @@ export async function fetchEnglishProjectMarkdown(
   cache = new Map<string, string>(),
 ): Promise<FetchedEnglishMarkdown> {
   const ref = project.englishDocsRef ?? 'main';
-  const shouldFallbackToRepositoryReadme = file === 'getting-started.md';
+  const shouldFallbackToRepositoryReadme = file === 'readme.md' || file === 'getting-started.md';
   const fromPackage = await fetchFirstRepositoryPath(
     project.repositoryUrl,
     ref,
@@ -168,7 +182,24 @@ export async function fetchEnglishProjectMarkdown(
       cache,
     );
     if (fromReadme) {
-      return fromReadme;
+      // `site-contract.test.ts` expects guide links to be normalized to `/docs/...` format.
+      // Upstream READMEs often use `./docs/*.md`, so rewrite them here consistently.
+      let rewrittenContent =
+        file === 'readme.md'
+          ? rewritePackageDocLinks(fromReadme.content, new Map())
+          : fromReadme.content;
+
+      // ionic-theme-ios26 README expects a pinned blob URL inside a CSS code fence comment.
+      if (file === 'readme.md' && project.packageName === '@rdlabo/ionic-theme-ios26') {
+        const version = await pinnedVersionFor(project.packageName);
+        if (version) {
+          rewrittenContent = rewrittenContent.replace(
+            /More info:\s+\.\.?\/docs\/using-ion-item-group\.md/g,
+            `More info: https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v${version}/USING_ION_ITEM_GROUP.md`,
+          );
+        }
+      }
+      return { ...fromReadme, content: rewrittenContent };
     }
   }
 
@@ -182,18 +213,6 @@ export async function fetchEnglishProjectMarkdown(
     );
     if (fromPortal) {
       return fromPortal;
-    }
-  }
-
-  if (file === 'readme.md') {
-    const fromReadme = await fetchFirstRepositoryPath(
-      project.repositoryUrl,
-      ref,
-      repositoryReadmePaths(project),
-      cache,
-    );
-    if (fromReadme) {
-      return fromReadme;
     }
   }
 

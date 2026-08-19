@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/scroll-header/README.md"
     },
     {
       "title": "IonContent",
