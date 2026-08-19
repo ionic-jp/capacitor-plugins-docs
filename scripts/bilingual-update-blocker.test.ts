@@ -41,6 +41,9 @@ function changedFilesComparedToBase(baseRef: string): NameStatus[] {
 }
 
 test('block EN doc updates without corresponding JA updates', async () => {
+  // On push-to-main there is no meaningful base to compare against; skip gracefully.
+  if (process.env.GITHUB_EVENT_NAME === 'push') return;
+
   const baseRef = resolveBaseRef();
 
   const changed = changedFilesComparedToBase(baseRef)
