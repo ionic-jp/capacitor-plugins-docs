@@ -1204,13 +1204,6 @@ export const PROJECTS_EN = [
         "slug": "migration",
         "section": "Guides",
         "path": "/projects/capacitor-admob/docs/migration"
-      },
-      {
-        "title": "API",
-        "navTitle": "API",
-        "slug": "api",
-        "section": "Reference",
-        "path": "/projects/capacitor-admob/docs/api"
       }
     ]
   },
@@ -2619,13 +2612,6 @@ export const PROJECTS_JA = [
         "slug": "migration",
         "section": "ガイド",
         "path": "/projects/capacitor-admob/docs/migration"
-      },
-      {
-        "title": "API",
-        "navTitle": "API",
-        "slug": "api",
-        "section": "リファレンス",
-        "path": "/projects/capacitor-admob/docs/api"
       }
     ]
   },

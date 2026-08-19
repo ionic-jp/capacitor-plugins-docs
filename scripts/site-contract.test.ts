@@ -1091,7 +1091,6 @@ test('loads AdMob English pages from the installed package', async () => {
       'events',
       'testing',
       'migration',
-      'api',
     ],
   );
 
@@ -1108,10 +1107,9 @@ test('loads AdMob English pages from the installed package', async () => {
 
   const englishFiles = (await readdir(srcDocs)).filter((name) => name.endsWith('.md'));
   if (packageDocsPublished) {
-    assert.deepEqual(englishFiles.sort(), ['api.md']);
+    assert.deepEqual(englishFiles.sort(), []);
   } else {
     assert.deepEqual(englishFiles.sort(), [
-      'api.md',
       'app-open.md',
       'banner.md',
       'configuration.md',

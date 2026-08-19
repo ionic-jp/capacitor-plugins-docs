@@ -397,12 +397,7 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       };
     }
   }
-  if (
-    !docgenApiPage &&
-    !declaresApiPage &&
-    project.englishFromPackage &&
-    project.adapter === 'markdown'
-  ) {
+  if (!docgenApiPage && !declaresApiPage && project.englishFromPackage) {
     const packageReadmePath = join(packageRoot, 'README.md');
     if (await fileExists(packageReadmePath)) {
       const extracted = extractPackageReadmeParts(await readFile(packageReadmePath, 'utf8'));

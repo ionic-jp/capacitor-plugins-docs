@@ -85,10 +85,11 @@ export function extractPackageReadmeParts(markdown: string): { readme: string; a
   if (!landing) {
     throw new Error('package README is empty after rdlabo-docs-omit');
   }
-  const split = splitDocgenReadme(`${landing}\n`);
+  const splitLanding = splitDocgenReadme(`${landing}\n`);
+  const splitFull = splitDocgenReadme(markdown);
   return {
-    readme: `${(split?.readme ?? landing).trim()}\n`,
-    api: split?.api,
+    readme: `${(splitLanding?.readme ?? landing).trim()}\n`,
+    api: splitLanding?.api ?? splitFull?.api,
   };
 }
 

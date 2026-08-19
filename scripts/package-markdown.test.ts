@@ -4,6 +4,7 @@ import {
   apiAnchorFragments,
   expandApiPlaceholders,
   extractPackageReadme,
+  extractPackageReadmeParts,
   normalizePackageMarkdown,
   rewritePackageDocLinks,
   stripLeadingH1,
@@ -143,6 +144,30 @@ initialize()
 Keep this.
 `,
   );
+});
+
+test('extracts docgen API from an omit-wrapped README section', () => {
+  const markdown = `## Overview
+
+Keep this.
+
+<!-- rdlabo-docs-omit -->
+## Index
+
+<docgen-index>
+* [\`initialize(...)\`](#initialize)
+</docgen-index>
+
+<docgen-api>
+### initialize(...)
+</docgen-api>
+<!-- /rdlabo-docs-omit -->
+`;
+
+  assert.equal(extractPackageReadme(markdown).trim(), `## Overview
+
+Keep this.`);
+  assert.match(extractPackageReadmeParts(markdown).api ?? '', /### initialize\(\.\.\.\)/);
 });
 
 test('keeps a README that has no Overview heading', () => {
