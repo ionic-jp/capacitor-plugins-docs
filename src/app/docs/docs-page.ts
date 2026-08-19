@@ -27,8 +27,8 @@ import { SeoService } from './seo.service';
             [class]="
               'grid items-start justify-center pt-[42px] max-[960px]:block max-[960px]:pt-7 ' +
               (doc.codes.length
-                ? 'grid-cols-[minmax(420px,680px)_minmax(420px,1fr)_220px] max-[1500px]:grid-cols-[minmax(420px,800px)_minmax(420px,1fr)] max-[1100px]:grid-cols-[minmax(380px,1fr)_minmax(380px,1fr)]'
-                : 'grid-cols-[minmax(0,800px)_220px] max-[1500px]:grid-cols-[minmax(0,800px)]')
+                ? 'grid-cols-[minmax(420px,680px)_minmax(420px,1fr)_minmax(0,1fr)] max-[1500px]:grid-cols-[minmax(420px,800px)_minmax(420px,1fr)] max-[1100px]:grid-cols-[minmax(380px,1fr)_minmax(380px,1fr)]'
+                : 'grid-cols-[minmax(0,800px)_minmax(0,1fr)] max-[1500px]:grid-cols-[minmax(0,800px)]')
             "
           >
             <article
@@ -78,7 +78,7 @@ import { SeoService } from './seo.service';
               <app-code-panel [codes]="doc.codes" [activeLines]="activeLines()" />
             }
             <aside
-              class="sticky top-8 max-h-[calc(100dvh-64px)] min-w-0 overflow-y-auto px-5 pt-2 pb-8 max-[1500px]:hidden"
+              class="sticky top-8 w-full max-h-[calc(100dvh-64px)] min-w-0 overflow-y-auto px-5 pt-2 pb-8 max-[1500px]:hidden"
               i18n-aria-label="@@tableOfContents"
               aria-label="Table of contents"
             >

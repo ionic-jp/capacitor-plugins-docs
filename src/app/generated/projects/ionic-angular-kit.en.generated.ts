@@ -40,13 +40,8 @@ export const PROJECT = {
       "file": "getting-started.md",
       "section": "Guide",
       "path": "/projects/ionic-angular-kit/docs/getting-started",
-      "html": "<hr data-line=\"0\" class=\"code-line\">\n<h2 id=\"title%3A-getting-started\" data-line=\"1\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#title%3A-getting-started\" aria-hidden=\"true\"></a> title: Getting Started</h2>\n<p data-line=\"4\" class=\"code-line\"><code>@rdlabo/ionic-angular-kit</code> provides shared application infrastructure for Ionic Angular applications. It keeps product-specific screens, domain policy, and translations in the consuming app.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"6\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/ionic-angular-kit</span></span>\n<span class=\"line\"></span></code></pre></div><h2 id=\"requirements\" data-line=\"10\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#requirements\" aria-hidden=\"true\"></a> Requirements</h2>\n<table data-line=\"12\" class=\"code-line\">\n<thead data-line=\"12\" class=\"code-line\">\n<tr data-line=\"12\" class=\"code-line\">\n<th>Package</th>\n<th>Supported version</th>\n</tr>\n</thead>\n<tbody data-line=\"14\" class=\"code-line\">\n<tr data-line=\"14\" class=\"code-line\">\n<td>Angular</td>\n<td>21.x</td>\n</tr>\n<tr data-line=\"15\" class=\"code-line\">\n<td>Ionic Angular</td>\n<td>8.x</td>\n</tr>\n<tr data-line=\"16\" class=\"code-line\">\n<td>RxJS</td>\n<td>7.8.x</td>\n</tr>\n<tr data-line=\"17\" class=\"code-line\">\n<td>Capacitor core and feature plugins</td>\n<td>6.x through 8.x</td>\n</tr>\n</tbody>\n</table>\n<p data-line=\"19\" class=\"code-line\">Install <code>@ionic/storage-angular</code> when using storage. Other peers are feature-scoped: install only the Capacitor, Firebase, printing, or Live Update packages used by your selected entry points.</p>\n<h2 id=\"entry-points\" data-line=\"21\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#entry-points\" aria-hidden=\"true\"></a> Entry points</h2>\n<table data-line=\"23\" class=\"code-line\">\n<thead data-line=\"23\" class=\"code-line\">\n<tr data-line=\"23\" class=\"code-line\">\n<th>Import</th>\n<th>Responsibility</th>\n</tr>\n</thead>\n<tbody data-line=\"25\" class=\"code-line\">\n<tr data-line=\"25\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit</code></td>\n<td>Storage, overlays, guards, HTTP, realtime, directives, keyboard, and utilities</td>\n</tr>\n<tr data-line=\"26\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/offline</code></td>\n<td>Scoped local replica, outbox, pull, replay, and request policies</td>\n</tr>\n<tr data-line=\"27\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/theme</code></td>\n<td>Persisted light/dark theme and native status bar sync</td>\n</tr>\n<tr data-line=\"28\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/review</code></td>\n<td>Throttled native in-app review requests</td>\n</tr>\n<tr data-line=\"29\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/printer</code></td>\n<td>DOM-to-PNG, Brother label, and PDF helpers</td>\n</tr>\n<tr data-line=\"30\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/auth-firebase</code></td>\n<td>Firebase dependency wiring and authentication flows</td>\n</tr>\n<tr data-line=\"31\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/live-update</code></td>\n<td>Capawesome Live Update readiness provider</td>\n</tr>\n</tbody>\n</table>\n<p data-line=\"33\" class=\"code-line\">Secondary entry points isolate optional native and SDK dependencies from the core bundle.</p>\n<h2 id=\"configure-only-what-you-use\" data-line=\"35\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#configure-only-what-you-use\" aria-hidden=\"true\"></a> Configure only what you use</h2>\n<p data-line=\"37\" class=\"code-line\">Most features expose a provider whose callbacks keep routes, copy, credentials, and application side effects outside the kit. Start with <a href=\"/projects/ionic-angular-kit/docs/storage-overlays\">Storage and Overlays</a>, then add authentication, offline, or native features as your app needs them.</p>\n",
+      "html": "<p data-line=\"0\" class=\"code-line\"><code>@rdlabo/ionic-angular-kit</code> provides shared application infrastructure for Ionic Angular applications. It keeps product-specific screens, domain policy, and translations in the consuming app.</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/ionic-angular-kit</span></span>\n<span class=\"line\"></span></code></pre></div><h2 id=\"requirements\" data-line=\"6\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#requirements\" aria-hidden=\"true\"></a> Requirements</h2>\n<table data-line=\"8\" class=\"code-line\">\n<thead data-line=\"8\" class=\"code-line\">\n<tr data-line=\"8\" class=\"code-line\">\n<th>Package</th>\n<th>Supported version</th>\n</tr>\n</thead>\n<tbody data-line=\"10\" class=\"code-line\">\n<tr data-line=\"10\" class=\"code-line\">\n<td>Angular</td>\n<td>21.x</td>\n</tr>\n<tr data-line=\"11\" class=\"code-line\">\n<td>Ionic Angular</td>\n<td>8.x</td>\n</tr>\n<tr data-line=\"12\" class=\"code-line\">\n<td>RxJS</td>\n<td>7.8.x</td>\n</tr>\n<tr data-line=\"13\" class=\"code-line\">\n<td>Capacitor core and feature plugins</td>\n<td>6.x through 8.x</td>\n</tr>\n</tbody>\n</table>\n<p data-line=\"15\" class=\"code-line\">Install <code>@ionic/storage-angular</code> when using storage. Other peers are feature-scoped: install only the Capacitor, Firebase, printing, or Live Update packages used by your selected entry points.</p>\n<h2 id=\"entry-points\" data-line=\"17\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#entry-points\" aria-hidden=\"true\"></a> Entry points</h2>\n<table data-line=\"19\" class=\"code-line\">\n<thead data-line=\"19\" class=\"code-line\">\n<tr data-line=\"19\" class=\"code-line\">\n<th>Import</th>\n<th>Responsibility</th>\n</tr>\n</thead>\n<tbody data-line=\"21\" class=\"code-line\">\n<tr data-line=\"21\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit</code></td>\n<td>Storage, overlays, guards, HTTP, realtime, directives, keyboard, and utilities</td>\n</tr>\n<tr data-line=\"22\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/offline</code></td>\n<td>Scoped local replica, outbox, pull, replay, and request policies</td>\n</tr>\n<tr data-line=\"23\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/theme</code></td>\n<td>Persisted light/dark theme and native status bar sync</td>\n</tr>\n<tr data-line=\"24\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/review</code></td>\n<td>Throttled native in-app review requests</td>\n</tr>\n<tr data-line=\"25\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/printer</code></td>\n<td>DOM-to-PNG, Brother label, and PDF helpers</td>\n</tr>\n<tr data-line=\"26\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/auth-firebase</code></td>\n<td>Firebase dependency wiring and authentication flows</td>\n</tr>\n<tr data-line=\"27\" class=\"code-line\">\n<td><code>@rdlabo/ionic-angular-kit/live-update</code></td>\n<td>Capawesome Live Update readiness provider</td>\n</tr>\n</tbody>\n</table>\n<p data-line=\"29\" class=\"code-line\">Secondary entry points isolate optional native and SDK dependencies from the core bundle.</p>\n<h2 id=\"configure-only-what-you-use\" data-line=\"31\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#configure-only-what-you-use\" aria-hidden=\"true\"></a> Configure only what you use</h2>\n<p data-line=\"33\" class=\"code-line\">Most features expose a provider whose callbacks keep routes, copy, credentials, and application side effects outside the kit. Start with <a href=\"/projects/ionic-angular-kit/docs/storage-overlays\">Storage and Overlays</a>, then add authentication, offline, or native features as your app needs them.</p>\n<h2 id=\"documentation\" data-line=\"35\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#documentation\" aria-hidden=\"true\"></a> Documentation</h2>\n<ul data-line=\"37\" class=\"code-line\">\n<li data-line=\"37\" class=\"code-line\"><a href=\"/projects/ionic-angular-kit/docs/storage-overlays\">Storage and Overlays</a></li>\n<li data-line=\"38\" class=\"code-line\"><a href=\"/projects/ionic-angular-kit/docs/auth-http\">Authentication and HTTP</a></li>\n<li data-line=\"39\" class=\"code-line\"><a href=\"/projects/ionic-angular-kit/docs/offline-realtime\">Offline and Realtime</a></li>\n<li data-line=\"40\" class=\"code-line\"><a href=\"/projects/ionic-angular-kit/docs/optional-features\">Optional Features</a></li>\n</ul>\n",
       "headings": [
-        {
-          "id": "title%3A-getting-started",
-          "text": "title: Getting Started",
-          "level": 2
-        },
         {
           "id": "requirements",
           "text": "Requirements",
@@ -61,11 +56,16 @@ export const PROJECT = {
           "id": "configure-only-what-you-use",
           "text": "Configure only what you use",
           "level": 2
+        },
+        {
+          "id": "documentation",
+          "text": "Documentation",
+          "level": 2
         }
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/getting-started.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/kit/README.md"
     },
     {
       "title": "Storage and Overlays",
@@ -89,7 +89,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/storage-overlays.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/kit/docs/storage-overlays.md"
     },
     {
       "title": "Authentication and HTTP",
@@ -113,7 +113,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/auth-http.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/kit/docs/auth-http.md"
     },
     {
       "title": "Offline and Realtime",
@@ -137,7 +137,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/offline-realtime.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/kit/docs/offline-realtime.md"
     },
     {
       "title": "Optional Features",
@@ -171,7 +171,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/optional-features.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/kit/docs/optional-features.md"
     },
     {
       "title": "API",

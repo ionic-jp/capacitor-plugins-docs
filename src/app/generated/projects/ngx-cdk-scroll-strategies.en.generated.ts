@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/scroll-strategies/README.md"
     },
     {
       "title": "Simple Usage",
@@ -84,7 +84,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/simple.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/scroll-strategies/docs/simple.md"
     },
     {
       "title": "Advanced Usage",
@@ -97,7 +97,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/advanced.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/scroll-strategies/docs/advanced.md"
     },
     {
       "title": "Reverse Scroll",
@@ -116,7 +116,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/reverse.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/scroll-strategies/docs/reverse.md"
     },
     {
       "title": "FAQ",
@@ -135,7 +135,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/faq.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/scroll-strategies/docs/faq.md"
     },
     {
       "title": "API",

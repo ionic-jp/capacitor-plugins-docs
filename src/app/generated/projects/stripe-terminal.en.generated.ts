@@ -75,7 +75,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/configuration.md"
+      "editUrl": "https://github.com/capacitor-community/stripe/edit/main/packages/terminal/docs/configuration.md"
     },
     {
       "title": "Collect a Payment",
@@ -394,7 +394,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/collect-a-payment.md"
+      "editUrl": "https://github.com/capacitor-community/stripe/edit/main/packages/terminal/docs/collect-a-payment.md"
     },
     {
       "title": "Reader Lifecycle",
@@ -682,7 +682,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/reader-lifecycle.md"
+      "editUrl": "https://github.com/capacitor-community/stripe/edit/main/packages/terminal/docs/reader-lifecycle.md"
     },
     {
       "title": "Tap to Pay",
@@ -886,7 +886,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-terminal/docs/tap-to-pay.md"
+      "editUrl": "https://github.com/capacitor-community/stripe/edit/main/packages/terminal/docs/tap-to-pay.md"
     },
     {
       "title": "API",

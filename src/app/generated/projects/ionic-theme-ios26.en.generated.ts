@@ -61,7 +61,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-theme-ios26/edit/main/README.md"
     },
     {
       "title": "Using ion-item-group",
