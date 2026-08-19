@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { routes } from './app.routes';
+import { projectCatalog } from './docs/docs-data';
 import { NotFoundComponent } from './docs/not-found';
 import { PluginIndexComponent } from './docs/plugin-index';
 import { SupportPageComponent } from './docs/support-page';
@@ -16,17 +17,27 @@ describe('routes', () => {
   });
 
   it('uses canonical project routes and redirects every former AdMob route', () => {
+    const admob = projectCatalog.find((project) => project.id === 'admob');
+    expect(admob).toBeDefined();
     expect(routes.some((route) => route.path === 'projects/capacitor-admob')).toBe(true);
     expect(
       routes
-        .filter((route) => route.path?.startsWith('projects/capacitor-admob/docs/'))
+        .filter(
+          (route) =>
+            route.path?.startsWith('projects/capacitor-admob/docs/') &&
+            'component' in route &&
+            route.component,
+        )
         .map((route) => route.path),
-    ).toHaveLength(6);
+    ).toHaveLength(admob!.pages.length);
     expect(routes.find((route) => route.path === 'admob')?.redirectTo).toBe(
       '/projects/capacitor-admob',
     );
     expect(routes.find((route) => route.path === 'admob/docs/consent')?.redirectTo).toBe(
       '/projects/capacitor-admob/docs/consent',
+    );
+    expect(routes.find((route) => route.path === 'admob/docs/full-screen-ads')?.redirectTo).toBe(
+      '/projects/capacitor-admob/docs/interstitial',
     );
   });
 

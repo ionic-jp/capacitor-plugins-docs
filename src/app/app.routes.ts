@@ -42,6 +42,19 @@ const stripeLegacyRoutes: Routes = stripe.pages.map((page) => ({
   pathMatch: 'full' as const,
 }));
 
+const admobLegacyDocRedirects: Routes = [
+  {
+    path: 'admob/docs/full-screen-ads',
+    redirectTo: '/projects/capacitor-admob/docs/interstitial',
+    pathMatch: 'full',
+  },
+  {
+    path: 'projects/capacitor-admob/docs/full-screen-ads',
+    redirectTo: '/projects/capacitor-admob/docs/interstitial',
+    pathMatch: 'full',
+  },
+];
+
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PluginIndexComponent },
   { path: 'projects', pathMatch: 'full', redirectTo: '' },
@@ -52,6 +65,7 @@ export const routes: Routes = [
     redirectTo: '/projects/capacitor-stripe-identity/docs/identity-verification-sheet',
   },
   ...stripeLegacyRoutes,
+  ...admobLegacyDocRedirects,
   ...projectLegacyRoutes,
   ...projectRoutes,
   { path: 'not-found', component: NotFoundComponent },

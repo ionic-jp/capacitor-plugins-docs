@@ -1,8 +1,8 @@
 ---
-title: '@rdlabo/ionic-theme-md3'
+title: 'はじめに'
+code: []
+scrollActiveLine: []
 ---
-
-# Ionic Theme Material Design 3
 
 IonicアプリケーションにMaterial Design 3デザインシステムを適用するCSS/JSテーマライブラリです。
 
@@ -28,7 +28,12 @@ DEMOはこちら: https://ionic-theme-md3.netlify.app/
 
 > **Note:** このテーマは Ionic の設計方針と `@rdlabo/ionic-theme-ios26` との互換性を目的に作られており、厳密で完全な MD3 再現を意図したものではありません。
 
-## セットアップ
+
+## クイックスタート
+
+[インストール](#インストール) のあと、テーマ CSS をインポートし、下のとおり `navAnimation` を設定します。
+
+## インストール
 
 これはIonicプロジェクトを拡張するためのCSSテーマです。単体では動作しないため、Ionic Frameworkと一緒に使ってください。
 
@@ -71,36 +76,7 @@ createApp(App)
 })
 ```
 
-## 開発とテスト
 
-### デモアプリケーション
+## ドキュメント
 
-`demo/` ディレクトリには、テーマのテストとデモ用のAngularアプリケーションが含まれます。デモを実行するには:
-
-```bash
-cd demo
-npm install
-npm start
-```
-
-### 視覚的回帰テスト
-
-全コンポーネントで一貫したスタイルを保証するため、視覚的回帰テストにPlaywrightを使っています。テストスイートは、ライトモードとダークモードの全ルートのスクリーンショットを自動で取得します。
-
-#### テストの実行
-
-```bash
-cd demo
-
-# Run all E2E tests
-npm run test:e2e
-
-# Run tests in UI mode (interactive)
-npm run test:e2e:ui
-
-# Debug tests
-npm run test:e2e:debug
-
-# Update baseline screenshots (when intentionally changing UI)
-npm run test:e2e:update
-```
+上の [インストール](#インストール) から始めてください。同じマークアップで両プラットフォームが必要なときは [@rdlabo/ionic-theme-ios26](/ionic-theme-ios26/) と組み合わせます。

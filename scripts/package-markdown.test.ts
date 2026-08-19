@@ -1,0 +1,198 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import {
+  apiAnchorFragments,
+  extractPackageReadme,
+  normalizePackageMarkdown,
+  rewritePackageDocLinks,
+  stripLeadingH1,
+  stripRdlaboDocsOmit,
+} from './package-markdown';
+
+test('keeps Overview through Documentation and drops preamble, Index, and API', () => {
+  const markdown = `<p align="center">badge</p>
+
+## Maintainers
+
+rdlabo
+
+## Overview
+
+Native AdMob.
+
+## Installation
+
+npm install
+
+## Documentation
+
+See [Banner Ads](./docs/banner.md).
+
+## Index
+
+<docgen-index>
+* [\`initialize(...)\`](#initialize)
+</docgen-index>
+
+<docgen-api>
+### initialize(...)
+</docgen-api>
+
+## License
+
+MIT
+`;
+
+  assert.equal(
+    extractPackageReadme(markdown),
+    `## Overview
+
+Native AdMob.
+
+## Installation
+
+npm install
+
+## Documentation
+
+See [Banner Ads](./docs/banner.md).
+`,
+  );
+});
+
+test('drops rdlabo-docs-omit regions and keeps the rest', () => {
+  const markdown = `<!-- rdlabo-docs-omit -->
+## Maintainers
+
+rdlabo
+
+<!-- /rdlabo-docs-omit -->
+
+## Install
+
+\`\`\`bash
+npm install
+\`\`\`
+
+<!-- rdlabo-docs-omit -->
+## License
+
+MIT
+<!-- /rdlabo-docs-omit -->
+`;
+
+  assert.equal(
+    stripRdlaboDocsOmit(markdown),
+    `## Install
+
+\`\`\`bash
+npm install
+\`\`\`
+`,
+  );
+  assert.equal(
+    extractPackageReadme(markdown),
+    `## Install
+
+\`\`\`bash
+npm install
+\`\`\`
+`,
+  );
+});
+
+test('ignores omit markers inside fenced code', () => {
+  const markdown = `## Overview
+
+\`\`\`md
+<!-- rdlabo-docs-omit -->
+hidden in a sample
+<!-- /rdlabo-docs-omit -->
+\`\`\`
+`;
+
+  assert.equal(stripRdlaboDocsOmit(markdown), markdown);
+});
+
+test('throws on an unclosed rdlabo-docs-omit block', () => {
+  assert.throws(
+    () => stripRdlaboDocsOmit('<!-- rdlabo-docs-omit -->\n## License\n'),
+    /unclosed rdlabo-docs-omit block/,
+  );
+});
+
+test('omits regions that contain fenced code', () => {
+  const markdown = `## Overview
+
+Keep this.
+
+<!-- rdlabo-docs-omit -->
+## API
+
+\`\`\`ts
+initialize()
+\`\`\`
+<!-- /rdlabo-docs-omit -->
+`;
+
+  assert.equal(
+    extractPackageReadme(markdown),
+    `## Overview
+
+Keep this.
+`,
+  );
+});
+
+test('keeps a README that has no Overview heading', () => {
+  assert.equal(
+    extractPackageReadme(`# @rdlabo/capacitor-printer
+
+## Install
+
+\`\`\`bash
+npm install
+\`\`\`
+
+## API
+
+<docgen-index>
+* [\`printFile(...)\`](#printfile)
+</docgen-index>
+
+<docgen-api>
+### printFile(...)
+</docgen-api>
+`),
+    `## Install
+
+\`\`\`bash
+npm install
+\`\`\`
+`,
+  );
+});
+test('strips a leading markdown title', () => {
+  assert.equal(stripLeadingH1('# Banner Ads\n\nHello.\n'), 'Hello.\n');
+});
+
+test('rewrites legacy GitHub org links to rdlabo-dev', () => {
+  const legacyOwner = ['rdlabo', 'team'].join('-');
+  assert.equal(
+    normalizePackageMarkdown(`[theme](https://github.com/${legacyOwner}/ionic-theme-md3)`),
+    '[theme](https://github.com/rdlabo-dev/ionic-theme-md3)',
+  );
+});
+
+test('rewrites package-relative guide and API links', () => {
+  const api = new Map([
+    ['AdMobError', '#### `interface` AdMobError\nError payload.\n'],
+    ['initialize', '#### `method` initialize(...)\nStart the SDK.\n'],
+  ]);
+  const markdown = `See [Installation](../README.md#installation), [initialize](../README.md#initialize), [\`AdMobError\`](../README.md#admoberror), [API](../README.md#api), [Banner](./banner.md), and [guides](./docs/consent.md).`;
+
+  assert.equal(
+    rewritePackageDocLinks(markdown, apiAnchorFragments(api)),
+    'See [Installation](/docs/readme#installation), [initialize](/docs/api#method-initialize(...)), [`AdMobError`](/docs/api#interface-admoberror), [API](/docs/api), [Banner](/docs/banner), and [guides](/docs/consent).',
+  );
+});

@@ -1,10 +1,35 @@
 ---
-title: '@rdlabo/ionic-angular-photo-editor'
+title: 'はじめに'
+code: []
+scrollActiveLine: []
 ---
 
-# @rdlabo/ionic-angular-photo-editor
+## 概要
 
 Capacitor を使う Ionic Angular プロジェクト向けの、モーダルページ用フォトエディター兼ビューアーです。
+
+## 機能
+
+### 目的から選ぶ
+
+| 目的 | ガイド |
+| --- | --- |
+| カメラまたはアルバムから写真を読み込む | [PhotoFileService](/docs/photo-file) |
+| モーダルで切り抜き・編集する | [Photo Editor](/docs/editor) |
+| モーダルで画像を閲覧する | [Photo Viewer](/docs/viewer) |
+| エディターの色を上書きする | [テーマ](/docs/theme) |
+
+## クイックスタート
+
+[インストール](#インストール) のあと、写真を読み込みます。
+
+```typescript
+import { PhotoFileService } from '@rdlabo/ionic-angular-photo-editor';
+
+const files = await this.photoFileService.loadPhoto(1);
+```
+
+その後、エディターまたはビューアーを表示します。詳細は [PhotoFileService](/docs/photo-file)、[Photo Editor](/docs/editor)、[Photo Viewer](/docs/viewer) です。
 
 ## インストール
 
@@ -28,150 +53,12 @@ npm install @capacitor/camera swiper tui-image-editor
 </div>
 ```
 
-## テーマ
 
-デフォルトの色は設定済みですが、上書きできます: https://github.com/rdlabo-dev/ionic-angular-library/blob/v21.6.2/projects/photo-editor/src/lib/pages/core.scss
+## ドキュメント
 
-### 上書き方法
+上の [インストール](#インストール) から始め、ガイドを選んでください。
 
-```scss
-:root {
-  --ion-photo-editor-background: #2a2a2a;
-  --ion-photo-editor-background-tint: #414141;
-
-  --ion-photo-editor-color: #f0f0f0;
-  --ion-photo-editor-color-tint: #dbdbdb;
-
-  --ion-photo-editor-primary: #4d8dff;
-  --ion-photo-editor-danger: #f24c58;
-  --ion-photo-editor-success: #2dd55b;
-}
-```
-
-## 使い方
-
-### PhotoFileService
-
-```typescript
-import { PhotoFileService } from '@rdlabo/ionic-angular-photo-editor';
-
-export class AppComponent {
-  private photoFileService = inject(PhotoFileService);
-
-  constructor() {
-    this.photoFileService.photoMaxSize = 1000;
-    this.photoFileService.labels = {
-      camera: 'Camera',
-      album: 'Album',
-      cancel: 'Cancel',
-    };
-  }
-
-  async upload() {
-    const files = await this.photoFileService.loadPhoto(1);
-    if (files.length > 0) {
-      // upload files
-    }
-  }
-}
-```
-
-#### オプション
-
-##### photoMaxSize
-
-写真の最大サイズです。デフォルトは 1000 です。
-
-##### labels
-
-設定すると、ラベルが上書きされます。
-
-### PhotoEditorPage
-
-```typescript
-import { PhotoEditorPage, IPhotoEditorDismiss } from '@rdlabo/ionic-angular-photo-editor';
-
-(async () => {
-  const modal = await this.modalCtrl.create({
-    component: PhotoEditorPage,
-    componentProps: {
-      requireSquare: false,
-      value: 'https://picsum.photos/200/300',
-      labels: {
-        save: '送信', // change '保存' to '送信'
-      },
-    },
-  });
-  await modal.present();
-  const { data } = await modal.onWillDismiss<IPhotoEditorDismiss>();
-  if (data?.value) {
-    console.log(data.value);
-  }
-})();
-```
-
-### オプション
-
-#### requireSquare: boolean
-
-true の場合、最初に画像を正方形に切り抜く必要があります。
-
-#### value: string
-
-画像の URL または base64 文字列です。
-
-#### labels: IDictionaryForEditor
-
-設定すると、ラベルが上書きされます。
-
-一覧は[こちら](https://github.com/rdlabo-dev/ionic-angular-library/blob/v21.6.2/projects/photo-editor/src/lib/dictionaries.ts)です。
-
-### PhotoViewerPage
-
-```typescript
-import { PhotoViewerPage, IPhotoViewerDismiss } from '@rdlabo/ionic-angular-photo-editor';
-
-(async () => {
-  const modal = await this.modalCtrl.create({
-    component: PhotoViewerPage,
-    componentProps: {
-      imageUrls: ['https://picsum.photos/200/300', 'https://picsum.photos/200/300'],
-      index: 0,
-      isCircle: false,
-    },
-  });
-  await modal.present();
-  const { data } = await modal.onWillDismiss<IPhotoViewerDismiss>();
-  if (data?.delete) {
-    // User delete image
-  }
-})();
-```
-
-### オプション
-
-#### imageUrls: string[]
-
-画像の URL または base64 文字列の配列です。
-
-#### index: number
-
-imageUrls のインデックスです。
-
-#### isCircle: boolean
-
-設定すると、画像が円形で表示されます。
-
-#### enableDelete: boolean
-
-true の場合、削除ボタンが表示されます。
-
-#### enableFooterSafeArea: boolean
-
-true の場合、iOS 向けにフッターのセーフエリアを有効にします。
-
-#### labels: IDictionaryForViewer
-
-設定すると、ラベルが上書きされます。
-
-一覧は[こちら](https://github.com/rdlabo-dev/ionic-angular-library/blob/v21.6.2/projects/photo-editor/src/lib/dictionaries.ts)です。
+- [PhotoFileService](/docs/photo-file) — カメラとアルバム。
+- [Photo Editor](/docs/editor) — モーダルでの切り抜きと編集。
+- [Photo Viewer](/docs/viewer) — モーダルでの画像閲覧。
+- [テーマ](/docs/theme) — CSS 変数。

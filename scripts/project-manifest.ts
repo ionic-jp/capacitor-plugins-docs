@@ -37,6 +37,7 @@ export interface ProjectDefinition {
   category: ProjectCategoryId;
   icon: 'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme' | 'docs';
   adapter?: 'capacitor-docs-json' | 'markdown';
+  englishFromPackage?: boolean;
   description: LocalizedText;
   headline: LocalizedText;
   overview: LocalizedText;
@@ -89,6 +90,9 @@ const page = (
   slug,
   file,
 });
+
+const groupPage = (object: string, slug: string): ProjectPageDefinition =>
+  page(object, object, slug, `${slug}.md`, 'Guides', 'ガイド');
 
 const eslintRuleNames = [
   'component-property-use-readonly',
@@ -252,7 +256,18 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       },
     ],
     pages: [
-      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      page('Theme', 'テーマ', 'theme', 'theme.md', 'Guides', 'ガイド'),
+      page(
+        'PhotoFileService',
+        'PhotoFileService',
+        'photo-file',
+        'photo-file.md',
+        'Guides',
+        'ガイド',
+      ),
+      page('Photo Editor', 'Photo Editor', 'editor', 'editor.md', 'Guides', 'ガイド'),
+      page('Photo Viewer', 'Photo Viewer', 'viewer', 'viewer.md', 'Guides', 'ガイド'),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
@@ -304,7 +319,17 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       },
     ],
     pages: [
-      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      page('IonContent', 'IonContent', 'ion-content', 'ion-content.md', 'Guides', 'ガイド'),
+      page(
+        'Virtual Scroll',
+        'Virtual Scroll',
+        'virtual-scroll',
+        'virtual-scroll.md',
+        'Guides',
+        'ガイド',
+      ),
+      page('Safe Area', 'Safe Area', 'safe-area', 'safe-area.md', 'Guides', 'ガイド'),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
@@ -356,7 +381,11 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       },
     ],
     pages: [
-      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      page('Simple Usage', 'シンプルな使い方', 'simple', 'simple.md', 'Guides', 'ガイド'),
+      page('Advanced Usage', '応用的な使い方', 'advanced', 'advanced.md', 'Guides', 'ガイド'),
+      page('Reverse Scroll', 'リバーススクロール', 'reverse', 'reverse.md', 'Guides', 'ガイド'),
+      page('FAQ', 'FAQ', 'faq', 'faq.md', 'Guides', 'ガイド'),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
@@ -405,15 +434,26 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       },
     ],
     pages: [
-      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
       page(
         'Using ion-item-group',
         'ion-item-groupの使用方法',
         'using-ion-item-group',
         'using-ion-item-group.md',
-        'Documentation',
-        'ドキュメント',
+        'Guides',
+        'ガイド',
       ),
+      page('Features', '機能', 'features', 'features.md', 'Guides', 'ガイド'),
+      page(
+        'Experimental Animation',
+        '実験的なアニメーション',
+        'experimental-animation',
+        'experimental-animation.md',
+        'Guides',
+        'ガイド',
+      ),
+      page('iOS 18', 'iOS 18', 'ios-18', 'ios-18.md', 'Guides', 'ガイド'),
+      page('Migration', '移行', 'migration', 'migration.md', 'Guides', 'ガイド'),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
@@ -465,7 +505,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       },
     ],
     pages: [
-      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
@@ -517,7 +557,11 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       },
     ],
     pages: [
-      page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      page('Initialize', '初期化', 'initialize', 'initialize.md', 'Guides', 'ガイド'),
+      page('Usage', '使い方', 'usage', 'usage.md', 'Guides', 'ガイド'),
+      page('CLI Options', 'CLI オプション', 'options', 'options.md', 'Guides', 'ガイド'),
+      page('FAQ', 'FAQ', 'faq', 'faq.md', 'Guides', 'ガイド'),
       page('CLI API', 'CLI API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
@@ -1002,6 +1046,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     repositoryUrl: 'https://github.com/capacitor-community/admob',
     category: 'capacitor-plugins',
     icon: 'ads',
+    englishFromPackage: true,
     description: text(
       'Native Google AdMob ads for Capacitor applications.',
       'Capacitor アプリで Google AdMob のネイティブ広告を表示するプラグイン。',
@@ -1046,9 +1091,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       },
     ],
     pages: [
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
       page(
-        'Configuration',
-        '設定',
+        'Initialize',
+        '初期化',
         'configuration',
         'configuration.md',
         'Quickstart',
@@ -1057,10 +1103,18 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       page('Consent', '同意管理', 'consent', 'consent.md', 'Guides', 'ガイド'),
       page('Banner Ads', 'バナー広告', 'banner', 'banner.md', 'Ad formats', '広告フォーマット'),
       page(
-        'Full-screen Ads',
-        'フルスクリーン広告',
-        'full-screen-ads',
-        'full-screen-ads.md',
+        'Interstitial Ads',
+        'インタースティシャル広告',
+        'interstitial',
+        'interstitial.md',
+        'Ad formats',
+        '広告フォーマット',
+      ),
+      page(
+        'Rewarded Ads',
+        'リワード広告',
+        'rewarded',
+        'rewarded.md',
         'Ad formats',
         '広告フォーマット',
       ),
@@ -1072,6 +1126,9 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         'Ad formats',
         '広告フォーマット',
       ),
+      page('Ad Events', '広告イベント', 'events', 'events.md', 'Guides', 'ガイド'),
+      page('Testing', 'テスト', 'testing', 'testing.md', 'Guides', 'ガイド'),
+      page('Migration', '移行', 'migration', 'migration.md', 'Guides', 'ガイド'),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
@@ -1086,6 +1143,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'app',
     adapter: 'markdown',
+    englishFromPackage: true,
     description: text(
       'Barcode and QR scanning for Capacitor through a native modal.',
       'ネイティブモーダルでバーコード・QRコードをスキャンするCapacitorプラグイン。',
@@ -1122,7 +1180,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      groupPage('CodeScanner', 'code-scanner'),
+    ],
   },
   {
     id: 'capacitor-screenshot-event',
@@ -1135,6 +1196,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'app',
     adapter: 'markdown',
+    englishFromPackage: true,
     description: text(
       'Notify Capacitor apps when the user takes a screenshot.',
       'ユーザーがスクリーンショットを撮ったことをCapacitorアプリへ通知するプラグイン。',
@@ -1168,7 +1230,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      groupPage('ScreenshotEvent', 'screenshot-event'),
+    ],
   },
   {
     id: 'capacitor-printer',
@@ -1181,6 +1246,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'terminal',
     adapter: 'markdown',
+    englishFromPackage: true,
     description: text(
       'Native printing for files and WebView content in Capacitor apps.',
       'CapacitorアプリでファイルとWebView内容をネイティブ印刷するプラグイン。',
@@ -1217,7 +1283,11 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      groupPage('PDF', 'pdf'),
+      groupPage('Web', 'web'),
+    ],
   },
   {
     id: 'capacitor-brotherprint',
@@ -1230,6 +1300,7 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     category: 'capacitor-plugins',
     icon: 'terminal',
     adapter: 'markdown',
+    englishFromPackage: true,
     description: text(
       'Native Brother Print SDK bindings for Capacitor on iOS and Android.',
       'iOS・Android向けのネイティブBrother Print SDKをCapacitorから利用するプラグイン。',
@@ -1266,7 +1337,13 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         ),
       },
     ],
-    pages: [page('README', 'README', 'readme', 'readme.md', 'Documentation', 'ドキュメント')],
+    pages: [
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      page('Installation', 'インストール', 'installation', 'installation.md', 'Guides', 'ガイド'),
+      groupPage('Search', 'search'),
+      groupPage('Print', 'print'),
+      groupPage('Events', 'events'),
+    ],
   },
 ];
 

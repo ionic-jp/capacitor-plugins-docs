@@ -1,10 +1,12 @@
 ---
-title: '@rdlabo/capacitor-screenshot-event'
+title: 'はじめに'
+code: []
+scrollActiveLine: []
 ---
 
-# @rdlabo/capacitor-screenshot-event
+ユーザーがスクリーンショットを撮ったときに Capacitor アプリへ通知します。
 
-ユーザーがスクリーンショットを撮ったことを通知します
+このプラグインは iOS と Android のスクリーンショットを監視し、Capacitor のイベントリスナー経由で Web 層へ届けます。分析、セキュリティ確認、コンテンツ保護のフローに使えます。
 
 ## インストール
 
@@ -15,74 +17,18 @@ npx cap sync
 
 ## 使い方
 
-```ts
-import { ScreenshotEvent } from '@rdlabo/capacitor-screenshot-event';
+監視、処理、停止は [ScreenshotEvent](/docs/screenshot-event) です。
 
-(() => {
-  ScreenshotEvent.addListener('userDidTakeScreenshot', () => {
-    // Notice take screenshot
-  });
+## いつ使うか
 
-  // Start watch take event
-  ScreenshotEvent.startWatchEvent();
-})();
-```
+アプリ内でスクリーンショットに反応したいときに使います。例:
 
-## API
+- 撮影後に確認や警告を出す
+- 分析や監査のためにイベントを記録する
+- 機密コンテンツをぼかすなど UI を変える
 
-<docgen-index>
+## プラットフォーム
 
-* [`startWatchEvent()`](#startwatchevent)
-* [`removeWatchEvent()`](#removewatchevent)
-* [`addListener('userDidTakeScreenshot', ...)`](#addlisteneruserdidtakescreenshot-)
-* [インターフェース](#interfaces)
-
-</docgen-index>
-
-<docgen-api>
-<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
-
-### startWatchEvent()
-
-```typescript
-startWatchEvent() => Promise<void>
-```
-
---------------------
-
-
-### removeWatchEvent()
-
-```typescript
-removeWatchEvent() => Promise<void>
-```
-
---------------------
-
-
-### addListener('userDidTakeScreenshot', ...)
-
-```typescript
-addListener(eventName: 'userDidTakeScreenshot', listenerFunc: () => void) => Promise<PluginListenerHandle>
-```
-
-| パラメータ         | 型                                   |
-| ------------------ | ------------------------------------ |
-| **`eventName`**    | <code>'userDidTakeScreenshot'</code> |
-| **`listenerFunc`** | <code>() =&gt; void</code>           |
-
-**戻り値:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
-
---------------------
-
-
-### インターフェース
-
-
-#### PluginListenerHandle
-
-| プロパティ   | 型                                        |
-| ------------ | ----------------------------------------- |
-| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
-
-</docgen-api>
+- **iOS**: `UIApplication.userDidTakeScreenshotNotification` を使います。
+- **Android**: メディアストアのコンテンツ変更を監視します。
+- **Web**: ブラウザがスクリーンショットイベントを公開しないため非対応です。

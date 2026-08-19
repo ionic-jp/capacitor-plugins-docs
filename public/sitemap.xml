@@ -133,6 +133,54 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/readme" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/theme</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/theme" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/theme" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/theme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/theme</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/theme" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/theme" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/theme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/photo-file</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/photo-file" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/photo-file" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/photo-file" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/photo-file</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/photo-file" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/photo-file" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/photo-file" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/editor" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/editor" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/editor" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/editor" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/editor" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/editor" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/viewer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/viewer" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/viewer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/viewer" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/viewer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/viewer" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/viewer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/viewer" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/api</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-photo-editor/docs/api" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-photo-editor/docs/api" />
@@ -169,6 +217,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/readme" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/ion-content</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/ion-content" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/ion-content" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/ion-content" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/ion-content</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/ion-content" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/ion-content" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/ion-content" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/virtual-scroll</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/virtual-scroll" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/virtual-scroll" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/virtual-scroll" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/virtual-scroll</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/virtual-scroll" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/virtual-scroll" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/virtual-scroll" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/safe-area</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/safe-area" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/safe-area" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/safe-area" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/safe-area</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/safe-area" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/safe-area" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/safe-area" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/api</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-scroll-header/docs/api" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-scroll-header/docs/api" />
@@ -203,6 +287,54 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/readme" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/readme" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/readme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/simple</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/simple" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/simple" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/simple" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/simple</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/simple" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/simple" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/simple" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/advanced</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/advanced" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/advanced" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/advanced" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/advanced</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/advanced" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/advanced" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/advanced" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/reverse</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/reverse" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/reverse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/reverse" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/reverse</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/reverse" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/reverse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/reverse" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/faq" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ngx-cdk-scroll-strategies/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/faq" />
   </url>
   <url>
     <loc>https://docs.rdlabo.dev/projects/ngx-cdk-scroll-strategies/docs/api</loc>
@@ -251,6 +383,54 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/using-ion-item-group" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/using-ion-item-group" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/using-ion-item-group" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/features</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/features" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/features" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/features" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/features</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/features" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/features" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/features" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/experimental-animation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/experimental-animation" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/experimental-animation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/experimental-animation" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/experimental-animation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/experimental-animation" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/experimental-animation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/experimental-animation" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/ios-18</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/ios-18" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/ios-18" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/ios-18" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/ios-18</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/ios-18" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/ios-18" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/ios-18" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/migration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/migration" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/migration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-theme-ios26/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/migration" />
   </url>
   <url>
     <loc>https://docs.rdlabo.dev/projects/ionic-theme-ios26/docs/api</loc>
@@ -323,6 +503,54 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/readme" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/readme" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/readme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/initialize</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/initialize" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/initialize" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/initialize" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/initialize</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/initialize" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/initialize" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/initialize" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/usage</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/usage" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/usage" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/usage" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/usage</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/usage" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/usage" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/usage" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/options</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/options" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/options" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/options" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/options</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/options" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/options" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/options" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/faq" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/ionic-angular-collect-icons/docs/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/faq" />
   </url>
   <url>
     <loc>https://docs.rdlabo.dev/projects/ionic-angular-collect-icons/docs/api</loc>
@@ -1033,6 +1261,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/readme</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/readme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/readme</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/readme" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/configuration</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/configuration" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/configuration" />
@@ -1069,16 +1309,28 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/banner" />
   </url>
   <url>
-    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/full-screen-ads</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/full-screen-ads" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/full-screen-ads" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/full-screen-ads" />
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/interstitial</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/interstitial" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/interstitial" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/interstitial" />
   </url>
   <url>
-    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/full-screen-ads</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/full-screen-ads" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/full-screen-ads" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/full-screen-ads" />
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/interstitial</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/interstitial" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/interstitial" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/interstitial" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/rewarded</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/rewarded" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/rewarded" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/rewarded" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/rewarded</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/rewarded" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/rewarded" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/rewarded" />
   </url>
   <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/app-open</loc>
@@ -1091,6 +1343,42 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/app-open" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/app-open" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/app-open" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/events" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/testing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/testing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/testing" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/migration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/migration" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/migration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-admob/docs/migration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/migration" />
   </url>
   <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-admob/docs/api</loc>
@@ -1129,6 +1417,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/readme" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/code-scanner</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/code-scanner" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-codescanner/docs/code-scanner" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/code-scanner" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-codescanner/docs/code-scanner</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/code-scanner" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-codescanner/docs/code-scanner" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/code-scanner" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/api</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-codescanner/docs/api" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-codescanner/docs/api" />
@@ -1163,6 +1463,18 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/readme" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-screenshot-event/docs/readme" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/readme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/screenshot-event</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/screenshot-event" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-screenshot-event/docs/screenshot-event" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/screenshot-event" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-screenshot-event/docs/screenshot-event</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/screenshot-event" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-screenshot-event/docs/screenshot-event" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/screenshot-event" />
   </url>
   <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-screenshot-event/docs/api</loc>
@@ -1201,6 +1513,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/readme" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-printer/docs/pdf</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/pdf" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-printer/docs/pdf" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/pdf" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-printer/docs/pdf</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/pdf" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-printer/docs/pdf" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/pdf" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-printer/docs/web</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/web" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-printer/docs/web" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/web" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-printer/docs/web</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/web" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-printer/docs/web" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/web" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-printer/docs/api</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-printer/docs/api" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-printer/docs/api" />
@@ -1235,6 +1571,54 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/readme" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/readme" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/readme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/installation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/installation" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/installation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/installation" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/search</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/search" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/search" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/search" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/search</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/search" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/search" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/search" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/print</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/print" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/print" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/print" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/print</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/print" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/print" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/print" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/events" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-brotherprint/docs/events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/events" />
   </url>
   <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-brotherprint/docs/api</loc>

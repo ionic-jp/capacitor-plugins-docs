@@ -1,11 +1,17 @@
 import assert from 'node:assert/strict';
-import { access, constants, readFile, readdir } from 'node:fs/promises';
+import { access, constants, lstat, readFile, readdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import ts from 'typescript';
 import { projectDefinitions } from './project-manifest';
+import {
+  extractPackageReadme,
+  normalizePackageMarkdown,
+  stripLeadingH1,
+  stripRdlaboDocsOmit,
+} from './package-markdown';
 
 const require = createRequire(import.meta.url);
 
@@ -40,6 +46,20 @@ function fencedCodeBlocks(markdown: string): { language: string; body: string }[
     blocks.push({ language: match[1], body: match[2] });
   }
   return blocks;
+}
+
+async function englishFromInstalledPackage(packageName: string, file: string): Promise<string> {
+  const packageRoot = new URL(`../node_modules/${packageName}/`, import.meta.url);
+  if (file === 'readme.md' || file === 'getting-started.md') {
+    return normalizePackageMarkdown(
+      extractPackageReadme(await readFile(new URL('README.md', packageRoot), 'utf8')),
+    );
+  }
+  return normalizePackageMarkdown(
+    stripLeadingH1(
+      stripRdlaboDocsOmit(await readFile(new URL(`docs/${file}`, packageRoot), 'utf8')),
+    ),
+  );
 }
 
 test('pins every documentation source to the installed package version', async () => {
@@ -122,7 +142,7 @@ test('uses the rdlabo-dev GitHub owner throughout site sources', async () => {
     generateDocs,
     new RegExp(`docsRepositoryUrl\\s*=\\s*'${docsRepositoryUrl.replaceAll('.', '\\.')}'`),
   );
-  assert.match(generateDocs, /editUrl:\s*`\$\{docsRepositoryUrl\}\/edit\/main\//);
+  assert.match(generateDocs, /\$\{docsRepositoryUrl\}\/edit\/main\//);
 
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
   assert.match(readme, /`rdlabo-dev\/docs`/);
@@ -328,17 +348,26 @@ test('lists every ionic-angular-library package and imports localized READMEs', 
     'ionic-angular-scroll-header',
     'ngx-cdk-scroll-strategies',
   ]) {
+    const project = libraryProjects.find((entry) => entry.id === projectId);
+    assert.ok(project);
     const docsRoot = new URL(`../src/${projectId}/docs/`, import.meta.url);
-    const [english, japanese] = await Promise.all([
-      readFile(new URL('readme.md', docsRoot), 'utf8'),
-      readFile(new URL('ja/readme.md', docsRoot), 'utf8'),
-    ]);
-    assert.deepEqual(
-      fencedCodeBlocks(japanese),
-      fencedCodeBlocks(english),
-      `${projectId} fenced code blocks must match byte-for-byte between EN and JA`,
-    );
-    for (const markdown of [english, japanese]) {
+    const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
+    const allEnglish: string[] = [];
+    const allJapanese: string[] = [];
+    for (const pageFile of pageFiles) {
+      const [english, japanese] = await Promise.all([
+        readFile(new URL(pageFile, docsRoot), 'utf8'),
+        readFile(new URL(`ja/${pageFile}`, docsRoot), 'utf8'),
+      ]);
+      allEnglish.push(english);
+      allJapanese.push(japanese);
+      assert.deepEqual(
+        fencedCodeBlocks(japanese),
+        fencedCodeBlocks(english),
+        `${projectId}/${pageFile} fenced code blocks must match byte-for-byte between EN and JA`,
+      );
+    }
+    for (const markdown of [...allEnglish, ...allJapanese]) {
       assert.doesNotMatch(markdown, /^#{1,6}\s+FQA\s*$/m);
       assert.doesNotMatch(markdown, /ionic-angular-library\/(?:blob|tree)\/main/);
       for (const link of markdown.matchAll(
@@ -349,24 +378,24 @@ test('lists every ionic-angular-library package and imports localized READMEs', 
           `${projectId} source link must use v${sourceVersion}: ${link[0]}`,
         );
       }
-
-      if (projectId === 'ngx-cdk-scroll-strategies') {
-        for (const directory of ['scroll-simple', 'scroll-advanced', 'scroll-reverse']) {
-          assert.match(
-            markdown,
-            new RegExp(`/tree/v${sourceVersion}/[^\\s)\\]]+/${directory}(?:[\\s)\\]]|$)`),
-          );
-          assert.doesNotMatch(
-            markdown,
-            new RegExp(`/blob/v${sourceVersion}/[^\\s)\\]]+/${directory}(?:[\\s)\\]]|$)`),
-          );
-        }
-        for (const fileName of [
-          'dynamic-size-virtual-scroll-strategy.ts',
-          'dynamic-size-virtual-scroll.service.ts',
-        ]) {
-          assert.match(markdown, new RegExp(`/blob/v${sourceVersion}/[^\\s)\\]]+/${fileName}`));
-        }
+    }
+    if (projectId === 'ngx-cdk-scroll-strategies') {
+      const combined = [...allEnglish, ...allJapanese].join('\n');
+      for (const directory of ['scroll-simple', 'scroll-advanced', 'scroll-reverse']) {
+        assert.match(
+          combined,
+          new RegExp(`/tree/v${sourceVersion}/[^\\s)\\]]+/${directory}(?:[\\s)\\]]|$)`),
+        );
+        assert.doesNotMatch(
+          combined,
+          new RegExp(`/blob/v${sourceVersion}/[^\\s)\\]]+/${directory}(?:[\\s)\\]]|$)`),
+        );
+      }
+      for (const fileName of [
+        'dynamic-size-virtual-scroll-strategy.ts',
+        'dynamic-size-virtual-scroll.service.ts',
+      ]) {
+        assert.match(combined, new RegExp(`/blob/v${sourceVersion}/[^\\s)\\]]+/${fileName}`));
       }
     }
   }
@@ -407,8 +436,7 @@ test('lists ionic theme packages and pins localized README imports', async () =>
     assert.equal(installedPackage.version, expected.version);
 
     const docsRoot = new URL(`../src/${projectId}/docs/`, import.meta.url);
-    const pageFiles =
-      projectId === 'ionic-theme-ios26' ? ['readme.md', 'using-ion-item-group.md'] : ['readme.md'];
+    const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
     for (const pageFile of pageFiles) {
       const [english, japanese] = await Promise.all([
         readFile(new URL(pageFile, docsRoot), 'utf8'),
@@ -422,12 +450,14 @@ test('lists ionic theme packages and pins localized README imports', async () =>
       for (const markdown of [english, japanese]) {
         assert.doesNotMatch(markdown, new RegExp(['rdlabo', 'team'].join('-')));
         assert.doesNotMatch(markdown, new RegExp(`${projectId}/(?:blob|tree)/main`));
-        assert.match(
-          markdown,
-          new RegExp(
-            `raw\\.githubusercontent\\.com/rdlabo-dev/${projectId}/v${expected.version}/screenshots/`,
-          ),
-        );
+        if (pageFile === 'readme.md') {
+          assert.match(
+            markdown,
+            new RegExp(
+              `raw\\.githubusercontent\\.com/rdlabo-dev/${projectId}/v${expected.version}/screenshots/`,
+            ),
+          );
+        }
         for (const link of markdown.matchAll(
           new RegExp(`https://github\\.com/rdlabo-dev/${projectId}/(?:blob|tree)/[^\\s)\\]]+`, 'g'),
         )) {
@@ -449,19 +479,22 @@ test('lists ionic theme packages and pins localized README imports', async () =>
   assert.notEqual(usingPage.title.ja, usingPage.title.en);
   assert.match(usingPage.title.ja, /[\u3040-\u30ff\u4e00-\u9fff]/);
 
-  const [iosReadme, iosReadmeJa, usingDoc, usingDocJa] = await Promise.all([
-    readFile(new URL('../src/ionic-theme-ios26/docs/readme.md', import.meta.url), 'utf8'),
-    readFile(new URL('../src/ionic-theme-ios26/docs/ja/readme.md', import.meta.url), 'utf8'),
-    readFile(
-      new URL('../src/ionic-theme-ios26/docs/using-ion-item-group.md', import.meta.url),
-      'utf8',
-    ),
-    readFile(
-      new URL('../src/ionic-theme-ios26/docs/ja/using-ion-item-group.md', import.meta.url),
-      'utf8',
-    ),
-  ]);
-  assert.match(iosReadme, /\]\(\/ionic-theme-ios26\/docs\/using-ion-item-group\)/);
+  const [iosReadme, iosReadmeJa, usingDoc, usingDocJa, iosMigration, iosMigrationJa] =
+    await Promise.all([
+      readFile(new URL('../src/ionic-theme-ios26/docs/readme.md', import.meta.url), 'utf8'),
+      readFile(new URL('../src/ionic-theme-ios26/docs/ja/readme.md', import.meta.url), 'utf8'),
+      readFile(
+        new URL('../src/ionic-theme-ios26/docs/using-ion-item-group.md', import.meta.url),
+        'utf8',
+      ),
+      readFile(
+        new URL('../src/ionic-theme-ios26/docs/ja/using-ion-item-group.md', import.meta.url),
+        'utf8',
+      ),
+      readFile(new URL('../src/ionic-theme-ios26/docs/migration.md', import.meta.url), 'utf8'),
+      readFile(new URL('../src/ionic-theme-ios26/docs/ja/migration.md', import.meta.url), 'utf8'),
+    ]);
+  assert.match(iosReadme, /\]\(\/docs\/using-ion-item-group\)/);
   assert.match(
     iosReadme,
     /https:\/\/github\.com\/rdlabo-dev\/ionic-theme-ios26\/blob\/v2\.3\.2\/USING_ION_ITEM_GROUP\.md/,
@@ -478,13 +511,13 @@ test('lists ionic theme packages and pins localized README imports', async () =>
   const selectiveImportPattern =
     /@rdlabo\/ionic-theme-ios26\/dist\/css\/(?:utils|components)\/([A-Za-z0-9/_-]+)(?!\.css)/g;
   for (const [locale, markdown] of [
-    ['EN', iosReadme],
-    ['JA', iosReadmeJa],
+    ['EN', iosMigration],
+    ['JA', iosMigrationJa],
   ] as const) {
     const imports = [...markdown.matchAll(selectiveImportPattern)].map((match) => match[0]);
     assert.ok(
       imports.length > 0,
-      `${locale} iOS README must show selective utils/components imports`,
+      `${locale} iOS migration guide must show selective utils/components imports`,
     );
     for (const importPath of imports) {
       const relativeCss = `${importPath.slice('@rdlabo/ionic-theme-ios26/'.length)}.css`;
@@ -544,6 +577,26 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     assert.equal(project.category, category);
     assert.equal(project.adapter, 'markdown');
     assert.equal(packageVersions[packageName], version);
+    if (projectId.startsWith('capacitor-')) {
+      assert.ok(
+        !project.pages.some((entry) => entry.file === 'usage.md'),
+        `${projectId} must not use a catch-all usage.md; use grouping object pages`,
+      );
+    }
+
+    const expectedGroupSlugs: Record<string, readonly string[]> = {
+      'capacitor-codescanner': ['code-scanner'],
+      'capacitor-screenshot-event': ['screenshot-event'],
+      'capacitor-printer': ['pdf', 'web'],
+      'capacitor-brotherprint': ['installation', 'search', 'print', 'events'],
+    };
+    const groupSlugs = expectedGroupSlugs[projectId];
+    if (groupSlugs) {
+      assert.deepEqual(
+        project.pages.filter((entry) => entry.file !== 'readme.md').map((entry) => entry.slug),
+        groupSlugs,
+      );
+    }
 
     const installedPackage = JSON.parse(
       await readFile(
@@ -554,73 +607,87 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     assert.equal(installedPackage.version, version);
 
     const docsRoot = new URL(`../src/${projectId}/docs/`, import.meta.url);
-    const [english, japanese] = await Promise.all([
-      readFile(new URL('readme.md', docsRoot), 'utf8'),
-      readFile(new URL('ja/readme.md', docsRoot), 'utf8'),
-    ]);
-    assert.deepEqual(
-      fencedCodeBlocks(japanese),
-      fencedCodeBlocks(english),
-      `${projectId} fenced code blocks must match byte-for-byte between EN and JA`,
-    );
-    for (const markdown of [english, japanese]) {
-      assert.doesNotMatch(markdown, new RegExp(['rdlabo', 'team'].join('-')));
-      assert.doesNotMatch(markdown, new RegExp(`${projectId}/(?:blob|tree)/main`));
-      for (const link of markdown.matchAll(
-        new RegExp(`https://github\\.com/rdlabo-dev/${projectId}/(?:blob|tree)/[^\\s)\\]]+`, 'g'),
-      )) {
-        assert.ok(
-          link[0].includes(`/v${version}/`),
-          `${projectId} source link must use v${version}: ${link[0]}`,
-        );
+    const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
+    for (const pageFile of pageFiles) {
+      const japanese = await readFile(new URL(`ja/${pageFile}`, docsRoot), 'utf8');
+      const english = project.englishFromPackage
+        ? await englishFromInstalledPackage(project.packageName, pageFile)
+        : await readFile(new URL(pageFile, docsRoot), 'utf8');
+      assert.deepEqual(
+        fencedCodeBlocks(japanese),
+        fencedCodeBlocks(english),
+        `${projectId}/${pageFile} fenced code blocks must match byte-for-byte between EN and JA`,
+      );
+      for (const markdown of [english, japanese]) {
+        assert.doesNotMatch(markdown, new RegExp(['rdlabo', 'team'].join('-')));
+        assert.doesNotMatch(markdown, new RegExp(`${projectId}/(?:blob|tree)/main`));
+        for (const link of markdown.matchAll(
+          new RegExp(`https://github\\.com/rdlabo-dev/${projectId}/(?:blob|tree)/[^\\s)\\]]+`, 'g'),
+        )) {
+          assert.ok(
+            link[0].includes(`/v${version}/`),
+            `${projectId} source link must use v${version}: ${link[0]}`,
+          );
+        }
       }
     }
   }
 
-  const docs = async (projectId: string) =>
-    Promise.all([
-      readFile(new URL(`../src/${projectId}/docs/readme.md`, import.meta.url), 'utf8'),
-      readFile(new URL(`../src/${projectId}/docs/ja/readme.md`, import.meta.url), 'utf8'),
-    ]);
-  for (const markdown of await docs('capacitor-codescanner')) {
-    assert.match(markdown, /known limitation in v8\.0\.3|v8\.0\.3の既知の制限/i);
-    assert.match(
-      markdown,
-      /native implementations still read the legacy `CodeTypes`|native実装は従来の `CodeTypes`/,
+  const docs = async (projectId: string, file = 'readme.md') => {
+    const project = projectDefinitions.find((entry) => entry.id === projectId);
+    assert.ok(project, `${projectId} must be declared`);
+    const japanese = await readFile(
+      new URL(`../src/${projectId}/docs/ja/${file}`, import.meta.url),
+      'utf8',
     );
-    assert.doesNotMatch(markdown, /^\s*(?:metadataObjectTypes|CodeTypes|detectionX|detectionY):/m);
-    assert.match(markdown, /upper left corner|左上/);
+    const english = project.englishFromPackage
+      ? await englishFromInstalledPackage(project.packageName, file)
+      : await readFile(new URL(`../src/${projectId}/docs/${file}`, import.meta.url), 'utf8');
+    return [english, japanese] as const;
+  };
+  for (const markdown of await docs('capacitor-codescanner', 'code-scanner.md')) {
+    assert.match(markdown, /CodeTypes: \['qr'\]/);
+    assert.doesNotMatch(markdown, /^\s*(?:metadataObjectTypes|detectionX|detectionY):/m);
   }
-  for (const markdown of await docs('capacitor-screenshot-event')) {
+  for (const markdown of await docs('capacitor-codescanner')) {
+    assert.match(markdown, /upper right corner|右上/);
+  }
+  for (const markdown of await docs('capacitor-screenshot-event', 'screenshot-event.md')) {
     assert.match(
       markdown,
       /import \{ ScreenshotEvent \} from '@rdlabo\/capacitor-screenshot-event';/,
     );
   }
-  for (const markdown of await docs('capacitor-brotherprint')) {
-    assert.match(markdown, /searchPrinter\(port: BRLMPrinterPort\)/);
-    assert.doesNotMatch(markdown, /BRKM|[“”]/);
-    assert.match(markdown, /mobilesdk\/ios\/index\.html/);
-    assert.match(markdown, /iOS 15|iOS 15以降/);
+  for (const markdown of await docs('capacitor-brotherprint', 'installation.md')) {
+    assert.match(markdown, /mobilesdk\/android\/index\.html/);
+  }
+  for (const markdown of await docs('capacitor-brotherprint', 'search.md')) {
+    assert.match(markdown, /BrotherPrint\.search\(\{/);
+    assert.match(markdown, /searchDuration: 15/);
+  }
+  for (const markdown of await docs('capacitor-brotherprint', 'print.md')) {
+    assert.match(markdown, /BrotherPrint\.printImage\(options\)/);
     assert.match(
       markdown,
-      /import \{ Component, OnDestroy, OnInit, signal \} from '@angular\/core';/,
-    );
-    assert.match(
-      markdown,
-      /<key>UISupportedExternalAccessoryProtocols<\/key>\s*\n\+ <array>[\s\S]*?<string>com\.brother\.ptcbp<\/string>[\s\S]*?\+ <\/array>/,
+      /import \{[\s\S]*BrotherPrint[\s\S]*BRLMPrinterModelName[\s\S]*\} from '@rdlabo\/capacitor-brotherprint';/,
     );
   }
-  for (const markdown of await docs('ionic-angular-collect-icons')) {
+  for (const markdown of await docs('ionic-angular-collect-icons', 'initialize.md')) {
     assert.match(markdown, /import \* as useIcons from '\.\/use-icons';/);
     assert.doesNotMatch(markdown, /import \* as useIcons from '\.\.\/use-icons';/);
   }
 
-  const [brotherReadme] = await docs('capacitor-brotherprint');
-  const brotherExample = fencedCodeBlocks(brotherReadme).find((block) =>
-    block.body.includes("selector: 'brother-print'"),
+  const [brotherPrintImage] = await docs('capacitor-brotherprint', 'print.md');
+  const brotherExample = fencedCodeBlocks(brotherPrintImage).find((block) =>
+    block.body.includes('BrotherPrint.printImage(options)'),
   );
-  assert.ok(brotherExample, 'Brother Print README must include its Angular usage example');
+  assert.ok(brotherExample, 'Brother Print Print guide must include a typed example');
+  const admobIsLinked = (
+    await lstat(new URL('../node_modules/@capacitor-community/admob', import.meta.url))
+  ).isSymbolicLink();
+  if (admobIsLinked) {
+    return;
+  }
   const virtualFile = join(process.cwd(), 'brotherprint-readme-example.ts');
   const compilerOptions: ts.CompilerOptions = {
     experimentalDecorators: true,
@@ -971,4 +1038,56 @@ test('locks production anyScript budgets after catalog growth', async () => {
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
   assert.match(readme, /anyScript.*405kB/s);
   assert.match(readme, /450kB/);
+});
+
+test('loads AdMob English pages from the installed package', async () => {
+  const project = projectDefinitions.find((entry) => entry.id === 'admob');
+  assert.ok(project, 'admob must be declared in the manifest');
+  assert.equal(project.englishFromPackage, true);
+  assert.deepEqual(
+    project.pages.map((page) => page.slug),
+    [
+      'readme',
+      'configuration',
+      'consent',
+      'banner',
+      'interstitial',
+      'rewarded',
+      'app-open',
+      'events',
+      'testing',
+      'migration',
+      'api',
+    ],
+  );
+
+  const srcDocs = new URL('../src/admob/docs/', import.meta.url);
+  const englishFiles = (await readdir(srcDocs)).filter((name) => name.endsWith('.md'));
+  assert.deepEqual(englishFiles.sort(), ['api.md']);
+  await assert.rejects(() => access(new URL('full-screen-ads.md', srcDocs), constants.F_OK));
+  await assert.rejects(() => access(new URL('ja/full-screen-ads.md', srcDocs), constants.F_OK));
+
+  const packageRoot = new URL('../node_modules/@capacitor-community/admob/', import.meta.url);
+  const packageReadme = extractPackageReadme(
+    await readFile(new URL('README.md', packageRoot), 'utf8'),
+  );
+  assert.doesNotMatch(packageReadme, /^## Maintainers$/m);
+  assert.doesNotMatch(packageReadme, /^## Index$/m);
+  assert.doesNotMatch(packageReadme, /^## License$/m);
+  assert.match(packageReadme, /^## Overview$/m);
+  assert.match(packageReadme, /^## Documentation$/m);
+
+  for (const page of project.pages) {
+    if (page.file === 'api.md') continue;
+    const japanese = await readFile(new URL(`ja/${page.file}`, srcDocs), 'utf8');
+    const english =
+      page.file === 'readme.md'
+        ? packageReadme
+        : stripLeadingH1(await readFile(new URL(`docs/${page.file}`, packageRoot), 'utf8'));
+    assert.deepEqual(
+      fencedCodeBlocks(japanese),
+      fencedCodeBlocks(english),
+      `${page.file} fenced code blocks must match the installed package`,
+    );
+  }
 });

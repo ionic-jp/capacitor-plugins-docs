@@ -4,12 +4,15 @@ code: []
 scrollActiveLine: []
 ---
 
-バナー広告はネイティブビューの一部に表示されます。最初のロード・サイズ変更イベントを取りこぼさないよう、`showBanner` より前にリスナーを登録します。
+バナー広告はアプリ画面の一部を占める長方形の広告です。ユーザーがアプリを操作しているあいだも画面に残せます。通常は上下に固定します。形式の説明は Google のバナー広告ガイド（[Android](https://developers.google.com/admob/android/banner?hl=ja) / [iOS](https://developers.google.com/admob/ios/banner?hl=ja)）を見てください。
+
+[初期化](/docs/configuration) と [同意](/docs/consent) のあとで呼び出します。このプラグインでは WebView の上にあるネイティブ画面に描画します。最初のロードとサイズ変更を取りこぼさないよう、`showBanner` より前にリスナーを登録します。
 
 ```ts
 import {
   AdMob,
   AdMobBannerSize,
+  AdMobRevenueData,
   BannerAdOptions,
   BannerAdPluginEvents,
   BannerAdPosition,
@@ -18,12 +21,19 @@ import {
 
 const handles = await Promise.all([
   AdMob.addListener(BannerAdPluginEvents.Loaded, () => {
-    console.log('バナーをロードしました');
+    console.log('Banner loaded');
   }),
   AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size: AdMobBannerSize) => {
-    console.log(size.width, size.height);
+    console.log('Banner size', size.width, size.height);
+    // Inset your layout by size.height; see the next section.
   }),
-  AdMob.addListener(BannerAdPluginEvents.FailedToLoad, console.error),
+  AdMob.addListener(BannerAdPluginEvents.FailedToLoad, (error) => {
+    console.error(error);
+  }),
+  AdMob.addListener(BannerAdPluginEvents.AdPaid, (data: AdMobRevenueData) => {
+    // Forward impression-level revenue to your analytics provider.
+    console.log(data);
+  }),
 ]);
 
 const options: BannerAdOptions = {
@@ -31,16 +41,42 @@ const options: BannerAdOptions = {
   adSize: BannerAdSize.ADAPTIVE_BANNER,
   position: BannerAdPosition.BOTTOM_CENTER,
   margin: 0,
+  // isTesting: true,
+  // npa: true,
 };
-
 await AdMob.showBanner(options);
 ```
+
+## バナーとコンテンツを重ねない
+
+バナーは WebView の上のネイティブ画面に描画されます。HTML 側のレイアウトは自動では動きません。自分のルート要素を `size.height`（論理ピクセル）だけ空けます。`BOTTOM_CENTER` なら下、`TOP_CENTER` なら上に padding または margin を付けます。
+
+```html
+<main id="content">Your app</main>
+```
+
+```ts
+import { AdMob, BannerAdPluginEvents } from '@capacitor-community/admob';
+
+const content = document.getElementById('content');
+
+await AdMob.addListener(BannerAdPluginEvents.SizeChanged, (size) => {
+  if (!content) {
+    return;
+  }
+  content.style.paddingBottom = size.height > 0 ? `${size.height}px` : '';
+});
+```
+
+非表示・削除・ロード失敗では高さが `0` になることがあるので、そのときは inset を消します。フレームワークでは、WebView を埋めている要素に同じ考え方を適用します。
+
+リクエストのフィールドは [`BannerAdOptions`](/docs/api#interface-banneradoptions) に定義されています。`isTesting` は [テスト](/docs/testing) を参照してください。
 
 ## ライフサイクル
 
 - `hideBanner()` は現在のバナーを一時的に隠します。
 - `resumeBanner()` は隠したバナーを再表示します。
-- `removeBanner()` はバナーを削除します。
+- `removeBanner()` はバナーを破棄します。作り直すときは `showBanner()` を呼びます。
 
 画面を破棄するときはリスナーとバナーを解放します。
 
@@ -51,4 +87,4 @@ for (const handle of handles) {
 await AdMob.removeBanner();
 ```
 
-`BannerAdPluginEvents.AdPaid` はインプレッション単位の `AdMobRevenueData` を通知します。
+バナーのインプレッション単位の売上は `BannerAdPluginEvents.AdPaid` で通知されます。フルスクリーン形式は同じ `AdMobRevenueData` を `AdImpression` で出します。[広告イベント](/docs/events) を参照してください。

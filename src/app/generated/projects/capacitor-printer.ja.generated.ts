@@ -30,17 +30,32 @@ export const PROJECT = {
   "path": "/projects/capacitor-printer",
   "pages": [
     {
-      "title": "@rdlabo/capacitor-printer",
-      "navTitle": "README",
+      "title": "はじめに",
+      "navTitle": "はじめに",
       "slug": "readme",
       "file": "readme.md",
-      "section": "ドキュメント",
+      "section": "クイックスタート",
       "path": "/projects/capacitor-printer/docs/readme",
-      "html": "\n<p data-line=\"2\" class=\"code-line\">Capacitor 向けプリンタープラグインです</p>\n<h2 id=\"%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\" aria-hidden=\"true\"></a> インストール</h2>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"6\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/capacitor-printer</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npx</span><span style=\"color:#9ECBFF\"> cap</span><span style=\"color:#9ECBFF\"> sync</span></span>\n<span class=\"line\"></span></code></pre></div>",
+      "html": "<p data-line=\"0\" class=\"code-line\">Capacitor アプリからファイルまたは現在の WebView を印刷します。</p>\n<p data-line=\"2\" class=\"code-line\">このプラグインは iOS と Android のネイティブ印刷 UI をラップします。アプリ内で生成した PDF などのローカルファイル、または現在の WebView の内容を印刷できます。</p>\n<h2 id=\"%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\" data-line=\"4\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\" aria-hidden=\"true\"></a> インストール</h2>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"6\"><span class=\"line\"><span style=\"color:#B392F0\">npm</span><span style=\"color:#9ECBFF\"> install</span><span style=\"color:#9ECBFF\"> @rdlabo/capacitor-printer</span></span>\n<span class=\"line\"><span style=\"color:#B392F0\">npx</span><span style=\"color:#9ECBFF\"> cap</span><span style=\"color:#9ECBFF\"> sync</span></span>\n<span class=\"line\"></span></code></pre></div><h2 id=\"%E4%BD%BF%E3%81%84%E6%96%B9\" data-line=\"11\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#%E4%BD%BF%E3%81%84%E6%96%B9\" aria-hidden=\"true\"></a> 使い方</h2>\n<p data-line=\"13\" class=\"code-line\">ファイルの印刷は <a href=\"/ja/projects/capacitor-printer/docs/pdf\">PDF</a>、現在の WebView の印刷は <a href=\"/ja/projects/capacitor-printer/docs/web\">Web</a> です。</p>\n<h2 id=\"%E3%81%84%E3%81%A4%E4%BD%BF%E3%81%86%E3%81%8B\" data-line=\"15\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#%E3%81%84%E3%81%A4%E4%BD%BF%E3%81%86%E3%81%8B\" aria-hidden=\"true\"></a> いつ使うか</h2>\n<p data-line=\"17\" class=\"code-line\">アプリがシステムの印刷ダイアログを出す必要があるときに使います。例:</p>\n<ul data-line=\"19\" class=\"code-line\">\n<li data-line=\"19\" class=\"code-line\">レシートや請求書を PDF として印刷する</li>\n<li data-line=\"20\" class=\"code-line\">アプリ内で生成したレポートを印刷する</li>\n<li data-line=\"21\" class=\"code-line\">現在のページ内容を印刷する</li>\n</ul>\n<h2 id=\"%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0\" data-line=\"23\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0\" aria-hidden=\"true\"></a> プラットフォーム</h2>\n<ul data-line=\"25\" class=\"code-line\">\n<li data-line=\"25\" class=\"code-line\"><strong>iOS と Android</strong>: <code>printFile</code> と <code>printWebView</code> の両方に対応します。</li>\n<li data-line=\"26\" class=\"code-line\"><strong>Web</strong>: ブラウザがすでに <code>window.print()</code> を提供するため非対応です。</li>\n</ul>\n",
       "headings": [
         {
           "id": "%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB",
           "text": "インストール",
+          "level": 2
+        },
+        {
+          "id": "%E4%BD%BF%E3%81%84%E6%96%B9",
+          "text": "使い方",
+          "level": 2
+        },
+        {
+          "id": "%E3%81%84%E3%81%A4%E4%BD%BF%E3%81%86%E3%81%8B",
+          "text": "いつ使うか",
+          "level": 2
+        },
+        {
+          "id": "%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0",
+          "text": "プラットフォーム",
           "level": 2
         }
       ],
@@ -49,13 +64,39 @@ export const PROJECT = {
       "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/ja/readme.md"
     },
     {
+      "title": "PDF",
+      "navTitle": "PDF",
+      "slug": "pdf",
+      "file": "pdf.md",
+      "section": "ガイド",
+      "path": "/projects/capacitor-printer/docs/pdf",
+      "html": "<p data-line=\"0\" class=\"code-line\">PDF などのファイルのシステム印刷 UI を出します。Android と iOS のみです。<a href=\"/ja/projects/capacitor-printer/docs/readme#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\">インストール</a> のあとで呼び出します。現在の WebView を印刷する場合は <a href=\"/ja/projects/capacitor-printer/docs/web\">Web</a> です。</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#F97583\">import</span><span style=\"color:#E1E4E8\"> { Printer } </span><span style=\"color:#F97583\">from</span><span style=\"color:#9ECBFF\"> '@rdlabo/capacitor-printer'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">const</span><span style=\"color:#79B8FF\"> filePath</span><span style=\"color:#F97583\"> =</span><span style=\"color:#9ECBFF\"> '/path/to/document.pdf'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">try</span><span style=\"color:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"color:#F97583\">  await</span><span style=\"color:#E1E4E8\"> Printer.</span><span style=\"color:#B392F0\">printFile</span><span style=\"color:#E1E4E8\">({ path: filePath });</span></span>\n<span class=\"line\"><span style=\"color:#E1E4E8\">} </span><span style=\"color:#F97583\">finally</span><span style=\"color:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"color:#a0aab5\">  // The promise settles after the OS no longer needs the source file.</span></span>\n<span class=\"line\"><span style=\"color:#E1E4E8\">}</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"14\" class=\"code-line\">Android はファイルパス、<code>file://</code> URL、<code>content://</code> URL に対応します。iOS はファイルパスとローカル <code>file://</code> URL です。<code>mimeType</code> は Android のみです。シグネチャは <a href=\"/ja/projects/capacitor-printer/docs/api#printfile\">API</a> ページにあります。</p>\n",
+      "headings": [],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/ja/pdf.md"
+    },
+    {
+      "title": "Web",
+      "navTitle": "Web",
+      "slug": "web",
+      "file": "web.md",
+      "section": "ガイド",
+      "path": "/projects/capacitor-printer/docs/web",
+      "html": "<p data-line=\"0\" class=\"code-line\">現在の WebView 内容のシステム印刷 UI を出します。Android と iOS のみです。<a href=\"/ja/projects/capacitor-printer/docs/readme#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\">インストール</a> のあとで呼び出します。PDF などのファイルを印刷する場合は <a href=\"/ja/projects/capacitor-printer/docs/pdf\">PDF</a> です。</p>\n<div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"2\"><span class=\"line\"><span style=\"color:#F97583\">import</span><span style=\"color:#E1E4E8\"> { Printer } </span><span style=\"color:#F97583\">from</span><span style=\"color:#9ECBFF\"> '@rdlabo/capacitor-printer'</span><span style=\"color:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"color:#F97583\">await</span><span style=\"color:#E1E4E8\"> Printer.</span><span style=\"color:#B392F0\">printWebView</span><span style=\"color:#E1E4E8\">({ name: </span><span style=\"color:#9ECBFF\">'Document'</span><span style=\"color:#E1E4E8\"> });</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"8\" class=\"code-line\"><code>name</code> は印刷ジョブ名で、既定値は <code>'Document'</code> です。シグネチャは <a href=\"/ja/projects/capacitor-printer/docs/api#printwebview\">API</a> ページにあります。</p>\n",
+      "headings": [],
+      "codes": [],
+      "scrollMap": [],
+      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/ja/web.md"
+    },
+    {
       "title": "API",
       "navTitle": "API",
       "slug": "api",
       "file": "readme.md",
       "section": "リファレンス",
       "path": "/projects/capacitor-printer/docs/api",
-      "html": "<div class=\"api-reference\"><ul data-line=\"0\" class=\"code-line\">\n<li data-line=\"0\" class=\"code-line\"><a href=\"#printfile\"><code>printFile(...)</code></a></li>\n<li data-line=\"1\" class=\"code-line\"><a href=\"#printwebview\"><code>printWebView(...)</code></a></li>\n<li data-line=\"2\" class=\"code-line\"><a href=\"#interfaces\">インターフェース</a></li>\n<li data-line=\"3\" class=\"code-line\"><a href=\"#type-aliases\">型エイリアス</a></li>\n</ul>\n<p data-line=\"5\" class=\"code-line\"></p>\n<section class=\"api-entry\"><h4 id=\"printfile(...)\" data-line=\"7\" class=\"code-line\"><code>method</code> printFile(...)</h4><div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"9\"><span class=\"line\"><span style=\"color:#B392F0\">printFile</span><span style=\"color:#E1E4E8\">(options: PrintFileOptions) </span><span style=\"color:#F97583\">=&gt;</span><span style=\"color:#79B8FF\"> Promise</span><span style=\"color:#F97583\">&lt;void&gt;</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"13\" class=\"code-line\">ファイルを印刷するための印刷 UI を表示します。</p><p data-line=\"15\" class=\"code-line\">Promise は OS がソースファイルを必要としなくなったあとに解決されるため、<code>finally</code> ブロックでファイルを安全に削除できます。</p><p data-line=\"17\" class=\"code-line\">Android と iOS でのみ利用できます。</p><table data-line=\"19\" class=\"code-line\">\n<thead data-line=\"19\" class=\"code-line\">\n<tr data-line=\"19\" class=\"code-line\">\n<th>パラメータ</th>\n<th>型</th>\n</tr>\n</thead>\n<tbody data-line=\"21\" class=\"code-line\">\n<tr data-line=\"21\" class=\"code-line\">\n<td><strong><code>options</code></strong></td>\n<td>&lt;code&gt;&lt;a href=\"#printfileoptions\"&gt;PrintFileOptions&lt;/a&gt;&lt;/code&gt;</td>\n</tr>\n</tbody>\n</table><hr data-line=\"23\" class=\"code-line\"></section>\n\n\n\n\n\n<section class=\"api-entry\"><h4 id=\"printwebview(...)\" data-line=\"26\" class=\"code-line\"><code>method</code> printWebView(...)</h4><div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"28\"><span class=\"line\"><span style=\"color:#B392F0\">printWebView</span><span style=\"color:#E1E4E8\">(options</span><span style=\"color:#F97583\">?:</span><span style=\"color:#E1E4E8\"> PrintOptions </span><span style=\"color:#F97583\">|</span><span style=\"color:#79B8FF\"> undefined</span><span style=\"color:#E1E4E8\">) </span><span style=\"color:#F97583\">=&gt;</span><span style=\"color:#79B8FF\"> Promise</span><span style=\"color:#F97583\">&lt;void&gt;</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"32\" class=\"code-line\">WebView の内容を印刷するための印刷 UI を表示します。</p><table data-line=\"34\" class=\"code-line\">\n<thead data-line=\"34\" class=\"code-line\">\n<tr data-line=\"34\" class=\"code-line\">\n<th>パラメータ</th>\n<th>型</th>\n</tr>\n</thead>\n<tbody data-line=\"36\" class=\"code-line\">\n<tr data-line=\"36\" class=\"code-line\">\n<td><strong><code>options</code></strong></td>\n<td>&lt;code&gt;&lt;a href=\"#printoptions\"&gt;PrintOptions&lt;/a&gt;&lt;/code&gt;</td>\n</tr>\n</tbody>\n</table><hr data-line=\"38\" class=\"code-line\"></section>\n\n\n\n<h3 id=\"%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9\" data-line=\"41\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9\" aria-hidden=\"true\"></a> インターフェース</h3>\n<section class=\"api-entry\"><h4 id=\"printfileoptions\" data-line=\"44\" class=\"code-line\"><code>interface</code> <a class=\"header-anchor-link\" href=\"#printfileoptions\" aria-hidden=\"true\"></a> PrintFileOptions</h4><table data-line=\"46\" class=\"code-line\">\n<thead data-line=\"46\" class=\"code-line\">\n<tr data-line=\"46\" class=\"code-line\">\n<th>プロパティ</th>\n<th>型</th>\n<th>説明</th>\n</tr>\n</thead>\n<tbody data-line=\"48\" class=\"code-line\">\n<tr data-line=\"48\" class=\"code-line\">\n<td><strong><code>path</code></strong></td>\n<td>&lt;code&gt;string&lt;/code&gt;</td>\n<td>ファイルへのパス。Android はファイルパス、<code>file://</code> URL、<code>content://</code> URL に対応。iOS はファイルパスとローカル <code>file://</code> URL に対応。</td>\n</tr>\n<tr data-line=\"49\" class=\"code-line\">\n<td><strong><code>mimeType</code></strong></td>\n<td>&lt;code&gt;string&lt;/code&gt;</td>\n<td>ファイルの MIME タイプ。Android でのみ使用されます。</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"printoptions\" data-line=\"52\" class=\"code-line\"><code>interface</code> <a class=\"header-anchor-link\" href=\"#printoptions\" aria-hidden=\"true\"></a> PrintOptions</h4><table data-line=\"54\" class=\"code-line\">\n<thead data-line=\"54\" class=\"code-line\">\n<tr data-line=\"54\" class=\"code-line\">\n<th>プロパティ</th>\n<th>型</th>\n<th>説明</th>\n<th>デフォルト</th>\n</tr>\n</thead>\n<tbody data-line=\"56\" class=\"code-line\">\n<tr data-line=\"56\" class=\"code-line\">\n<td><strong><code>name</code></strong></td>\n<td>&lt;code&gt;string&lt;/code&gt;</td>\n<td>印刷ジョブの名前です。</td>\n<td>&lt;code&gt;'Document'&lt;/code&gt;</td>\n</tr>\n</tbody>\n</table></section>\n\n<h3 id=\"%E5%9E%8B%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9\" data-line=\"59\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#%E5%9E%8B%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9\" aria-hidden=\"true\"></a> 型エイリアス</h3>\n<section class=\"api-entry\"><h4 id=\"printwebviewoptions\" data-line=\"62\" class=\"code-line\"><code>type alias</code> <a class=\"header-anchor-link\" href=\"#printwebviewoptions\" aria-hidden=\"true\"></a> PrintWebViewOptions</h4><p data-line=\"64\" class=\"code-line\">&lt;code&gt;&lt;a href=\"#printoptions\"&gt;PrintOptions&lt;/a&gt;&lt;/code&gt;</p></section>\n\n</div>",
+      "html": "<div class=\"api-reference\"><ul data-line=\"0\" class=\"code-line\">\n<li data-line=\"0\" class=\"code-line\"><a href=\"#printfile\"><code>printFile(...)</code></a></li>\n<li data-line=\"1\" class=\"code-line\"><a href=\"#printwebview\"><code>printWebView(...)</code></a></li>\n<li data-line=\"2\" class=\"code-line\"><a href=\"#interfaces\">Interfaces</a></li>\n<li data-line=\"3\" class=\"code-line\"><a href=\"#type-aliases\">Type Aliases</a></li>\n</ul>\n<p data-line=\"5\" class=\"code-line\"></p>\n<section class=\"api-entry\"><h4 id=\"printfile(...)\" data-line=\"7\" class=\"code-line\"><code>method</code> printFile(...)</h4><div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"9\"><span class=\"line\"><span style=\"color:#B392F0\">printFile</span><span style=\"color:#E1E4E8\">(options: PrintFileOptions) </span><span style=\"color:#F97583\">=&gt;</span><span style=\"color:#79B8FF\"> Promise</span><span style=\"color:#F97583\">&lt;void&gt;</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"13\" class=\"code-line\">Present the printing user interface to print a file.</p><p data-line=\"15\" class=\"code-line\">The promise settles after the operating system no longer needs the source<br>\nfile, so the file can be safely deleted in a <code>finally</code> block.</p><p data-line=\"18\" class=\"code-line\">Only available on Android and iOS.</p><table data-line=\"20\" class=\"code-line\">\n<thead data-line=\"20\" class=\"code-line\">\n<tr data-line=\"20\" class=\"code-line\">\n<th>Param</th>\n<th>Type</th>\n</tr>\n</thead>\n<tbody data-line=\"22\" class=\"code-line\">\n<tr data-line=\"22\" class=\"code-line\">\n<td><strong><code>options</code></strong></td>\n<td>&lt;code&gt;&lt;a href=\"#printfileoptions\"&gt;PrintFileOptions&lt;/a&gt;&lt;/code&gt;</td>\n</tr>\n</tbody>\n</table><hr data-line=\"24\" class=\"code-line\"></section>\n\n\n\n\n\n<section class=\"api-entry\"><h4 id=\"printwebview(...)\" data-line=\"26\" class=\"code-line\"><code>method</code> printWebView(...)</h4><div class=\"code-block-container\"><pre class=\"shiki github-dark\" style=\"background-color:#151e2c;color:#e1e4e8\"><code class=\"code-line\" data-line=\"28\"><span class=\"line\"><span style=\"color:#B392F0\">printWebView</span><span style=\"color:#E1E4E8\">(options</span><span style=\"color:#F97583\">?:</span><span style=\"color:#E1E4E8\"> PrintOptions </span><span style=\"color:#F97583\">|</span><span style=\"color:#79B8FF\"> undefined</span><span style=\"color:#E1E4E8\">) </span><span style=\"color:#F97583\">=&gt;</span><span style=\"color:#79B8FF\"> Promise</span><span style=\"color:#F97583\">&lt;void&gt;</span></span>\n<span class=\"line\"></span></code></pre></div><p data-line=\"32\" class=\"code-line\">Present the printing user interface to print the web view content.</p><table data-line=\"34\" class=\"code-line\">\n<thead data-line=\"34\" class=\"code-line\">\n<tr data-line=\"34\" class=\"code-line\">\n<th>Param</th>\n<th>Type</th>\n</tr>\n</thead>\n<tbody data-line=\"36\" class=\"code-line\">\n<tr data-line=\"36\" class=\"code-line\">\n<td><strong><code>options</code></strong></td>\n<td>&lt;code&gt;&lt;a href=\"#printoptions\"&gt;PrintOptions&lt;/a&gt;&lt;/code&gt;</td>\n</tr>\n</tbody>\n</table><hr data-line=\"38\" class=\"code-line\"></section>\n\n\n\n<h3 id=\"interfaces\" data-line=\"40\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#interfaces\" aria-hidden=\"true\"></a> Interfaces</h3>\n<section class=\"api-entry\"><h4 id=\"printfileoptions\" data-line=\"42\" class=\"code-line\"><code>interface</code> <a class=\"header-anchor-link\" href=\"#printfileoptions\" aria-hidden=\"true\"></a> PrintFileOptions</h4><table data-line=\"44\" class=\"code-line\">\n<thead data-line=\"44\" class=\"code-line\">\n<tr data-line=\"44\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody data-line=\"46\" class=\"code-line\">\n<tr data-line=\"46\" class=\"code-line\">\n<td><strong><code>path</code></strong></td>\n<td>&lt;code&gt;string&lt;/code&gt;</td>\n<td>The path to the file. Android supports file paths, <code>file://</code> URLs, and <code>content://</code> URLs. iOS supports file paths and local <code>file://</code> URLs.</td>\n</tr>\n<tr data-line=\"47\" class=\"code-line\">\n<td><strong><code>mimeType</code></strong></td>\n<td>&lt;code&gt;string&lt;/code&gt;</td>\n<td>The MIME type of the file. Only used on Android.</td>\n</tr>\n</tbody>\n</table></section>\n\n<section class=\"api-entry\"><h4 id=\"printoptions\" data-line=\"49\" class=\"code-line\"><code>interface</code> <a class=\"header-anchor-link\" href=\"#printoptions\" aria-hidden=\"true\"></a> PrintOptions</h4><table data-line=\"51\" class=\"code-line\">\n<thead data-line=\"51\" class=\"code-line\">\n<tr data-line=\"51\" class=\"code-line\">\n<th>Prop</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody data-line=\"53\" class=\"code-line\">\n<tr data-line=\"53\" class=\"code-line\">\n<td><strong><code>name</code></strong></td>\n<td>&lt;code&gt;string&lt;/code&gt;</td>\n<td>The name of the print job.</td>\n<td>&lt;code&gt;'Document'&lt;/code&gt;</td>\n</tr>\n</tbody>\n</table></section>\n\n<h3 id=\"type-aliases\" data-line=\"55\" class=\"code-line\"><a class=\"header-anchor-link\" href=\"#type-aliases\" aria-hidden=\"true\"></a> Type Aliases</h3>\n<section class=\"api-entry\"><h4 id=\"printwebviewoptions\" data-line=\"57\" class=\"code-line\"><code>type alias</code> <a class=\"header-anchor-link\" href=\"#printwebviewoptions\" aria-hidden=\"true\"></a> PrintWebViewOptions</h4><p data-line=\"59\" class=\"code-line\">&lt;code&gt;<br>\n&lt;a href=\"#printoptions\"&gt;PrintOptions&lt;/a&gt;<br>\n&lt;/code&gt;</p></section>\n\n</div>",
       "headings": [
         {
           "id": "printfile(...)",
@@ -68,8 +109,8 @@ export const PROJECT = {
           "level": 4
         },
         {
-          "id": "%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9",
-          "text": "インターフェース",
+          "id": "interfaces",
+          "text": "Interfaces",
           "level": 3
         },
         {
@@ -83,8 +124,8 @@ export const PROJECT = {
           "level": 4
         },
         {
-          "id": "%E5%9E%8B%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9",
-          "text": "型エイリアス",
+          "id": "type-aliases",
+          "text": "Type Aliases",
           "level": 3
         },
         {
@@ -95,7 +136,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/capacitor-printer/blob/v8.0.1/README.md"
     }
   ]
 } as const;
