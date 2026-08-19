@@ -30,19 +30,29 @@ Customer の一時キーは任意です。PaymentSheet または PaymentFlow に
 Customer を持つ PaymentIntent:
 
 ```json
-{"paymentIntent":"pi_..._secret_...","ephemeralKey":"ek_...","customer":"cus_..."}
+{
+  "paymentIntent": "pi_..._secret_...",
+  "ephemeralKey": "ek_...",
+  "customer": "cus_..."
+}
 ```
 
 Customer を持つ SetupIntent:
 
 ```json
-{"setupIntent":"seti_..._secret_...","ephemeralKey":"ek_...","customer":"cus_..."}
+{
+  "setupIntent": "seti_..._secret_...",
+  "ephemeralKey": "ek_...",
+  "customer": "cus_..."
+}
 ```
 
 Customer を持たない PaymentIntent:
 
 ```json
-{"paymentIntent":"pi_..._secret_..."}
+{
+  "paymentIntent": "pi_..._secret_..."
+}
 ```
 
 Apple Pay は PaymentIntent のクライアントシークレットを使用します。Web の Google Pay も PaymentIntent を使用します。Android では、歴史的に `paymentIntentClientSecret` と命名されたオプションへ SetupIntent のクライアントシークレットを渡すこともできます。ネイティブの PaymentSheet と PaymentFlow は Customer の有無にかかわらず、どちらの Intent も受け付けます。現在の Web PaymentSheet は PaymentIntent のみ、Web PaymentFlow は両方の Intent に対応します。

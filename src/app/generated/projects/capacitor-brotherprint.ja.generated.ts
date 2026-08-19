@@ -3,7 +3,7 @@ export const PROJECT = {
   "id": "capacitor-brotherprint",
   "slug": "capacitor-brotherprint",
   "name": "rdlabo Capacitor Brother Print",
-  "shortName": "Capacitor Brother Print",
+  "shortName": "Brother Print",
   "packageName": "@rdlabo/capacitor-brotherprint",
   "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-brotherprint",
   "category": "capacitor-plugins",

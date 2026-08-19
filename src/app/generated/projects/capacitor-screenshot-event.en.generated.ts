@@ -3,7 +3,7 @@ export const PROJECT = {
   "id": "capacitor-screenshot-event",
   "slug": "capacitor-screenshot-event",
   "name": "rdlabo Capacitor Screenshot Event",
-  "shortName": "Capacitor Screenshot Event",
+  "shortName": "Screenshot Event",
   "packageName": "@rdlabo/capacitor-screenshot-event",
   "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-screenshot-event",
   "category": "capacitor-plugins",

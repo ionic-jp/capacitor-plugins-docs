@@ -13,7 +13,9 @@ const angular = require('angular-eslint');
 const rdlabo = require('@rdlabo/eslint-plugin-rules');
 
 module.exports = tseslint.config(
-  { plugins: { '@rdlabo/rules': rdlabo } },
+  {
+    plugins: { '@rdlabo/rules': rdlabo },
+  },
   ...rdlabo.configs.recommended,
   {
     files: ['**/*.ts'],

@@ -10,7 +10,9 @@ scrollActiveLine: []
 import { Stripe } from '@capacitor-community/stripe';
 
 export async function initialize(): Promise<void> {
-  await Stripe.initialize({ publishableKey: 'Your Publishable Key' });
+  await Stripe.initialize({
+    publishableKey: 'Your Publishable Key',
+  });
 }
 ```
 
@@ -61,10 +63,16 @@ await Stripe.handleURLCallback({ url });
 import { Component } from '@angular/core';
 import { Stripe } from '@capacitor-community/stripe';
 
-@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+})
 export class AppComponent {
   constructor() {
-    void Stripe.initialize({ publishableKey: 'Your Publishable Key' });
+    void Stripe.initialize({
+      publishableKey: 'Your Publishable Key',
+    });
   }
 }
 ```

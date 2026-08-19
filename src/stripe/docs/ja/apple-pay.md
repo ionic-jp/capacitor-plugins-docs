@@ -41,7 +41,13 @@ Apple Pay は一度の表示で PaymentIntent を確定します。
 リクエスト作成前に端末を確認します。Apple Pay が利用可能なら Promise が解決し、それ以外は拒否されます。
 
 ```ts
-try { await Stripe.isApplePayAvailable(); } catch { return; }
+import { ApplePayEventsEnum, Stripe } from '@capacitor-community/stripe';
+
+try {
+  await Stripe.isApplePayAvailable();
+} catch {
+  return;
+}
 ```
 
 !::isApplePayAvailable::
@@ -51,9 +57,20 @@ try { await Stripe.isApplePayAvailable(); } catch { return; }
 バックエンドから PaymentIntent のクライアントシークレットを取得し、`paymentIntentClientSecret`、`paymentSummaryItems`、`merchantIdentifier`、`countryCode`、`currency` を渡します。
 
 ```ts
+import { firstValueFrom } from 'rxjs';
+
+const { paymentIntent } = await firstValueFrom(
+  this.http.post<{
+    paymentIntent: string;
+  }>(environment.api + 'intent', {}),
+);
+
 await Stripe.createApplePay({
   paymentIntentClientSecret: paymentIntent,
-  paymentSummaryItems: [{ label: 'Product Name', amount: 1099.00 }],
+  paymentSummaryItems: [{
+    label: 'Product Name',
+    amount: 1099.00
+  }],
   merchantIdentifier: 'merchant.com.getcapacitor.stripe',
   countryCode: 'US',
   currency: 'USD',
@@ -70,7 +87,7 @@ await Stripe.createApplePay({
 ```ts
 const result = await Stripe.presentApplePay();
 if (result.paymentResult === ApplePayEventsEnum.Completed) {
-  // UIだけを更新し、WebhookでIntentを確認します。
+  // Update UI only. Confirm the Intent with a webhook before fulfilling.
 }
 ```
 
@@ -84,7 +101,9 @@ if (result.paymentResult === ApplePayEventsEnum.Completed) {
 リスナーはアプリケーション起動時に登録します。[イベントリスナー](/docs/learn/event-listeners)を参照してください。
 
 ```ts
-Stripe.addListener(ApplePayEventsEnum.Completed, () => console.log('Completed'));
+Stripe.addListener(ApplePayEventsEnum.Completed, () => {
+  console.log('ApplePayEventsEnum.Completed');
+});
 ```
 
 !::ApplePayEventsEnum::

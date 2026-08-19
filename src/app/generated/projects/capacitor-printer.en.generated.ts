@@ -3,7 +3,7 @@ export const PROJECT = {
   "id": "capacitor-printer",
   "slug": "capacitor-printer",
   "name": "rdlabo Capacitor Printer",
-  "shortName": "Capacitor Printer",
+  "shortName": "Printer",
   "packageName": "@rdlabo/capacitor-printer",
   "repositoryUrl": "https://github.com/rdlabo-dev/capacitor-printer",
   "category": "capacitor-plugins",

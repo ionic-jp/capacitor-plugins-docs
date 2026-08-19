@@ -32,8 +32,8 @@ await storage.remove('token');
 ```ts
 provideKitOverlay({
   labels: {
-    close: $localize`閉じる`,
-    cancel: $localize`キャンセル`,
+    close: $localize`Close`,
+    cancel: $localize`Cancel`,
   },
 });
 ```

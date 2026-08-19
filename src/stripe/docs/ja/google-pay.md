@@ -54,17 +54,67 @@ Android Google Pay で Stripe Connect を使う場合は任意で追加します
 
 ### AndroidManifest.xml
 
-`manifest > application` の下へ、対応する `com.getcapacitor.community.stripe.*` メタデータを追加します。右側のコード例に完全な設定を示します。連結アカウントには `stripe_account` メタデータを追加してください。
+`android/app/src/main/AndroidManifest.xml` の `manifest > application` の下へ、以下を追加します。
+
+```xml
+<meta-data
+  android:name="com.google.android.gms.wallet.api.enabled"
+  android:value="true" />
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.enable_google_pay"
+  android:value="@bool/enable_google_pay"/>
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.publishable_key"
+  android:value="@string/publishable_key"/>
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.country_code"
+  android:value="@string/country_code"/>
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.merchant_display_name"
+  android:value="@string/merchant_display_name"/>
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.google_pay_is_testing"
+  android:value="@bool/google_pay_is_testing"/>
+```
+
+連結アカウントには以下を追加します。
+
+```xml
+<meta-data
+  android:name="com.getcapacitor.community.stripe.stripe_account"
+  android:value="@string/stripe_account"/>
+```
 
 #### 任意1: 利用者情報を取得する場合
-
-メール、電話、請求先住所の必須フラグと住所形式を `strings.xml` に定義し、同名のメタデータから参照します。
 
 ```xml
 <bool name="email_address_required">true</bool>
 <bool name="phone_number_required">true</bool>
 <bool name="billing_address_required">true</bool>
 <string name="billing_address_format">Full</string>
+```
+
+```xml
+<meta-data
+  android:name="com.getcapacitor.community.stripe.email_address_required"
+  android:value="@bool/email_address_required"/>
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.phone_number_required"
+  android:value="@bool/phone_number_required"/>
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.billing_address_required"
+  android:value="@bool/billing_address_required"/>
+
+<meta-data
+  android:name="com.getcapacitor.community.stripe.billing_address_format"
+  android:value="@string/billing_address_format"/>
 ```
 
 #### 任意2: Google Pay に既存の支払い方法を要求しない場合
@@ -75,12 +125,24 @@ Android Google Pay で Stripe Connect を使う場合は任意で追加します
 <bool name="google_pay_existing_payment_method_required">false</bool>
 ```
 
+```xml
+<meta-data
+  android:name="com.getcapacitor.community.stripe.google_pay_existing_payment_method_required"
+  android:value="@bool/google_pay_existing_payment_method_required"/>
+```
+
 ## 1. isGooglePayAvailable
 
 Google Pay が利用可能なら Promise が解決し、それ以外は拒否されます。
 
 ```ts
-try { await Stripe.isGooglePayAvailable(); } catch { return; }
+import { GooglePayEventsEnum, Stripe } from '@capacitor-community/stripe';
+
+try {
+  await Stripe.isGooglePayAvailable();
+} catch {
+  return;
+}
 ```
 
 !::isGooglePayAvailable::
@@ -90,10 +152,22 @@ try { await Stripe.isGooglePayAvailable(); } catch { return; }
 バックエンドから PaymentIntent のクライアントシークレットを取得します。Android では SetupIntent も渡せます。どちらもオプション名は `paymentIntentClientSecret` です。Web では `paymentSummaryItems`、`merchantIdentifier`、`countryCode`、`currency` も必要です。
 
 ```ts
+import { firstValueFrom } from 'rxjs';
+
+const { paymentIntent } = await firstValueFrom(
+  this.http.post<{
+    paymentIntent: string;
+  }>(environment.api + 'intent', {}),
+);
+
 await Stripe.createGooglePay({
   paymentIntentClientSecret: paymentIntent,
-  // 以下はWeb専用。AndroidアプリのGoogle Payでは不要です。
-  paymentSummaryItems: [{ label: 'Product Name', amount: 1099.00 }],
+
+  // Web only. Google Pay on Android App doesn't need
+  paymentSummaryItems: [{
+    label: 'Product Name',
+    amount: 1099.00
+  }],
   merchantIdentifier: 'merchant.com.getcapacitor.stripe',
   countryCode: 'US',
   currency: 'USD',
@@ -114,7 +188,7 @@ SetupIntent のクライアントシークレットは `seti_` で始まりま�
 ```ts
 const result = await Stripe.presentGooglePay();
 if (result.paymentResult === GooglePayEventsEnum.Completed) {
-  // UIだけを更新し、WebhookでIntentを確認します。
+  // Update UI only. Confirm the Intent with a webhook before fulfilling.
 }
 ```
 
@@ -126,7 +200,9 @@ if (result.paymentResult === GooglePayEventsEnum.Completed) {
 ## 4. addListener
 
 ```ts
-Stripe.addListener(GooglePayEventsEnum.Completed, () => console.log('Completed'));
+Stripe.addListener(GooglePayEventsEnum.Completed, () => {
+  console.log('GooglePayEventsEnum.Completed');
+});
 ```
 
 !::GooglePayEventsEnum::

@@ -41,11 +41,14 @@ Stripe Identity は、Capacitor のアプリケーションコードを保った
 | `clientSecret` | `VerificationSession.client_secret` | `clientSecret` |
 
 ```ts
-const session = await stripe.identity.verificationSessions.create({ type: 'document' });
+const session = await stripe.identity.verificationSessions.create({
+  type: 'document',
+});
 const ephemeralKey = await stripe.ephemeralKeys.create(
   { verification_session: session.id },
   { apiVersion: '2022-11-15' },
 );
+
 return {
   verificationId: session.id,
   ephemeralKeySecret: ephemeralKey.secret,
