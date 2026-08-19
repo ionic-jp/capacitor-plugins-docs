@@ -96,18 +96,46 @@ function packageEnglishPaths(
   },
   file: string,
 ): string[] {
-  const { repositoryUrl, sourceDirectory } = project;
+  const { sourceDirectory } = project;
   const paths = [`docs/${file}`, `${sourceDirectory}/docs/${file}`];
-
-  // Special-case: `capacitor-community/stripe` keeps its English guides under
-  // `packages/{payment|identity|terminal}/docs/*` rather than `docs/*`.
-  if (repositoryUrl === 'https://github.com/capacitor-community/stripe') {
-    if (sourceDirectory === 'stripe') paths.push(`packages/payment/docs/${file}`);
-    if (sourceDirectory === 'stripe-identity') paths.push(`packages/identity/docs/${file}`);
-    if (sourceDirectory === 'stripe-terminal') paths.push(`packages/terminal/docs/${file}`);
+  const scopedDirectory = packageScopedDirectory(project);
+  if (scopedDirectory) {
+    paths.push(`${scopedDirectory}/docs/${file}`);
   }
 
   return paths;
+}
+
+function packageScopedDirectory(project: {
+  repositoryUrl: string;
+  sourceDirectory: string;
+}): string | undefined {
+  const { repositoryUrl, sourceDirectory } = project;
+
+  if (repositoryUrl === 'https://github.com/capacitor-community/stripe') {
+    if (sourceDirectory === 'stripe') return 'packages/payment';
+    if (sourceDirectory === 'stripe-identity') return 'packages/identity';
+    if (sourceDirectory === 'stripe-terminal') return 'packages/terminal';
+    return undefined;
+  }
+
+  if (repositoryUrl === 'https://github.com/rdlabo-dev/ionic-angular-library') {
+    if (sourceDirectory === 'ionic-angular-kit') return 'projects/kit';
+    if (sourceDirectory === 'ionic-angular-photo-editor') return 'projects/photo-editor';
+    if (sourceDirectory === 'ionic-angular-scroll-header') return 'projects/scroll-header';
+    if (sourceDirectory === 'ngx-cdk-scroll-strategies') return 'projects/scroll-strategies';
+    return undefined;
+  }
+
+  return undefined;
+}
+
+function repositoryReadmePaths(project: {
+  repositoryUrl: string;
+  sourceDirectory: string;
+}): string[] {
+  const scopedDirectory = packageScopedDirectory(project);
+  return scopedDirectory ? [`${scopedDirectory}/README.md`, 'README.md'] : ['README.md'];
 }
 
 export async function fetchEnglishProjectMarkdown(
@@ -121,6 +149,7 @@ export async function fetchEnglishProjectMarkdown(
   cache = new Map<string, string>(),
 ): Promise<FetchedEnglishMarkdown> {
   const ref = project.englishDocsRef ?? 'main';
+  const shouldFallbackToRepositoryReadme = file === 'getting-started.md';
   const fromPackage = await fetchFirstRepositoryPath(
     project.repositoryUrl,
     ref,
@@ -129,6 +158,18 @@ export async function fetchEnglishProjectMarkdown(
   );
   if (fromPackage) {
     return fromPackage;
+  }
+
+  if (shouldFallbackToRepositoryReadme) {
+    const fromReadme = await fetchFirstRepositoryPath(
+      project.repositoryUrl,
+      ref,
+      repositoryReadmePaths(project),
+      cache,
+    );
+    if (fromReadme) {
+      return fromReadme;
+    }
   }
 
   if (await portalEnglishTrackedLocally(project.sourceDirectory, file)) {
@@ -148,7 +189,7 @@ export async function fetchEnglishProjectMarkdown(
     const fromReadme = await fetchFirstRepositoryPath(
       project.repositoryUrl,
       ref,
-      ['README.md'],
+      repositoryReadmePaths(project),
       cache,
     );
     if (fromReadme) {
@@ -186,6 +227,11 @@ export async function fetchEnglishProjectReadme(
           cache,
         )
       : undefined) ??
-    (await fetchFirstRepositoryPath(project.repositoryUrl, ref, ['README.md'], cache))
+    (await fetchFirstRepositoryPath(
+      project.repositoryUrl,
+      ref,
+      repositoryReadmePaths(project),
+      cache,
+    ))
   );
 }

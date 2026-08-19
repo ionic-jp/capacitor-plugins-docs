@@ -90,7 +90,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/theme.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/photo-editor/docs/theme.md"
     },
     {
       "title": "PhotoFileService",
@@ -109,7 +109,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/photo-file.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/photo-editor/docs/photo-file.md"
     },
     {
       "title": "Photo Editor",
@@ -143,7 +143,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/editor.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/photo-editor/docs/editor.md"
     },
     {
       "title": "Photo Viewer",
@@ -192,7 +192,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/viewer.md"
+      "editUrl": "https://github.com/rdlabo-dev/ionic-angular-library/edit/main/projects/photo-editor/docs/viewer.md"
     },
     {
       "title": "API",
