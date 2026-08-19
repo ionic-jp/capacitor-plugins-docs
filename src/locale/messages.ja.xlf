@@ -10,7 +10,7 @@
       <trans-unit id="documentation"><source>Documentation</source><target>ドキュメント</target></trans-unit>
       <trans-unit id="pluginsNav"><source>Plugins</source><target>プラグイン</target></trans-unit>
       <trans-unit id="introductionNav"><source>Introduction</source><target>はじめに</target></trans-unit>
-      <trans-unit id="footerOwnership"><source>Personal open source projects maintained by rdlabo, independently of the incorporated association that also uses the rdlabo name.</source><target>rdlabo個人が開発・管理するオープンソースプロジェクトです。同じrdlabo名を使用する一般社団法人リレーションデザイン研究所の事業とは独立しています。</target></trans-unit>
+      <trans-unit id="footerOwnership"><source>Personal open source projects maintained by rdlabo.</source><target>rdlabo個人が開発・管理するオープンソースプロジェクトです。同じrdlabo名を使用する一般社団法人リレーションデザイン研究所の事業とは独立しています。</target></trans-unit>
       <trans-unit id="footerCopyright"><source>© 2026 rdlabo. Released under the MIT License.</source><target>© 2026 rdlabo。MITライセンスで公開しています。</target></trans-unit>
       <trans-unit id="stripeCapability"><source>Accept PaymentSheet and PaymentFlow, plus Apple Pay and Google Pay, from one Capacitor codebase.</source><target>ひとつのCapacitorコードベースで、PaymentSheet、PaymentFlow、Apple Pay、Google Payに対応します。</target></trans-unit>
       <trans-unit id="identityCapability"><source>Present Stripe Identity verification on native platforms and the web, then handle the result events.</source><target>ネイティブとWebでStripe Identityの本人確認を表示し、結果イベントを処理します。</target></trans-unit>

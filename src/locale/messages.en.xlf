@@ -86,7 +86,7 @@
         <note category="location">src/app/app.html:215,218</note>
       </notes>
       <segment>
-        <source> Personal open source projects maintained by rdlabo, independently of the incorporated association that also uses the rdlabo name. </source>
+        <source> Personal open source projects maintained by rdlabo. </source>
       </segment>
     </unit>
     <unit id="supportFooter">
