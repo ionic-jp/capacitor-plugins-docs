@@ -75,6 +75,7 @@ test('pins every documentation source to the installed package version', async (
   };
 
   for (const project of projectDefinitions) {
+    if (project.hostedUrl) continue;
     const declaredVersion =
       packageJson.dependencies?.[project.packageName] ??
       packageJson.devDependencies?.[project.packageName];
@@ -326,8 +327,11 @@ test('lists every ionic-angular-library package and imports localized READMEs', 
 
   const repositoryReadme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
   for (const project of projectDefinitions) {
+    const documentedSource = project.hostedUrl
+      ? project.repositoryUrl.replace('https://github.com/', '')
+      : `src/${project.sourceDirectory}/docs`;
     assert.ok(
-      repositoryReadme.includes(`| ${project.name} | \`src/${project.sourceDirectory}/docs\` |`),
+      repositoryReadme.includes(`| ${project.name} | \`${documentedSource}\` |`),
       `README Current projects must list ${project.name}`,
     );
   }
@@ -1143,5 +1147,47 @@ test('loads AdMob English pages from GitHub', async () => {
       fencedCodeBlocks(english),
       `${page.file} fenced code blocks must match the OSS repository`,
     );
+  }
+});
+
+test('declares authorized Ionic and Capacitor documentation translations', async () => {
+  const expected = [
+    {
+      id: 'ionic-docs',
+      repositoryUrl: 'https://github.com/ionic-jp/ionic-docs',
+      hostedUrl: 'https://ionicframework.jp/docs/',
+      shortName: 'Ionic Docs 日本語版',
+      localizedShortName: {
+        en: 'Ionic Docs Japanese',
+        ja: 'Ionic Docs 日本語版',
+      },
+    },
+    {
+      id: 'capacitor-docs',
+      repositoryUrl: 'https://github.com/ionic-jp/capacitor-docs',
+      hostedUrl: 'https://capacitorjs.jp/docs',
+      shortName: 'Capacitor Docs 日本語版',
+      localizedShortName: {
+        en: 'Capacitor Docs Japanese',
+        ja: 'Capacitor Docs 日本語版',
+      },
+    },
+  ] as const;
+
+  for (const entry of expected) {
+    const project = projectDefinitions.find((item) => item.id === entry.id);
+    assert.ok(project, `${entry.id} must be declared in the manifest`);
+    assert.equal(project.category, 'translations');
+    assert.equal(project.adapter, 'markdown');
+    assert.equal(project.packageName, 'Authorized Japanese translation');
+    assert.equal(project.repositoryUrl, entry.repositoryUrl);
+    assert.equal(project.hostedUrl, entry.hostedUrl);
+    assert.equal(project.shortName, entry.shortName);
+    assert.deepEqual(project.localizedShortName, entry.localizedShortName);
+    assert.deepEqual(project.pages, []);
+    assert.match(project.description.en, /authorized/i);
+    assert.match(project.description.ja, /公認/);
+    assert.match(project.overview.en, /authorized/i);
+    assert.match(project.overview.ja, /公認/);
   }
 });

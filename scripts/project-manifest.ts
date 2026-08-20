@@ -17,7 +17,8 @@ export interface ProjectFeatureDefinition {
   description: LocalizedText;
 }
 
-export type ProjectCategoryId = 'capacitor-plugins' | 'frontend-tools' | 'developer-tools';
+export type ProjectCategoryId =
+  'translations' | 'capacitor-plugins' | 'frontend-tools' | 'developer-tools';
 
 export interface ProjectCategoryDefinition {
   id: ProjectCategoryId;
@@ -32,8 +33,11 @@ export interface ProjectDefinition {
   sourceDirectory: string;
   name: string;
   shortName: string;
+  localizedShortName?: LocalizedText;
   packageName: string;
   repositoryUrl: string;
+  /** Hosted documentation URL for catalog-only projects that are not rendered by this portal. */
+  hostedUrl?: string;
   category: ProjectCategoryId;
   icon: 'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme' | 'docs';
   adapter?: 'capacitor-docs-json' | 'markdown';
@@ -50,6 +54,15 @@ export interface ProjectDefinition {
 const text = (en: string, ja: string): LocalizedText => ({ en, ja });
 
 export const projectCategoryDefinitions: readonly ProjectCategoryDefinition[] = [
+  {
+    id: 'translations',
+    label: text('Documentation translations', 'ドキュメント翻訳'),
+    description: text(
+      'Authorized Japanese translations linked from the official open-source project websites.',
+      '公式プロジェクトのWebサイトから案内されている公認日本語翻訳です。',
+    ),
+    order: 5,
+  },
   {
     id: 'capacitor-plugins',
     label: text('Capacitor plugins', 'Capacitorプラグイン'),
@@ -121,6 +134,108 @@ const eslintRulePages = eslintRuleNames.map((ruleName) =>
 );
 
 export const projectDefinitions: readonly ProjectDefinition[] = [
+  {
+    id: 'ionic-docs',
+    slug: 'ionic-docs',
+    sourceDirectory: 'ionic-docs',
+    name: 'Ionic Framework Japanese Documentation',
+    shortName: 'Ionic Docs 日本語版',
+    localizedShortName: text('Ionic Docs Japanese', 'Ionic Docs 日本語版'),
+    packageName: 'Authorized Japanese translation',
+    repositoryUrl: 'https://github.com/ionic-jp/ionic-docs',
+    hostedUrl: 'https://ionicframework.jp/docs/',
+    category: 'translations',
+    icon: 'docs',
+    adapter: 'markdown',
+    description: text(
+      'Authorized Japanese translation of the Ionic Framework documentation, linked from the official site.',
+      'Ionic公式サイトから案内されている、Ionic Frameworkドキュメントの公認日本語翻訳。',
+    ),
+    headline: text(
+      'Authorized Japanese documentation for Ionic Framework',
+      'Ionic Frameworkの公認日本語ドキュメント',
+    ),
+    overview: text(
+      'This portal hosts the authorized Japanese overview linked from ionicframework.com, covering the Web UI toolkit, cross-platform goals, and framework integrations.',
+      'ionicframework.comから案内されている公認日本語翻訳の概要として、Web UI toolkit、クロスプラットフォーム、フレームワーク連携を紹介します。',
+    ),
+    featuresHeading: text('Highlights', '主なポイント'),
+    features: [
+      {
+        title: text('Web UI toolkit', 'Web UI toolkit'),
+        description: text(
+          'Build performant mobile UX with HTML, CSS, and JavaScript components.',
+          'HTML・CSS・JavaScriptのコンポーネントで、高性能なモバイルUXを構築します。',
+        ),
+      },
+      {
+        title: text('Cross-platform', 'Cross-platform'),
+        description: text(
+          'Ship one codebase to iOS, Android, and the mobile web.',
+          'ひとつのコードベースからiOS、Android、モバイルWebへ配信します。',
+        ),
+      },
+      {
+        title: text('Framework integrations', 'Framework integrations'),
+        description: text(
+          'Use Ionic with Angular, React, Vue, or as standalone Web Components.',
+          'Angular、React、Vue、またはスタンドアロンのWeb Componentsとして利用できます。',
+        ),
+      },
+    ],
+    pages: [],
+  },
+  {
+    id: 'capacitor-docs',
+    slug: 'capacitor-docs',
+    sourceDirectory: 'capacitor-docs',
+    name: 'Capacitor Japanese Documentation',
+    shortName: 'Capacitor Docs 日本語版',
+    localizedShortName: text('Capacitor Docs Japanese', 'Capacitor Docs 日本語版'),
+    packageName: 'Authorized Japanese translation',
+    repositoryUrl: 'https://github.com/ionic-jp/capacitor-docs',
+    hostedUrl: 'https://capacitorjs.jp/docs',
+    category: 'translations',
+    icon: 'docs',
+    adapter: 'markdown',
+    description: text(
+      'Authorized Japanese translation of the Capacitor documentation, linked from the official site.',
+      '公式サイトから案内されている、Capacitorドキュメントの公認日本語翻訳。',
+    ),
+    headline: text(
+      'Authorized Japanese documentation for Capacitor',
+      'Capacitorの公認日本語ドキュメント',
+    ),
+    overview: text(
+      'This portal hosts the authorized Japanese overview linked from the official documentation, covering the native runtime, native SDK access, and web-first workflow.',
+      '公式ドキュメントから案内されている公認日本語翻訳の概要として、ネイティブランタイム、ネイティブSDKアクセス、Webファーストのワークフローを紹介します。',
+    ),
+    featuresHeading: text('Highlights', '主なポイント'),
+    features: [
+      {
+        title: text('Native runtime', 'Native runtime'),
+        description: text(
+          'Run modern web apps natively on iOS, Android, and beyond.',
+          'モダンなWebアプリをiOS、Androidをはじめとするプラットフォームでネイティブ実行します。',
+        ),
+      },
+      {
+        title: text('Native SDK access', 'Native SDK access'),
+        description: text(
+          'Reach device features through a consistent Plugin API when you need it.',
+          '必要なときに一貫したPlugin API経由でデバイス機能へアクセスします。',
+        ),
+      },
+      {
+        title: text('Web-first workflow', 'Web-first workflow'),
+        description: text(
+          'Keep a web-first development flow without giving up native capabilities.',
+          'ネイティブ機能を犠牲にせず、Webファーストの開発フローを維持します。',
+        ),
+      },
+    ],
+    pages: [],
+  },
   {
     id: 'ionic-angular-kit',
     slug: 'ionic-angular-kit',

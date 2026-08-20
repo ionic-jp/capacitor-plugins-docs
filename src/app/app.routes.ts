@@ -7,7 +7,9 @@ import { projectCatalog } from './docs/docs-data';
 import { projectResolver } from './docs/project.resolver';
 import { SupportPageComponent } from './docs/support-page';
 
-const projectRoutes: Routes = projectCatalog.flatMap((project) => [
+const portalProjects = projectCatalog.filter((project) => !project.hostedUrl);
+
+const projectRoutes: Routes = portalProjects.flatMap((project) => [
   {
     path: `projects/${project.slug}`,
     component: LandingPageComponent,
@@ -22,7 +24,7 @@ const projectRoutes: Routes = projectCatalog.flatMap((project) => [
   })),
 ]);
 
-const projectLegacyRoutes: Routes = projectCatalog.flatMap((project) => [
+const projectLegacyRoutes: Routes = portalProjects.flatMap((project) => [
   {
     path: project.id,
     redirectTo: project.path,

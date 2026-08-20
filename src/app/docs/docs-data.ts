@@ -6,7 +6,11 @@ import {
 } from '../generated/project-catalog.generated';
 import { PROJECT_LOADERS } from '../generated/project-loaders.generated';
 
-export type ProjectCategory = 'capacitor-plugins' | 'frontend-tools' | 'developer-tools';
+export type ProjectCategory =
+  | 'translations'
+  | 'capacitor-plugins'
+  | 'frontend-tools'
+  | 'developer-tools';
 export type ProjectIcon =
   'payments' | 'identity' | 'terminal' | 'ads' | 'lint' | 'server' | 'app' | 'theme' | 'docs';
 
@@ -66,6 +70,7 @@ export interface ProjectSummary {
   shortName: string;
   packageName: string;
   repositoryUrl: string;
+  hostedUrl?: string;
   category: ProjectCategory;
   icon: ProjectIcon;
   version: string;

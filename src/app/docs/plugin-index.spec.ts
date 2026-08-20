@@ -34,9 +34,11 @@ describe('PluginIndexComponent', () => {
     const cards = Array.from(compiled.querySelectorAll<HTMLAnchorElement>('li > a'));
     const groupedProjects = projectGroupsForLocale('en').flatMap((group) => group.projects);
     expect(cards.map((card) => card.getAttribute('href'))).toEqual(
-      groupedProjects.map((project) => project.path),
+      groupedProjects.map((project) => project.hostedUrl ?? project.path),
     );
     expect(cards.map((card) => card.querySelector('h3')?.textContent?.trim())).toEqual([
+      'Ionic Docs Japanese',
+      'Capacitor Docs Japanese',
       'Stripe',
       'Stripe Identity',
       'Stripe Terminal',
@@ -57,23 +59,55 @@ describe('PluginIndexComponent', () => {
       'ESLint Plugin Rules',
       'Docgen',
     ]);
-    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(19);
+    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(21);
   });
 
   it('keeps Japanese catalog metadata and lazy documentation in parity', async () => {
     const japaneseProjects = projectsForLocale('ja');
+    const englishProjects = projectsForLocale('en');
     expect(japaneseProjects).toHaveLength(projectCatalog.length);
-    expect(projectCatalog).toHaveLength(19);
+    expect(projectCatalog).toHaveLength(21);
+    expect(englishProjects.find((project) => project.id === 'ionic-docs')).toEqual(
+      expect.objectContaining({
+        category: 'translations',
+        shortName: 'Ionic Docs Japanese',
+        packageName: 'Authorized Japanese translation',
+      }),
+    );
+    expect(englishProjects.find((project) => project.id === 'capacitor-docs')).toEqual(
+      expect.objectContaining({
+        category: 'translations',
+        shortName: 'Capacitor Docs Japanese',
+        packageName: 'Authorized Japanese translation',
+      }),
+    );
+    expect(japaneseProjects.find((project) => project.id === 'ionic-docs')).toEqual(
+      expect.objectContaining({
+        category: 'translations',
+        shortName: 'Ionic Docs 日本語版',
+        packageName: 'Authorized Japanese translation',
+      }),
+    );
+    expect(japaneseProjects.find((project) => project.id === 'capacitor-docs')).toEqual(
+      expect.objectContaining({
+        category: 'translations',
+        shortName: 'Capacitor Docs 日本語版',
+        packageName: 'Authorized Japanese translation',
+      }),
+    );
     expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(
       projectCatalog.flatMap((project) => project.pages).length,
     );
-    for (const project of japaneseProjects) {
+    const apiProjects = japaneseProjects.filter((project) =>
+      project.pages.some((page) => page.slug === 'api'),
+    );
+    for (const project of apiProjects) {
       expect(project.pages).toEqual(
         expect.arrayContaining([expect.objectContaining({ slug: 'api', section: 'リファレンス' })]),
       );
     }
     const projectsWithApi = await Promise.all(
-      japaneseProjects.map((project) => loadProject(project.id, 'ja')),
+      apiProjects.map((project) => loadProject(project.id, 'ja')),
     );
     for (const project of projectsWithApi) {
       expect(project?.pages.find((page) => page.slug === 'api')?.html).toContain(
@@ -157,15 +191,22 @@ describe('PluginIndexComponent', () => {
 
   it('defines localized categories before adding non-Capacitor projects', () => {
     expect(projectCategoriesForLocale('en').map((category) => category.id)).toEqual([
+      'translations',
       'capacitor-plugins',
       'frontend-tools',
       'developer-tools',
     ]);
     expect(projectCategoriesForLocale('ja').map((category) => category.label)).toEqual([
+      'ドキュメント翻訳',
       'Capacitorプラグイン',
       'フロントエンドツール',
       '開発ツール',
     ]);
+    expect(
+      projectGroupsForLocale('en')
+        .find((group) => group.id === 'translations')
+        ?.projects.map((project) => project.id),
+    ).toEqual(['ionic-docs', 'capacitor-docs']);
     expect(
       projectGroupsForLocale('en')
         .find((group) => group.id === 'frontend-tools')

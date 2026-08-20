@@ -1,12 +1,11 @@
 import { Component, LOCALE_ID, OnInit, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { projectGroupsForLocale } from './docs-data';
 import { ProjectIconComponent } from './project-icon';
 import { SeoService } from './seo.service';
 
 @Component({
   selector: 'app-project-index',
-  imports: [RouterLink, ProjectIconComponent],
+  imports: [ProjectIconComponent],
   template: `
     <section class="overflow-hidden border-b border-[#eadfd9] bg-[#fffaf7]">
       <div
@@ -63,7 +62,9 @@ import { SeoService } from './seo.service';
               <li>
                 <a
                   class="group flex h-full min-h-[260px] flex-col rounded-3xl border border-[#e5d9d3] bg-white p-7 text-[#292320] no-underline transition hover:-translate-y-1 hover:border-[#ea572a] hover:shadow-[0_18px_50px_rgba(72,43,30,0.1)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ea572a]"
-                  [routerLink]="project.path"
+                  [href]="project.hostedUrl ?? project.path"
+                  [attr.target]="project.hostedUrl ? '_blank' : null"
+                  [attr.rel]="project.hostedUrl ? 'noopener noreferrer' : null"
                 >
                   <span
                     class="flex size-14 items-center justify-center rounded-2xl bg-[#fff0ea] text-[#d64a23] transition group-hover:bg-[#ea572a] group-hover:text-white"

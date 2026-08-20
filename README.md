@@ -10,6 +10,8 @@ Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The reposit
 
 | Project | Documentation source |
 | --- | --- |
+| Ionic Framework Japanese Documentation | `ionic-jp/ionic-docs` |
+| Capacitor Japanese Documentation | `ionic-jp/capacitor-docs` |
 | Capacitor Community Stripe | `src/stripe/docs` |
 | Capacitor Community Stripe Identity | `src/stripe-identity/docs` |
 | Capacitor Community Stripe Terminal | `src/stripe-terminal/docs` |

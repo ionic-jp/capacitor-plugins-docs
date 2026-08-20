@@ -30,7 +30,9 @@ import { SeoService } from './seo.service';
             >
               {{ p.packageName }}
             </span>
-            <span class="text-[#80736d]">v{{ p.version }}</span>
+            @if (p.version) {
+              <span class="text-[#80736d]">v{{ p.version }}</span>
+            }
           </div>
           <h1
             class="mt-7 mb-0 text-[clamp(2.8rem,7vw,5.4rem)] leading-[0.98] font-semibold tracking-[-0.055em] text-[#211d1b]"

@@ -48,7 +48,12 @@ export class App {
   protected readonly navigationHidden = computed(() => this.mobileLayout() && !this.menuOpen());
   protected readonly currentUrl = signal('/');
   protected readonly projects = projectsForLocale(this.#locale);
-  protected readonly projectGroups = projectGroupsForLocale(this.#locale);
+  protected readonly projectGroups = projectGroupsForLocale(this.#locale)
+    .map((group) => ({
+      ...group,
+      projects: group.projects.filter((project) => !project.hostedUrl),
+    }))
+    .filter((group) => group.projects.length > 0);
   protected readonly expandedProjectId = signal<string | null>(null);
   protected readonly isJapanese = this.#locale.toLowerCase().startsWith('ja');
   protected readonly canonicalHomePath = canonicalHomePath(this.#locale);
@@ -156,7 +161,6 @@ export class App {
       return;
     }
     this.expandedProjectId.set(project.id);
-    void this.#router.navigateByUrl(project.path);
   }
 
   #sidebarContainsFocus(): boolean {

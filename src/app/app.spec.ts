@@ -126,7 +126,7 @@ describe('App', () => {
     expect(compiled.textContent).toContain('Server Integration');
   });
 
-  it('toggles project accordion panels and navigates when opening', async () => {
+  it('toggles project accordion panels without navigating', async () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
     await router.navigateByUrl('/');
@@ -141,7 +141,7 @@ describe('App', () => {
     stripeButton.click();
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(router.url).toBe('/projects/capacitor-stripe');
+    expect(router.url).toBe('/');
     expect(stripeButton.getAttribute('aria-expanded')).toBe('true');
     expect(stripePanel.hasAttribute('inert')).toBe(false);
     expect(stripePanel.getAttribute('aria-hidden')).toBe('false');
@@ -150,7 +150,7 @@ describe('App', () => {
     stripeButton.click();
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(router.url).toBe('/projects/capacitor-stripe');
+    expect(router.url).toBe('/');
     expect(stripeButton.getAttribute('aria-expanded')).toBe('false');
     expect(stripePanel.hasAttribute('inert')).toBe(true);
     expect(stripePanel.getAttribute('aria-hidden')).toBe('true');
@@ -158,7 +158,7 @@ describe('App', () => {
     admobButton.click();
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(router.url).toBe('/projects/capacitor-admob');
+    expect(router.url).toBe('/');
     expect(admobButton.getAttribute('aria-expanded')).toBe('true');
     expect(admobPanel.hasAttribute('inert')).toBe(false);
     expect(admobPanel.getAttribute('aria-hidden')).toBe('false');
@@ -322,7 +322,7 @@ describe('App', () => {
     expect(document.activeElement).toBe(button);
   });
 
-  it('closes the mobile menu and restores focus after navigating from a sidebar project', async () => {
+  it('keeps the mobile menu open and expands the project panel without navigating', async () => {
     mockMatchMedia(true);
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
@@ -338,17 +338,17 @@ describe('App', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     const stripeButton = menu.querySelector<HTMLButtonElement>('#project-button-stripe')!;
-    stripeButton.focus();
-    expect(document.activeElement).toBe(stripeButton);
+    const stripePanel = menu.querySelector<HTMLElement>('#project-panel-stripe')!;
 
     stripeButton.click();
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(router.url).toBe('/projects/capacitor-stripe');
-    expect(button.getAttribute('aria-expanded')).toBe('false');
-    expect(menu.hasAttribute('inert')).toBe(true);
-    expect(menu.getAttribute('aria-hidden')).toBe('true');
-    expect(document.activeElement).toBe(button);
+    expect(router.url).toBe('/');
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    expect(menu.hasAttribute('inert')).toBe(false);
+    expect(stripeButton.getAttribute('aria-expanded')).toBe('true');
+    expect(stripePanel.hasAttribute('inert')).toBe(false);
+    expect(stripePanel.getAttribute('aria-hidden')).toBe('false');
   });
 
   it('ignores Escape on desktop, then closes and restores focus when the viewport becomes mobile', async () => {
