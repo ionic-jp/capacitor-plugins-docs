@@ -14,6 +14,7 @@ Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The reposit
 | Capacitor Community Stripe Identity | `src/stripe-identity/docs` |
 | Capacitor Community Stripe Terminal | `src/stripe-terminal/docs` |
 | Capacitor Community AdMob | `src/admob/docs` |
+| Capacitor Community Facebook Login | `src/facebook-login/docs` |
 | rdlabo Capacitor Code Scanner | `src/capacitor-codescanner/docs` |
 | rdlabo Capacitor Screenshot Event | `src/capacitor-screenshot-event/docs` |
 | rdlabo Capacitor Printer | `src/capacitor-printer/docs` |
@@ -87,9 +88,9 @@ Documentation-source packages are inspected at generation time and are never imp
 bundle. `.npmrc` enables legacy peer resolution because those packages may document a different
 Angular major than the portal itself; every source version remains exact in `package-lock.json`.
 
-Production `anyScript` budgets in `angular.json` warn at 405kB and fail at 450kB. The warning
-baseline covers the shared bilingual catalog and GitHub Star UI for 18 projects (the current
-production main is about 397.7kB); documentation bodies remain lazy-loaded, so the hard error stays
+Production `anyScript` budgets in `angular.json` warn at 425kB and fail at 450kB. The warning
+baseline covers the shared bilingual catalog and GitHub Star UI for 19 projects (the current
+production main is about 419.1kB); documentation bodies remain lazy-loaded, so the hard error stays
 at 450kB.
 
 ## Deployment

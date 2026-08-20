@@ -54,8 +54,8 @@ export const projectCategoryDefinitions: readonly ProjectCategoryDefinition[] = 
     id: 'capacitor-plugins',
     label: text('Capacitor plugins', 'Capacitorプラグイン'),
     description: text(
-      'Native payments, identity verification, in-person payments, mobile ads, scanning, screenshot events, and printing for Capacitor applications.',
-      'Capacitorアプリ向けのネイティブ決済、本人確認、対面決済、モバイル広告、スキャン、スクリーンショット検知、印刷を提供します。',
+      'Native payments, identity verification, social login, in-person payments, mobile ads, scanning, screenshot events, and printing for Capacitor applications.',
+      'Capacitorアプリ向けのネイティブ決済、本人確認、ソーシャルログイン、対面決済、モバイル広告、スキャン、スクリーンショット検知、印刷を提供します。',
     ),
     order: 10,
   },
@@ -1129,6 +1129,67 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       page('Ad Events', '広告イベント', 'events', 'events.md', 'Guides', 'ガイド'),
       page('Testing', 'テスト', 'testing', 'testing.md', 'Guides', 'ガイド'),
       page('Migration', '移行', 'migration', 'migration.md', 'Guides', 'ガイド'),
+    ],
+  },
+  {
+    id: 'facebook-login',
+    slug: 'capacitor-facebook-login',
+    sourceDirectory: 'facebook-login',
+    name: 'Capacitor Community Facebook Login',
+    shortName: 'Facebook Login',
+    packageName: '@capacitor-community/facebook-login',
+    repositoryUrl: 'https://github.com/capacitor-community/facebook-login',
+    category: 'capacitor-plugins',
+    icon: 'identity',
+    adapter: 'markdown',
+    description: text(
+      'Native Facebook Login and App Events for Capacitor applications.',
+      'CapacitorアプリでFacebook LoginとApp Eventsを利用するためのプラグイン。',
+    ),
+    headline: text(
+      'Add Facebook authentication to Capacitor apps',
+      'CapacitorアプリにFacebook認証を追加する',
+    ),
+    overview: text(
+      'Sign users in with the native Meta SDKs or Facebook JavaScript SDK, request profile data, and log App Events across Android, iOS, and Web.',
+      'Android・iOSのネイティブMeta SDKまたはFacebook JavaScript SDKでユーザーを認証し、プロフィール取得とApp Eventsの記録を行います。',
+    ),
+    featuresHeading: text('What you can do', 'できること'),
+    features: [
+      {
+        title: text('Facebook authentication', 'Facebook認証'),
+        description: text(
+          'Log in, log out, inspect the current token, and renew data access.',
+          'ログイン、ログアウト、現在のトークン取得、データアクセスの再認証を行います。',
+        ),
+      },
+      {
+        title: text('Profile requests', 'プロフィール取得'),
+        description: text(
+          'Request permitted profile fields from the Facebook Graph API.',
+          'Facebook Graph APIから許可されたプロフィール項目を取得します。',
+        ),
+      },
+      {
+        title: text('App Events', 'App Events'),
+        description: text(
+          'Log custom events and configure automatic event and advertiser settings.',
+          'カスタムイベントを記録し、自動イベントと広告主向け設定を構成します。',
+        ),
+      },
+      {
+        title: text('Native and web', 'ネイティブとWeb'),
+        description: text(
+          'Use one Capacitor API across Android, iOS, and Web.',
+          'Android・iOS・Webで共通のCapacitor APIを利用します。',
+        ),
+      },
+    ],
+    pages: [
+      page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Quickstart', 'クイックスタート'),
+      page('Configuration', '設定', 'configuration', 'configuration.md', 'Guides', 'ガイド'),
+      page('Authentication', '認証', 'authentication', 'authentication.md', 'Guides', 'ガイド'),
+      page('App Events', 'App Events', 'app-events', 'app-events.md', 'Guides', 'ガイド'),
     ],
   },
   {

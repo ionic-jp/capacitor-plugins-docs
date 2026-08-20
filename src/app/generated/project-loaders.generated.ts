@@ -56,6 +56,10 @@ export const PROJECT_LOADERS = {
     en: () => import('./projects/admob.en.generated').then((module) => module.PROJECT),
     ja: () => import('./projects/admob.ja.generated').then((module) => module.PROJECT),
   },
+  "facebook-login": {
+    en: () => import('./projects/facebook-login.en.generated').then((module) => module.PROJECT),
+    ja: () => import('./projects/facebook-login.ja.generated').then((module) => module.PROJECT),
+  },
   "capacitor-codescanner": {
     en: () => import('./projects/capacitor-codescanner.en.generated').then((module) => module.PROJECT),
     ja: () => import('./projects/capacitor-codescanner.ja.generated').then((module) => module.PROJECT),

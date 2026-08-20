@@ -41,6 +41,7 @@ describe('PluginIndexComponent', () => {
       'Stripe Identity',
       'Stripe Terminal',
       'AdMob',
+      'Facebook Login',
       'Code Scanner',
       'Screenshot Event',
       'Printer',
@@ -56,13 +57,13 @@ describe('PluginIndexComponent', () => {
       'ESLint Plugin Rules',
       'Docgen',
     ]);
-    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(18);
+    expect(compiled.querySelectorAll('app-project-icon')).toHaveLength(19);
   });
 
   it('keeps Japanese catalog metadata and lazy documentation in parity', async () => {
     const japaneseProjects = projectsForLocale('ja');
     expect(japaneseProjects).toHaveLength(projectCatalog.length);
-    expect(projectCatalog).toHaveLength(18);
+    expect(projectCatalog).toHaveLength(19);
     expect(japaneseProjects.flatMap((project) => project.pages)).toHaveLength(
       projectCatalog.flatMap((project) => project.pages).length,
     );
@@ -99,6 +100,14 @@ describe('PluginIndexComponent', () => {
     const admob = await loadProject('admob', 'ja');
     expect(admob?.pages.find((page) => page.slug === 'consent')?.html).toContain(
       '広告リクエストの前に同意を集める',
+    );
+    const facebookLogin = await loadProject('facebook-login', 'ja');
+    expect(facebookLogin?.version).toBe('8.1.0');
+    expect(facebookLogin?.pages.find((page) => page.slug === 'authentication')?.html).toContain(
+      'Limited Login',
+    );
+    expect(facebookLogin?.pages.find((page) => page.slug === 'api')?.html).toContain(
+      '<code>method</code> login(...)',
     );
     const eslint = await loadProject('eslint-plugin-rules', 'ja');
     expect(eslint?.version).toBe('21.3.0');

@@ -1393,6 +1393,78 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-admob/docs/api" />
   </url>
   <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-facebook-login</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/readme</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/readme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/readme</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/readme" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/readme" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/configuration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/configuration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/configuration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/authentication</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/authentication" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/authentication</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/authentication" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/app-events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/app-events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/app-events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/app-events" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/app-events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/app-events" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/app-events" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/app-events" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/api</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/api" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/api" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/api" />
+  </url>
+  <url>
+    <loc>https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/api</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/api" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-facebook-login/docs/api" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/api" />
+  </url>
+  <url>
     <loc>https://docs.rdlabo.dev/projects/capacitor-codescanner</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.rdlabo.dev/projects/capacitor-codescanner" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.rdlabo.dev/ja/projects/capacitor-codescanner" />

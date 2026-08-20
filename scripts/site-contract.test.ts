@@ -8,6 +8,7 @@ import ts from 'typescript';
 import { projectDefinitions } from './project-manifest';
 import {
   extractPackageReadme,
+  extractPackageReadmeParts,
   normalizePackageMarkdown,
   stripLeadingH1,
   stripRdlaboDocsOmit,
@@ -1031,21 +1032,54 @@ test('locks production anyScript budgets after catalog growth', async () => {
     'capacitor-plugins-docs'
   ].architect.build.configurations.production.budgets.find((budget) => budget.type === 'anyScript');
   assert.ok(anyScript);
-  assert.equal(anyScript.maximumWarning, '405kB');
+  assert.equal(anyScript.maximumWarning, '425kB');
   assert.equal(anyScript.maximumError, '450kB');
 
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
-  assert.match(readme, /anyScript.*405kB/s);
+  assert.match(readme, /anyScript.*425kB/s);
   assert.match(readme, /450kB/);
 });
 
 const packageEnglishOnlyProjects = new Set([
   'admob',
+  'facebook-login',
   'capacitor-codescanner',
   'capacitor-screenshot-event',
   'capacitor-printer',
   'capacitor-brotherprint',
 ]);
+
+test('loads Facebook Login guides and API from the package repository', async () => {
+  const project = projectDefinitions.find((entry) => entry.id === 'facebook-login');
+  assert.ok(project, 'facebook-login must be declared in the manifest');
+  assert.equal(project.packageName, '@capacitor-community/facebook-login');
+  assert.equal(project.repositoryUrl, 'https://github.com/capacitor-community/facebook-login');
+  assert.equal(project.category, 'capacitor-plugins');
+  assert.equal(project.adapter, 'markdown');
+  assert.deepEqual(
+    project.pages.map((page) => page.slug),
+    ['readme', 'configuration', 'authentication', 'app-events'],
+  );
+
+  const packageJson = JSON.parse(
+    await readFile(new URL('../package.json', import.meta.url), 'utf8'),
+  ) as { devDependencies: Record<string, string> };
+  assert.equal(packageJson.devDependencies[project.packageName], '8.1.0');
+
+  const installedPackage = JSON.parse(
+    await readFile(
+      new URL(`../node_modules/${project.packageName}/package.json`, import.meta.url),
+      'utf8',
+    ),
+  ) as { version: string };
+  assert.equal(installedPackage.version, '8.1.0');
+
+  const readme = await fetchEnglishProjectMarkdown(project, 'readme.md');
+  const extracted = extractPackageReadmeParts(readme.content);
+  assert.match(extracted.readme, /^## Overview$/m);
+  assert.match(extracted.api ?? '', /^### login\(\.\.\.\)$/m);
+  assert.match(extracted.api ?? '', /^### logEvent\(\.\.\.\)$/m);
+});
 
 test('package-hosted English docs are not duplicated under src', async () => {
   for (const project of projectDefinitions.filter((entry) =>

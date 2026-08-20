@@ -3,7 +3,7 @@ export const PROJECT_CATEGORIES_EN = [
   {
     "id": "capacitor-plugins",
     "label": "Capacitor plugins",
-    "description": "Native payments, identity verification, in-person payments, mobile ads, scanning, screenshot events, and printing for Capacitor applications.",
+    "description": "Native payments, identity verification, social login, in-person payments, mobile ads, scanning, screenshot events, and printing for Capacitor applications.",
     "order": 10
   },
   {
@@ -24,7 +24,7 @@ export const PROJECT_CATEGORIES_JA = [
   {
     "id": "capacitor-plugins",
     "label": "Capacitorプラグイン",
-    "description": "Capacitorアプリ向けのネイティブ決済、本人確認、対面決済、モバイル広告、スキャン、スクリーンショット検知、印刷を提供します。",
+    "description": "Capacitorアプリ向けのネイティブ決済、本人確認、ソーシャルログイン、対面決済、モバイル広告、スキャン、スクリーンショット検知、印刷を提供します。",
     "order": 10
   },
   {
@@ -1211,6 +1211,77 @@ export const PROJECTS_EN = [
         "slug": "api",
         "section": "Reference",
         "path": "/projects/capacitor-admob/docs/api"
+      }
+    ]
+  },
+  {
+    "id": "facebook-login",
+    "slug": "capacitor-facebook-login",
+    "name": "Capacitor Community Facebook Login",
+    "shortName": "Facebook Login",
+    "packageName": "@capacitor-community/facebook-login",
+    "repositoryUrl": "https://github.com/capacitor-community/facebook-login",
+    "category": "capacitor-plugins",
+    "icon": "identity",
+    "version": "8.1.0",
+    "description": "Native Facebook Login and App Events for Capacitor applications.",
+    "headline": "Add Facebook authentication to Capacitor apps",
+    "overview": "Sign users in with the native Meta SDKs or Facebook JavaScript SDK, request profile data, and log App Events across Android, iOS, and Web.",
+    "featuresHeading": "What you can do",
+    "features": [
+      {
+        "title": "Facebook authentication",
+        "description": "Log in, log out, inspect the current token, and renew data access."
+      },
+      {
+        "title": "Profile requests",
+        "description": "Request permitted profile fields from the Facebook Graph API."
+      },
+      {
+        "title": "App Events",
+        "description": "Log custom events and configure automatic event and advertiser settings."
+      },
+      {
+        "title": "Native and web",
+        "description": "Use one Capacitor API across Android, iOS, and Web."
+      }
+    ],
+    "path": "/projects/capacitor-facebook-login",
+    "pages": [
+      {
+        "title": "Getting Started",
+        "navTitle": "Getting Started",
+        "slug": "readme",
+        "section": "Quickstart",
+        "path": "/projects/capacitor-facebook-login/docs/readme"
+      },
+      {
+        "title": "Configuration",
+        "navTitle": "Configuration",
+        "slug": "configuration",
+        "section": "Guides",
+        "path": "/projects/capacitor-facebook-login/docs/configuration"
+      },
+      {
+        "title": "Authentication",
+        "navTitle": "Authentication",
+        "slug": "authentication",
+        "section": "Guides",
+        "path": "/projects/capacitor-facebook-login/docs/authentication"
+      },
+      {
+        "title": "App Events",
+        "navTitle": "App Events",
+        "slug": "app-events",
+        "section": "Guides",
+        "path": "/projects/capacitor-facebook-login/docs/app-events"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "Reference",
+        "path": "/projects/capacitor-facebook-login/docs/api"
       }
     ]
   },
@@ -2626,6 +2697,77 @@ export const PROJECTS_JA = [
         "slug": "api",
         "section": "リファレンス",
         "path": "/projects/capacitor-admob/docs/api"
+      }
+    ]
+  },
+  {
+    "id": "facebook-login",
+    "slug": "capacitor-facebook-login",
+    "name": "Capacitor Community Facebook Login",
+    "shortName": "Facebook Login",
+    "packageName": "@capacitor-community/facebook-login",
+    "repositoryUrl": "https://github.com/capacitor-community/facebook-login",
+    "category": "capacitor-plugins",
+    "icon": "identity",
+    "version": "8.1.0",
+    "description": "CapacitorアプリでFacebook LoginとApp Eventsを利用するためのプラグイン。",
+    "headline": "CapacitorアプリにFacebook認証を追加する",
+    "overview": "Android・iOSのネイティブMeta SDKまたはFacebook JavaScript SDKでユーザーを認証し、プロフィール取得とApp Eventsの記録を行います。",
+    "featuresHeading": "できること",
+    "features": [
+      {
+        "title": "Facebook認証",
+        "description": "ログイン、ログアウト、現在のトークン取得、データアクセスの再認証を行います。"
+      },
+      {
+        "title": "プロフィール取得",
+        "description": "Facebook Graph APIから許可されたプロフィール項目を取得します。"
+      },
+      {
+        "title": "App Events",
+        "description": "カスタムイベントを記録し、自動イベントと広告主向け設定を構成します。"
+      },
+      {
+        "title": "ネイティブとWeb",
+        "description": "Android・iOS・Webで共通のCapacitor APIを利用します。"
+      }
+    ],
+    "path": "/projects/capacitor-facebook-login",
+    "pages": [
+      {
+        "title": "はじめに",
+        "navTitle": "はじめに",
+        "slug": "readme",
+        "section": "クイックスタート",
+        "path": "/projects/capacitor-facebook-login/docs/readme"
+      },
+      {
+        "title": "設定",
+        "navTitle": "設定",
+        "slug": "configuration",
+        "section": "ガイド",
+        "path": "/projects/capacitor-facebook-login/docs/configuration"
+      },
+      {
+        "title": "認証",
+        "navTitle": "認証",
+        "slug": "authentication",
+        "section": "ガイド",
+        "path": "/projects/capacitor-facebook-login/docs/authentication"
+      },
+      {
+        "title": "App Events",
+        "navTitle": "App Events",
+        "slug": "app-events",
+        "section": "ガイド",
+        "path": "/projects/capacitor-facebook-login/docs/app-events"
+      },
+      {
+        "title": "API",
+        "navTitle": "API",
+        "slug": "api",
+        "section": "リファレンス",
+        "path": "/projects/capacitor-facebook-login/docs/api"
       }
     ]
   },
