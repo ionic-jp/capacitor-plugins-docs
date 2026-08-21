@@ -561,6 +561,14 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
       ),
       page('Features', '機能', 'features', 'features.md', 'Guides', 'ガイド'),
       page(
+        'Special markup and classes',
+        '特別なマークアップとクラス',
+        'special-markup',
+        'special-markup.md',
+        'Guides',
+        'ガイド',
+      ),
+      page(
         'Experimental Animation',
         '実験的なアニメーション',
         'experimental-animation',
@@ -622,6 +630,22 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     ],
     pages: [
       page('Getting Started', 'はじめに', 'readme', 'readme.md', 'Documentation', 'ドキュメント'),
+      page(
+        'Special markup',
+        '特別なマークアップ',
+        'special-markup',
+        'special-markup.md',
+        'Guides',
+        'ガイド',
+      ),
+      page(
+        'Using ion-item-group',
+        'ion-item-groupの使用方法',
+        'using-ion-item-group',
+        'using-ion-item-group.md',
+        'Guides',
+        'ガイド',
+      ),
       page('API', 'API', 'api', 'api.md', 'Reference', 'リファレンス'),
     ],
   },
