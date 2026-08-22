@@ -36,7 +36,13 @@ import {
 const root = resolve(process.cwd());
 const docsRepositoryUrl = 'https://github.com/rdlabo-dev/website';
 
-const stripHtml = (value: string) => value.replace(/<\/?code>/g, '`').replace(/<[^>]+>/g, '');
+function stripHtml(value: string): string {
+  const fragment = JSDOM.fragment(value);
+  for (const code of fragment.querySelectorAll('code')) {
+    code.replaceWith(`\`${code.textContent ?? ''}\``);
+  }
+  return fragment.textContent ?? '';
+}
 const tagText = (tags: any[], name: string) => tags?.find((tag) => tag.name === name)?.text ?? '';
 
 function apiMarkdown(source: any): Map<string, string> {
