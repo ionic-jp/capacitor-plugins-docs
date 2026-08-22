@@ -89,6 +89,10 @@
       <trans-unit id="supportEyebrow"><source>Support open source</source><target>オープンソースを支援する</target></trans-unit>
       <trans-unit id="supportHeading"><source>Help rdlabo projects keep moving</source><target>rdlaboのプロジェクトを、これからも前へ</target></trans-unit>
       <trans-unit id="supportIntro"><source>The projects documented here are maintained personally by rdlabo. Sponsorship supports the collection as a whole, rather than one individual library.</source><target>ここに掲載するプロジェクトは、rdlabo個人が開発・管理しています。スポンサーからのご支援は、特定のライブラリではなく、プロジェクト全体の活動を支えます。</target></trans-unit>
+      <trans-unit id="currentSponsorsHeading"><source>Current sponsors</source><target>現在のスポンサー</target></trans-unit>
+      <trans-unit id="currentSponsorsDescription"><source>Thank you to the people and organizations supporting rdlabo&apos;s open source work.</source><target>rdlaboのオープンソース活動を支えてくださる皆さまに感謝します。</target></trans-unit>
+      <trans-unit id="pastSponsorsHeading"><source>Past sponsors</source><target>過去のスポンサー</target></trans-unit>
+      <trans-unit id="pastSponsorsDescription"><source>Thank you also to everyone who has supported this work in the past.</source><target>これまで活動を支えてくださった皆さまにも感謝します。</target></trans-unit>
       <trans-unit id="supportSponsorHeading"><source>Sponsor on GitHub</source><target>GitHub Sponsorsで支援する</target></trans-unit>
       <trans-unit id="supportSponsorDescription"><source>Your support helps fund maintenance, compatibility updates, documentation, and new features across rdlabo&apos;s open source projects.</source><target>いただいたご支援は、rdlaboのオープンソースプロジェクト全体のメンテナンス、互換性対応、ドキュメント整備、新機能開発に活用します。</target></trans-unit>
       <trans-unit id="becomeSponsor"><source>Become a sponsor</source><target>スポンサーになる</target></trans-unit>

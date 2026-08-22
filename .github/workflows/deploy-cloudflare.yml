@@ -6,6 +6,8 @@ on:
     types: [completed]
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'
 
 permissions:
   contents: read
@@ -21,7 +23,8 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.head_sha == github.sha) ||
-      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      github.event_name == 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
@@ -43,7 +46,9 @@ jobs:
         run: npm ci
 
       - name: Build production assets
-        run: npm run build
+        run: npm run sponsors:generate && npm run build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Deploy to Cloudflare
         run: npx wrangler deploy

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { access, constants, readdir, readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import test from 'node:test';
+import { CURRENT_SPONSORS, PAST_SPONSORS } from '../src/app/generated/sponsors.generated';
 
 test('places locale-specific static 404 pages in the browser output', async () => {
   const [english, japanese] = await Promise.all([
@@ -50,6 +51,34 @@ test('prerender output includes localized SEO metadata', async () => {
     /property="og:image" content="https:\/\/docs\.rdlabo\.dev\/assets\/brand\/og-card\.png"/,
   );
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
+});
+
+test('prerenders current and past public sponsors in both locales', async () => {
+  const [english, japanese] = await Promise.all([
+    readFile(
+      new URL('../dist/capacitor-plugins-docs/browser/support/index.html', import.meta.url),
+      'utf8',
+    ),
+    readFile(
+      new URL('../dist/capacitor-plugins-docs/browser/ja/support/index.html', import.meta.url),
+      'utf8',
+    ),
+  ]);
+
+  for (const html of [english, japanese]) {
+    for (const sponsor of [...CURRENT_SPONSORS, ...PAST_SPONSORS]) {
+      assert.match(html, new RegExp(`href="${sponsor.profileUrl}"`));
+    }
+    assert.doesNotMatch(html, /\$\d/);
+  }
+  if (CURRENT_SPONSORS.length > 0) {
+    assert.match(english, />Current sponsors</);
+    assert.match(japanese, />現在のスポンサー</);
+  }
+  if (PAST_SPONSORS.length > 0) {
+    assert.match(english, />Past sponsors</);
+    assert.match(japanese, />過去のスポンサー</);
+  }
 });
 
 test('Japanese home prerender uses slashless canonical SEO URLs', async () => {

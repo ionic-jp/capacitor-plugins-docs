@@ -5,7 +5,6 @@ import { NotFoundComponent } from './docs/not-found';
 import { PluginIndexComponent } from './docs/plugin-index';
 import { projectCatalog } from './docs/docs-data';
 import { projectResolver } from './docs/project.resolver';
-import { SupportPageComponent } from './docs/support-page';
 
 const portalProjects = projectCatalog.filter((project) => !project.hostedUrl);
 
@@ -60,7 +59,11 @@ const admobLegacyDocRedirects: Routes = [
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: PluginIndexComponent },
   { path: 'projects', pathMatch: 'full', redirectTo: '' },
-  { path: 'support', component: SupportPageComponent },
+  {
+    path: 'support',
+    loadComponent: () =>
+      import('./docs/support-page').then(({ SupportPageComponent }) => SupportPageComponent),
+  },
   {
     path: 'docs/identity',
     pathMatch: 'full',
