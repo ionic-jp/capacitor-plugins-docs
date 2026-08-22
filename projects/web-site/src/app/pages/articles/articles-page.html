@@ -1,0 +1,71 @@
+<article class="articles-page">
+  <div class="article-layout">
+    <div class="article-main">
+      <header class="page-header">
+        <p class="page-header__eyebrow">Writing</p>
+        <h1 class="page-header__title">
+          @if (selectedYear(); as year) {
+            Articles from {{ year }}
+          } @else {
+            Articles
+          }
+        </h1>
+        <p class="page-header__lead">
+          Reviewed English translations of articles originally published in Japanese on Zenn and
+          note.
+        </p>
+      </header>
+
+      <nav class="article-years" aria-label="Article archives">
+        <a routerLink="/articles" [class.article-years__active]="!selectedYear()">Latest</a>
+        @for (year of years; track year) {
+          <a
+            [routerLink]="['/articles/archive', year]"
+            [class.article-years__active]="selectedYear() === year"
+            >{{ year }}</a
+          >
+        }
+      </nav>
+
+      @if (months().length) {
+        <div class="article-archive">
+          @for (month of months(); track month.label) {
+            <section class="article-month">
+              <h2>{{ month.label }}</h2>
+              <ul class="article-list">
+                @for (article of month.articles; track article.slug) {
+                  <li>
+                    <a
+                      class="article-preview"
+                      [routerLink]="['/articles', article.slug]"
+                      [attr.aria-label]="article.title"
+                    >
+                      <time class="article-preview__date" [attr.datetime]="article.publishedDate">
+                        {{ formatArticleDate(article.publishedDate) }}
+                      </time>
+                      <span class="article-preview__source">From {{ article.sourceName }}</span>
+                      <h3 class="article-preview__title">{{ article.title }}</h3>
+                      <p class="article-preview__summary">{{ article.description }}</p>
+                    </a>
+                  </li>
+                }
+              </ul>
+            </section>
+          }
+        </div>
+      } @else {
+        <div class="articles-empty articles-empty--page" role="status">
+          <p class="articles-empty__title">No translated articles found.</p>
+          <p class="articles-empty__body">
+            Read the Japanese originals on
+            <a class="external-link" [href]="site.zennUrl" target="_blank" rel="noopener noreferrer"
+              >Zenn</a
+            >.
+          </p>
+        </div>
+      }
+    </div>
+
+    <app-article-sidebar />
+  </div>
+</article>

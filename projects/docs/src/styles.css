@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 @import 'zenn-content-css/lib/index.css';
+@import '../../shared/styles/external-link.css';
+@import '../../shared/styles/zenn-content-overrides.css';
 
 :root {
   font-family: 'Helvetica Neue', Arial, sans-serif;

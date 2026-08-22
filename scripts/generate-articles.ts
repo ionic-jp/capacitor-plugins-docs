@@ -1,0 +1,327 @@
+import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import fm from 'front-matter';
+import markdownToHtml from 'zenn-markdown-html';
+import { JSDOM } from 'jsdom';
+import { enforceGeneratedHtmlPolicy } from './html-policy';
+import { fetchNoteArticle } from './note-articles';
+import { fetchZennArticleFeed } from './zenn-articles';
+
+interface ArticleFrontMatter {
+  title: string;
+  description: string;
+  zennSlug?: string;
+  source?: 'zenn' | 'note';
+  sourceUrl?: string;
+  sourceRevision?: string;
+  slug?: string;
+  emoji?: string;
+}
+
+interface ArticleTranslation {
+  file: string;
+  source: 'zenn' | 'note';
+  sourceKey: string;
+  sourceRevision?: string;
+  slug: string;
+  title: string;
+  description: string;
+  emoji: string;
+  body: string;
+}
+
+interface GeneratedArticle {
+  slug: string;
+  title: string;
+  description: string;
+  emoji: string;
+  sourceName: 'Zenn' | 'note';
+  originalUrl: string;
+  publishedAt: string;
+  publishedDate: string;
+  html: string;
+  headings: GeneratedArticleHeading[];
+}
+
+interface GeneratedArticleHeading {
+  id: string;
+  text: string;
+  level: 2 | 3;
+}
+
+interface ArticleLinkCard {
+  title: string;
+  description: string;
+  siteName: string;
+  imageUrl: string;
+}
+
+const ARTICLE_LINK_CARDS: Readonly<Record<string, ArticleLinkCard>> = {
+  'https://ionic.io/blog/announcing-ionic-framework-9': {
+    title: 'Announcing Ionic Framework 9',
+    description:
+      'Ionic Framework 9 is here with broader Angular compatibility, modern router support, richer components, and a new migration tool.',
+    siteName: 'ionic.io',
+    imageUrl: 'https://ionic.io/blog/wp-content/uploads/2026/08/ionic-9-feature-image-1024x512.png',
+  },
+};
+
+interface GenerateArticlesOptions {
+  root?: string;
+  fetchZennArticles?: typeof fetchZennArticleFeed;
+  fetchNoteSource?: typeof fetchNoteArticle;
+}
+
+function required(value: unknown, field: string, file: string): string {
+  if (typeof value !== 'string' || !value.trim()) {
+    throw new Error(`${file} must declare a non-empty ${field} in front matter`);
+  }
+  return value.trim();
+}
+
+function rewriteZennImages(markdown: string): string {
+  return markdown.replaceAll(/([("'])\/images\//g, '$1https://zenn.dev/images/');
+}
+
+function renderArticleLinkCards(document: Document): void {
+  for (const paragraph of Array.from(document.querySelectorAll('p'))) {
+    const links = Array.from(paragraph.querySelectorAll<HTMLAnchorElement>('a'));
+    const primaryLink = links.find((link) => link.style.display !== 'none');
+    if (!primaryLink) continue;
+    const metadata = ARTICLE_LINK_CARDS[primaryLink.href];
+    if (!metadata) continue;
+    if (links.some((link) => link.href !== primaryLink.href)) continue;
+
+    const card = document.createElement('a');
+    card.className = 'article-link-card';
+    card.href = primaryLink.href;
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
+
+    const body = document.createElement('span');
+    body.className = 'article-link-card__body';
+
+    const title = document.createElement('strong');
+    title.className = 'article-link-card__title';
+    title.textContent = metadata.title;
+
+    const description = document.createElement('span');
+    description.className = 'article-link-card__description';
+    description.textContent = metadata.description;
+
+    const site = document.createElement('span');
+    site.className = 'article-link-card__site';
+    site.textContent = metadata.siteName;
+
+    const image = document.createElement('img');
+    image.className = 'article-link-card__image';
+    image.src = metadata.imageUrl;
+    image.alt = '';
+    image.loading = 'lazy';
+    image.width = 1024;
+    image.height = 512;
+
+    body.append(title, description, site);
+    card.append(body, image);
+    paragraph.replaceWith(card);
+  }
+}
+
+function renderEmbeddedFrames(document: Document): void {
+  for (const frame of Array.from(document.querySelectorAll<HTMLIFrameElement>('iframe[src]'))) {
+    const sourceUrl = frame.src;
+    if (!sourceUrl.startsWith('https://')) continue;
+
+    const link = document.createElement('a');
+    link.className = 'article-embed-card';
+    link.href = sourceUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+
+    const label = document.createElement('strong');
+    label.textContent = sourceUrl.includes('youtube')
+      ? 'Watch this video on YouTube'
+      : 'Open embedded content';
+    const arrow = document.createElement('span');
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '→';
+    link.append(label, arrow);
+
+    const container = frame.closest('.embed-block') ?? frame;
+    container.replaceWith(link);
+  }
+}
+
+async function writeIfChanged(path: string, content: string): Promise<void> {
+  let current: string | undefined;
+  try {
+    current = await readFile(path, 'utf8');
+  } catch {
+    // The first generation creates the file.
+  }
+  if (current !== content) await writeFile(path, content);
+}
+
+async function loadTranslations(sourceRoot: string): Promise<ArticleTranslation[]> {
+  await mkdir(sourceRoot, { recursive: true });
+  const files = (await readdir(sourceRoot)).filter((file) => file.endsWith('.md')).sort();
+  return Promise.all(
+    files.map(async (file) => {
+      const parsed = fm<Partial<ArticleFrontMatter>>(
+        await readFile(join(sourceRoot, file), 'utf8'),
+      );
+      const source = parsed.attributes.source ?? 'zenn';
+      if (source === 'note') {
+        return {
+          file,
+          source,
+          sourceKey: required(parsed.attributes.sourceUrl, 'sourceUrl', file),
+          sourceRevision: required(parsed.attributes.sourceRevision, 'sourceRevision', file),
+          slug: required(parsed.attributes.slug, 'slug', file),
+          title: required(parsed.attributes.title, 'title', file),
+          description: required(parsed.attributes.description, 'description', file),
+          emoji:
+            typeof parsed.attributes.emoji === 'string' && parsed.attributes.emoji.trim()
+              ? parsed.attributes.emoji.trim()
+              : '✦',
+          body: parsed.body,
+        };
+      }
+
+      const zennSlug = required(parsed.attributes.zennSlug, 'zennSlug', file);
+      return {
+        file,
+        source,
+        sourceKey: zennSlug,
+        slug: zennSlug,
+        title: required(parsed.attributes.title, 'title', file),
+        description: required(parsed.attributes.description, 'description', file),
+        emoji:
+          typeof parsed.attributes.emoji === 'string' && parsed.attributes.emoji.trim()
+            ? parsed.attributes.emoji.trim()
+            : '✦',
+        body: parsed.body,
+      };
+    }),
+  );
+}
+
+export async function generateArticles(options: GenerateArticlesOptions = {}): Promise<void> {
+  const root = options.root ?? resolve(process.cwd());
+  const sourceRoot = join(root, 'projects/web-site/src/articles');
+  const generatedRoot = join(root, 'projects/web-site/src/app/generated');
+  const generatedArticlesRoot = join(generatedRoot, 'articles');
+  const publicRoot = join(root, 'projects/web-site/public');
+  const fetchZennArticles = options.fetchZennArticles ?? fetchZennArticleFeed;
+  const fetchNoteSource = options.fetchNoteSource ?? fetchNoteArticle;
+  const translations = await loadTranslations(sourceRoot);
+  const noteSourceUrls = [
+    ...new Set(
+      translations
+        .filter((translation) => translation.source === 'note')
+        .map((translation) => translation.sourceKey),
+    ),
+  ];
+  const [zennArticles, noteArticles] = await Promise.all([
+    fetchZennArticles(),
+    Promise.all(noteSourceUrls.map((sourceUrl) => fetchNoteSource(sourceUrl))),
+  ]);
+  const zennMetadataBySlug = new Map(zennArticles.map((article) => [article.slug, article]));
+  const noteMetadataByUrl = new Map(noteArticles.map((article) => [article.url, article]));
+  const seen = new Set<string>();
+  const articles: GeneratedArticle[] = [];
+
+  for (const translation of translations) {
+    const slug = translation.slug;
+    if (seen.has(slug)) throw new Error(`Duplicate translated article slug: ${slug}`);
+    seen.add(slug);
+    const metadata =
+      translation.source === 'note'
+        ? noteMetadataByUrl.get(translation.sourceKey)
+        : zennMetadataBySlug.get(translation.sourceKey);
+    if (!metadata) {
+      throw new Error(
+        `${translation.file} does not match a public ${translation.source === 'note' ? 'note' : 'Zenn'} article`,
+      );
+    }
+    if (translation.source === 'note' && translation.sourceRevision !== metadata.sourceRevision) {
+      throw new Error(
+        `${translation.file} is based on an older note revision; review the Japanese source and update sourceRevision`,
+      );
+    }
+    const rendered = new JSDOM(await markdownToHtml(rewriteZennImages(translation.body)));
+    for (const heading of Array.from(rendered.window.document.querySelectorAll('h1'))) {
+      const replacement = rendered.window.document.createElement('h2');
+      for (const attribute of Array.from(heading.attributes)) {
+        replacement.setAttribute(attribute.name, attribute.value);
+      }
+      replacement.innerHTML = heading.innerHTML;
+      heading.replaceWith(replacement);
+    }
+    for (const link of Array.from(
+      rendered.window.document.querySelectorAll<HTMLAnchorElement>('a[target="_blank"]'),
+    )) {
+      link.rel = 'noopener noreferrer';
+    }
+    renderArticleLinkCards(rendered.window.document);
+    renderEmbeddedFrames(rendered.window.document);
+    const headings = Array.from(
+      rendered.window.document.querySelectorAll<HTMLHeadingElement>('h2, h3'),
+    )
+      .filter((heading) => heading.id)
+      .map((heading) => ({
+        id: heading.id,
+        text: heading.textContent.trim(),
+        level: Number(heading.tagName.slice(1)) as 2 | 3,
+      }));
+    const html = enforceGeneratedHtmlPolicy(
+      rendered.window.document.body.innerHTML,
+      `translated article ${slug}`,
+    );
+    articles.push({
+      slug,
+      title: translation.title,
+      description: translation.description,
+      emoji: translation.emoji,
+      sourceName: translation.source === 'note' ? 'note' : 'Zenn',
+      originalUrl: metadata.url,
+      publishedAt: metadata.publishedAt,
+      publishedDate: metadata.publishedDate,
+      html,
+      headings,
+    });
+  }
+  articles.sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
+
+  await rm(generatedArticlesRoot, { recursive: true, force: true });
+  await mkdir(generatedArticlesRoot, { recursive: true });
+  const summaries = articles.map(({ html: _html, headings: _headings, ...summary }) => summary);
+  const catalog = `// Generated by scripts/generate-articles.ts. Do not edit.\nexport const ARTICLE_SUMMARIES = ${JSON.stringify(summaries, null, 2)} as const;\n\nexport const ARTICLE_YEARS = ${JSON.stringify([...new Set(articles.map((article) => article.publishedDate.slice(0, 4)))])} as const;\n`;
+  const loaders = `// Generated by scripts/generate-articles.ts. Do not edit.\nexport const ARTICLE_LOADERS: Record<string, () => Promise<{ default: { html: string; headings: readonly { id: string; text: string; level: 2 | 3 }[] } }>> = {\n${articles.map((article) => `  ${JSON.stringify(article.slug)}: () => import('./articles/${article.slug}.generated'),`).join('\n')}\n};\n`;
+  const publicPaths = [
+    '',
+    '/articles',
+    ...new Set(articles.map((article) => `/articles/archive/${article.publishedDate.slice(0, 4)}`)),
+    ...articles.map((article) => `/articles/${article.slug}`),
+  ];
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${publicPaths.map((path) => `  <url><loc>https://rdlabo.dev${path}</loc></url>`).join('\n')}\n</urlset>\n`;
+  await Promise.all([
+    writeIfChanged(join(generatedRoot, 'article-catalog.generated.ts'), catalog),
+    writeIfChanged(join(generatedRoot, 'article-loaders.generated.ts'), loaders),
+    writeIfChanged(join(publicRoot, 'sitemap.xml'), sitemap),
+    ...articles.map((article) =>
+      writeIfChanged(
+        join(generatedArticlesRoot, `${article.slug}.generated.ts`),
+        `// Generated by scripts/generate-articles.ts. Do not edit.\nexport default ${JSON.stringify({ html: article.html, headings: article.headings })} as const;\n`,
+      ),
+    ),
+  ]);
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  generateArticles().catch((error: unknown) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  });
+}

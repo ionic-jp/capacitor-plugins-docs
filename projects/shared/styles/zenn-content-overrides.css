@@ -1,0 +1,6 @@
+/* Keep Zenn diff rows readable when the article column is wider than the code. */
+.znc pre.shiki > code {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+}

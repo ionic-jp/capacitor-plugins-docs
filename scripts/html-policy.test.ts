@@ -7,7 +7,7 @@ test('accepts documentation markup and syntax highlighting styles', () => {
     '<h2 id="install" data-line="1" class="code-line">Install</h2>' +
     '<h5 id="details" data-line="2" class="code-line">Details</h5>' +
     '<hr>' +
-    '<ol start="2"><li>Second step</li></ol>' +
+    '<ol start="0"><li>First step</li></ol>' +
     '<blockquote data-line="2" class="code-line"><p>Rule summary</p></blockquote>' +
     '<pre class="shiki" style="background-color:#151e2c;color:#e1e4e8"><code>' +
     '<span style="color:#b392f0">npm</span>' +
@@ -17,7 +17,7 @@ test('accepts documentation markup and syntax highlighting styles', () => {
   assert.match(sanitized, /<h2/);
   assert.match(sanitized, /<h5/);
   assert.match(sanitized, /<hr>/);
-  assert.match(sanitized, /<ol start="2">/);
+  assert.match(sanitized, /<ol start="0">/);
   assert.match(sanitized, /<blockquote/);
   assert.match(sanitized, /font-style:italic/);
 });

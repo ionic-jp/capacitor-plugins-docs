@@ -13,6 +13,8 @@ projects/docs/src/stripe/config
 projects/docs/src/stripe-identity/docs
 projects/docs/src/stripe-identity/config
 projects/docs/src/app/generated
+projects/web-site/src/app/generated
+projects/web-site/src/articles
 projects/docs/src/**/docs
 *.png
 *.ico

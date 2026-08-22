@@ -1,0 +1,44 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-brand" routerLink="/">
+      <img
+        class="site-brand__logo"
+        src="/assets/brand/rdlabo-logo.svg"
+        width="48"
+        height="24"
+        alt=""
+      />
+      <span class="site-brand__name">rdlabo.dev</span>
+    </a>
+
+    <pagefind-modal-trigger class="site-search" />
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        @for (link of navLinks; track link.href) {
+          <li class="site-nav__item" [class.site-nav__item--mobile-hidden]="link.mobile === false">
+            @if (link.external) {
+              <a
+                class="site-nav__link external-link"
+                [href]="link.href"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ link.label }}
+              </a>
+            } @else {
+              <a
+                class="site-nav__link"
+                [routerLink]="link.href"
+                routerLinkActive="site-nav__link--active"
+                [routerLinkActiveOptions]="{ exact: link.href === '/' }"
+              >
+                {{ link.label }}
+              </a>
+            }
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

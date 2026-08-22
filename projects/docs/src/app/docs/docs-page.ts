@@ -78,7 +78,7 @@ import { SeoService } from './seo.service';
               @if (!doc.codes.length && !tocHeadings().length) {
                 <div class="mt-8 border-t border-slate-200 pt-4">
                   <a
-                    class="inline-flex items-center gap-2 text-[0.82rem] leading-5 font-normal text-[#333] no-underline hover:text-[#c44320]"
+                    class="external-link inline-flex items-center gap-2 text-[0.82rem] leading-5 font-normal text-[#333] no-underline hover:text-[#c44320]"
                     [href]="doc.editUrl"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -123,7 +123,7 @@ import { SeoService } from './seo.service';
                 </nav>
                 <div class="mt-5 border-t border-slate-200 pt-4">
                   <a
-                    class="inline-flex items-center gap-2 text-[0.82rem] leading-5 font-normal text-[#333] no-underline hover:text-[#c44320]"
+                    class="external-link inline-flex items-center gap-2 text-[0.82rem] leading-5 font-normal text-[#333] no-underline hover:text-[#c44320]"
                     [href]="doc.editUrl"
                     target="_blank"
                     rel="noopener noreferrer"

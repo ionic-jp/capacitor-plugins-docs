@@ -12,6 +12,7 @@ module.exports = defineConfig([
       'coverage/**',
       '.angular/**',
       'projects/docs/src/app/generated/**',
+      'projects/web-site/src/app/generated/**',
       'projects/docs/src/stripe/**',
       'projects/docs/src/stripe-identity/**',
       'projects/docs/src/stripe-terminal/**',
@@ -22,7 +23,7 @@ module.exports = defineConfig([
   },
   ...rdlabo.configs.recommended,
   {
-    files: ['projects/docs/src/**/*.ts'],
+    files: ['projects/docs/src/**/*.ts', 'projects/web-site/src/**/*.ts'],
     extends: [
       eslint.configs.recommended,
       tseslint.configs.recommended,

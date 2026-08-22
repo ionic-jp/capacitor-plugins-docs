@@ -93,13 +93,12 @@ import { SeoService } from './seo.service';
         </div>
         <div class="border-t border-[#eadfd9] p-7 sm:border-t-0 sm:border-l sm:p-10">
           <a
-            class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#ea572a] px-6 py-3 text-sm font-semibold text-white no-underline transition hover:bg-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
+            class="external-link inline-flex min-h-12 items-center justify-center rounded-full bg-[#ea572a] px-6 py-3 text-sm font-semibold text-white no-underline transition hover:bg-[#c44320] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ea572a]"
             href="https://github.com/sponsors/rdlabo"
             target="_blank"
             rel="noopener noreferrer"
           >
             <ng-container i18n="@@becomeSponsor">Become a sponsor</ng-container>
-            <span aria-hidden="true">&nbsp;→</span>
           </a>
         </div>
       </section>

@@ -102,7 +102,7 @@ import { SeoService } from './seo.service';
           </h2>
         </div>
         <a
-          class="mt-6 inline-flex shrink-0 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-white no-underline transition hover:border-[#ff936f] hover:text-[#ff936f] sm:mt-0"
+          class="external-link mt-6 inline-flex shrink-0 rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-white no-underline transition hover:border-[#ff936f] hover:text-[#ff936f] sm:mt-0"
           href="https://github.com/rdlabo-dev"
           target="_blank"
           rel="noopener noreferrer"

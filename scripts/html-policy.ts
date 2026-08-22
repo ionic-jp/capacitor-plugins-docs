@@ -7,7 +7,11 @@ const ALLOWED_TAGS = new Set([
   'br',
   'code',
   'div',
+  'details',
+  'del',
   'em',
+  'figcaption',
+  'figure',
   'h2',
   'h3',
   'h4',
@@ -16,12 +20,16 @@ const ALLOWED_TAGS = new Set([
   'hr',
   'img',
   'li',
+  'mark',
   'ol',
   'p',
   'pre',
   'section',
   'span',
   'strong',
+  'sub',
+  'summary',
+  'sup',
   'table',
   'tbody',
   'td',
@@ -63,6 +71,7 @@ function hasOnlySafeStyles(value: string): boolean {
       (declaration) =>
         /^(?:background-color|color):#[0-9a-f]{6}$/i.test(declaration) ||
         declaration === 'display:none' ||
+        /^font-weight:(?:bold|normal|[1-9]00)$/.test(declaration) ||
         /^font-style:(?:italic|normal)$/.test(declaration) ||
         /^text-align:(?:left|right|center)$/.test(declaration),
     );
@@ -92,7 +101,7 @@ export function enforceGeneratedHtmlPolicy(html: string, context: string): strin
       if (name === 'target' && attribute.value !== '_blank') {
         throw new Error(`${context} generated an unsupported link target`);
       }
-      if (name === 'start' && (tag !== 'ol' || !/^[1-9]\d*$/.test(attribute.value))) {
+      if (name === 'start' && (tag !== 'ol' || !/^-?\d+$/.test(attribute.value))) {
         throw new Error(`${context} generated an invalid start attribute on <${tag}>`);
       }
     }

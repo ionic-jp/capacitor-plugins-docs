@@ -1,17 +1,28 @@
 # rdlabo-docs
 
-`rdlabo-docs` is the bilingual documentation portal for rdlabo OSS. It generates static Angular pages from source packages (pinned in `package-lock.json`) and Markdown under `projects/docs/src/{project}/docs/`.
+`rdlabo-docs` is the monorepo for rdlabo's public sites. It builds two static Angular applications:
+
+| App                  | Path                | Domain            |
+| -------------------- | ------------------- | ----------------- |
+| Documentation portal | `projects/docs`     | `docs.rdlabo.dev` |
+| Top site             | `projects/web-site` | `rdlabo.dev`      |
+
+The documentation portal generates bilingual pages from source packages (pinned in `package-lock.json`) and Markdown under `projects/docs/src/{project}/docs/`. The top site publishes reviewed English translations of selected Zenn and note articles from `projects/web-site/src/articles/`.
 
 ## Quick reference
 
-| Task                                               | Where                                                                                     |
-| -------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Add/remove a project, change page list or metadata | `scripts/project-manifest.ts`                                                             |
-| Write/edit Japanese documentation                  | `projects/docs/src/{project}/docs/ja/`                                                    |
-| Write/edit English for portal-hosted projects      | `projects/docs/src/{project}/docs/` (read via GitHub raw, not local checkout)             |
-| Write/edit English for package-hosted projects     | The OSS package repository                                                                |
-| Bump a package version                             | `package.json` pin → `npm install` → `npm run docs:generate`                              |
-| Regenerate all pages                               | `npm run docs:generate` (output: `projects/docs/src/app/generated/` — never edit by hand) |
+| Task                                               | Where                                                                                                                                        |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Add/remove a project, change page list or metadata | `scripts/project-manifest.ts`                                                                                                                |
+| Write/edit Japanese documentation                  | `projects/docs/src/{project}/docs/ja/`                                                                                                       |
+| Write/edit English for portal-hosted projects      | `projects/docs/src/{project}/docs/` (read via GitHub raw, not local checkout)                                                                |
+| Write/edit English for package-hosted projects     | The OSS package repository                                                                                                                   |
+| Bump a package version                             | `package.json` pin → `npm install` → `npm run docs:generate`                                                                                 |
+| Regenerate all pages                               | `npm run docs:generate` (output: `projects/docs/src/app/generated/` — never edit by hand)                                                    |
+| Write/edit English article translations            | `projects/web-site/src/articles/*.md`                                                                                                        |
+| Regenerate article catalog and HTML                | `npm run articles:generate` (output: `projects/web-site/src/app/generated/` and `projects/web-site/public/sitemap.xml` — never edit by hand) |
+| Start the top site locally                         | `npm run start:web-site`                                                                                                                     |
+| Build or deploy one app                            | `npm run build:docs` / `build:web-site` / `deploy:docs` / `deploy:web-site`                                                                  |
 
 ## Page roles
 
@@ -32,8 +43,76 @@
 | `!::Identifier::` API signatures                    | Installed npm package `dist/docs.json`               | Package repo; release and bump the pin here                                                                      |
 | Docgen API page (`<docgen-index>` + `<docgen-api>`) | Package or portal `readme.md` on GitHub              | Same repository as the English landing page                                                                      |
 | Code example files (`code:` refs)                   | `projects/docs/src/{project}/docs/` (not translated) | This portal                                                                                                      |
+| English article translations                        | `projects/web-site/src/articles/*.md`                | This repo                                                                                                        |
+| Zenn article publication metadata                   | Zenn RSS (`scripts/zenn-articles.ts`)                | Fetched at generation time; not stored as source                                                                 |
+| note article source and publication metadata        | note public article API (`scripts/note-articles.ts`) | Japanese source stays on note; reviewed English and localized images live in this repo                           |
 
-## Generation pipeline
+## Top site (`projects/web-site`)
+
+English-only Angular app for `rdlabo.dev`. Home page, featured OSS links, and reviewed translations of selected Zenn and note articles.
+
+### Article generation
+
+`npm run articles:generate` runs `scripts/generate-articles.ts`:
+
+1. Loads Markdown from `projects/web-site/src/articles/*.md`. Zenn sources use `zennSlug`; explicitly selected note sources use `source: note`, `sourceUrl`, `sourceRevision`, and `slug`. All articles require `title` and `description`; `emoji` is optional.
+2. Fetches public Zenn metadata from `https://zenn.dev/rdlabo/feed?all=1` and only the note URLs explicitly declared by translated articles.
+3. Requires every source to match a public article. For note, generation also requires `sourceRevision` to match the SHA-256 of the current Japanese title and body so upstream edits cannot silently bypass translation review. `publishedDate` uses Asia/Tokyo.
+4. Renders Markdown to HTML (Zenn image paths rewritten, top-level `h1` demoted to `h2`, external links get `rel="noopener noreferrer"`).
+5. Writes generated TypeScript modules, lazy loaders, and `projects/web-site/public/sitemap.xml`.
+
+Generated outputs under `projects/web-site/src/app/generated/` and `projects/web-site/public/sitemap.xml` must not be edited by hand.
+
+`prebuild:web-site` runs `articles:generate`; root `pretest` runs it together with
+`docs:generate`.
+
+### Article routes
+
+| Route                     | Role                                                                 |
+| ------------------------- | -------------------------------------------------------------------- |
+| `/`                       | Home                                                                 |
+| `/articles`               | Latest translated articles                                           |
+| `/articles/archive/:year` | Articles grouped by publication year (`publishedDate` year from RSS) |
+| `/articles/:slug`         | Single article (`zennSlug` for Zenn, explicit `slug` for note)       |
+
+Archive and article pages are prerendered from generated catalog data (`app.routes.server.ts`).
+
+### Article translation rules
+
+- Translate prose into natural English suitable for developer documentation.
+- Technical terms (class names, method names, package names) remain untranslated.
+- **Fenced code blocks must remain byte-for-byte identical to the Japanese Zenn source.** Do not translate code comments or examples inside fences.
+- note remains the Japanese source of truth; this repo owns the reviewed English Markdown and localized image assets. Keep note automatic translation disabled so the canonical English version stays on `rdlabo.dev`.
+
+### Zenn article workflow (LLM-maintained, feed-discovered)
+
+Zenn candidates are discovered automatically; do not require the user to provide an article URL. When asked to add or update the latest Zenn translation:
+
+1. Run `npm run articles:stage-zenn`. If a local checkout of the Japanese Zenn Markdown is available, pass it with `npm run articles:stage-zenn -- --source {articles-directory}` so code fences and Markdown are preserved from the local source.
+2. Read `tmp/zenn-import/inventory.json`. The importer fetches the full public RSS feed, excludes slugs already translated in `projects/web-site/src/articles`, non-public entries, English articles, and Japanese articles that are themselves translations. It stages eligible missing Japanese articles under `tmp/zenn-import/`, newest first in the inventory.
+3. Select the newest eligible staged entry unless the user names a different Zenn article. Copy its staged Markdown to `projects/web-site/src/articles/{zennSlug}.md` and use an LLM to translate the prose, title, and description into natural English.
+4. Keep every fenced code block byte-for-byte identical to the staged Japanese source, including comments and whitespace. Preserve heading levels and order, technical identifiers, `zennSlug`, and `emoji`.
+5. Run `npm run articles:validate-translations`. Resolve every reported error and untranslated-prose warning; do not use `--fix-code` without reviewing the resulting diff.
+6. Run `npm run articles:generate`, then the normal CI sequence.
+
+This automatic discovery applies only to Zenn. Never use the Zenn feed workflow to discover note content; note always starts from a URL explicitly selected by the user.
+
+### note article workflow (LLM-maintained)
+
+note articles are selected explicitly by URL. Do not crawl the note profile, RSS, recommendations, or related articles, and do not automatically add newly published note articles. Translation and later updates are primarily performed by an LLM agent and then verified in this repository.
+
+1. Start from the exact URL selected by the user, in the form `https://note.com/rdlabo/n/{note-id}`.
+2. Run `npm run articles:inspect-note -- {URL}`. This is read-only and returns the canonical URL, Japanese title, publication date, and current `sourceRevision`.
+3. Create or update `projects/web-site/src/articles/{english-slug}.md` with `source: note`, the exact `sourceUrl`, the inspected `sourceRevision`, an explicit English `slug`, reviewed English `title` and `description`, and optional `emoji`.
+4. Read the Japanese article itself rather than treating note's automatic English view as source material. Translate prose into natural developer-facing English. Preserve executable commands and real source code exactly; translate Japanese explanatory pseudo-code, tables, and diagrams when they are part of the narrative.
+5. Localize text-bearing article images into English. Preserve the original composition and meaning, store final project assets under `projects/web-site/public/articles/{slug}/`, prefer compressed WebP, and give every image meaningful English alt text. Do not hotlink note CDN assets from the published English article.
+6. Run `npm run articles:generate`, then the normal CI sequence. The article page must link back to the Japanese note original and identify its source as note.
+
+`sourceRevision` is a review approval token, not a value to refresh mechanically. It is the SHA-256 of a stable JSON representation containing the trimmed Japanese title and note body HTML. During every generation, `scripts/generate-articles.ts` fetches only the explicitly declared `sourceUrl`, recomputes the revision, and compares it with front matter.
+
+When revisions differ, generation fails before generated output is written. A mismatch means the reviewed English version may be stale. Re-read the current Japanese title and body, update every affected English passage, code-like explanation, table, link, alt text, and localized image, and only then replace `sourceRevision` with the newly inspected value. Never fix a mismatch by changing only `sourceRevision`. Likes, comments, view counts, recommendation metadata, and other fields outside the title/body hash do not trigger translation review.
+
+## Documentation portal generation pipeline
 
 ### English resolution
 
@@ -117,8 +196,20 @@ Use a kind tag so `formatApiEntries` wraps each entry in an `api-entry` card. Su
 The CI pipeline runs:
 
 1. `npm run fmt:check` — Prettier formatting.
-2. `npm run lint` — ESLint (`@angular-eslint/prefer-signals`, `@rdlabo/eslint-plugin-rules` recommended).
-3. `npm test` — node contract tests (42) + Angular unit tests (37). Includes bilingual update blocker.
-4. `npm run build` — Angular build + pagefind search index + `build-output.test.ts` assertions.
+2. `npm run lint` — ESLint for `projects/docs` and `projects/web-site`.
+3. `npm test` — node contract tests + `ng test docs` + `ng test web-site`. Includes bilingual update blocker for documentation pages.
+4. Generated-output drift checks — `git diff --exit-code` on `projects/docs/src/app/generated`, `projects/docs/public/sitemap.xml`, `projects/web-site/src/app/generated`, and `projects/web-site/public/sitemap.xml` (before and after build).
+5. `npm run build` — `build:docs` (pagefind search index + `build-output.test.ts`) and `build:web-site` (`web-site-build-output.test.ts`).
 
-All four must pass before a PR is merge-ready. Run them locally in the same order.
+All steps must pass before a PR is merge-ready. Run them locally in the same order.
+
+## Deployment
+
+Two Cloudflare Workers Static Assets services:
+
+| Worker     | Config                    | Domain            |
+| ---------- | ------------------------- | ----------------- |
+| `docs`     | `wrangler.jsonc`          | `docs.rdlabo.dev` |
+| `web-site` | `wrangler.web-site.jsonc` | `rdlabo.dev`      |
+
+The `Deploy to Cloudflare` workflow deploys both after CI succeeds on `main` (`npm run deploy:docs`, then `npm run deploy:web-site`).

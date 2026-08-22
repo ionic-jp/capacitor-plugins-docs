@@ -134,6 +134,91 @@
           }
         }
       }
+    },
+    "web-site": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/web-site",
+      "sourceRoot": "projects/web-site/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/web-site/src/main.ts",
+            "tsConfig": "projects/web-site/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/web-site/public"
+              }
+            ],
+            "styles": ["projects/web-site/src/styles.css"],
+            "server": "projects/web-site/src/main.server.ts",
+            "outputMode": "static",
+            "security": {
+              "allowedHosts": []
+            },
+            "ssr": {
+              "entry": "projects/web-site/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "web-site:build:production"
+            },
+            "development": {
+              "buildTarget": "web-site:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/web-site/tsconfig.spec.json",
+            "buildTarget": "web-site:build",
+            "runner": "vitest"
+          },
+          "configurations": {
+            "ci": {
+              "watch": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/web-site/**/*.ts", "projects/web-site/**/*.html"]
+          }
+        }
+      }
     }
   }
 }

@@ -1,10 +1,15 @@
 # rdlabo.dev
 
-Documentation portal for personal open source projects created and maintained by rdlabo. The site is an Angular 22 static application with English and Japanese documentation.
+Personal open source sites maintained by rdlabo. The repository builds two Angular 22 static applications:
 
-The `rdlabo` name is also used by 一般社団法人リレーションデザイン研究所, but every OSS project documented here is owned and maintained personally by rdlabo. This portal and its projects are not activities of that incorporated association.
+| Site | Angular project | Production domain |
+| --- | --- | --- |
+| Top site | `projects/web-site` | [`rdlabo.dev`](https://rdlabo.dev) |
+| Documentation portal | `projects/docs` | [`docs.rdlabo.dev`](https://docs.rdlabo.dev) |
 
-Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The repository is `rdlabo-dev/website`.
+The `rdlabo` name is also used by 一般社団法人リレーションデザイン研究所, but every OSS project documented here is owned and maintained personally by rdlabo. These sites and their projects are not activities of that incorporated association.
+
+Both apps deploy to separate Cloudflare Workers Static Assets services on their custom domains only (`workers.dev` and preview URLs are disabled). The repository is `rdlabo-dev/website`.
 
 ## Current projects
 
@@ -36,22 +41,43 @@ Project metadata, navigation, localized landing copy, and API input are declared
 
 ## Commands
 
+Shared:
+
 ```bash
 npm install
-npm start
 npm test
 npm run lint
-npm run build
 npm run fmt:check
+npm run build
 ```
+
+Documentation portal (`projects/docs`):
+
+```bash
+npm start              # ng serve docs (runs docs:generate first)
+npm run docs:generate
+npm run build:docs
+npm run deploy:docs
+```
+
+Top site (`projects/web-site`):
+
+```bash
+npm run start:web-site   # articles:generate, then ng serve web-site
+npm run articles:generate
+npm run build:web-site
+npm run deploy:web-site
+```
+
+The relevant `prestart`, `prebuild:*`, and `pretest` hooks run `docs:generate` and/or
+`articles:generate` automatically.
+Deploy both apps with `npm run deploy` (runs `build`, then `deploy:docs` and `deploy:web-site`).
 
 Generate documentation without starting the app:
 
 ```bash
 npm run docs:generate
 ```
-
-`prestart`, `prebuild`, and `pretest` run the generator automatically.
 On a local feature branch, push the current commit before generating so portal-hosted English can
 be read from that commit on GitHub. CI selects the pull request head repository and commit
 automatically, including for fork-based pull requests.
@@ -59,12 +85,23 @@ When generating locally from a fork, set `RDLABO_DOCS_REPOSITORY_URL` to that fo
 
 ## Canonical routes
 
+Documentation portal (`docs.rdlabo.dev`):
+
 ```text
 /
 /projects/:project
 /projects/:project/docs/:page
 /ja/projects/:project
 /ja/projects/:project/docs/:page
+```
+
+Top site (`rdlabo.dev`):
+
+```text
+/
+/articles
+/articles/archive/:year
+/articles/:slug
 ```
 
 ## Documentation format
@@ -99,10 +136,49 @@ baseline covers the shared bilingual catalog and GitHub Star UI for 19 projects 
 production main is about 419.1kB); documentation bodies remain lazy-loaded, so the hard error stays
 at 450kB.
 
+## Top site (`projects/web-site`)
+
+The top site is English-only. It links to the documentation portal and GitHub, and publishes reviewed English translations of selected Japanese articles from Zenn and note.
+
+### Article sources
+
+Edit translated articles as Markdown under `projects/web-site/src/articles/*.md`. Zenn translations declare `title`, `description`, and `zennSlug`. Explicitly selected note translations declare `source: note`, `sourceUrl`, `sourceRevision`, and a public `slug`. Optional `emoji` defaults to `✦`.
+
+Stage automatically discovered, untranslated Zenn feed entries for LLM translation, then validate the translated Markdown:
+
+```bash
+npm run articles:stage-zenn
+npm run articles:validate-translations
+```
+
+Inspect a selected note source before an LLM creates or updates its English translation:
+
+```bash
+npm run articles:inspect-note -- https://note.com/rdlabo/n/na69e5aad6840
+```
+
+`npm run articles:generate` (`scripts/generate-articles.ts`) fetches Zenn publication metadata from RSS and only the note URLs explicitly declared by translated articles, validates every remote source, renders the Markdown body to HTML, and writes generated outputs. For note, `sourceRevision` is the SHA-256 of the Japanese title and source body; generation fails when either changes until the English translation is reviewed and its revision updated. Publication dates are normalized to Asia/Tokyo (`publishedDate`).
+
+Generated outputs must not be edited by hand:
+
+- `projects/web-site/src/app/generated/article-catalog.generated.ts`
+- `projects/web-site/src/app/generated/article-loaders.generated.ts`
+- `projects/web-site/src/app/generated/articles/*.generated.ts`
+- `projects/web-site/public/sitemap.xml`
+
+When translating an article, **fenced code blocks must remain byte-for-byte identical to the Japanese Zenn source.** Translate prose only; do not translate code comments or examples inside fences.
+
 ## Deployment
 
-Production deploys to Cloudflare Workers Static Assets on the custom domain only (`docs.rdlabo.dev`); `workers.dev` and preview URLs are disabled. After `CI` succeeds for the current `main` revision, the separate `Deploy to Cloudflare` workflow checks out that exact verified commit, rebuilds the production assets, and deploys them with the repository-pinned Wrangler version. A completed CI run for an older revision is skipped, preventing an out-of-order build from rolling production back. The workflow can also be dispatched manually from `main`.
+Two Cloudflare Workers Static Assets services deploy from this repository:
 
-The GitHub Actions repository secret `CLOUDFLARE_API_TOKEN` is required. Create a narrowly scoped Cloudflare API token that can edit Workers for the account declared in `wrangler.jsonc`; never commit the token. Local deployment remains available for recovery through `npm run deploy` and `npm run deploy:dry-run`, but is not part of the normal release flow.
+| Worker | Wrangler config | Assets | Custom domain |
+| --- | --- | --- | --- |
+| `docs` | `wrangler.jsonc` | `dist/docs/browser` | `docs.rdlabo.dev` |
+| `web-site` | `wrangler.web-site.jsonc` | `dist/web-site/browser` | `rdlabo.dev` |
 
-Cloudflare drops trailing slashes (`html_handling: drop-trailing-slash`) so URLs match canonical project and docs routes.
+After `CI` succeeds for the current `main` revision, the separate `Deploy to Cloudflare` workflow checks out that exact verified commit, rebuilds the production assets, and deploys both Workers with the repository-pinned Wrangler version (`npm run deploy:docs`, then `npm run deploy:web-site`). A completed CI run for an older revision is skipped, preventing an out-of-order build from rolling production back. The workflow can also be dispatched manually from `main`.
+
+The GitHub Actions repository secret `CLOUDFLARE_API_TOKEN` is required. Create a narrowly scoped Cloudflare API token that can edit Workers for the account declared in the Wrangler configs; never commit the token. Local deployment remains available for recovery through `npm run deploy` and `npm run deploy:dry-run`, but is not part of the normal release flow.
+
+Cloudflare drops trailing slashes (`html_handling: drop-trailing-slash`) so URLs match canonical routes on both domains.

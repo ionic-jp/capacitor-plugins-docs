@@ -1,0 +1,108 @@
+<article class="home-page">
+  <section class="home-hero" aria-labelledby="home-hero-heading">
+    <div class="home-hero__inner">
+      <p class="home-hero__eyebrow">Open source by rdlabo</p>
+      <h1 id="home-hero-heading" class="home-hero__title">
+        Practical libraries for Ionic, Angular, and Capacitor teams.
+      </h1>
+      <p class="home-hero__lead">
+        rdlabo.dev is the home for maintained OSS — themes, scroll strategies, payment plugins, and
+        the documentation that helps you ship them.
+      </p>
+      <div class="home-hero__actions">
+        <a class="button button--primary external-link" [href]="site.docsUrl"
+          >Browse documentation</a
+        >
+        <a
+          class="button button--secondary external-link"
+          [href]="site.githubUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="featured-projects-heading">
+    <div class="home-section__inner">
+      <header class="section-heading">
+        <p class="section-heading__eyebrow">Featured OSS</p>
+        <h2 id="featured-projects-heading" class="section-heading__title">Projects I maintain</h2>
+        <p class="section-heading__lead">
+          Start with these libraries — each has full guides and API reference on docs.rdlabo.dev.
+        </p>
+      </header>
+
+      <ul class="project-grid">
+        @for (project of featuredProjects; track project.packageName) {
+          <li>
+            <app-featured-project-card [project]="project" />
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="docs-cta" aria-labelledby="docs-cta-heading">
+    <div class="docs-cta__inner">
+      <div class="docs-cta__copy">
+        <p class="docs-cta__eyebrow">Documentation portal</p>
+        <h2 id="docs-cta-heading" class="docs-cta__title">
+          Everything you need on docs.rdlabo.dev
+        </h2>
+        <p class="docs-cta__lead">
+          Install guides, feature walkthroughs, and formal API references for every rdlabo project —
+          bilingual where it matters, always up to date with released packages.
+        </p>
+      </div>
+      <a class="button button--inverse external-link" [href]="site.docsUrl"
+        >Go to docs.rdlabo.dev</a
+      >
+    </div>
+  </section>
+
+  <section class="home-section home-section--articles" aria-labelledby="latest-articles-heading">
+    <div class="home-section__inner">
+      <header class="section-heading section-heading--split">
+        <div>
+          <p class="section-heading__eyebrow">From the blog</p>
+          <h2 id="latest-articles-heading" class="section-heading__title">Latest articles</h2>
+        </div>
+        <a class="text-link" routerLink="/articles">All articles</a>
+      </header>
+
+      @if (latestArticles.length > 0) {
+        <ul class="article-list">
+          @for (article of latestArticles; track article.slug) {
+            <li>
+              <a
+                class="article-preview"
+                [routerLink]="['/articles', article.slug]"
+                [attr.aria-label]="article.title"
+              >
+                <time class="article-preview__date" [attr.datetime]="article.publishedDate">
+                  {{ formatArticleDate(article.publishedDate) }}
+                </time>
+                <h3 class="article-preview__title">{{ article.title }}</h3>
+                <p class="article-preview__summary">{{ article.description }}</p>
+              </a>
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="articles-empty" role="status">
+          <p class="articles-empty__title">Articles are on the way.</p>
+          <p class="articles-empty__body">
+            This section will list recent writing from rdlabo. Follow
+            <a class="external-link" [href]="site.zennUrl" target="_blank" rel="noopener noreferrer"
+              >Zenn</a
+            >
+            for updates in the meantime.
+          </p>
+        </div>
+      }
+    </div>
+  </section>
+</article>

@@ -1,0 +1,28 @@
+<article class="article-page">
+  <div class="article-layout">
+    <div class="article-main">
+      <header class="article-header">
+        <a class="article-header__back" routerLink="/articles">← All articles</a>
+        <div class="article-header__emoji" aria-hidden="true">{{ article.emoji }}</div>
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.description }}</p>
+        <time [attr.datetime]="article.publishedDate">{{ displayDate }}</time>
+      </header>
+
+      <aside class="article-original">
+        <p>This article is an English translation.</p>
+        <a
+          class="external-link"
+          [href]="article.originalUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Read the original article in Japanese on {{ article.sourceName }}</a
+        >
+      </aside>
+
+      <div class="znc article-content" [innerHTML]="article.html | safeHtml"></div>
+    </div>
+
+    <app-article-sidebar [tocHeadings]="tocHeadings" [articleSlug]="article.slug" />
+  </div>
+</article>

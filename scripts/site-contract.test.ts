@@ -885,14 +885,13 @@ test('documents the exact capacitor-docgen inheritance enhancement over upstream
   }
 });
 
-test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async () => {
-  const [wranglerSource, packageJsonSource] = await Promise.all([
+test('configures Cloudflare Workers Static Assets for both public sites', async () => {
+  const [wranglerSource, webSiteWranglerSource, packageJsonSource] = await Promise.all([
     readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8'),
+    readFile(new URL('../wrangler.web-site.jsonc', import.meta.url), 'utf8'),
     readFile(new URL('../package.json', import.meta.url), 'utf8'),
   ]);
-  const wrangler = JSON.parse(
-    wranglerSource.replace(/^\s*\/\/.*$/gm, '').replace(/,(\s*[}\]])/g, '$1'),
-  ) as {
+  type WranglerConfig = {
     $schema?: string;
     name?: string;
     account_id?: string;
@@ -906,6 +905,10 @@ test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async ()
     };
     routes?: { pattern?: string; custom_domain?: boolean }[];
   };
+  const parseWrangler = (source: string) =>
+    JSON.parse(source.replace(/^\s*\/\/.*$/gm, '').replace(/,(\s*[}\]])/g, '$1')) as WranglerConfig;
+  const wrangler = parseWrangler(wranglerSource);
+  const webSiteWrangler = parseWrangler(webSiteWranglerSource);
   const packageJson = JSON.parse(packageJsonSource) as {
     scripts?: Record<string, string>;
   };
@@ -920,10 +923,23 @@ test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async ()
   assert.equal(wrangler.assets?.not_found_handling, '404-page');
   assert.equal(wrangler.assets?.html_handling, 'drop-trailing-slash');
   assert.deepEqual(wrangler.routes, [{ pattern: 'docs.rdlabo.dev', custom_domain: true }]);
-  assert.equal(packageJson.scripts?.deploy, 'npm run build && wrangler deploy');
+  assert.equal(webSiteWrangler.$schema, './node_modules/wrangler/config-schema.json');
+  assert.equal(webSiteWrangler.name, 'web-site');
+  assert.equal(webSiteWrangler.account_id, wrangler.account_id);
+  assert.equal(webSiteWrangler.compatibility_date, wrangler.compatibility_date);
+  assert.equal(webSiteWrangler.workers_dev, false);
+  assert.equal(webSiteWrangler.preview_urls, false);
+  assert.equal(webSiteWrangler.assets?.directory, './dist/web-site/browser');
+  assert.equal(webSiteWrangler.assets?.not_found_handling, '404-page');
+  assert.equal(webSiteWrangler.assets?.html_handling, 'drop-trailing-slash');
+  assert.deepEqual(webSiteWrangler.routes, [{ pattern: 'rdlabo.dev', custom_domain: true }]);
+  assert.equal(
+    packageJson.scripts?.deploy,
+    'npm run build && npm run deploy:docs && npm run deploy:web-site',
+  );
   assert.equal(
     packageJson.scripts?.['deploy:dry-run'],
-    'npm run build && wrangler deploy --dry-run',
+    'npm run build && npm run deploy:docs:dry-run && npm run deploy:web-site:dry-run',
   );
   await assert.rejects(() =>
     access(new URL('../projects/docs/public/_redirects', import.meta.url), constants.F_OK),
@@ -959,7 +975,9 @@ test('deploys verified main revisions to Cloudflare', async () => {
   assert.match(workflow, /ref: \$\{\{ github\.event\.workflow_run\.head_sha \|\| github\.sha \}\}/);
   assert.match(workflow, /^ {8}run: npm ci$/m);
   assert.match(workflow, /^ {8}run: npm run sponsors:generate && npm run build$/m);
-  assert.match(workflow, /^ {8}run: npx wrangler deploy$/m);
+  assert.match(workflow, /^ {8}run: npm run deploy:docs$/m);
+  assert.match(workflow, /^ {8}run: npm run deploy:web-site$/m);
+  assert.match(workflow, /^ {6}url: https:\/\/rdlabo\.dev$/m);
   const actionReferences = [...workflow.matchAll(/^\s+uses:\s+([^\s#]+)/gm)].map(
     (match) => match[1],
   );
