@@ -2,29 +2,26 @@ import assert from 'node:assert/strict';
 import { access, constants, readdir, readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import test from 'node:test';
-import { CURRENT_SPONSORS, PAST_SPONSORS } from '../src/app/generated/sponsors.generated';
+import {
+  CURRENT_SPONSORS,
+  PAST_SPONSORS,
+} from '../projects/docs/src/app/generated/sponsors.generated';
 
 test('places locale-specific static 404 pages in the browser output', async () => {
   const [english, japanese] = await Promise.all([
-    readFile(new URL('../dist/capacitor-plugins-docs/browser/404.html', import.meta.url), 'utf8'),
-    readFile(
-      new URL('../dist/capacitor-plugins-docs/browser/ja/404.html', import.meta.url),
-      'utf8',
-    ),
+    readFile(new URL('../dist/docs/browser/404.html', import.meta.url), 'utf8'),
+    readFile(new URL('../dist/docs/browser/ja/404.html', import.meta.url), 'utf8'),
   ]);
   assert.match(english, /<html lang="en">/);
   assert.match(japanese, /<html lang="ja">/);
   await assert.rejects(() =>
-    access(
-      new URL('../dist/capacitor-plugins-docs/browser/ja/ja/404.html', import.meta.url),
-      constants.F_OK,
-    ),
+    access(new URL('../dist/docs/browser/ja/ja/404.html', import.meta.url), constants.F_OK),
   );
 });
 
 test('legacy prerender output redirects to an absolute canonical route', async () => {
   const html = await readFile(
-    new URL('../dist/capacitor-plugins-docs/browser/stripe/docs/react/index.html', import.meta.url),
+    new URL('../dist/docs/browser/stripe/docs/react/index.html', import.meta.url),
     'utf8',
   );
   assert.match(html, /\/projects\/capacitor-stripe\/docs\/react/);
@@ -33,10 +30,7 @@ test('legacy prerender output redirects to an absolute canonical route', async (
 
 test('prerender output includes localized SEO metadata', async () => {
   const html = await readFile(
-    new URL(
-      '../dist/capacitor-plugins-docs/browser/ja/projects/capacitor-admob/index.html',
-      import.meta.url,
-    ),
+    new URL('../dist/docs/browser/ja/projects/capacitor-admob/index.html', import.meta.url),
     'utf8',
   );
   assert.match(html, /<html lang="ja"/);
@@ -55,14 +49,8 @@ test('prerender output includes localized SEO metadata', async () => {
 
 test('prerenders current and past public sponsors in both locales', async () => {
   const [english, japanese] = await Promise.all([
-    readFile(
-      new URL('../dist/capacitor-plugins-docs/browser/support/index.html', import.meta.url),
-      'utf8',
-    ),
-    readFile(
-      new URL('../dist/capacitor-plugins-docs/browser/ja/support/index.html', import.meta.url),
-      'utf8',
-    ),
+    readFile(new URL('../dist/docs/browser/support/index.html', import.meta.url), 'utf8'),
+    readFile(new URL('../dist/docs/browser/ja/support/index.html', import.meta.url), 'utf8'),
   ]);
 
   for (const html of [english, japanese]) {
@@ -83,7 +71,7 @@ test('prerenders current and past public sponsors in both locales', async () => 
 
 test('Japanese home prerender uses slashless canonical SEO URLs', async () => {
   const html = await readFile(
-    new URL('../dist/capacitor-plugins-docs/browser/ja/index.html', import.meta.url),
+    new URL('../dist/docs/browser/ja/index.html', import.meta.url),
     'utf8',
   );
   assert.match(html, /rel="canonical" href="https:\/\/docs\.rdlabo\.dev\/ja"/);
@@ -97,10 +85,7 @@ test('Japanese home prerender uses slashless canonical SEO URLs', async () => {
 });
 
 test('prerendered docs shell stays layout-neutral before bootstrap', async () => {
-  const html = await readFile(
-    new URL('../dist/capacitor-plugins-docs/browser/index.html', import.meta.url),
-    'utf8',
-  );
+  const html = await readFile(new URL('../dist/docs/browser/index.html', import.meta.url), 'utf8');
   const shell = html.match(/<div\b[^>]*\bclass="[^"]*\bdocs-shell\b[^"]*"[^>]*>/)?.[0];
   assert.ok(shell, 'docs-shell must be present in prerendered index.html');
   assert.doesNotMatch(shell, /\blayout-ready\b/);
@@ -115,7 +100,7 @@ test('prerendered docs shell stays layout-neutral before bootstrap', async () =>
   assert.match(sidebar, /lg:translate-x-0/);
   assert.doesNotMatch(sidebar, /\binert\b/);
 
-  const css = await readFile(new URL('../src/app/app.css', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../projects/docs/src/app/app.css', import.meta.url), 'utf8');
   assert.match(
     css,
     /@media\s*\(\s*max-width:\s*1023px\s*\)[\s\S]*?\.docs-shell:not\(\.layout-ready\)\s+#docs-sidebar\s*\{[\s\S]*?visibility:\s*hidden;[\s\S]*?transform:\s*translateX\(-100%\);/,
@@ -125,7 +110,7 @@ test('prerendered docs shell stays layout-neutral before bootstrap', async () =>
 test('prerendered locales include reusable hydration data', async () => {
   const pages = await Promise.all(
     ['index.html', 'ja/index.html'].map((path) =>
-      readFile(new URL(`../dist/capacitor-plugins-docs/browser/${path}`, import.meta.url), 'utf8'),
+      readFile(new URL(`../dist/docs/browser/${path}`, import.meta.url), 'utf8'),
     ),
   );
 
@@ -143,10 +128,7 @@ test('prerendered locales include reusable hydration data', async () => {
 });
 
 test('builds bounded English and Japanese search indexes with the component UI', async () => {
-  const searchDirectory = new URL(
-    '../dist/capacitor-plugins-docs/browser/pagefind/',
-    import.meta.url,
-  );
+  const searchDirectory = new URL('../dist/docs/browser/pagefind/', import.meta.url);
   const files = await readdir(searchDirectory, { recursive: true });
   assert.ok(files.includes('pagefind-component-ui.js'));
   assert.ok(files.includes('pagefind-component-ui.css'));

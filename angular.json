@@ -8,11 +8,11 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "capacitor-plugins-docs": {
+    "docs": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/docs",
+      "sourceRoot": "projects/docs/src",
       "prefix": "app",
       "i18n": {
         "sourceLocale": {
@@ -21,7 +21,7 @@
         },
         "locales": {
           "ja": {
-            "translation": "src/locale/messages.ja.xlf",
+            "translation": "projects/docs/src/locale/messages.ja.xlf",
             "subPath": "ja"
           }
         }
@@ -30,27 +30,27 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
+            "browser": "projects/docs/src/main.ts",
+            "tsConfig": "projects/docs/tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "projects/docs/public"
               },
               {
                 "glob": "**/*",
-                "input": "src/stripe/assets",
+                "input": "projects/docs/src/stripe/assets",
                 "output": "assets/stripe"
               }
             ],
-            "styles": ["src/styles.css"],
-            "server": "src/main.server.ts",
+            "styles": ["projects/docs/src/styles.css"],
+            "server": "projects/docs/src/main.server.ts",
             "outputMode": "static",
             "security": {
               "allowedHosts": []
             },
             "ssr": {
-              "entry": "src/server.ts"
+              "entry": "projects/docs/src/server.ts"
             },
             "polyfills": ["@angular/localize/init"],
             "localize": true,
@@ -93,13 +93,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "capacitor-plugins-docs:build:production"
+              "buildTarget": "docs:build:production"
             },
             "development": {
-              "buildTarget": "capacitor-plugins-docs:build:development"
+              "buildTarget": "docs:build:development"
             },
             "ja": {
-              "buildTarget": "capacitor-plugins-docs:build:development,ja"
+              "buildTarget": "docs:build:development,ja"
             }
           },
           "defaultConfiguration": "development"
@@ -107,14 +107,14 @@
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",
           "options": {
-            "buildTarget": "capacitor-plugins-docs:build:development"
+            "buildTarget": "docs:build:development"
           }
         },
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "buildTarget": "capacitor-plugins-docs:build",
+            "tsConfig": "projects/docs/tsconfig.spec.json",
+            "buildTarget": "docs:build",
             "runner": "vitest"
           },
           "configurations": {
@@ -126,7 +126,11 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html", "scripts/**/*.ts"]
+            "lintFilePatterns": [
+              "projects/docs/src/**/*.ts",
+              "projects/docs/src/**/*.html",
+              "scripts/**/*.ts"
+            ]
           }
         }
       }

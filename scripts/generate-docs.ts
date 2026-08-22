@@ -13,8 +13,8 @@ import {
   type ProjectDefinition,
   type ProjectPageDefinition,
 } from './project-manifest';
-import { localizedPublicPath } from '../src/app/locale-path';
-import { SITE_CONFIG } from '../src/app/site-config';
+import { localizedPublicPath } from '../projects/docs/src/app/locale-path';
+import { SITE_CONFIG } from '../projects/docs/src/app/site-config';
 import { enforceGeneratedHtmlPolicy } from './html-policy';
 import { normalizeImportedReadmeHeadings } from './markdown-headings';
 import { splitDocgenReadme } from './docgen-readme';
@@ -36,7 +36,13 @@ import {
 const root = resolve(process.cwd());
 const docsRepositoryUrl = 'https://github.com/rdlabo-dev/website';
 
-const stripHtml = (value: string) => value.replace(/<\/?code>/g, '`').replace(/<[^>]+>/g, '');
+function stripHtml(value: string): string {
+  const fragment = JSDOM.fragment(value);
+  for (const code of fragment.querySelectorAll('code')) {
+    code.replaceWith(`\`${code.textContent ?? ''}\``);
+  }
+  return fragment.textContent ?? '';
+}
 const tagText = (tags: any[], name: string) => tags?.find((tag) => tag.name === name)?.text ?? '';
 
 function apiMarkdown(source: any): Map<string, string> {
@@ -277,7 +283,7 @@ function landingPageSlug(project: ProjectDefinition): string {
 function srcDocsPath(project: ProjectDefinition, locale: Locale, file: string): string {
   return join(
     root,
-    'src',
+    'projects/docs/src',
     project.sourceDirectory,
     'docs',
     ...(locale === 'ja' ? ['ja'] : []),
@@ -485,7 +491,10 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
       const normalized = String(codePath).replace(/^\/docs\/stripe\//, '');
       codes.push(
         await renderCode(
-          await readFile(join(root, 'src', project.sourceDirectory, 'docs', normalized), 'utf8'),
+          await readFile(
+            join(root, 'projects/docs/src', project.sourceDirectory, 'docs', normalized),
+            'utf8',
+          ),
         ),
       );
     }
@@ -582,7 +591,7 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
 }
 
 async function main(): Promise<void> {
-  const generatedDirectory = join(root, 'src/app/generated');
+  const generatedDirectory = join(root, 'projects/docs/src/app/generated');
   const projectsDirectory = join(generatedDirectory, 'projects');
   await mkdir(projectsDirectory, { recursive: true });
   const projectsByLocale: Record<Locale, any[]> = { en: [], ja: [] };
@@ -651,11 +660,11 @@ async function main(): Promise<void> {
     })
     .join('\n');
   await writeFile(
-    join(root, 'public/sitemap.xml'),
+    join(root, 'projects/docs/public/sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`,
   );
   await writeFile(
-    join(root, 'public/robots.txt'),
+    join(root, 'projects/docs/public/robots.txt'),
     `User-agent: *\nAllow: /\n\nSitemap: ${SITE_CONFIG.origin}/sitemap.xml\n`,
   );
   const pageCount = projectsByLocale.en.reduce((count, project) => count + project.pages.length, 0);

@@ -73,7 +73,7 @@ test('keeps fork-fetched portal pages editable in the canonical repository', () 
     }),
     {
       content: '# API',
-      repositoryPath: 'src/example/docs/api.md',
+      repositoryPath: 'projects/docs/src/example/docs/api.md',
       repositoryRef: 'main',
       repositoryUrl: 'https://github.com/rdlabo-dev/website',
     },

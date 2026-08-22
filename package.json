@@ -15,7 +15,7 @@
     "start:ja": "ng serve --configuration ja",
     "prebuild": "npm run docs:generate",
     "static:prepare": "tsx scripts/static-prepare.ts",
-    "build": "ng build && npm run static:prepare && pagefind --site dist/capacitor-plugins-docs/browser --output-subdir pagefind && tsx --test scripts/build-output.test.ts",
+    "build": "ng build && npm run static:prepare && pagefind --site dist/docs/browser --output-subdir pagefind && tsx --test scripts/build-output.test.ts",
     "watch": "ng build --watch --configuration development",
     "pretest": "npm run docs:generate",
     "test": "tsx --test scripts/docgen-readme.test.ts scripts/html-policy.test.ts scripts/markdown-headings.test.ts scripts/package-markdown.test.ts scripts/package-repository.test.ts scripts/github-sponsors.test.ts scripts/bilingual-update-blocker.test.ts scripts/site-contract.test.ts && ng test --watch=false",
@@ -23,7 +23,7 @@
     "fmt:check": "prettier --check .",
     "deploy": "npm run build && wrangler deploy",
     "deploy:dry-run": "npm run build && wrangler deploy --dry-run",
-    "serve:ssr:capacitor-plugins-docs": "node dist/capacitor-plugins-docs/server/server.mjs",
+    "serve:ssr:docs": "node dist/docs/server/server.mjs",
     "lint": "ng lint"
   },
   "dependencies": {
