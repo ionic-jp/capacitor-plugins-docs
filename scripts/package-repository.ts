@@ -1,4 +1,5 @@
 import { access, readFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 import { rewritePackageDocLinks } from './package-markdown';
 
@@ -7,8 +8,20 @@ export interface RepositoryCoordinates {
   repo: string;
 }
 
-export const DOCS_PORTAL_REPOSITORY_URL = 'https://github.com/rdlabo-dev/docs';
-export const DOCS_PORTAL_REF = process.env['RDLABO_DOCS_REF'] ?? 'main';
+export const DOCS_PORTAL_REPOSITORY_URL =
+  process.env['RDLABO_DOCS_REPOSITORY_URL'] ?? 'https://github.com/rdlabo-dev/docs';
+
+function localPortalRef(): string {
+  try {
+    const branch = execFileSync('git', ['branch', '--show-current'], { encoding: 'utf8' }).trim();
+    if (!branch || branch === 'main') return 'main';
+    return execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+  } catch {
+    return 'main';
+  }
+}
+
+export const DOCS_PORTAL_REF = process.env['RDLABO_DOCS_REF'] ?? localPortalRef();
 
 const portalDocsRoot = join(process.cwd(), 'src');
 const pinnedVersionCache = new Map<string, string | undefined>();
@@ -249,7 +262,7 @@ export async function fetchEnglishProjectMarkdown(
       cache,
     );
     if (fromPortal) {
-      return fromPortal;
+      return { ...fromPortal, repositoryRef: 'main' };
     }
   }
 
@@ -281,7 +294,7 @@ export async function fetchEnglishProjectReadme(
           DOCS_PORTAL_REF,
           [`src/${project.sourceDirectory}/docs/readme.md`],
           cache,
-        )
+        ).then((result) => (result ? { ...result, repositoryRef: 'main' } : undefined))
       : undefined) ??
     (await fetchFirstRepositoryPath(
       project.repositoryUrl,
