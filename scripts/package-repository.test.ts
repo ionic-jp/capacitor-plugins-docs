@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  CANONICAL_DOCS_PORTAL_REPOSITORY_URL,
   DOCS_PORTAL_REPOSITORY_URL,
   DOCS_PORTAL_REF,
+  canonicalizePortalSource,
   pinPackageSourceLinks,
   parseRepositoryUrl,
   repositoryRawUrl,
@@ -54,5 +56,23 @@ test('builds raw and source labels for repository docs', () => {
     'capacitor-community/admob@main/README.md',
   );
   assert.equal(DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/docs');
+  assert.equal(CANONICAL_DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/docs');
   assert.ok(DOCS_PORTAL_REF);
+});
+
+test('keeps fork-fetched portal pages editable in the canonical repository', () => {
+  assert.deepEqual(
+    canonicalizePortalSource({
+      content: '# API',
+      repositoryPath: 'src/example/docs/api.md',
+      repositoryRef: 'fork-head-sha',
+      repositoryUrl: 'https://github.com/contributor/docs',
+    }),
+    {
+      content: '# API',
+      repositoryPath: 'src/example/docs/api.md',
+      repositoryRef: 'main',
+      repositoryUrl: 'https://github.com/rdlabo-dev/docs',
+    },
+  );
 });

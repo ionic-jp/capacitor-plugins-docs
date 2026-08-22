@@ -8,8 +8,9 @@ export interface RepositoryCoordinates {
   repo: string;
 }
 
+export const CANONICAL_DOCS_PORTAL_REPOSITORY_URL = 'https://github.com/rdlabo-dev/docs';
 export const DOCS_PORTAL_REPOSITORY_URL =
-  process.env['RDLABO_DOCS_REPOSITORY_URL'] ?? 'https://github.com/rdlabo-dev/docs';
+  process.env['RDLABO_DOCS_REPOSITORY_URL'] ?? CANONICAL_DOCS_PORTAL_REPOSITORY_URL;
 
 function localPortalRef(): string {
   try {
@@ -86,6 +87,14 @@ export interface FetchedEnglishMarkdown {
   repositoryPath: string;
   repositoryRef: string;
   repositoryUrl: string;
+}
+
+export function canonicalizePortalSource(source: FetchedEnglishMarkdown): FetchedEnglishMarkdown {
+  return {
+    ...source,
+    repositoryUrl: CANONICAL_DOCS_PORTAL_REPOSITORY_URL,
+    repositoryRef: 'main',
+  };
 }
 
 export function parseRepositoryUrl(repositoryUrl: string): RepositoryCoordinates {
@@ -262,7 +271,7 @@ export async function fetchEnglishProjectMarkdown(
       cache,
     );
     if (fromPortal) {
-      return { ...fromPortal, repositoryRef: 'main' };
+      return canonicalizePortalSource(fromPortal);
     }
   }
 
@@ -294,7 +303,7 @@ export async function fetchEnglishProjectReadme(
           DOCS_PORTAL_REF,
           [`src/${project.sourceDirectory}/docs/readme.md`],
           cache,
-        ).then((result) => (result ? { ...result, repositoryRef: 'main' } : undefined))
+        ).then((result) => (result ? canonicalizePortalSource(result) : undefined))
       : undefined) ??
     (await fetchFirstRepositoryPath(
       project.repositoryUrl,
