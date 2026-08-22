@@ -18,6 +18,10 @@ MD3テーマは `@rdlabo/ionic-theme-ios26` と同じinset list構造を使う�
 
 `inset="true"` を使わないlistでは、このwrapperは不要です。
 
+## Angular templateでの検査
+
+Ionic Angularアプリケーションでは、`@rdlabo/rules` の [`require-ion-item-group`](/eslint-plugin-rules/docs/rules/require-ion-item-group) ruleを使うと、`ion-list` 内の `ion-item` が対応するgroup componentで囲まれていることをESLintで検査できます。このruleはrecommended presetに含まれ、一部の問題は自動修正できます。
+
 ## wrapperが必要な理由
 
 共有構造では、`ion-list-header` をitemのsurfaceから分離します。これにより、platform固有のtemplateを用意せずに、iOS 26のlayoutとMD3のstyleを同じマークアップへ適用できます。
