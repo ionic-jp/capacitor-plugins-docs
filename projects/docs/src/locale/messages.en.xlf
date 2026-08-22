@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
+  <file id="ngi18n" original="ng.template">
+    <unit id="skipToContent">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:5,8</note>
+      </notes>
+      <segment>
+        <source>Skip to content</source>
+      </segment>
+    </unit>
+    <unit id="toggleDocumentationMenu">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:19,21</note>
+      </notes>
+      <segment>
+        <source>Toggle documentation menu</source>
+      </segment>
+    </unit>
+    <unit id="switchLanguage">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:48,50</note>
+      </notes>
+      <segment>
+        <source>Switch language</source>
+      </segment>
+    </unit>
+    <unit id="viewOnGitHub">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:62,65</note>
+      </notes>
+      <segment>
+        <source>View on GitHub</source>
+      </segment>
+    </unit>
+    <unit id="closeDocumentationMenu">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:77,79</note>
+      </notes>
+      <segment>
+        <source>Close documentation menu</source>
+      </segment>
+    </unit>
+    <unit id="documentation">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:90,92</note>
+      </notes>
+      <segment>
+        <source>Documentation</source>
+      </segment>
+    </unit>
+    <unit id="projectsNav">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:92,94</note>
+      </notes>
+      <segment>
+        <source>Projects</source>
+      </segment>
+    </unit>
+    <unit id="allProjectsNav">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:106,110</note>
+      </notes>
+      <segment>
+        <source>All projects</source>
+      </segment>
+    </unit>
+    <unit id="supportNav">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:123,126</note>
+      </notes>
+      <segment>
+        <source>Support</source>
+      </segment>
+    </unit>
+    <unit id="overviewNav">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:179,180</note>
+      </notes>
+      <segment>
+        <source>Overview</source>
+      </segment>
+    </unit>
+    <unit id="footerOwnership">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:215,218</note>
+      </notes>
+      <segment>
+        <source> Personal open source projects maintained by rdlabo. </source>
+      </segment>
+    </unit>
+    <unit id="supportFooter">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:224,226</note>
+      </notes>
+      <segment>
+        <source>Support these projects</source>
+      </segment>
+    </unit>
+    <unit id="footerCopyright">
+      <notes>
+        <note category="location">projects/docs/src/app/app.html:227,230</note>
+      </notes>
+      <segment>
+        <source> © 2026 rdlabo. Released under the MIT License. </source>
+      </segment>
+    </unit>
+    <unit id="tableOfContents">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/docs-page.ts:74,77</note>
+      </notes>
+      <segment>
+        <source>Table of contents</source>
+      </segment>
+    </unit>
+    <unit id="contents">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/docs-page.ts:79,80</note>
+      </notes>
+      <segment>
+        <source>Contents</source>
+      </segment>
+    </unit>
+    <unit id="onThisPage">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/docs-page.ts:81,82</note>
+      </notes>
+      <segment>
+        <source>On this page</source>
+      </segment>
+    </unit>
+    <unit id="editOnGitHub">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/docs-page.ts:107,108</note>
+      </notes>
+      <segment>
+        <source>Edit this page on GitHub</source>
+      </segment>
+    </unit>
+    <unit id="getStarted">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/landing-page.ts:48,49</note>
+      </notes>
+      <segment>
+        <source>Get started</source>
+      </segment>
+    </unit>
+    <unit id="viewSource">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/landing-page.ts:56,57</note>
+      </notes>
+      <segment>
+        <source>View source</source>
+      </segment>
+    </unit>
+    <unit id="starOnGitHub">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/landing-page.ts:73,74</note>
+      </notes>
+      <segment>
+        <source>Star on GitHub</source>
+      </segment>
+    </unit>
+    <unit id="notFoundHeading">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/not-found.ts:11,13</note>
+      </notes>
+      <segment>
+        <source>Page not found</source>
+      </segment>
+    </unit>
+    <unit id="notFoundDescription">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/not-found.ts:15,17</note>
+        <note category="location">projects/docs/src/app/docs/not-found.ts:34</note>
+      </notes>
+      <segment>
+        <source>The page may have moved while the documentation was being reorganized.</source>
+      </segment>
+    </unit>
+    <unit id="backToProjects">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/not-found.ts:22,24</note>
+      </notes>
+      <segment>
+        <source>Browse projects</source>
+      </segment>
+    </unit>
+    <unit id="notFoundTitle">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/not-found.ts:33</note>
+      </notes>
+      <segment>
+        <source>Page not found - rdlabo.dev</source>
+      </segment>
+    </unit>
+    <unit id="openSourceDocumentation">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:17,19</note>
+      </notes>
+      <segment>
+        <source>Open source documentation</source>
+      </segment>
+    </unit>
+    <unit id="projectsIntro">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:26,27</note>
+      </notes>
+      <segment>
+        <source>Documentation for open source projects created and maintained by rdlabo.</source>
+      </segment>
+    </unit>
+    <unit id="personalOwnershipNotice">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:34,36</note>
+      </notes>
+      <segment>
+        <source> Every OSS project listed here is developed and maintained personally by rdlabo. They are independent of the incorporated association that also uses the rdlabo name. </source>
+      </segment>
+    </unit>
+    <unit id="currentCollection">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:50,52</note>
+      </notes>
+      <segment>
+        <source>Current collection</source>
+      </segment>
+    </unit>
+    <unit id="readDocumentation">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:81,82</note>
+      </notes>
+      <segment>
+        <source>Read documentation</source>
+      </segment>
+    </unit>
+    <unit id="growingCollection">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:95,97</note>
+      </notes>
+      <segment>
+        <source>Growing collection</source>
+      </segment>
+    </unit>
+    <unit id="upcomingProjects">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:99,101</note>
+      </notes>
+      <segment>
+        <source>More rdlabo projects will be documented here as they are released.</source>
+      </segment>
+    </unit>
+    <unit id="siteDescription">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/plugin-index.ts:122</note>
+      </notes>
+      <segment>
+        <source>Documentation for personal open source projects created and maintained by rdlabo.</source>
+      </segment>
+    </unit>
+    <unit id="supportEyebrow">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:9,11</note>
+      </notes>
+      <segment>
+        <source>Support open source</source>
+      </segment>
+    </unit>
+    <unit id="supportHeading">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:14,16</note>
+      </notes>
+      <segment>
+        <source>Help rdlabo projects keep moving</source>
+      </segment>
+    </unit>
+    <unit id="supportIntro">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:18,20</note>
+      </notes>
+      <segment>
+        <source>The projects documented here are maintained personally by rdlabo. Sponsorship supports the collection as a whole, rather than one individual library.</source>
+      </segment>
+    </unit>
+    <unit id="currentSponsorsHeading">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:30,32</note>
+      </notes>
+      <segment>
+        <source>Current sponsors</source>
+      </segment>
+    </unit>
+    <unit id="currentSponsorsDescription">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:34,36</note>
+      </notes>
+      <segment>
+        <source>Thank you to the people and organizations supporting rdlabo&apos;s open source work.</source>
+      </segment>
+    </unit>
+    <unit id="pastSponsorsHeading">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts</note>
+      </notes>
+      <segment>
+        <source>Past sponsors</source>
+      </segment>
+    </unit>
+    <unit id="pastSponsorsDescription">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts</note>
+      </notes>
+      <segment>
+        <source>Thank you also to everyone who has supported this work in the past.</source>
+      </segment>
+    </unit>
+    <unit id="supportSponsorHeading">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:28,30</note>
+      </notes>
+      <segment>
+        <source>Sponsor on GitHub</source>
+      </segment>
+    </unit>
+    <unit id="supportSponsorDescription">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:32,34</note>
+      </notes>
+      <segment>
+        <source>Your support helps fund maintenance, compatibility updates, documentation, and new features across rdlabo&apos;s open source projects.</source>
+      </segment>
+    </unit>
+    <unit id="becomeSponsor">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:44,45</note>
+      </notes>
+      <segment>
+        <source>Become a sponsor</source>
+      </segment>
+    </unit>
+    <unit id="supportIndependenceNotice">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:52,55</note>
+      </notes>
+      <segment>
+        <source>Sponsorship supports open source work maintained personally by rdlabo.</source>
+      </segment>
+    </unit>
+    <unit id="supportPageTitle">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:64</note>
+      </notes>
+      <segment>
+        <source>Support open source - rdlabo.dev</source>
+      </segment>
+    </unit>
+    <unit id="supportPageDescription">
+      <notes>
+        <note category="location">projects/docs/src/app/docs/support-page.ts:65</note>
+      </notes>
+      <segment>
+        <source>Support maintenance, documentation, and development across rdlabo&apos;s open source projects.</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

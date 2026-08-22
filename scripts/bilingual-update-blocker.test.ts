@@ -56,8 +56,8 @@ test('block EN doc updates without corresponding JA updates', async () => {
   const enToJa = new Map<string, string>();
   for (const project of projectDefinitions) {
     for (const page of project.pages) {
-      const enPath = `src/${project.sourceDirectory}/docs/${page.file}`;
-      const jaPath = `src/${project.sourceDirectory}/docs/ja/${page.file}`;
+      const enPath = `projects/docs/src/${project.sourceDirectory}/docs/${page.file}`;
+      const jaPath = `projects/docs/src/${project.sourceDirectory}/docs/ja/${page.file}`;
       enToJa.set(enPath, jaPath);
     }
   }

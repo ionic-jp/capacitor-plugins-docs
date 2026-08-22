@@ -24,7 +24,7 @@ function localPortalRef(): string {
 
 export const DOCS_PORTAL_REF = process.env['RDLABO_DOCS_REF'] ?? localPortalRef();
 
-const portalDocsRoot = join(process.cwd(), 'src');
+const portalDocsRoot = join(process.cwd(), 'projects/docs/src');
 const pinnedVersionCache = new Map<string, string | undefined>();
 
 async function pinnedVersionFor(packageName: string): Promise<string | undefined> {
@@ -82,6 +82,14 @@ async function portalEnglishTrackedLocally(
   }
 }
 
+function portalRepositoryPath(sourceDirectory: string, file: string): string {
+  return `projects/docs/src/${sourceDirectory}/docs/${file}`;
+}
+
+function legacyPortalRepositoryPath(sourceDirectory: string, file: string): string {
+  return `src/${sourceDirectory}/docs/${file}`;
+}
+
 export interface FetchedEnglishMarkdown {
   content: string;
   repositoryPath: string;
@@ -89,9 +97,18 @@ export interface FetchedEnglishMarkdown {
   repositoryUrl: string;
 }
 
-export function canonicalizePortalSource(source: FetchedEnglishMarkdown): FetchedEnglishMarkdown {
+export function canonicalizePortalSource(
+  source: FetchedEnglishMarkdown,
+  sourceDirectory?: string,
+  file?: string,
+): FetchedEnglishMarkdown {
+  const repositoryPath =
+    sourceDirectory && file
+      ? portalRepositoryPath(sourceDirectory, file)
+      : source.repositoryPath.replace(/^src\//, 'projects/docs/src/');
   return {
     ...source,
+    repositoryPath,
     repositoryUrl: CANONICAL_DOCS_PORTAL_REPOSITORY_URL,
     repositoryRef: 'main',
   };
@@ -263,15 +280,17 @@ export async function fetchEnglishProjectMarkdown(
   }
 
   if (await portalEnglishTrackedLocally(project.sourceDirectory, file)) {
-    const portalPath = `src/${project.sourceDirectory}/docs/${file}`;
     const fromPortal = await fetchFirstRepositoryPath(
       DOCS_PORTAL_REPOSITORY_URL,
       DOCS_PORTAL_REF,
-      [portalPath],
+      [
+        portalRepositoryPath(project.sourceDirectory, file),
+        legacyPortalRepositoryPath(project.sourceDirectory, file),
+      ],
       cache,
     );
     if (fromPortal) {
-      return canonicalizePortalSource(fromPortal);
+      return canonicalizePortalSource(fromPortal, project.sourceDirectory, file);
     }
   }
 
@@ -301,9 +320,16 @@ export async function fetchEnglishProjectReadme(
       ? await fetchFirstRepositoryPath(
           DOCS_PORTAL_REPOSITORY_URL,
           DOCS_PORTAL_REF,
-          [`src/${project.sourceDirectory}/docs/readme.md`],
+          [
+            portalRepositoryPath(project.sourceDirectory, 'readme.md'),
+            legacyPortalRepositoryPath(project.sourceDirectory, 'readme.md'),
+          ],
           cache,
-        ).then((result) => (result ? canonicalizePortalSource(result) : undefined))
+        ).then((result) =>
+          result
+            ? canonicalizePortalSource(result, project.sourceDirectory, 'readme.md')
+            : undefined,
+        )
       : undefined) ??
     (await fetchFirstRepositoryPath(
       project.repositoryUrl,

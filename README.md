@@ -12,25 +12,25 @@ Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The reposit
 | --- | --- |
 | Ionic Framework Japanese Documentation | `ionic-jp/ionic-docs` |
 | Capacitor Japanese Documentation | `ionic-jp/capacitor-docs` |
-| Capacitor Community Stripe | `src/stripe/docs` |
-| Capacitor Community Stripe Identity | `src/stripe-identity/docs` |
-| Capacitor Community Stripe Terminal | `src/stripe-terminal/docs` |
-| Capacitor Community AdMob | `src/admob/docs` |
-| Capacitor Community Facebook Login | `src/facebook-login/docs` |
-| rdlabo Capacitor Code Scanner | `src/capacitor-codescanner/docs` |
-| rdlabo Capacitor Screenshot Event | `src/capacitor-screenshot-event/docs` |
-| rdlabo Capacitor Printer | `src/capacitor-printer/docs` |
-| rdlabo Capacitor Brother Print | `src/capacitor-brotherprint/docs` |
-| rdlabo Ionic Angular Kit | `src/ionic-angular-kit/docs` |
-| rdlabo Ionic Angular Photo Editor | `src/ionic-angular-photo-editor/docs` |
-| rdlabo Ionic Angular Scroll Header | `src/ionic-angular-scroll-header/docs` |
-| rdlabo Angular CDK Scroll Strategies | `src/ngx-cdk-scroll-strategies/docs` |
-| rdlabo Ionic Theme iOS26 | `src/ionic-theme-ios26/docs` |
-| rdlabo Ionic Theme Material Design 3 | `src/ionic-theme-md3/docs` |
-| rdlabo Ionic Angular Collect Icons | `src/ionic-angular-collect-icons/docs` |
-| rdlabo Workers Hono Kit | `src/workers-hono-kit/docs` |
-| rdlabo ESLint Plugin Rules | `src/eslint-plugin-rules/docs` |
-| rdlabo Capacitor Docgen | `src/capacitor-docgen/docs` |
+| Capacitor Community Stripe | `projects/docs/src/stripe/docs` |
+| Capacitor Community Stripe Identity | `projects/docs/src/stripe-identity/docs` |
+| Capacitor Community Stripe Terminal | `projects/docs/src/stripe-terminal/docs` |
+| Capacitor Community AdMob | `projects/docs/src/admob/docs` |
+| Capacitor Community Facebook Login | `projects/docs/src/facebook-login/docs` |
+| rdlabo Capacitor Code Scanner | `projects/docs/src/capacitor-codescanner/docs` |
+| rdlabo Capacitor Screenshot Event | `projects/docs/src/capacitor-screenshot-event/docs` |
+| rdlabo Capacitor Printer | `projects/docs/src/capacitor-printer/docs` |
+| rdlabo Capacitor Brother Print | `projects/docs/src/capacitor-brotherprint/docs` |
+| rdlabo Ionic Angular Kit | `projects/docs/src/ionic-angular-kit/docs` |
+| rdlabo Ionic Angular Photo Editor | `projects/docs/src/ionic-angular-photo-editor/docs` |
+| rdlabo Ionic Angular Scroll Header | `projects/docs/src/ionic-angular-scroll-header/docs` |
+| rdlabo Angular CDK Scroll Strategies | `projects/docs/src/ngx-cdk-scroll-strategies/docs` |
+| rdlabo Ionic Theme iOS26 | `projects/docs/src/ionic-theme-ios26/docs` |
+| rdlabo Ionic Theme Material Design 3 | `projects/docs/src/ionic-theme-md3/docs` |
+| rdlabo Ionic Angular Collect Icons | `projects/docs/src/ionic-angular-collect-icons/docs` |
+| rdlabo Workers Hono Kit | `projects/docs/src/workers-hono-kit/docs` |
+| rdlabo ESLint Plugin Rules | `projects/docs/src/eslint-plugin-rules/docs` |
+| rdlabo Capacitor Docgen | `projects/docs/src/capacitor-docgen/docs` |
 
 Project metadata, navigation, localized landing copy, and API input are declared in `scripts/project-manifest.ts`. The generator creates a small catalog plus one lazy module per project and locale.
 
@@ -84,7 +84,7 @@ Every project exposes a dedicated API page. Hand-authored API Markdown uses sema
 such as `` #### `component` PhotoEditorPage `` or `` #### `function` generate ``; the generator
 normalizes those entries and Capacitor docgen output into the same API-card presentation.
 
-Generated project modules live under `src/app/generated/projects` and must not be edited by hand.
+Generated project modules live under `projects/docs/src/app/generated/projects` and must not be edited by hand.
 
 API input is restricted to packages declared in `scripts/project-manifest.ts` and installed at exact
 versions in `package-lock.json`. Generated HTML is reviewed as part of the repository diff; adding a

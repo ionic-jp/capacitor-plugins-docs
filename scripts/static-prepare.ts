@@ -3,8 +3,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
-const source404 = join(repoRoot, 'public', 'ja', '404.html');
-const browserRoot = join(repoRoot, 'dist', 'capacitor-plugins-docs', 'browser');
+const source404 = join(repoRoot, 'projects/docs/public', 'ja', '404.html');
+const browserRoot = join(repoRoot, 'dist', 'docs', 'browser');
 const target404 = join(browserRoot, 'ja', '404.html');
 const nestedJaDirectory = join(browserRoot, 'ja', 'ja');
 

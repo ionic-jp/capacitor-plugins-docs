@@ -1,17 +1,17 @@
 # rdlabo-docs
 
-`rdlabo-docs` is the bilingual documentation portal for rdlabo OSS. It generates static Angular pages from source packages (pinned in `package-lock.json`) and Markdown under `src/{project}/docs/`.
+`rdlabo-docs` is the bilingual documentation portal for rdlabo OSS. It generates static Angular pages from source packages (pinned in `package-lock.json`) and Markdown under `projects/docs/src/{project}/docs/`.
 
 ## Quick reference
 
-| Task                                               | Where                                                                       |
-| -------------------------------------------------- | --------------------------------------------------------------------------- |
-| Add/remove a project, change page list or metadata | `scripts/project-manifest.ts`                                               |
-| Write/edit Japanese documentation                  | `src/{project}/docs/ja/`                                                    |
-| Write/edit English for portal-hosted projects      | `src/{project}/docs/` (read via GitHub raw, not local checkout)             |
-| Write/edit English for package-hosted projects     | The OSS package repository                                                  |
-| Bump a package version                             | `package.json` pin → `npm install` → `npm run docs:generate`                |
-| Regenerate all pages                               | `npm run docs:generate` (output: `src/app/generated/` — never edit by hand) |
+| Task                                               | Where                                                                                     |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Add/remove a project, change page list or metadata | `scripts/project-manifest.ts`                                                             |
+| Write/edit Japanese documentation                  | `projects/docs/src/{project}/docs/ja/`                                                    |
+| Write/edit English for portal-hosted projects      | `projects/docs/src/{project}/docs/` (read via GitHub raw, not local checkout)             |
+| Write/edit English for package-hosted projects     | The OSS package repository                                                                |
+| Bump a package version                             | `package.json` pin → `npm install` → `npm run docs:generate`                              |
+| Regenerate all pages                               | `npm run docs:generate` (output: `projects/docs/src/app/generated/` — never edit by hand) |
 
 ## Page roles
 
@@ -25,13 +25,13 @@
 
 ## Content ownership
 
-| Content                                             | Source of truth                                   | Edit in                                                                                            |
-| --------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| English guides and landing pages                    | GitHub raw (package repo first, then portal repo) | Package repo when docs are published there; otherwise `src/{project}/docs/` in this repo on GitHub |
-| Japanese guides and landing pages                   | `src/{project}/docs/ja/*.md` only                 | This portal                                                                                        |
-| `!::Identifier::` API signatures                    | Installed npm package `dist/docs.json`            | Package repo; release and bump the pin here                                                        |
-| Docgen API page (`<docgen-index>` + `<docgen-api>`) | Package or portal `readme.md` on GitHub           | Same repository as the English landing page                                                        |
-| Code example files (`code:` refs)                   | `src/{project}/docs/` (not translated)            | This portal                                                                                        |
+| Content                                             | Source of truth                                      | Edit in                                                                                                          |
+| --------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| English guides and landing pages                    | GitHub raw (package repo first, then portal repo)    | Package repo when docs are published there; otherwise `projects/docs/src/{project}/docs/` in this repo on GitHub |
+| Japanese guides and landing pages                   | `projects/docs/src/{project}/docs/ja/*.md` only      | This portal                                                                                                      |
+| `!::Identifier::` API signatures                    | Installed npm package `dist/docs.json`               | Package repo; release and bump the pin here                                                                      |
+| Docgen API page (`<docgen-index>` + `<docgen-api>`) | Package or portal `readme.md` on GitHub              | Same repository as the English landing page                                                                      |
+| Code example files (`code:` refs)                   | `projects/docs/src/{project}/docs/` (not translated) | This portal                                                                                                      |
 
 ## Generation pipeline
 
@@ -40,9 +40,9 @@
 `docs:generate` **always** loads English from GitHub raw — never from the local filesystem. Resolution order:
 
 1. Package repository: `docs/{file}`, `{sourceDirectory}/docs/{file}`, then `README.md` for landings.
-2. Portal repository (`rdlabo-dev/website`): `src/{sourceDirectory}/docs/{file}`.
+2. Portal repository (`rdlabo-dev/website`): `projects/docs/src/{sourceDirectory}/docs/{file}`.
 
-For `@capacitor-community/admob` and rdlabo Capacitor plugins, English lives in the **package repository only** — do not copy those English files into `src/{project}/docs/`.
+For `@capacitor-community/admob` and rdlabo Capacitor plugins, English lives in the **package repository only** — do not copy those English files into `projects/docs/src/{project}/docs/`.
 
 Optional `englishDocsRef` overrides the Git ref for English guides fetched from the package repository (default: `main`). API signatures always follow the installed npm version, not the Git ref.
 
@@ -83,8 +83,8 @@ Use a kind tag so `formatApiEntries` wraps each entry in an `api-entry` card. Su
 
 ### File structure
 
-- Every page in `project-manifest.ts` must have an English source on GitHub and a Japanese counterpart at `src/{project}/docs/ja/{file}`.
-- Package-hosted English (AdMob, rdlabo Capacitor plugins) must **not** be duplicated under `src/{project}/docs/`.
+- Every page in `project-manifest.ts` must have an English source on GitHub and a Japanese counterpart at `projects/docs/src/{project}/docs/ja/{file}`.
+- Package-hosted English (AdMob, rdlabo Capacitor plugins) must **not** be duplicated under `projects/docs/src/{project}/docs/`.
 - Code example files (`code:` refs) are not translated.
 
 ### Translation rules

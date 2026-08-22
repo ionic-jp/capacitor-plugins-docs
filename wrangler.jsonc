@@ -6,7 +6,7 @@
   "workers_dev": false,
   "preview_urls": false,
   "assets": {
-    "directory": "./dist/capacitor-plugins-docs/browser",
+    "directory": "./dist/docs/browser",
     "not_found_handling": "404-page",
     "html_handling": "drop-trailing-slash",
   },

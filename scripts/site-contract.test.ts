@@ -94,8 +94,8 @@ test('pins every documentation source to the installed package version', async (
 
 test('serves locale-specific static 404 pages', async () => {
   const [english, japanese] = await Promise.all([
-    readFile(new URL('../public/404.html', import.meta.url), 'utf8'),
-    readFile(new URL('../public/ja/404.html', import.meta.url), 'utf8'),
+    readFile(new URL('../projects/docs/public/404.html', import.meta.url), 'utf8'),
+    readFile(new URL('../projects/docs/public/ja/404.html', import.meta.url), 'utf8'),
   ]);
   assert.match(english, /<html lang="en">/);
   assert.match(japanese, /<html lang="ja">/);
@@ -105,7 +105,7 @@ test('serves locale-specific static 404 pages', async () => {
 
 test('rdlabo brand logo title is English-only', async () => {
   const svg = await readFile(
-    new URL('../public/assets/brand/rdlabo-logo.svg', import.meta.url),
+    new URL('../projects/docs/public/assets/brand/rdlabo-logo.svg', import.meta.url),
     'utf8',
   );
   assert.match(svg, /<title[^>]*>rdlabo\.dev logo<\/title>/);
@@ -119,7 +119,7 @@ test('uses the rdlabo-dev GitHub owner throughout site sources', async () => {
   const roots = [
     new URL('../README.md', import.meta.url),
     new URL('../scripts/', import.meta.url),
-    new URL('../src/', import.meta.url),
+    new URL('../projects/docs/src/', import.meta.url),
   ];
   const files = [roots[0]];
   for (const root of roots.slice(1)) {
@@ -156,9 +156,9 @@ test('uses the rdlabo-dev GitHub owner throughout site sources', async () => {
 
 test('favicon brand assets are wired for rdlabo.dev', async () => {
   const [indexHtml, appleTouchIcon, faviconIco] = await Promise.all([
-    readFile(new URL('../src/index.html', import.meta.url), 'utf8'),
-    readFile(new URL('../public/assets/brand/apple-touch-icon.png', import.meta.url)),
-    readFile(new URL('../public/favicon.ico', import.meta.url)),
+    readFile(new URL('../projects/docs/src/index.html', import.meta.url), 'utf8'),
+    readFile(new URL('../projects/docs/public/assets/brand/apple-touch-icon.png', import.meta.url)),
+    readFile(new URL('../projects/docs/public/favicon.ico', import.meta.url)),
   ]);
 
   assert.match(
@@ -186,10 +186,16 @@ test('favicon brand assets are wired for rdlabo.dev', async () => {
   assert.equal(faviconIco.readUInt32BE(20), 64);
 
   await assert.rejects(() =>
-    access(new URL('../public/assets/icon/favicon.ico', import.meta.url), constants.F_OK),
+    access(
+      new URL('../projects/docs/public/assets/icon/favicon.ico', import.meta.url),
+      constants.F_OK,
+    ),
   );
   await assert.rejects(() =>
-    access(new URL('../public/assets/icon/favicon.png', import.meta.url), constants.F_OK),
+    access(
+      new URL('../projects/docs/public/assets/icon/favicon.png', import.meta.url),
+      constants.F_OK,
+    ),
   );
 });
 
@@ -229,7 +235,7 @@ test('imports every installed ESLint rule README with matching EN/JA code fences
   assert.equal(manifestRuleNames.length, 19);
   assert.deepEqual(manifestRuleNames, installedRuleNames);
 
-  const docsRoot = new URL('../src/eslint-plugin-rules/docs/', import.meta.url);
+  const docsRoot = new URL('../projects/docs/src/eslint-plugin-rules/docs/', import.meta.url);
   const [englishRulesIndex, japaneseRulesIndex] = await Promise.all([
     englishGuideSource(eslintProject, 'rules.md'),
     readFile(new URL('ja/rules.md', docsRoot), 'utf8'),
@@ -321,7 +327,7 @@ test('lists every ionic-angular-library package and imports localized READMEs', 
   for (const project of projectDefinitions) {
     const documentedSource = project.hostedUrl
       ? project.repositoryUrl.replace('https://github.com/', '')
-      : `src/${project.sourceDirectory}/docs`;
+      : `projects/docs/src/${project.sourceDirectory}/docs`;
     assert.ok(
       repositoryReadme.includes(`| ${project.name} | \`${documentedSource}\` |`),
       `README Current projects must list ${project.name}`,
@@ -351,7 +357,7 @@ test('lists every ionic-angular-library package and imports localized READMEs', 
   ]) {
     const project = libraryProjects.find((entry) => entry.id === projectId);
     assert.ok(project);
-    const docsRoot = new URL(`../src/${projectId}/docs/`, import.meta.url);
+    const docsRoot = new URL(`../projects/docs/src/${projectId}/docs/`, import.meta.url);
     const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
     const allEnglish: string[] = [];
     const allJapanese: string[] = [];
@@ -436,7 +442,7 @@ test('lists ionic theme packages and pins localized README imports', async () =>
     ) as { version: string };
     assert.equal(installedPackage.version, expected.version);
 
-    const docsRoot = new URL(`../src/${projectId}/docs/`, import.meta.url);
+    const docsRoot = new URL(`../projects/docs/src/${projectId}/docs/`, import.meta.url);
     const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
     for (const pageFile of pageFiles) {
       const [english, japanese] = await Promise.all([
@@ -484,14 +490,23 @@ test('lists ionic theme packages and pins localized README imports', async () =>
   const [iosReadme, _iosReadmeJa, usingDoc, usingDocJa, iosMigration, iosMigrationJa] =
     await Promise.all([
       englishGuideSource(iosProject, 'readme.md'),
-      readFile(new URL('../src/ionic-theme-ios26/docs/ja/readme.md', import.meta.url), 'utf8'),
+      readFile(
+        new URL('../projects/docs/src/ionic-theme-ios26/docs/ja/readme.md', import.meta.url),
+        'utf8',
+      ),
       englishGuideSource(iosProject, 'using-ion-item-group.md'),
       readFile(
-        new URL('../src/ionic-theme-ios26/docs/ja/using-ion-item-group.md', import.meta.url),
+        new URL(
+          '../projects/docs/src/ionic-theme-ios26/docs/ja/using-ion-item-group.md',
+          import.meta.url,
+        ),
         'utf8',
       ),
       englishGuideSource(iosProject, 'migration.md'),
-      readFile(new URL('../src/ionic-theme-ios26/docs/ja/migration.md', import.meta.url), 'utf8'),
+      readFile(
+        new URL('../projects/docs/src/ionic-theme-ios26/docs/ja/migration.md', import.meta.url),
+        'utf8',
+      ),
     ]);
   assert.match(iosReadme, /\]\(\/docs\/using-ion-item-group\)/);
   assert.match(
@@ -591,7 +606,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     ) as { version: string };
     assert.equal(installedPackage.version, version);
 
-    const docsRoot = new URL(`../src/${projectId}/docs/`, import.meta.url);
+    const docsRoot = new URL(`../projects/docs/src/${projectId}/docs/`, import.meta.url);
     const pageFiles = project.pages.map((page) => page.file).filter((file) => file !== 'api.md');
     for (const pageFile of pageFiles) {
       const japanese = await readFile(new URL(`ja/${pageFile}`, docsRoot), 'utf8');
@@ -620,7 +635,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     const project = projectDefinitions.find((entry) => entry.id === projectId);
     assert.ok(project, `${projectId} must be declared`);
     const japanese = await readFile(
-      new URL(`../src/${projectId}/docs/ja/${file}`, import.meta.url),
+      new URL(`../projects/docs/src/${projectId}/docs/ja/${file}`, import.meta.url),
       'utf8',
     );
     const english = await englishGuideSource(project, file);
@@ -829,12 +844,15 @@ test('documents the exact capacitor-docgen inheritance enhancement over upstream
     readFile(join(forkPackageDirectory, 'dist', 'types.d.ts'), 'utf8'),
     englishGuideSource(docgenProject, 'upstream-differences.md'),
     readFile(
-      new URL('../src/capacitor-docgen/docs/ja/upstream-differences.md', import.meta.url),
+      new URL(
+        '../projects/docs/src/capacitor-docgen/docs/ja/upstream-differences.md',
+        import.meta.url,
+      ),
       'utf8',
     ),
     englishGuideSource(docgenProject, 'getting-started.md'),
     readFile(
-      new URL('../src/capacitor-docgen/docs/ja/getting-started.md', import.meta.url),
+      new URL('../projects/docs/src/capacitor-docgen/docs/ja/getting-started.md', import.meta.url),
       'utf8',
     ),
   ]);
@@ -898,7 +916,7 @@ test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async ()
   assert.equal(wrangler.compatibility_date, '2026-08-15');
   assert.equal(wrangler.workers_dev, false);
   assert.equal(wrangler.preview_urls, false);
-  assert.equal(wrangler.assets?.directory, './dist/capacitor-plugins-docs/browser');
+  assert.equal(wrangler.assets?.directory, './dist/docs/browser');
   assert.equal(wrangler.assets?.not_found_handling, '404-page');
   assert.equal(wrangler.assets?.html_handling, 'drop-trailing-slash');
   assert.deepEqual(wrangler.routes, [{ pattern: 'docs.rdlabo.dev', custom_domain: true }]);
@@ -908,7 +926,7 @@ test('configures Cloudflare Workers Static Assets for docs.rdlabo.dev', async ()
     'npm run build && wrangler deploy --dry-run',
   );
   await assert.rejects(() =>
-    access(new URL('../public/_redirects', import.meta.url), constants.F_OK),
+    access(new URL('../projects/docs/public/_redirects', import.meta.url), constants.F_OK),
   );
 });
 
@@ -961,9 +979,9 @@ test('uses docs.rdlabo.dev as the canonical origin in site SEO outputs', async (
   const legacyOrigin = 'https://stripe.capacitorjs.jp';
   const canonicalOrigin = 'https://docs.rdlabo.dev';
   const [siteConfig, sitemap, robots] = await Promise.all([
-    readFile(new URL('../src/app/site-config.ts', import.meta.url), 'utf8'),
-    readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8'),
-    readFile(new URL('../public/robots.txt', import.meta.url), 'utf8'),
+    readFile(new URL('../projects/docs/src/app/site-config.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../projects/docs/public/sitemap.xml', import.meta.url), 'utf8'),
+    readFile(new URL('../projects/docs/public/robots.txt', import.meta.url), 'utf8'),
   ]);
 
   assert.match(siteConfig, new RegExp(`origin:\\s*'${canonicalOrigin.replaceAll('.', '\\.')}'`));
@@ -993,7 +1011,7 @@ test('locks production anyScript budgets after catalog growth', async () => {
     await readFile(new URL('../angular.json', import.meta.url), 'utf8'),
   ) as {
     projects: {
-      'capacitor-plugins-docs': {
+      docs: {
         architect: {
           build: {
             configurations: {
@@ -1011,7 +1029,7 @@ test('locks production anyScript budgets after catalog growth', async () => {
     };
   };
   const anyScript = angularJson.projects[
-    'capacitor-plugins-docs'
+    'docs'
   ].architect.build.configurations.production.budgets.find((budget) => budget.type === 'anyScript');
   assert.ok(anyScript);
   assert.equal(anyScript.maximumWarning, '425kB');
@@ -1063,16 +1081,16 @@ test('loads Facebook Login guides and API from the package repository', async ()
   assert.match(extracted.api ?? '', /^### logEvent\(\.\.\.\)$/m);
 });
 
-test('package-hosted English docs are not duplicated under src', async () => {
+test('package-hosted English docs are not duplicated under projects/docs/src', async () => {
   for (const project of projectDefinitions.filter((entry) =>
     packageEnglishOnlyProjects.has(entry.id),
   )) {
-    const srcDocs = new URL(`../src/${project.id}/docs/`, import.meta.url);
+    const srcDocs = new URL(`../projects/docs/src/${project.id}/docs/`, import.meta.url);
     const englishFiles = (await readdir(srcDocs)).filter((name) => name.endsWith('.md'));
     assert.deepEqual(
       englishFiles.sort(),
       [],
-      `${project.id} must not store English Markdown under src/${project.id}/docs/`,
+      `${project.id} must not store English Markdown under projects/docs/src/${project.id}/docs/`,
     );
 
     for (const page of project.pages) {
@@ -1101,7 +1119,7 @@ test('loads AdMob English pages from GitHub', async () => {
     ],
   );
 
-  const srcDocs = new URL('../src/admob/docs/', import.meta.url);
+  const srcDocs = new URL('../projects/docs/src/admob/docs/', import.meta.url);
   const englishFiles = (await readdir(srcDocs)).filter((name) => name.endsWith('.md'));
   assert.deepEqual(englishFiles.sort(), []);
   await assert.rejects(() => access(new URL('full-screen-ads.md', srcDocs), constants.F_OK));
