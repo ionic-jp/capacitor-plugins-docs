@@ -168,7 +168,8 @@ export class DocsPageComponent implements OnInit, AfterViewInit {
     this.tocHeadings.set(page.headings.filter((heading) => heading.level <= 3));
     this.activeLines.set({ ...(page.scrollMap[0]?.activeLine ?? {}) });
     this.#seo.setPage({
-      title: `${page.title} - ${project.shortName} - rdlabo.dev`,
+      title:
+        page.seoTitle ?? `${page.title} - ${project.shortName} - rdlabo.dev`,
       description: `${page.title}. ${project.description}`,
       path: page.path,
     });

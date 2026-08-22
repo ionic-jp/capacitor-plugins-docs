@@ -48,7 +48,9 @@ export class ArticlesPage {
       const title = selectedYear ? `Articles from ${selectedYear}` : 'Articles';
       this.#seo.setPage({
         title: `${title} — rdlabo.dev`,
-        description: 'English translations of rdlabo articles about Ionic, Angular, and Capacitor.',
+        description: selectedYear
+          ? `English translations of rdlabo articles published in ${selectedYear} about Ionic, Angular, and Capacitor.`
+          : 'English translations of rdlabo articles about Ionic, Angular, and Capacitor.',
         path: selectedYear ? `/articles/archive/${selectedYear}` : '/articles',
       });
     });

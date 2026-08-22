@@ -10,6 +10,10 @@ export interface ProjectPageDefinition {
   section: LocalizedText;
   slug: string;
   file: string;
+  /** Optional intent-focused document title for SEO `<title>` metadata. */
+  seoTitle?: LocalizedText;
+  /** Optional explicit content update date (`YYYY-MM-DD`) for sitemap `<lastmod>`. */
+  updatedAt?: LocalizedText;
 }
 
 export interface ProjectFeatureDefinition {
@@ -43,6 +47,8 @@ export interface ProjectDefinition {
   adapter?: 'capacitor-docs-json' | 'markdown';
   /** Git ref for English guide Markdown fetched from the OSS repository (default: `main`). */
   englishDocsRef?: string;
+  /** Optional intent-focused document title for the project landing page SEO `<title>`. */
+  seoTitle?: LocalizedText;
   description: LocalizedText;
   headline: LocalizedText;
   overview: LocalizedText;
@@ -91,6 +97,11 @@ export const projectCategoryDefinitions: readonly ProjectCategoryDefinition[] = 
     order: 30,
   },
 ];
+interface PageOptions {
+  seoTitle?: LocalizedText;
+  updatedAt?: LocalizedText;
+}
+
 const page = (
   enTitle: string,
   jaTitle: string,
@@ -98,11 +109,13 @@ const page = (
   file: string,
   enSection: string,
   jaSection: string,
+  options: PageOptions = {},
 ): ProjectPageDefinition => ({
   title: text(enTitle, jaTitle),
   section: text(enSection, jaSection),
   slug,
   file,
+  ...options,
 });
 
 const groupPage = (object: string, slug: string): ProjectPageDefinition =>
@@ -1025,6 +1038,12 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
         'payment-sheet.md',
         'Methods',
         'メソッド',
+        {
+          seoTitle: text(
+            'Capacitor Stripe PaymentSheet API | rdlabo',
+            'Capacitor Stripe PaymentSheet API リファレンス | rdlabo',
+          ),
+        },
       ),
       page('PaymentFlow', 'PaymentFlow', 'payment-flow', 'payment-flow.md', 'Methods', 'メソッド'),
       page('Apple Pay', 'Apple Pay', 'apple-pay', 'apple-pay.md', 'Methods', 'メソッド'),
@@ -1190,6 +1209,10 @@ export const projectDefinitions: readonly ProjectDefinition[] = [
     repositoryUrl: 'https://github.com/capacitor-community/admob',
     category: 'capacitor-plugins',
     icon: 'ads',
+    seoTitle: text(
+      'Capacitor AdMob Plugin Documentation | rdlabo',
+      'Capacitor AdMob プラグイン ドキュメント | rdlabo',
+    ),
     description: text(
       'Native Google AdMob ads for Capacitor applications.',
       'Capacitor アプリで Google AdMob のネイティブ広告を表示するプラグイン。',

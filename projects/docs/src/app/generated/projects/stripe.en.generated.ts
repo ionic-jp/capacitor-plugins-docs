@@ -402,6 +402,7 @@ export const PROJECT = {
     {
       "title": "PaymentSheet",
       "navTitle": "PaymentSheet",
+      "seoTitle": "Capacitor Stripe PaymentSheet API | rdlabo",
       "slug": "payment-sheet",
       "file": "payment-sheet.md",
       "section": "Methods",

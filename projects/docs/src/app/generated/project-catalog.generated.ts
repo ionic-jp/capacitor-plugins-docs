@@ -1068,6 +1068,7 @@ export const PROJECTS_EN = [
       {
         "title": "PaymentSheet",
         "navTitle": "PaymentSheet",
+        "seoTitle": "Capacitor Stripe PaymentSheet API | rdlabo",
         "slug": "payment-sheet",
         "section": "Methods",
         "path": "/projects/capacitor-stripe/docs/payment-sheet"
@@ -1236,6 +1237,7 @@ export const PROJECTS_EN = [
     "category": "capacitor-plugins",
     "icon": "ads",
     "version": "8.1.0",
+    "seoTitle": "Capacitor AdMob Plugin Documentation | rdlabo",
     "description": "Native Google AdMob ads for Capacitor applications.",
     "headline": "Monetize Capacitor apps with Google AdMob",
     "overview": "Initialize Google Mobile Ads, manage privacy consent, and present native ad formats on iOS and Android.",
@@ -2667,6 +2669,7 @@ export const PROJECTS_JA = [
       {
         "title": "PaymentSheet",
         "navTitle": "PaymentSheet",
+        "seoTitle": "Capacitor Stripe PaymentSheet API リファレンス | rdlabo",
         "slug": "payment-sheet",
         "section": "メソッド",
         "path": "/projects/capacitor-stripe/docs/payment-sheet"
@@ -2835,6 +2838,7 @@ export const PROJECTS_JA = [
     "category": "capacitor-plugins",
     "icon": "ads",
     "version": "8.1.0",
+    "seoTitle": "Capacitor AdMob プラグイン ドキュメント | rdlabo",
     "description": "Capacitor アプリで Google AdMob のネイティブ広告を表示するプラグイン。",
     "headline": "Google AdMobでCapacitorアプリを収益化する",
     "overview": "Google Mobile Adsの初期化、プライバシー同意の管理、iOS・Androidでのネイティブ広告表示を行います。",

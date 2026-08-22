@@ -9,6 +9,7 @@ export const PROJECT = {
   "category": "capacitor-plugins",
   "icon": "ads",
   "version": "8.1.0",
+  "seoTitle": "Capacitor AdMob Plugin Documentation | rdlabo",
   "description": "Native Google AdMob ads for Capacitor applications.",
   "headline": "Monetize Capacitor apps with Google AdMob",
   "overview": "Initialize Google Mobile Ads, manage privacy consent, and present native ad formats on iOS and Android.",

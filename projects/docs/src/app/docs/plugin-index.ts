@@ -118,8 +118,12 @@ export class PluginIndexComponent implements OnInit {
   protected readonly projectGroups = projectGroupsForLocale(this.#locale);
 
   ngOnInit(): void {
+    const homeTitle =
+      this.#locale.toLowerCase().startsWith('ja')
+        ? 'Ionic・Angular・Capacitor OSSドキュメント | rdlabo'
+        : 'Ionic, Angular, and Capacitor OSS Documentation | rdlabo';
     this.#seo.setPage({
-      title: 'rdlabo.dev',
+      title: homeTitle,
       description: $localize`:@@siteDescription:Documentation for personal open source projects created and maintained by rdlabo.`,
       path: '/',
     });

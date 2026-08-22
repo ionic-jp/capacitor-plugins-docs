@@ -7,10 +7,17 @@ import { JSDOM } from 'jsdom';
 import { enforceGeneratedHtmlPolicy } from './html-policy';
 import { fetchNoteArticle } from './note-articles';
 import { fetchZennArticleFeed } from './zenn-articles';
+import {
+  assertUpdatedAtOnOrAfterPublishedDate,
+  assertValidContentUpdatedAt,
+  formatContentUpdatedAt,
+  formatSitemapLastmod,
+} from './seo-dates';
 
 interface ArticleFrontMatter {
   title: string;
   description: string;
+  updatedAt?: string;
   zennSlug?: string;
   source?: 'zenn' | 'note';
   sourceUrl?: string;
@@ -27,6 +34,7 @@ interface ArticleTranslation {
   slug: string;
   title: string;
   description: string;
+  updatedAt?: string;
   emoji: string;
   body: string;
 }
@@ -35,6 +43,7 @@ interface GeneratedArticle {
   slug: string;
   title: string;
   description: string;
+  updatedAt?: string;
   emoji: string;
   sourceName: 'Zenn' | 'note';
   originalUrl: string;
@@ -181,6 +190,20 @@ async function writeIfChanged(path: string, content: string): Promise<void> {
   if (current !== content) await writeFile(path, content);
 }
 
+function optionalUpdatedAt(value: unknown, file: string): string | undefined {
+  if (value === undefined || value === null || value === '') return undefined;
+  if (value instanceof Date) {
+    if (Number.isNaN(value.getTime())) {
+      throw new Error(`${file} must declare updatedAt as a real YYYY-MM-DD date when present`);
+    }
+    return assertValidContentUpdatedAt(formatContentUpdatedAt(value), file);
+  }
+  if (typeof value !== 'string' || !value.trim()) {
+    throw new Error(`${file} must declare updatedAt as a non-empty YYYY-MM-DD date when present`);
+  }
+  return assertValidContentUpdatedAt(value.trim(), file);
+}
+
 async function loadTranslations(sourceRoot: string): Promise<ArticleTranslation[]> {
   await mkdir(sourceRoot, { recursive: true });
   const files = (await readdir(sourceRoot)).filter((file) => file.endsWith('.md')).sort();
@@ -199,6 +222,7 @@ async function loadTranslations(sourceRoot: string): Promise<ArticleTranslation[
           slug: required(parsed.attributes.slug, 'slug', file),
           title: required(parsed.attributes.title, 'title', file),
           description: required(parsed.attributes.description, 'description', file),
+          updatedAt: optionalUpdatedAt(parsed.attributes.updatedAt, file),
           emoji:
             typeof parsed.attributes.emoji === 'string' && parsed.attributes.emoji.trim()
               ? parsed.attributes.emoji.trim()
@@ -215,6 +239,7 @@ async function loadTranslations(sourceRoot: string): Promise<ArticleTranslation[
         slug: zennSlug,
         title: required(parsed.attributes.title, 'title', file),
         description: required(parsed.attributes.description, 'description', file),
+        updatedAt: optionalUpdatedAt(parsed.attributes.updatedAt, file),
         emoji:
           typeof parsed.attributes.emoji === 'string' && parsed.attributes.emoji.trim()
             ? parsed.attributes.emoji.trim()
@@ -268,6 +293,13 @@ export async function generateArticles(options: GenerateArticlesOptions = {}): P
         `${translation.file} is based on an older note revision; review the Japanese source and update sourceRevision`,
       );
     }
+    if (translation.updatedAt) {
+      assertUpdatedAtOnOrAfterPublishedDate(
+        translation.updatedAt,
+        metadata.publishedDate,
+        translation.file,
+      );
+    }
     const rendered = new JSDOM(await markdownToHtml(rewriteZennImages(translation.body)));
     for (const heading of Array.from(rendered.window.document.querySelectorAll('h1'))) {
       const replacement = rendered.window.document.createElement('h2');
@@ -302,6 +334,7 @@ export async function generateArticles(options: GenerateArticlesOptions = {}): P
       slug,
       title: translation.title,
       description: translation.description,
+      ...(translation.updatedAt ? { updatedAt: translation.updatedAt } : {}),
       emoji: translation.emoji,
       sourceName: translation.source === 'note' ? 'note' : 'Zenn',
       originalUrl: metadata.url,
@@ -324,7 +357,16 @@ export async function generateArticles(options: GenerateArticlesOptions = {}): P
     ...new Set(articles.map((article) => `/articles/archive/${article.publishedDate.slice(0, 4)}`)),
     ...articles.map((article) => `/articles/${article.slug}`),
   ];
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${publicPaths.map((path) => `  <url><loc>https://rdlabo.dev${path}</loc></url>`).join('\n')}\n</urlset>\n`;
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${publicPaths
+    .map((path) => {
+      const article = articles.find(
+        (entry) =>
+          entry.slug === path.replace(/^\/articles\//, '') && path.startsWith('/articles/'),
+      );
+      const lastmod = formatSitemapLastmod(article?.updatedAt);
+      return `  <url><loc>https://rdlabo.dev${path}</loc>${lastmod}</url>`;
+    })
+    .join('\n')}\n</urlset>\n`;
   await Promise.all([
     writeIfChanged(join(generatedRoot, 'article-catalog.generated.ts'), catalog),
     writeIfChanged(join(generatedRoot, 'article-loaders.generated.ts'), loaders),

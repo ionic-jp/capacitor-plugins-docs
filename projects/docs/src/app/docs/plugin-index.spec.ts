@@ -25,7 +25,9 @@ describe('PluginIndexComponent', () => {
 
   it('renders the rdlabo.dev brand and project catalog', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(TestBed.inject(Title).getTitle()).toBe('rdlabo.dev');
+    expect(TestBed.inject(Title).getTitle()).toBe(
+      'Ionic, Angular, and Capacitor OSS Documentation | rdlabo',
+    );
     expect(compiled.querySelector('h1')?.textContent).toContain('rdlabo.dev');
     expect(compiled.textContent).toContain('developed and maintained personally by rdlabo');
     expect(compiled.textContent).toContain('independent of the incorporated association');

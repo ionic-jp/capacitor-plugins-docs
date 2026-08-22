@@ -38,6 +38,12 @@ test('prerenders the web-site home, archive, and translated articles', async () 
       'utf8',
     );
     assert.match(archive, new RegExp(`Articles from ${year}`));
+    assert.match(
+      archive,
+      new RegExp(
+        `English translations of rdlabo articles published in ${year} about Ionic, Angular, and Capacitor\\.`,
+      ),
+    );
   }
 });
 

@@ -123,7 +123,7 @@ export class LandingPageComponent implements OnInit {
     this.project.set(project);
     if (!project) return;
     this.#seo.setPage({
-      title: `${project.shortName} - rdlabo.dev`,
+      title: project.seoTitle ?? `${project.shortName} - rdlabo.dev`,
       description: project.description,
       path: project.path,
     });

@@ -32,6 +32,7 @@ import {
   stripLeadingH1,
   stripRdlaboDocsOmit,
 } from './package-markdown';
+import { assertValidContentUpdatedAt, formatSitemapLastmod } from './seo-dates';
 
 const root = resolve(process.cwd());
 const docsRepositoryUrl = 'https://github.com/rdlabo-dev/website';
@@ -221,6 +222,7 @@ function localizeProject(project: ProjectDefinition, locale: Locale, version: st
     category: project.category,
     icon: project.icon,
     version,
+    ...(project.seoTitle ? { seoTitle: localize(project.seoTitle, locale) } : {}),
     description: localize(project.description, locale),
     headline: localize(project.headline, locale),
     overview: localize(project.overview, locale),
@@ -564,6 +566,15 @@ async function generateProject(project: ProjectDefinition, locale: Locale): Prom
     pages.push({
       title: (useFrontMatterTitle && parsed.attributes.title) || localize(page.title, locale),
       navTitle: localize(page.title, locale),
+      ...(page.seoTitle ? { seoTitle: localize(page.seoTitle, locale) } : {}),
+      ...(page.updatedAt
+        ? {
+            updatedAt: assertValidContentUpdatedAt(
+              localize(page.updatedAt, locale),
+              `${project.id}/${slug} (${locale})`,
+            ),
+          }
+        : {}),
       slug,
       file,
       section: localize(page.section, locale),
@@ -652,16 +663,41 @@ async function main(): Promise<void> {
       .filter((project) => !project.hostedUrl)
       .flatMap((project) => [project.path, ...project.pages.map((page: any) => page.path)]),
   ];
+  const updatedAtByPublicPath = new Map<string, Partial<Record<Locale, string>>>();
+  for (const project of projectDefinitions) {
+    if (project.hostedUrl) continue;
+    for (const declaredPage of project.pages) {
+      if (!declaredPage.updatedAt) continue;
+      const publicPath = `/projects/${project.slug}/docs/${declaredPage.slug}`;
+      updatedAtByPublicPath.set(publicPath, {
+        en: declaredPage.updatedAt.en
+          ? assertValidContentUpdatedAt(
+              declaredPage.updatedAt.en,
+              `${project.id}/${declaredPage.slug} (en)`,
+            )
+          : undefined,
+        ja: declaredPage.updatedAt.ja
+          ? assertValidContentUpdatedAt(
+              declaredPage.updatedAt.ja,
+              `${project.id}/${declaredPage.slug} (ja)`,
+            )
+          : undefined,
+      });
+    }
+  }
   const sitemapEntries = canonicalPaths
     .map((path) => {
       const englishUrl = `${SITE_CONFIG.origin}${localizedPublicPath('en', path)}`;
       const japaneseUrl = `${SITE_CONFIG.origin}${localizedPublicPath('ja', path)}`;
-      return `  <url>\n    <loc>${englishUrl}</loc>\n    <xhtml:link rel="alternate" hreflang="en" href="${englishUrl}" />\n    <xhtml:link rel="alternate" hreflang="ja" href="${japaneseUrl}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${englishUrl}" />\n  </url>\n  <url>\n    <loc>${japaneseUrl}</loc>\n    <xhtml:link rel="alternate" hreflang="en" href="${englishUrl}" />\n    <xhtml:link rel="alternate" hreflang="ja" href="${japaneseUrl}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${englishUrl}" />\n  </url>`;
+      const updatedAt = updatedAtByPublicPath.get(path);
+      const englishLastmod = formatSitemapLastmod(updatedAt?.en);
+      const japaneseLastmod = formatSitemapLastmod(updatedAt?.ja);
+      return `  <url>\n    <loc>${englishUrl}</loc>${englishLastmod}\n  </url>\n  <url>\n    <loc>${japaneseUrl}</loc>${japaneseLastmod}\n  </url>`;
     })
     .join('\n');
   await writeFile(
     join(root, 'projects/docs/public/sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries}\n</urlset>\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`,
   );
   await writeFile(
     join(root, 'projects/docs/public/robots.txt'),

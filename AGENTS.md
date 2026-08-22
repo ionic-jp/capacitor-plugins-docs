@@ -183,6 +183,37 @@ Use a kind tag so `formatApiEntries` wraps each entry in an `api-entry` card. Su
 - Code example files (`code:` refs) do not need `title`; they may declare `file:`.
 - For `readme.md`, `using-ion-item-group.md`, and ESLint rule pages (`rules/{rule-name}.md`), the first `# ` heading is removed by `normalizeImportedReadmeHeadings`; the heading comes from front matter.
 
+## SEO metadata
+
+### Document titles (`seoTitle`)
+
+- Optional localized project- or page-level `seoTitle` in `scripts/project-manifest.ts` overrides the generated `<title>` only. Navigation titles (`title` / `navTitle`) stay unchanged.
+- Project landing pages use the project's `seoTitle` when present; otherwise they keep `${shortName} - rdlabo.dev`.
+- Docs pages use `${page.title} - ${shortName} - rdlabo.dev` unless `seoTitle` is set.
+- Set intent-focused titles sparingly for high-value landing and API entry pages.
+
+### Sitemap `<lastmod>` (`updatedAt`)
+
+- Emit `<lastmod>` only from an explicit `YYYY-MM-DD` source field that represents a real content update.
+- Never use build time, file mtimes, git history, RSS publication dates, or the current date.
+- Docs pages declare optional localized `updatedAt` in `scripts/project-manifest.ts`.
+- Translated articles declare optional `updatedAt` in article front matter. When present, it must be on or after the source article's `publishedDate` (resolved from Zenn RSS or the note API during generation).
+- Generators validate calendar dates and reject future values. If no page declares `updatedAt`, sitemaps contain no `<lastmod>` entries.
+- After a substantive content update, set `updatedAt` to the edit date and regenerate outputs.
+
+### Hreflang and sitemap shape
+
+- Bilingual docs pages emit `link[rel="alternate"][hreflang]` tags (`en`, `ja`, `x-default`) in HTML `<head>`. That is the canonical hreflang discovery surface. Each alternate `href` must be a non-empty, fully-qualified HTTPS URL (not relative paths, protocol-relative URLs, or `http:`).
+- The docs sitemap is deliberately simple: standard `urlset` entries with `<loc>` and optional explicit `<lastmod>` only (same shape as the top site). It omits `xmlns:xhtml` and `xhtml:link` alternates to reduce sitemap payload while diagnosing Search Console fetch issues. XHTML sitemap hreflang remains a supported standard elsewhere; this is redundancy removal, not a claim that sitemap hreflang is invalid.
+
+### SEO audit
+
+- `npm run seo:audit` checks built sitemap-listed HTML for `docs.rdlabo.dev` and `rdlabo.dev`.
+- For bilingual docs, the audit validates reciprocal HTML-head hreflang across all sitemap-listed pages (exactly `en`, `ja`, and `x-default` — no other hreflang keys; no empty/whitespace `hreflang` attributes; alternate `href` values must be fully-qualified HTTPS URLs; targets must be sitemap locs; identical normalized mapping on EN/JA pairs). It does not require sitemap-level hreflang when the docs sitemap omits alternates.
+- Canonical URLs must match the sitemap page URL exactly after trailing-slash normalization; query strings and fragments are rejected rather than stripped silently.
+- When JSON-LD blocks are present, the audit validates syntax and basic shape only (valid JSON, object nodes, non-empty string `@type`). It is not a Google rich-result validator. Add schema-specific rich-result checks alongside each new JSON-LD schema when it is introduced.
+- CI runs it after `npm run build`. Fix aggregated audit errors before merging.
+
 ## Internal and external links
 
 - Same project: `/docs/{page-slug}` (e.g. `/docs/payment-sheet`).
@@ -200,6 +231,7 @@ The CI pipeline runs:
 3. `npm test` — node contract tests + `ng test docs` + `ng test web-site`. Includes bilingual update blocker for documentation pages.
 4. Generated-output drift checks — `git diff --exit-code` on `projects/docs/src/app/generated`, `projects/docs/public/sitemap.xml`, `projects/web-site/src/app/generated`, and `projects/web-site/public/sitemap.xml` (before and after build).
 5. `npm run build` — `build:docs` (pagefind search index + `build-output.test.ts`) and `build:web-site` (`web-site-build-output.test.ts`).
+6. `npm run seo:audit` — validates built HTML metadata against both sitemaps.
 
 All steps must pass before a PR is merge-ready. Run them locally in the same order.
 

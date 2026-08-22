@@ -49,6 +49,8 @@ export interface ProjectCategoryGroup extends ProjectCategorySummary {
 export interface DocsPageSummary {
   title: string;
   navTitle: string;
+  seoTitle?: string;
+  updatedAt?: string;
   slug: string;
   section: string;
   path: string;
@@ -74,6 +76,7 @@ export interface ProjectSummary {
   category: ProjectCategory;
   icon: ProjectIcon;
   version: string;
+  seoTitle?: string;
   description: string;
   headline: string;
   overview: string;
