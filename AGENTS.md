@@ -40,7 +40,7 @@
 `docs:generate` **always** loads English from GitHub raw — never from the local filesystem. Resolution order:
 
 1. Package repository: `docs/{file}`, `{sourceDirectory}/docs/{file}`, then `README.md` for landings.
-2. Portal repository (`rdlabo-dev/docs`): `src/{sourceDirectory}/docs/{file}`.
+2. Portal repository (`rdlabo-dev/website`): `src/{sourceDirectory}/docs/{file}`.
 
 For `@capacitor-community/admob` and rdlabo Capacitor plugins, English lives in the **package repository only** — do not copy those English files into `src/{project}/docs/`.
 

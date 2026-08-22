@@ -161,7 +161,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-scroll-header/docs/api.md"
     }
   ]
 } as const;

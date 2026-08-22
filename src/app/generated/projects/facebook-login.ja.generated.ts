@@ -70,7 +70,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/facebook-login/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/facebook-login/docs/ja/readme.md"
     },
     {
       "title": "設定",
@@ -109,7 +109,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/facebook-login/docs/ja/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/facebook-login/docs/ja/configuration.md"
     },
     {
       "title": "認証",
@@ -158,7 +158,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/facebook-login/docs/ja/authentication.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/facebook-login/docs/ja/authentication.md"
     },
     {
       "title": "App Events",
@@ -187,7 +187,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/facebook-login/docs/ja/app-events.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/facebook-login/docs/ja/app-events.md"
     },
     {
       "title": "API",

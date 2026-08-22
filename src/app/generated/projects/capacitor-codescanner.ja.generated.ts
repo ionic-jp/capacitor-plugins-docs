@@ -66,7 +66,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-codescanner/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-codescanner/docs/ja/readme.md"
     },
     {
       "title": "CodeScanner",
@@ -115,7 +115,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-codescanner/docs/ja/code-scanner.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-codescanner/docs/ja/code-scanner.md"
     },
     {
       "title": "API",

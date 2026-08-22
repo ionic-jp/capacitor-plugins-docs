@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RDLABO_DOCS_REF: ${{ github.event.pull_request.head.sha || github.sha }}
-      RDLABO_DOCS_REPOSITORY_URL: ${{ github.event.pull_request.head.repo.html_url || 'https://github.com/rdlabo-dev/docs' }}
+      RDLABO_DOCS_REPOSITORY_URL: ${{ github.event.pull_request.head.repo.html_url || 'https://github.com/rdlabo-dev/website' }}
     steps:
       - uses: actions/checkout@v5
         with:

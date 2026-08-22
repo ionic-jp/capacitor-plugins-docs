@@ -60,7 +60,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/ja/getting-started.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-kit/docs/ja/getting-started.md"
     },
     {
       "title": "Storage・Overlay",
@@ -84,7 +84,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/ja/storage-overlays.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-kit/docs/ja/storage-overlays.md"
     },
     {
       "title": "認証・HTTP",
@@ -108,7 +108,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/ja/auth-http.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-kit/docs/ja/auth-http.md"
     },
     {
       "title": "Offline・Realtime",
@@ -132,7 +132,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/ja/offline-realtime.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-kit/docs/ja/offline-realtime.md"
     },
     {
       "title": "任意機能",
@@ -166,7 +166,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/ja/optional-features.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-kit/docs/ja/optional-features.md"
     },
     {
       "title": "API",
@@ -235,7 +235,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-kit/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-kit/docs/ja/api.md"
     }
   ]
 } as const;

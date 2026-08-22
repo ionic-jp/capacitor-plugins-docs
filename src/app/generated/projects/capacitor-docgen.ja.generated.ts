@@ -52,7 +52,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-docgen/docs/ja/getting-started.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-docgen/docs/ja/getting-started.md"
     },
     {
       "title": "本家との差分",
@@ -91,7 +91,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-docgen/docs/ja/upstream-differences.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-docgen/docs/ja/upstream-differences.md"
     },
     {
       "title": "API",
@@ -180,7 +180,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-docgen/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-docgen/docs/ja/api.md"
     }
   ]
 } as const;

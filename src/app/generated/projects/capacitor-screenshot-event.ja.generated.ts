@@ -61,7 +61,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-screenshot-event/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-screenshot-event/docs/ja/readme.md"
     },
     {
       "title": "ScreenshotEvent",
@@ -110,7 +110,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-screenshot-event/docs/ja/screenshot-event.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-screenshot-event/docs/ja/screenshot-event.md"
     },
     {
       "title": "API",

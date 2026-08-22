@@ -1,6 +1,6 @@
 {
   "stripe-identity": {
     "name": "capacitor-community/stripe-identity",
-    "repository": "https://github.com/rdlabo-dev/docs/"
+    "repository": "https://github.com/rdlabo-dev/website/"
   }
 }

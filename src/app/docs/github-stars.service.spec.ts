@@ -13,9 +13,9 @@ describe('GitHubStarsService', () => {
     vi.stubGlobal('fetch', fetchMock);
 
     const service = TestBed.inject(GitHubStarsService);
-    await expect(service.count('https://github.com/rdlabo-dev/docs')).resolves.toBe(42);
-    await expect(service.count('https://github.com/rdlabo-dev/docs')).resolves.toBe(42);
-    expect(fetchMock).toHaveBeenCalledWith('https://api.github.com/repos/rdlabo-dev/docs', {
+    await expect(service.count('https://github.com/rdlabo-dev/website')).resolves.toBe(42);
+    await expect(service.count('https://github.com/rdlabo-dev/website')).resolves.toBe(42);
+    expect(fetchMock).toHaveBeenCalledWith('https://api.github.com/repos/rdlabo-dev/website', {
       headers: { Accept: 'application/vnd.github+json' },
     });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -30,6 +30,6 @@ describe('GitHubStarsService', () => {
     expect(fetchMock).not.toHaveBeenCalled();
 
     fetchMock.mockResolvedValue({ ok: false });
-    await expect(service.count('https://github.com/rdlabo-dev/docs')).resolves.toBeUndefined();
+    await expect(service.count('https://github.com/rdlabo-dev/website')).resolves.toBeUndefined();
   });
 });

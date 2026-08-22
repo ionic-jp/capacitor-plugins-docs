@@ -55,7 +55,7 @@ test('builds raw and source labels for repository docs', () => {
     repositorySourceLabel(repositoryUrl, 'main', 'README.md'),
     'capacitor-community/admob@main/README.md',
   );
-  assert.equal(CANONICAL_DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/docs');
+  assert.equal(CANONICAL_DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/website');
   assert.equal(
     DOCS_PORTAL_REPOSITORY_URL,
     process.env['RDLABO_DOCS_REPOSITORY_URL'] ?? CANONICAL_DOCS_PORTAL_REPOSITORY_URL,
@@ -75,7 +75,7 @@ test('keeps fork-fetched portal pages editable in the canonical repository', () 
       content: '# API',
       repositoryPath: 'src/example/docs/api.md',
       repositoryRef: 'main',
-      repositoryUrl: 'https://github.com/rdlabo-dev/docs',
+      repositoryUrl: 'https://github.com/rdlabo-dev/website',
     },
   );
 });

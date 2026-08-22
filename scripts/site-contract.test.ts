@@ -115,7 +115,7 @@ test('rdlabo brand logo title is English-only', async () => {
 test('uses the rdlabo-dev GitHub owner throughout site sources', async () => {
   const legacyOwner = ['rdlabo', 'team'].join('-');
   const legacyDocsRepository = ['ionic-jp', 'capacitor-plugins-docs'].join('/');
-  const docsRepositoryUrl = 'https://github.com/rdlabo-dev/docs';
+  const docsRepositoryUrl = 'https://github.com/rdlabo-dev/website';
   const roots = [
     new URL('../README.md', import.meta.url),
     new URL('../scripts/', import.meta.url),
@@ -150,7 +150,7 @@ test('uses the rdlabo-dev GitHub owner throughout site sources', async () => {
   assert.match(generateDocs, /\$\{docsRepositoryUrl\}\/edit\/main\//);
 
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
-  assert.match(readme, /`rdlabo-dev\/docs`/);
+  assert.match(readme, /`rdlabo-dev\/website`/);
   assert.doesNotMatch(readme, /later rollout/);
 });
 

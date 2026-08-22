@@ -4,7 +4,7 @@ Documentation portal for personal open source projects created and maintained by
 
 The `rdlabo` name is also used by 一般社団法人リレーションデザイン研究所, but every OSS project documented here is owned and maintained personally by rdlabo. This portal and its projects are not activities of that incorporated association.
 
-Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The repository is `rdlabo-dev/docs`.
+Production is `docs.rdlabo.dev` on Cloudflare Workers Static Assets. The repository is `rdlabo-dev/website`.
 
 ## Current projects
 

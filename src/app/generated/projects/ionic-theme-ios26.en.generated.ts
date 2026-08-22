@@ -359,7 +359,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/api.md"
     }
   ]
 } as const;

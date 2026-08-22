@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/readme.md"
     },
     {
       "title": "シンプルな使い方",
@@ -84,7 +84,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/simple.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/simple.md"
     },
     {
       "title": "応用的な使い方",
@@ -97,7 +97,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/advanced.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/advanced.md"
     },
     {
       "title": "リバーススクロール",
@@ -116,7 +116,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/reverse.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/reverse.md"
     },
     {
       "title": "FAQ",
@@ -135,7 +135,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/faq.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/faq.md"
     },
     {
       "title": "API",
@@ -204,7 +204,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ngx-cdk-scroll-strategies/docs/ja/api.md"
     }
   ]
 } as const;

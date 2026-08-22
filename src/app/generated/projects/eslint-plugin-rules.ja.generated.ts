@@ -55,7 +55,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/getting-started.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/getting-started.md"
     },
     {
       "title": "設定",
@@ -84,7 +84,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/configuration.md"
     },
     {
       "title": "移行",
@@ -123,7 +123,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/migration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/migration.md"
     },
     {
       "title": "ルール一覧",
@@ -147,7 +147,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules.md"
     },
     {
       "title": "API",
@@ -181,7 +181,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/api.md"
     },
     {
       "title": "component-property-use-readonly",
@@ -235,7 +235,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/component-property-use-readonly.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/component-property-use-readonly.md"
     },
     {
       "title": "deny-constructor-di",
@@ -284,7 +284,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-constructor-di.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-constructor-di.md"
     },
     {
       "title": "deny-element",
@@ -343,7 +343,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-element.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-element.md"
     },
     {
       "title": "deny-overlay-create",
@@ -402,7 +402,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-overlay-create.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-overlay-create.md"
     },
     {
       "title": "deny-soft-private-modifier",
@@ -426,7 +426,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-soft-private-modifier.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/deny-soft-private-modifier.md"
     },
     {
       "title": "implements-ionic-lifecycle",
@@ -475,7 +475,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/implements-ionic-lifecycle.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/implements-ionic-lifecycle.md"
     },
     {
       "title": "ionic-attr-type-check",
@@ -529,7 +529,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/ionic-attr-type-check.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/ionic-attr-type-check.md"
     },
     {
       "title": "no-component-method-except-lifecycle",
@@ -573,7 +573,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-component-method-except-lifecycle.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-component-method-except-lifecycle.md"
     },
     {
       "title": "no-component-writable-signal",
@@ -627,7 +627,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-component-writable-signal.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-component-writable-signal.md"
     },
     {
       "title": "no-reactive-forms",
@@ -681,7 +681,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-reactive-forms.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-reactive-forms.md"
     },
     {
       "title": "no-template-driven-forms",
@@ -740,7 +740,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-template-driven-forms.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/no-template-driven-forms.md"
     },
     {
       "title": "prefer-disable-handler",
@@ -819,7 +819,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/prefer-disable-handler.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/prefer-disable-handler.md"
     },
     {
       "title": "prefer-ionic-standalone",
@@ -868,7 +868,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/prefer-ionic-standalone.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/prefer-ionic-standalone.md"
     },
     {
       "title": "prefer-modal-launcher",
@@ -937,7 +937,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/prefer-modal-launcher.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/prefer-modal-launcher.md"
     },
     {
       "title": "require-ion-item-group",
@@ -991,7 +991,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/require-ion-item-group.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/require-ion-item-group.md"
     },
     {
       "title": "require-viewmodel",
@@ -1075,7 +1075,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/require-viewmodel.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/require-viewmodel.md"
     },
     {
       "title": "restrict-try-block",
@@ -1154,7 +1154,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/restrict-try-block.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/restrict-try-block.md"
     },
     {
       "title": "signal-use-as-signal-template",
@@ -1213,7 +1213,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/signal-use-as-signal-template.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/signal-use-as-signal-template.md"
     },
     {
       "title": "signal-use-as-signal",
@@ -1272,7 +1272,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/ja/rules/signal-use-as-signal.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/ja/rules/signal-use-as-signal.md"
     }
   ]
 } as const;

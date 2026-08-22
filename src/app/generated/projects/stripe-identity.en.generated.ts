@@ -367,7 +367,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-identity/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe-identity/docs/api.md"
     }
   ]
 } as const;

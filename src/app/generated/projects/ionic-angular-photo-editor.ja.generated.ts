@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-photo-editor/docs/ja/readme.md"
     },
     {
       "title": "テーマ",
@@ -95,7 +95,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/theme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-photo-editor/docs/ja/theme.md"
     },
     {
       "title": "PhotoFileService",
@@ -114,7 +114,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/photo-file.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-photo-editor/docs/ja/photo-file.md"
     },
     {
       "title": "Photo Editor",
@@ -153,7 +153,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/editor.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-photo-editor/docs/ja/editor.md"
     },
     {
       "title": "Photo Viewer",
@@ -207,7 +207,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/viewer.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-photo-editor/docs/ja/viewer.md"
     },
     {
       "title": "API",
@@ -316,7 +316,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-photo-editor/docs/ja/api.md"
     }
   ]
 } as const;

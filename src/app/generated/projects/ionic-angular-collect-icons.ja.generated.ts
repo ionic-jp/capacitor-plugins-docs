@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-collect-icons/docs/ja/readme.md"
     },
     {
       "title": "初期化",
@@ -110,7 +110,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/initialize.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-collect-icons/docs/ja/initialize.md"
     },
     {
       "title": "使い方",
@@ -129,7 +129,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/usage.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-collect-icons/docs/ja/usage.md"
     },
     {
       "title": "CLI オプション",
@@ -168,7 +168,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/options.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-collect-icons/docs/ja/options.md"
     },
     {
       "title": "FAQ",
@@ -181,7 +181,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/faq.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-collect-icons/docs/ja/faq.md"
     },
     {
       "title": "移行",
@@ -235,7 +235,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/migration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-collect-icons/docs/ja/migration.md"
     },
     {
       "title": "CLI API",
@@ -259,7 +259,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-collect-icons/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-collect-icons/docs/ja/api.md"
     }
   ]
 } as const;

@@ -64,7 +64,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/configuration.md"
     },
     {
       "title": "Vanilla JS クイックスタート",
@@ -77,7 +77,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/vanilla-js.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/vanilla-js.md"
     },
     {
       "title": "Angular クイックスタート",
@@ -96,7 +96,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/angular.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/angular.md"
     },
     {
       "title": "React クイックスタート",
@@ -115,7 +115,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/react.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/react.md"
     },
     {
       "title": "イベントリスナー",
@@ -299,7 +299,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/learn/event-listeners.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/learn/event-listeners.md"
     },
     {
       "title": "サーバー連携",
@@ -333,7 +333,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/server-integration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/server-integration.md"
     },
     {
       "title": "プロジェクトで初期化する",
@@ -397,7 +397,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/initialize.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/initialize.md"
     },
     {
       "title": "PaymentSheet",
@@ -528,7 +528,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/payment-sheet.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/payment-sheet.md"
     },
     {
       "title": "PaymentFlow",
@@ -683,7 +683,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/payment-flow.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/payment-flow.md"
     },
     {
       "title": "Apple Pay",
@@ -877,7 +877,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/apple-pay.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/apple-pay.md"
     },
     {
       "title": "Google Pay",
@@ -1198,7 +1198,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/google-pay.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/google-pay.md"
     },
     {
       "title": "API",
@@ -1552,7 +1552,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe/docs/ja/api.md"
     }
   ]
 } as const;

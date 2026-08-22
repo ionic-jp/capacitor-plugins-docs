@@ -56,7 +56,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-identity/docs/ja/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe-identity/docs/ja/configuration.md"
     },
     {
       "title": "本人確認シート",
@@ -268,7 +268,7 @@ export const PROJECT = {
           }
         }
       ],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-identity/docs/ja/identity-verification-sheet.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe-identity/docs/ja/identity-verification-sheet.md"
     },
     {
       "title": "API",
@@ -367,7 +367,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/stripe-identity/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/stripe-identity/docs/ja/api.md"
     }
   ]
 } as const;
