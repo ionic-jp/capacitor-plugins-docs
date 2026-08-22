@@ -4,13 +4,11 @@ code: []
 scrollActiveLine: []
 ---
 
-任意のジェスチャーとアニメーション補助です。この機能なしでもテーマは使えます。
+以下のgestureとanimation helperは実験的な任意機能です。これらを使わなくてもテーマは動作します。
 
-**この機能は実験的です。この機能なしでもライブラリは利用できます。**
+## `ion-tab-button` / `ion-segment-button` の Sheet of Glass
 
-### `ion-tab-button` / `ion-segment-button` の Sheet of Glass
-
-`ion-tab-bar` / `ion-segment` を登録すると、`ion-tab-button` / `ion-segment-button` にアニメーション効果を表示できます。
+`ion-tab-bar` または `ion-segment` elementを登録すると、そのbuttonに移動するselection effectを追加できます。
 
 [![ion-tab-button と ion-segment-button の Sheet of Glass アニメーション](https://i.gyazo.com/fafd726b520827f042c76b6c73abd81c.gif)](https://gyazo.com/fafd726b520827f042c76b6c73abd81c)
 
@@ -36,9 +34,9 @@ const destroy = () => {
 };
 ```
 
-### TabBarSearchable: `ion-tab-bar` と `ion-fab-button` の Searchable
+## TabBarSearchable: `ion-tab-bar` と `ion-fab-button` の Searchable
 
-`ion-tabs` 内の指定マークアップ構成で Searchable を有効にします。
+`ion-tabs` 内で次の構造を使うと、search buttonからsearch toolbarへのanimationを適用できます。
 
 [![ion-fab-button からタブバーへ展開する TabBarSearchable アニメーション](https://i.gyazo.com/06bc63f4a474f9f19f5b1d865f5c2a85.gif)](https://gyazo.com/06bc63f4a474f9f19f5b1d865f5c2a85)
 

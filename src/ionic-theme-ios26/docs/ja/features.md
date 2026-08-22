@@ -1,31 +1,19 @@
 ---
-title: '機能'
-code: []
-scrollActiveLine: []
+title: 機能
 ---
 
-CSS 変数、オプトアウトクラス、Liquid Glass mixin です。リストのマークアップは [ion-item-groupの使用方法](/docs/using-ion-item-group) を見てください。
+# 機能
 
-### CSS変数
+CSS変数とSass mixinでテーマをカスタマイズしたり、コンポーネント単位で段階的に導入したりできます。マークアップ固有のopt-inは [特別なマークアップとクラス](/docs/special-markup) を参照してください。
 
-ライブラリのデフォルトスタイルをデザインに合わせてカスタマイズできるよう、いくつかのCSS変数が用意されています。詳細はこのファイルを参照してください:
-https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v2.3.2/src/styles/default-variables.scss
+## CSS変数
 
-### `.ios26-disabled` クラス
+ライブラリのデフォルトスタイルをデザインに合わせてカスタマイズできるよう、複数のCSS変数を提供しています。詳細は次のファイルを参照してください。
+https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v3.0.0-1/src/styles/default-variables.scss
 
-特定のコンポーネントでiOS26テーマを無効にするには、`.ios26-disabled` クラスを追加します。
+## Liquid Glass mixin
 
-```html
-<!-- iOS26 theme applied -->
-<ion-button>iOS26 Design</ion-button>
-
-<!-- Standard Ionic iOS styling -->
-<ion-button class="ios26-disabled">Standard Ionic Design</ion-button>
-```
-
-### Liquid Glass Mixin
-
-liquid glass mixinを使うには、メインパッケージからSCSSファイルをインポートします。
+Liquid Glass mixinを使うには、メインパッケージからSCSSファイルをimportします。
 
 ```scss
 @use '@rdlabo/ionic-theme-ios26/src/styles/utils/api.scss';
@@ -35,8 +23,66 @@ ion-textarea label.textarea-wrapper {
 }
 ```
 
-### 追加デザイン
+## コンポーネント単位のimport
 
-iOS26デザインへの忠実度をさらに高めるため、このライブラリが提供する追加デザインを実装できます。詳細は次を参照してください:
+段階的に導入する場合は、テーマ全体ではなく個別のコンポーネントをimportできます。
 
-https://ionic-theme-ios26.netlify.app/main/docs
+```css
+@import '@rdlabo/ionic-theme-ios26/dist/css/utils/translucent';
+@import '@rdlabo/ionic-theme-ios26/dist/css/components/ion-action-sheet';
+@import '@rdlabo/ionic-theme-ios26/dist/css/components/ion-alert';
+@import '@rdlabo/ionic-theme-ios26/dist/css/components/ion-button';
+/* Import the remaining components your application uses. */
+```
+
+### コンポーネント単位でのDark Mode
+
+Dark Mode対応のコンポーネントを個別にimportする場合は、Always、System、Class modeでselectorが異なるためSCSSを使います。
+
+Always:
+
+```scss
+@use '@rdlabo/ionic-theme-ios26/src/styles/utils/theme-dark';
+
+:root {
+  @include theme-dark.default-variables;
+}
+@include theme-dark.ion-button;
+@include theme-dark.ion-fab;
+@include theme-dark.ion-tabs;
+@include theme-dark.ion-segment;
+```
+
+System:
+
+```scss
+@use '@rdlabo/ionic-theme-ios26/src/styles/utils/theme-dark';
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include theme-dark.default-variables;
+  }
+  @include theme-dark.ion-button;
+  @include theme-dark.ion-fab;
+  @include theme-dark.ion-tabs;
+  @include theme-dark.ion-segment;
+}
+```
+
+Class:
+
+```scss
+@use '@rdlabo/ionic-theme-ios26/src/styles/utils/theme-dark';
+
+.ion-palette-dark {
+  @include theme-dark.default-variables;
+  @include theme-dark.ion-button;
+  @include theme-dark.ion-fab;
+  @include theme-dark.ion-tabs;
+  @include theme-dark.ion-segment;
+}
+```
+
+## インタラクティブな例
+
+[デモでrender済みの例を見る](https://ionic-theme-ios26.rdlabo.dev/main/docs)。

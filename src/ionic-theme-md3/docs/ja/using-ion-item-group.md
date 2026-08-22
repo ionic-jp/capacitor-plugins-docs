@@ -2,35 +2,32 @@
 title: ion-item-groupの使用方法
 ---
 
-# MD3テーマでの `ion-item-group` の使用方法
+# inset listでの `ion-item-group` の使用方法
 
-MD3テーマは `@rdlabo/ionic-theme-ios26` と同じinset listのmarkupに対応しているため、Ionic modeをまたいで1つのtemplateを共有できます。この共有patternをopt-inするときに `ion-item-group` を追加します。
+MD3テーマは `@rdlabo/ionic-theme-ios26` と同じinset list構造を使うため、Ionic modeをまたいで1つのtemplateを利用できます。`ion-list` で `inset="true"` を使う場合は、itemを `ion-item-group` で囲み、`ion-list-header` はgroupの外に置きます。
 
-## 必要になる条件
+以下はframeworkに依存しないWeb Component形式のマークアップです。ReactまたはVueでは、各frameworkに対応するcomponentとpropertyの構文に置き換えてください。
 
-次の両方に該当するときだけ必要です。
-
-- `ion-list` の `inset` propertyを有効にしている
-- iOS 26 packageの任意stylesheet `md-ion-list-inset.css` をimportしている
-
-この場合はlist itemを `ion-item-group` で囲み、list headerはgroupの外に置きます。
-
-## 実装例
-
-```diff
-  <ion-list inset=true>
-    <ion-list-header><ion-label>Label</ion-label></ion-list-header>
-+   <ion-item-group>
-      <ion-item>...</ion-item>
-      <ion-item>...</ion-item>
-+   </ion-item-group>
-  </ion-list>
+```html
+<ion-list inset="true">
+  <ion-list-header><ion-label>Connections</ion-label></ion-list-header>
+  <ion-item-group>
+    <ion-item>...</ion-item>
+    <ion-item>...</ion-item>
+  </ion-item-group>
+</ion-list>
 ```
 
-## Import
+`inset="true"` を使わないlistでは、このwrapperは不要です。
 
-```css
-@import '@rdlabo/ionic-theme-ios26/dist/css/md-ion-list-inset.css';
-```
+## wrapperが必要な理由
 
-このstylesheetは `ion-list` の背景を透明にし、背景を `ion-item-group` に持たせます。これにより `ion-list-header` を独立した要素として扱いながら、iOS 26とMD3でmarkupを共有できます。
+共有構造では、`ion-list-header` をitemのsurfaceから分離します。これにより、platform固有のtemplateを用意せずに、iOS 26のlayoutとMD3のstyleを同じマークアップへ適用できます。
+
+そのため、このテーマは次のようにstyleを適用します。
+
+- inset `ion-list` の背景を透明にする
+- itemのsurfaceを `ion-item-group` に適用する
+- `ion-list-header` をsurfaceの外に置く
+
+2行itemとsection header groupについては [特別なマークアップ](/docs/special-markup) を参照してください。
