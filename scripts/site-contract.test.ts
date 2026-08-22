@@ -929,15 +929,18 @@ test('deploys verified main revisions to Cloudflare', async () => {
 
   assert.match(workflow, /^name: Deploy to Cloudflare$/m);
   assert.match(workflow, /^ {2}workflow_run:$/m);
+  assert.match(workflow, /^ {2}schedule:$/m);
+  assert.match(workflow, /^ {4}- cron: '17 3 \* \* \*'$/m);
   assert.match(workflow, /^ {4}workflows: \[CI\]$/m);
   assert.match(workflow, /^ {4}branches: \[main\]$/m);
   assert.match(workflow, /github\.event\.workflow_run\.conclusion == 'success'/);
   assert.match(workflow, /github\.event\.workflow_run\.event == 'push'/);
   assert.match(workflow, /github\.event\.workflow_run\.head_sha == github\.sha/);
   assert.match(workflow, /github\.ref == 'refs\/heads\/main'/);
+  assert.match(workflow, /github\.event_name == 'schedule'/);
   assert.match(workflow, /ref: \$\{\{ github\.event\.workflow_run\.head_sha \|\| github\.sha \}\}/);
   assert.match(workflow, /^ {8}run: npm ci$/m);
-  assert.match(workflow, /^ {8}run: npm run build$/m);
+  assert.match(workflow, /^ {8}run: npm run sponsors:generate && npm run build$/m);
   assert.match(workflow, /^ {8}run: npx wrangler deploy$/m);
   const actionReferences = [...workflow.matchAll(/^\s+uses:\s+([^\s#]+)/gm)].map(
     (match) => match[1],
@@ -950,6 +953,7 @@ test('deploys verified main revisions to Cloudflare', async () => {
     assert.match(reference, /^[\w.-]+\/[\w.-]+@[a-f0-9]{40}$/);
   }
   assert.match(workflow, /^ {10}CLOUDFLARE_API_TOKEN: \$\{\{ secrets\.CLOUDFLARE_API_TOKEN \}\}$/m);
+  assert.match(workflow, /^ {10}GITHUB_TOKEN: \$\{\{ github\.token \}\}$/m);
   assert.doesNotMatch(workflow, /netlify/i);
 });
 

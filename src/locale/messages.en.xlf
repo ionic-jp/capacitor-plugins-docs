@@ -282,6 +282,38 @@
         <source>The projects documented here are maintained personally by rdlabo. Sponsorship supports the collection as a whole, rather than one individual library.</source>
       </segment>
     </unit>
+    <unit id="currentSponsorsHeading">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:30,32</note>
+      </notes>
+      <segment>
+        <source>Current sponsors</source>
+      </segment>
+    </unit>
+    <unit id="currentSponsorsDescription">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts:34,36</note>
+      </notes>
+      <segment>
+        <source>Thank you to the people and organizations supporting rdlabo&apos;s open source work.</source>
+      </segment>
+    </unit>
+    <unit id="pastSponsorsHeading">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts</note>
+      </notes>
+      <segment>
+        <source>Past sponsors</source>
+      </segment>
+    </unit>
+    <unit id="pastSponsorsDescription">
+      <notes>
+        <note category="location">src/app/docs/support-page.ts</note>
+      </notes>
+      <segment>
+        <source>Thank you also to everyone who has supported this work in the past.</source>
+      </segment>
+    </unit>
     <unit id="supportSponsorHeading">
       <notes>
         <note category="location">src/app/docs/support-page.ts:28,30</note>

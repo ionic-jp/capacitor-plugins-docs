@@ -4,7 +4,6 @@ import { routes } from './app.routes';
 import { projectCatalog } from './docs/docs-data';
 import { NotFoundComponent } from './docs/not-found';
 import { PluginIndexComponent } from './docs/plugin-index';
-import { SupportPageComponent } from './docs/support-page';
 
 describe('routes', () => {
   it('exposes one canonical project index and redirects its alias', () => {
@@ -12,8 +11,11 @@ describe('routes', () => {
     expect(routes.find((route) => route.path === 'projects')?.redirectTo).toBe('');
   });
 
-  it('exposes the shared support page outside individual project documentation', () => {
-    expect(routes.find((route) => route.path === 'support')?.component).toBe(SupportPageComponent);
+  it('lazy-loads the shared support page outside individual project documentation', () => {
+    const supportRoute = routes.find((route) => route.path === 'support');
+    expect(supportRoute).toBeDefined();
+    expect(supportRoute!.component).toBeUndefined();
+    expect(supportRoute!.loadComponent).toBeTypeOf('function');
   });
 
   it('uses canonical project routes and redirects every former AdMob route', () => {
