@@ -22,12 +22,7 @@ module.exports = tseslint.config(
     languageOptions: {
       parserOptions: { projectService: true, tsconfigRootDir: __dirname },
     },
-    extends: [
-      eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
-      ...angular.configs.tsRecommended,
-    ],
+    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...tseslint.configs.stylistic, ...angular.configs.tsRecommended],
     processor: angular.processInlineTemplates,
   },
   {
@@ -68,6 +63,6 @@ export default tseslint.config({
 
 ## 推奨プリセット
 
-TypeScriptではSignal、Component境界、ライフサイクル、Overlay、readonly、tryブロックの共通ルールを有効にします。HTMLではIonic属性型、禁止Overlay要素、非同期操作の二重実行防止を有効にします。
+TypeScriptではSignal、Component境界、ライフサイクル、Overlay、Ionic 9 standalone import、readonly、tryブロックの共通ルールを有効にします。HTMLではIonic属性型、禁止Overlay要素、非同期操作の二重実行防止、iOS 26・MD3向けのgroup化されたlist構造を有効にします。
 
 非推奨の `deny-constructor-di` はプリセットに含まれません。Angularの `inject()` migrationを利用してください。

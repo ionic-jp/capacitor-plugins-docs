@@ -24,19 +24,14 @@ title: no-component-method-except-lifecycle
 
 ```ts
 @Component({ selector: 'app-example', template: '' })
-export class ExamplePage implements ViewWillEnter, ViewWillLeave, OnDestroy {
-  readonly vm = new ViewModel(this);
-  readonly open = () => launchOtherPage(this.helper, {});
-
-  constructor() {}
-
-  ionViewWillEnter() {
-    this.vm.reload$.next();
+export class ExamplePage {
+  open() {
+    launchOtherPage(this.helper, {});
   }
 
-  ionViewWillLeave() {}
-
-  ngOnDestroy() {}
+  reload() {
+    this.vm.reload$.next();
+  }
 }
 ```
 
@@ -45,8 +40,7 @@ export class ExamplePage implements ViewWillEnter, ViewWillLeave, OnDestroy {
 ```ts
 @Component({ selector: 'app-example', template: '' })
 export class ExamplePage {
-  ionViewWillEnter() {} // error — needs implements ViewWillEnter
-  ngOnDestroy() {} // error — needs implements OnDestroy
+  ionViewWillEnter() {} // missing implements ViewWillEnter
 }
 ```
 
@@ -54,9 +48,16 @@ export class ExamplePage {
 
 ```ts
 @Component({ selector: 'app-example', template: '' })
-export class ExamplePage implements ViewWillEnter {
-  ionViewWillEnter() {}
-  ionViewWillLeave() {} // error — needs implements ViewWillLeave
+export class ExamplePage implements ViewWillEnter, ViewWillLeave, OnDestroy {
+  readonly vm = new ViewModel(this);
+  readonly open = () => launchOtherPage(this.helper, {});
+
+  ionViewWillEnter() {
+    this.vm.reload$.next();
+  }
+
+  ionViewWillLeave() {}
+  ngOnDestroy() {}
 }
 ```
 
@@ -67,10 +68,11 @@ export class ExamplePage implements ViewWillEnter {
 export class ExamplePage implements ViewWillEnter {
   ionViewWillEnter() {}
 
-  open() {
-    // error
-    launchOtherPage(this.helper, {});
+  trackById(_index: number, item: { id: number }) {
+    return item.id;
   }
+
+  customHook() {}
 }
 ```
 
@@ -103,21 +105,33 @@ export class ExamplePage implements ViewWillEnter {
 
 ## オプション
 
-```ts
+```json
 {
-  // Extra method names to allow (e.g. trackBy helpers during migration).
-  additionalAllowedMethods?: string[];
+  "rules": {
+    "@rdlabo/rules/no-component-method-except-lifecycle": [
+      "error",
+      {
+        "additionalAllowedMethods": ["trackById", "customHook"]
+      }
+    ]
+  }
 }
 ```
 
-```js
-'@rdlabo/rules/no-component-method-except-lifecycle': [
-  'warn',
-  { additionalAllowedMethods: ['trackById'] },
-],
+```json
+{
+  "rules": {
+    "@rdlabo/rules/no-component-method-except-lifecycle": [
+      "error",
+      {
+        "additionalAllowedMethods": []
+      }
+    ]
+  }
+}
 ```
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/no-component-method-except-lifecycle.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/no-component-method-except-lifecycle.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/no-component-method-except-lifecycle.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/no-component-method-except-lifecycle.ts)

@@ -2,8 +2,6 @@
 title: ion-item-groupの使用方法
 ---
 
-# inset listでの `ion-item-group` の使用方法
-
 ほとんどのIonicマークアップは変更せずに使えます。`ion-list` で `inset="true"` を使う場合は、itemを `ion-item-group` で囲み、`ion-list-header` はgroupの外に置きます。
 
 以下はframeworkに依存しないWeb Component形式のマークアップです。ReactまたはVueでは、各frameworkに対応するcomponentとpropertyの構文に置き換えてください。
@@ -24,7 +22,7 @@ title: ion-item-groupの使用方法
 
 Ionicは通常、`ion-list` 自体に背景を設定するため、`ion-list-header` もitemと同じsurface内に表示されます。iOS 26のlayoutではheaderとitemのsurfaceを分離します。
 
-![ion-item-groupが必要な理由を示すinset listの背景比較](https://raw.githubusercontent.com/rdlabo-dev/ionic-theme-ios26/v3.0.0-1/screenshots/why-ion-list-inset.png)
+![ion-item-groupが必要な理由を示すinset listの背景比較](https://raw.githubusercontent.com/rdlabo-dev/ionic-theme-ios26/v3.0.0/screenshots/why-ion-list-inset.png)
 
 そのため、このテーマは次のようにstyleを適用します。
 

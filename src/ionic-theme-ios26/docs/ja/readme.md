@@ -6,9 +6,9 @@ scrollActiveLine: []
 
 IonicアプリケーションにiOS26デザインシステムを適用するCSS/JSテーマライブラリです。
 
-![iOS 26テーマを適用したIonic画面。Liquid Glassのタブバー、リスト、コントロール](https://raw.githubusercontent.com/rdlabo-dev/ionic-theme-ios26/v2.3.2/screenshots/ios26.png)
+![iOS 26テーマを適用したIonic画面。Liquid Glassのタブバー、リスト、コントロール](https://raw.githubusercontent.com/rdlabo-dev/ionic-theme-ios26/v3.0.0/screenshots/ios26.png)
 
-DEMOはこちら: https://ionic-theme-ios26.netlify.app/
+DEMOはこちら: https://ionic-theme-ios26.rdlabo.dev/
 
 ## 概要
 
@@ -49,7 +49,7 @@ Note: **@ionic/core@ < 8.8.1 を使う場合は**、@rdlabo/ionic-theme-ios26@2.
 
 /**
  * If you will use the design of ion-item-group with ion-list on Android as well, import it.
- * More info: ./docs/using-ion-item-group.md
+ * More info: https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v3.0.0/docs/using-ion-item-group.md
  * Note: This stylesheet is included in `@rdlabo/ionic-theme-md3`.
  * @import '@rdlabo/ionic-theme-ios26/dist/css/md-ion-list-inset.css';
  */
@@ -89,7 +89,7 @@ npm install @rdlabo/ionic-theme-md3
 両テーマをインストールした場合は、両方のtransition実装を設定します。
 
 ```ts
-import { isPlatform } from '@ionic/core'; // or @ionic/angular/standalone, @ionic/react, @ionic/vue
+import { isPlatform } from '@ionic/core'; // or @ionic/angular (Ionic 9), @ionic/angular/standalone (Ionic 8), @ionic/react, @ionic/vue
 import { iosTransitionAnimation, popoverEnterAnimation, popoverLeaveAnimation } from '@rdlabo/ionic-theme-ios26';
 import { mdTransitionAnimation } from '@rdlabo/ionic-theme-md3';
 
@@ -122,7 +122,7 @@ createApp(App)
 iOS 26テーマだけをインストールした場合は、次のようにアニメーションを設定します。
 
 ```ts
-import { isPlatform } from '@ionic/core'; // or @ionic/angular/standalone, @ionic/react, @ionic/vue
+import { isPlatform } from '@ionic/core'; // or @ionic/angular (Ionic 9), @ionic/angular/standalone (Ionic 8), @ionic/react, @ionic/vue
 import { iosTransitionAnimation, popoverEnterAnimation, popoverLeaveAnimation } from '@rdlabo/ionic-theme-ios26';
 
 // Angular
@@ -157,7 +157,8 @@ createApp(App)
 上の [インストール](#インストール) から始め、inset リストでは [ion-item-groupの使用方法](/docs/using-ion-item-group) を見てください。
 
 - [ion-item-groupの使用方法](/docs/using-ion-item-group) — inset リストに必要なマークアップ。
-- [機能](/docs/features) — CSS 変数、`.ios26-disabled`、Liquid Glass。
+- [特別なマークアップとクラス](/docs/special-markup) — テーマで使う任意のマークアップとutility class。
+- [機能](/docs/features) — CSS変数、Liquid Glass、選択的import、ダークモード。
 - [実験的なアニメーション](/docs/experimental-animation) — タブバーと Searchable。
 - [iOS 18](/docs/ios-18) — iOS 26 だけでテーマを読む。
-- [移行](/docs/migration) — コンポーネント単位の import とダークモード。
+- [移行](/docs/migration) — major version更新時に必要な変更。

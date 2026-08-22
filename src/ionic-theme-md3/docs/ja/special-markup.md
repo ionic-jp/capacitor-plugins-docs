@@ -2,8 +2,6 @@
 title: 特別なマークアップ
 ---
 
-# 特別なマークアップ
-
 ほとんどのIonicマークアップは変更せずに使えます。以下は明示的なopt-inで、同じtemplateを `@rdlabo/ionic-theme-ios26` でも使う場合に役立ちます。
 
 ## 2行のinset list item

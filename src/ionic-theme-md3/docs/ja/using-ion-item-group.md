@@ -2,8 +2,6 @@
 title: ion-item-groupの使用方法
 ---
 
-# inset listでの `ion-item-group` の使用方法
-
 MD3テーマは `@rdlabo/ionic-theme-ios26` と同じinset list構造を使うため、Ionic modeをまたいで1つのtemplateを利用できます。`ion-list` で `inset="true"` を使う場合は、itemを `ion-item-group` で囲み、`ion-list-header` はgroupの外に置きます。
 
 以下はframeworkに依存しないWeb Component形式のマークアップです。ReactまたはVueでは、各frameworkに対応するcomponentとpropertyの構文に置き換えてください。

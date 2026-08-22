@@ -8,7 +8,7 @@ export interface RepositoryCoordinates {
 }
 
 export const DOCS_PORTAL_REPOSITORY_URL = 'https://github.com/rdlabo-dev/docs';
-export const DOCS_PORTAL_REF = 'main';
+export const DOCS_PORTAL_REF = process.env['RDLABO_DOCS_REF'] ?? 'main';
 
 const portalDocsRoot = join(process.cwd(), 'src');
 const pinnedVersionCache = new Map<string, string | undefined>();
@@ -23,6 +23,37 @@ async function pinnedVersionFor(packageName: string): Promise<string | undefined
     packageJson.dependencies?.[packageName] ?? packageJson.devDependencies?.[packageName];
   pinnedVersionCache.set(packageName, version);
   return version;
+}
+
+export async function pinPackageSourceLinks(
+  project: { repositoryUrl: string; packageName: string },
+  content: string,
+): Promise<string> {
+  const version = await pinnedVersionFor(project.packageName);
+  if (!version) return content;
+
+  const { owner, repo } = parseRepositoryUrl(project.repositoryUrl);
+  const escapedOwner = owner.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escapedRepo = repo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return content
+    .replace(
+      /\(\.\.\/\.\.\/(src|tests)\//g,
+      `(https://github.com/${owner}/${repo}/blob/v${version}/$1/`,
+    )
+    .replace(
+      new RegExp(
+        `(https://github\\.com/${escapedOwner}/${escapedRepo}/(?:blob|tree)/)[A-Za-z0-9._-]+/`,
+        'g',
+      ),
+      `$1v${version}/`,
+    )
+    .replace(
+      new RegExp(
+        `(https://raw\\.githubusercontent\\.com/${escapedOwner}/${escapedRepo}/)[A-Za-z0-9._-]+/`,
+        'g',
+      ),
+      `$1v${version}/`,
+    );
 }
 
 async function portalEnglishTrackedLocally(
@@ -171,7 +202,10 @@ export async function fetchEnglishProjectMarkdown(
     cache,
   );
   if (fromPackage) {
-    return fromPackage;
+    return {
+      ...fromPackage,
+      content: await pinPackageSourceLinks(project, fromPackage.content),
+    };
   }
 
   if (shouldFallbackToRepositoryReadme) {
@@ -189,17 +223,20 @@ export async function fetchEnglishProjectMarkdown(
           ? rewritePackageDocLinks(fromReadme.content, new Map())
           : fromReadme.content;
 
-      // ionic-theme-ios26 README expects a pinned blob URL inside a CSS code fence comment.
+      // Keep the README guide link pinned to the installed documentation release.
       if (file === 'readme.md' && project.packageName === '@rdlabo/ionic-theme-ios26') {
         const version = await pinnedVersionFor(project.packageName);
         if (version) {
           rewrittenContent = rewrittenContent.replace(
             /More info:\s+\.\.?\/docs\/using-ion-item-group\.md/g,
-            `More info: https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v${version}/USING_ION_ITEM_GROUP.md`,
+            `More info: https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v${version}/docs/using-ion-item-group.md`,
           );
         }
       }
-      return { ...fromReadme, content: rewrittenContent };
+      return {
+        ...fromReadme,
+        content: await pinPackageSourceLinks(project, rewrittenContent),
+      };
     }
   }
 

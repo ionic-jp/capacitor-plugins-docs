@@ -6,9 +6,9 @@ scrollActiveLine: []
 
 IonicアプリケーションにMaterial Design 3デザインシステムを適用するCSS/JSテーマライブラリです。
 
-![Material Design 3テーマを適用したIonic画面。更新されたコンポーネントとナビゲーション](https://raw.githubusercontent.com/rdlabo-dev/ionic-theme-md3/v1.1.0/screenshots/md3.png)
+![Material Design 3テーマを適用したIonic画面。更新されたコンポーネントとナビゲーション](https://raw.githubusercontent.com/rdlabo-dev/ionic-theme-md3/v2.0.0/screenshots/md3.png)
 
-DEMOはこちら: https://ionic-theme-md3.netlify.app/
+DEMOはこちら: https://ionic-theme-md3.rdlabo.dev/
 
 ## 概要
 
@@ -76,7 +76,7 @@ npm install @rdlabo/ionic-theme-ios26
 両テーマをインストールした場合は、両方のtransition実装を設定します。
 
 ```ts
-import { isPlatform } from '@ionic/core'; // or @ionic/angular/standalone, @ionic/react, @ionic/vue
+import { isPlatform } from '@ionic/core'; // or @ionic/angular (Ionic 9), @ionic/angular/standalone (Ionic 8), @ionic/react, @ionic/vue
 import { iosTransitionAnimation, popoverEnterAnimation, popoverLeaveAnimation } from '@rdlabo/ionic-theme-ios26';
 import { mdTransitionAnimation } from '@rdlabo/ionic-theme-md3';
 
@@ -109,7 +109,7 @@ createApp(App)
 MD3テーマだけをインストールした場合は、次のようにアニメーションを設定します。
 
 ```ts
-import { isPlatform } from '@ionic/core'; // or @ionic/angular/standalone, @ionic/react, @ionic/vue
+import { isPlatform } from '@ionic/core'; // or @ionic/angular (Ionic 9), @ionic/angular/standalone (Ionic 8), @ionic/react, @ionic/vue
 import { mdTransitionAnimation } from '@rdlabo/ionic-theme-md3';
 
 // Angular
@@ -136,3 +136,7 @@ createApp(App)
 ## ドキュメント
 
 上の [インストール](#インストール) から始めてください。同じマークアップで両プラットフォームが必要なときは [@rdlabo/ionic-theme-ios26](/ionic-theme-ios26/) と組み合わせます。
+
+- [特別なマークアップ](/docs/special-markup) — demoで使う任意のコンポーネント構造。
+- [ion-item-groupの使用方法](/docs/using-ion-item-group) — iOS 26とMD3で共有するinset listのマークアップ。
+- [移行](/docs/migration) — テーマのマークアップ更新時に必要な変更。

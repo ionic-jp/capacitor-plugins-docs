@@ -8,117 +8,93 @@ title: signal-use-as-signal-template
 >
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 
-このルールは、テンプレートでSignalを関数呼び出し構文 `()` で正しくアクセスすることを要求します。AngularのSignalは現在値を得るために呼び出す必要がある関数だからです。
+Angular Signalは関数です。テンプレートで現在値を読み取るには、Signalを `()` 付きで呼び出す必要があります。RxJSの `BehaviorSubject` や `model()` inputから移行するとき、括弧の付け忘れはよくあるミスです。このルールはAngularテンプレート内のSignal識別子を検出し、`{{ count }}` や `[hidden]="count"` のような裸の読み取りを報告します。
 
 ## ルール詳細
 
-❌ 誤り: 関数呼び出し構文なしでSignalを使う
+各 `@Component` のAngularテンプレートを解析し、次からSignal識別子を収集します。
 
-```ts
-@Component({
-  template: `
-    <div>{{ count }}</div>
-    <div>{{ count.signal }}</div>
-    <div>{{ count + 1 }}</div>
-    @if (count) {
-      <div>{{ count }}</div>
-    }
-    @switch (count) {
-      @case (0) {
-        <div>Zero</div>
-      }
-    }
-    @defer (on viewport) {
-      <div>{{ count }}</div>
-    }
-  `,
-})
-export class TestComponent {
-  count = signal(0);
+- callee名が `signal`、`model`、`computed`、`linkedSignal`、`input`、`toSignal` のいずれかである呼び出しによって初期化されたclass property。
+- object literal内にネストしたSignal property（例: `count = { first: signal(0) }`）。
+
+検出は名前に基づき、import元は解決しません。alias付きfactory importは認識されず、逆に同名の無関係なローカル関数がSignal factoryとして扱われる場合があります。`toSignal` は通常 `@angular/core/rxjs-interop` からimportされますが、このルールはmoduleではなく名前で認識します。
+
+続いて、テンプレート内でSignalが `()` なしで読み取られる箇所を報告します。対象には次が含まれます。
+
+- interpolation `{{ count }}`
+- property binding `[hidden]="count"`
+- event binding `(click)="count > 0 ? ..."`
+- control flow expression `@if (count)`、`@switch (count)`、`@for (...; track count)`
+- optional chaining `count?.signal`
+- pipe使用 `count | async`
+
+`template` と `templateUrl` の両方のcomponentに対応します。
+
+## 例
+
+### 誤り
+
+```html
+<div>{{ count }}</div>
+```
+
+```html
+<child [hidden]="count > 0"></child>
+```
+
+```html
+@if (count) {
+<div>Positive</div>
 }
 ```
 
-✅ 正しい: 関数呼び出し構文でSignalを使う
+```html
+<ion-input [formField]="count.first"></ion-input>
+```
 
-```ts
-@Component({
-  template: `
-    <div>{{ count() }}</div>
-    <div>{{ count() + 1 }}</div>
-    <div>{{ count() > 0 ? 'Positive' : 'Zero' }}</div>
-    @if (count()) {
-      <div>{{ count() | async }}</div>
-    }
-    @switch (count()) {
-      @case (0) {
-        <div>Zero</div>
-      }
-      @case (1) {
-        <div>One</div>
-      }
-      @default {
-        <div>Other</div>
-      }
-    }
-    @defer (on viewport) {
-      <div>{{ count() }}</div>
-    }
-  `,
-})
-export class TestComponent {
-  count = signal(0);
+### 正しい
+
+```html
+<div>{{ count() }}</div>
+```
+
+```html
+<child [hidden]="count() > 0"></child>
+```
+
+```html
+@if (count()) {
+<div>Positive</div>
 }
 ```
 
-✅ 正しい: Signal参照をinput bindingとして渡す
-
-BoundAttributeでSignal名だけを渡す場合は、Signal参照のprops渡しとして許可されます。
-
-```ts
-@Component({
-  template: `<child [inventorySignal]="inventorySignal"></child>`,
-})
-export class TestComponent {
-  inventorySignal = signal(0);
-}
+```html
+<ion-input [formField]="count.first()"></ion-input>
 ```
 
-値として演算する場合は `()` が必要です。
+### Signal参照を子componentへ渡す
 
-```ts
-// ❌
-<child [disabled]="count > 0"></child>
-// ✅
-<child [disabled]="count() > 0"></child>
+子componentが値ではなくSignal objectを期待する場合は、`()` なしで参照を渡せます。
+
+```html
+<child [inventorySignal]="inventorySignal"></child>
 ```
+
+この場合を認識し、bound attributeとして渡された裸のSignalは報告しません。
 
 ## オプション
 
-オプションなし。
+このルールにオプションはありません。
 
-## 未対応パターン
+## 有効にする場合
 
-このルールはネストしたSignalパターンに対応していません。例えば次のとおりです。
+Signalを使用するすべてのAngularプロジェクトで有効にしてください。`Observable` ベースのコードから移行するときや、テンプレート内で呼び出す必要のあるSignal風objectを返す `model()` と `input()` を導入するときに特に有効です。
 
-```ts
-@Component({
-  template: `
-    <div>{{ nestedSignal().child() }}</div>
-    // Correct usage
-    <div>{{ nestedSignal().child }}</div>
-    // Incorrect: missing function call
-  `,
-})
-export class TestComponent {
-  nestedSignal = signal({
-    child: signal<number>(0),
-  });
-}
-```
+## 関連項目
 
-ネストしたSignalが関数呼び出しで正しくアクセスされていない場合を、このルールは検出できません。
+- [`@rdlabo/rules/signal-use-as-signal`](./signal-use-as-signal.md)
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/signal-use-as-signal-template.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/signal-use-as-signal-template.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/signal-use-as-signal-template.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/signal-use-as-signal-template.ts)

@@ -144,7 +144,7 @@ describe('PluginIndexComponent', () => {
       '<code>method</code> login(...)',
     );
     const eslint = await loadProject('eslint-plugin-rules', 'ja');
-    expect(eslint?.version).toBe('21.3.0');
+    expect(eslint?.version).toBe('22.0.0');
     expect(eslint?.pages.find((page) => page.slug === 'rules')?.html).toContain(
       'signal-use-as-signal-template',
     );
@@ -154,7 +154,7 @@ describe('PluginIndexComponent', () => {
     );
     expect(restrictTryBlock?.html).toMatch(/オプション|Options/);
     expect(restrictTryBlock?.html).toContain('allowPromise');
-    expect(restrictTryBlock?.html).toContain('incorrect');
+    expect(restrictTryBlock?.html).toMatch(/誤り|Incorrect/i);
     const hono = await loadProject('workers-hono-kit', 'ja');
     expect(hono?.version).toBe('0.10.6');
     expect(hono?.pages.find((page) => page.slug === 'data-layer')?.html).toContain(
@@ -175,7 +175,7 @@ describe('PluginIndexComponent', () => {
     expect(codeScannerApi?.html).toContain('<code>method</code> present(...)');
     expect(codeScannerApi?.html).toMatch(/<code>interface<\/code>[\s\S]*?ScannerOption/);
     const iosTheme = await loadProject('ionic-theme-ios26', 'ja');
-    expect(iosTheme?.version).toBe('2.3.2');
+    expect(iosTheme?.version).toBe('3.0.0');
     expect(iosTheme?.pages.find((page) => page.slug === 'readme')?.html).toContain(
       'iosTransitionAnimation',
     );
@@ -183,7 +183,7 @@ describe('PluginIndexComponent', () => {
       'md-ion-list-inset.css',
     );
     const md3Theme = await loadProject('ionic-theme-md3', 'ja');
-    expect(md3Theme?.version).toBe('1.1.0');
+    expect(md3Theme?.version).toBe('2.0.0');
     expect(md3Theme?.pages.find((page) => page.slug === 'readme')?.html).toContain(
       'mdTransitionAnimation',
     );

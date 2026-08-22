@@ -8,20 +8,16 @@ title: deny-element
 >
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 
-このルールは、インラインコンポーネントではなくControllerベースのmodalやaction sheetの利用を強制したいIonicアプリで特に有用です。
+このルールは、Angular templateで特定のelementが使われることを防ぎます。一般的には、templateで宣言する代わりにlauncher methodや専用serviceを通じて表示すべき `<ion-modal>`、`<ion-popover>`、`<ion-toast>`、`<ion-alert>`、`<ion-loading>`、`<ion-picker>`、`<ion-action-sheet>` などのinline overlay componentを禁止するために使います。
 
 ## ルール詳細
 
-❌ 誤り: テンプレートで禁止された要素を使う
+このルールは `.html` template fileで実行され、tag nameが設定済みの `elements` listに含まれるelementを報告します。template ASTを走査し、`@if`、`@for`、`@else` と、ネストした `then` / `else` branchなどのAngular control flow構文にも対応します。
 
-```html
-<ion-modal></ion-modal>
-<!-- error -->
-```
+- testに影響しないよう `.spec.html` fileは無視します。
+- 明示的なオプションがなければ、デフォルトのIonic overlay element listを使います。option objectを指定する場合、そのschemaでは `elements` arrayが必須です。
 
-✅ 正しい: `.eslintrc.json` で禁止する要素を指定するようルールを設定する
-
-## ルール設定
+## オプション
 
 ```json
 {
@@ -29,22 +25,63 @@ title: deny-element
     "@rdlabo/rules/deny-element": [
       "error",
       {
-        "elements": ["ion-modal"]
+        "elements": ["ion-modal", "ion-popover", "ion-toast", "ion-alert", "ion-loading", "ion-picker", "ion-action-sheet"]
       }
     ]
   }
 }
 ```
 
-## オプション
+### `elements`
 
-```ts
-const options: {
-  elements: string[]; // Array of element names to disallow
-};
+- 型: `string[]`
+- デフォルト: `ion-modal`, `ion-popover`, `ion-toast`, `ion-alert`, `ion-loading`, `ion-picker`, `ion-action-sheet`
+
+禁止するelement tag nameの配列です。このルールはこれらの名前をAngular template ASTの `Element` node typeと比較するため、element自体とcontrol flow branch内の存在の両方を検査します。
+
+## 例
+
+### 誤り
+
+```html
+<ion-modal></ion-modal>
+
+<div>
+  <ion-toast></ion-toast>
+  <ion-alert></ion-alert>
+</div>
 ```
+
+```html
+@if (showModal) {
+<ion-modal>Modal content</ion-modal>
+}
+```
+
+### 正しい
+
+```html
+<ion-button (click)="presentModal()">Open</ion-button>
+```
+
+```html
+@for (item of items; track item.id) {
+<ion-card>
+  <ion-card-header>{{ item.name }}</ion-card-header>
+</ion-card>
+}
+```
+
+## 有効にする場面
+
+overlayにlauncher patternを使うプロジェクトで、このルールを有効にします。[`@rdlabo/rules/prefer-modal-launcher`](./prefer-modal-launcher.md)および[`@rdlabo/rules/prefer-disable-handler`](./prefer-disable-handler.md)と組み合わせることで、modalとoverlayのlogicをtemplateから分離できます。
+
+## 関連項目
+
+- [`@rdlabo/rules/prefer-modal-launcher`](./prefer-modal-launcher.md)
+- [`@rdlabo/rules/prefer-disable-handler`](./prefer-disable-handler.md)
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/deny-element.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/deny-element.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/deny-element.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/deny-element.ts)

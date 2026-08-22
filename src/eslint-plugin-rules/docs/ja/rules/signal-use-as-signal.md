@@ -4,90 +4,149 @@ title: signal-use-as-signal
 
 # @rdlabo/rules/signal-use-as-signal
 
-> このプラグインは、SignalをSignalとして正しく使うかを検査します。
+> SignalがSignalとして正しく使われているか検査する。
 >
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 > - ✒️ [コマンドライン](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)の `--fix` オプションで、このルールが報告する問題の一部を自動修正できます。
 
-このルールは、Signalが通常のプロパティとして誤って使われることを防ぎます。
+Angular Signalはgetter関数です。読み取りには `()` が必要で、書き込みには `.set()` または `.update()` を使う必要があります。このルールは、Signal変数を通常の値のように扱うコードを検出し、一般的な誤りの多くを自動修正できます。
 
 ## ルール詳細
 
-❌ 誤り: Signalを通常のプロパティとして使う
+Signal factory（`signal`、`model`、`input`、`linkedSignal`、`toSignal`、`asReadonly`）で初期化されたclass propertyを追跡し、次のような誤用を報告します。
+
+- expression contextでの `this.count()` ではなく `this.count`
+- `this.count.set(value)` ではなく `this.count() = value`
+- `this.user.update(user => ({ ...user, name: 'Jane' }))` ではなく `this.user().name = 'Jane'`
+- `this.items.update(items => { items.push(x); return items; })` ではなく `this.items().push(x)`
+- `this.#user.set(value)` ではなく、Signal propertyへの直接代入 `this.#user = value`
+
+Signal参照が期待されるcontextと、値が期待されるcontextを区別します。たとえば、Signal objectをpropsとして渡すことは許可されます。
 
 ```ts
-@Component()
+const props = { food: this.food };
+launchModal({ food: this.food });
+```
+
+## 例
+
+### 誤り
+
+```ts
 export class SigninPage {
-  readonly #id = signal<number>(undefined);
+  readonly #id = signal<number | undefined>(undefined);
+
+  constructor() {
+    this.#id = 1;
+  }
 
   useMethod() {
     if (this.#id) {
-      // error
-      this.#id() = 1; // error
+      this.#id().hoge = 1;
     }
   }
 }
 ```
 
-✅ 正しい: Signalを適切に使う
-
 ```ts
-@Component()
 export class SigninPage {
-  readonly #id = signal<number>(undefined);
+  readonly #user = signal<{ name: string }>({ name: 'John' });
 
-  useMethod() {
-    if (this.#id()) {
-      this.#id.set(1); // error
-    }
+  updateUser() {
+    this.#user().name = 'Jane';
   }
 }
 ```
 
-✅ 正しい: Signal参照をpropsとして渡す
+```ts
+export class SigninPage {
+  readonly #numbers = signal<number[]>([1, 2, 3]);
 
-Signalを値として読むのではなく、Signal自体を渡す場合は `()` は不要です。
+  updateNumbers() {
+    this.#numbers().push(4);
+  }
+}
+```
 
 ```ts
-@Component()
+export class SigninPage {
+  readonly #value = signal<number>(0);
+
+  updateValue() {
+    this.#value() = 42;
+  }
+}
+```
+
+### 正しい
+
+```ts
+export class SigninPage {
+  readonly #user = signal<{ name: string }>({ name: 'John' });
+
+  updateUser() {
+    this.#user.update((user) => ({ ...user, name: 'Jane' }));
+  }
+}
+```
+
+```ts
+export class SigninPage {
+  readonly #numbers = signal<number[]>([1, 2, 3]);
+
+  updateNumbers() {
+    this.#numbers.update((numbers) => {
+      numbers.push(4);
+      return numbers;
+    });
+  }
+}
+```
+
+```ts
+export class SigninPage {
+  readonly #value = signal<number>(0);
+
+  updateValue() {
+    this.#value.set(42);
+  }
+}
+```
+
+```ts
 export class SigninPage {
   readonly food = signal<number>(0);
 
   openPreview() {
-    // componentProps / modal launcher などへ参照渡し
+    const props = { food: this.food };
     launchModal({ food: this.food });
-    const food = this.food;
-    return this.food;
   }
 }
 ```
+
+## 自動修正
+
+次のパターンを自動修正できます。
+
+- `this.count = value` -> `this.count.set(value)`
+- `this.count() = value` -> `this.count.set(value)`
+- `this.count().x = value` -> `this.count.update(value => ({ ...value, x: value }))`
+- `this.count().push(x)` -> `this.count.update(value => { value.push(x); return value; })`
 
 ## オプション
 
-オプションなし。
+このルールにオプションはありません。
 
-## 未対応パターン
+## 有効にする場合
 
-このルールはネストしたSignalパターンに対応していません。例えば次のとおりです。
+Signalを使用するすべてのAngularプロジェクトで有効にしてください。テンプレート内のSignal使用を検査する [`@rdlabo/rules/signal-use-as-signal-template`](./signal-use-as-signal-template.md) と相互補完します。
 
-```ts
-@Component({...})
-export class TestComponent {
-  nestedSignal = signal({
-    child: signal<number>(0)
-  });
+## 関連項目
 
-  ngOnInit() {
-    if (this.nestedSignal().child) {  // Incorrect: missing function call
-      ...
-    }
-  }
-}
-```
-
-ネストしたSignalが関数呼び出しで正しくアクセスされていない場合を、このルールは検出できません。
+- [`@rdlabo/rules/signal-use-as-signal-template`](./signal-use-as-signal-template.md)
+- [`@rdlabo/rules/no-component-writable-signal`](./no-component-writable-signal.md)
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/signal-use-as-signal.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/signal-use-as-signal.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/signal-use-as-signal.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/signal-use-as-signal.ts)

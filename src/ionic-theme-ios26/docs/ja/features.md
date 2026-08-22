@@ -2,14 +2,12 @@
 title: 機能
 ---
 
-# 機能
-
 CSS変数とSass mixinでテーマをカスタマイズしたり、コンポーネント単位で段階的に導入したりできます。マークアップ固有のopt-inは [特別なマークアップとクラス](/docs/special-markup) を参照してください。
 
 ## CSS変数
 
 ライブラリのデフォルトスタイルをデザインに合わせてカスタマイズできるよう、複数のCSS変数を提供しています。詳細は次のファイルを参照してください。
-https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v3.0.0-1/src/styles/default-variables.scss
+https://github.com/rdlabo-dev/ionic-theme-ios26/blob/v3.0.0/src/styles/default-variables.scss
 
 ## Liquid Glass mixin
 

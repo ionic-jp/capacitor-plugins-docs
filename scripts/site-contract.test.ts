@@ -226,7 +226,7 @@ test('imports every installed ESLint rule README with matching EN/JA code fences
     .sort();
   const installedRuleNames = await installedEslintRuleNames();
 
-  assert.equal(manifestRuleNames.length, 18);
+  assert.equal(manifestRuleNames.length, 19);
   assert.deepEqual(manifestRuleNames, installedRuleNames);
 
   const docsRoot = new URL('../src/eslint-plugin-rules/docs/', import.meta.url);
@@ -287,14 +287,6 @@ test('imports every installed ESLint rule README with matching EN/JA code fences
     assert.match(englishRulesIndex, new RegExp(`rules/${ruleName}(?:\\.md)?`));
     assert.match(japaneseRulesIndex, new RegExp(localRoute.replaceAll('/', '\\/')));
   }
-
-  // v21.3.0 tagged the deny-constructor-di test file with a historical typo.
-  const denyConstructorDiDocs = await Promise.all([
-    englishGuideSource(eslintProject, 'rules/deny-constructor-di.md'),
-    readFile(new URL('ja/rules/deny-constructor-di.md', docsRoot), 'utf8'),
-  ]);
-  assert.match(denyConstructorDiDocs[1], /\/blob\/v21\.3\.0\/tests\/rules\/deny-costructor-di\.ts/);
-  assert.doesNotMatch(denyConstructorDiDocs[1], /\/tests\/rules\/deny-constructor-di\.ts/);
 });
 
 test('lists every ionic-angular-library package and imports localized READMEs', async () => {
@@ -412,8 +404,8 @@ test('lists every ionic-angular-library package and imports localized READMEs', 
 
 test('lists ionic theme packages and pins localized README imports', async () => {
   const expectedProjects = new Map([
-    ['ionic-theme-ios26', { packageName: '@rdlabo/ionic-theme-ios26', version: '2.3.2' }],
-    ['ionic-theme-md3', { packageName: '@rdlabo/ionic-theme-md3', version: '1.1.0' }],
+    ['ionic-theme-ios26', { packageName: '@rdlabo/ionic-theme-ios26', version: '3.0.0' }],
+    ['ionic-theme-md3', { packageName: '@rdlabo/ionic-theme-md3', version: '2.0.0' }],
   ]);
   const packageJson = JSON.parse(
     await readFile(new URL('../package.json', import.meta.url), 'utf8'),
@@ -504,7 +496,7 @@ test('lists ionic theme packages and pins localized README imports', async () =>
   assert.match(iosReadme, /\]\(\/docs\/using-ion-item-group\)/);
   assert.match(
     iosReadme,
-    /https:\/\/github\.com\/rdlabo-dev\/ionic-theme-ios26\/blob\/v2\.3\.2\/USING_ION_ITEM_GROUP\.md/,
+    /https:\/\/github\.com\/rdlabo-dev\/ionic-theme-ios26\/blob\/v3\.0\.0\/docs\/using-ion-item-group\.md/,
   );
 
   assert.equal(yamlTitle(usingDocJa), 'ion-item-groupの使用方法');
@@ -515,29 +507,11 @@ test('lists ionic theme packages and pins localized README imports', async () =>
   } else {
     assert.equal(usingPage.title.en, 'Using ion-item-group');
   }
-  assert.match(usingDocJa, /^# ion-item-groupの使用方法\s*$/m);
-  assert.match(usingDoc, /when the following condition is met/);
-  assert.doesNotMatch(usingDoc, /when \*\*both\*\* of the following conditions are met/);
-
-  const selectiveImportPattern =
-    /@rdlabo\/ionic-theme-ios26\/dist\/css\/(?:utils|components)\/([A-Za-z0-9/_-]+)(?!\.css)/g;
-  for (const [locale, markdown] of [
-    ['EN', iosMigration],
-    ['JA', iosMigrationJa],
-  ] as const) {
-    const imports = [...markdown.matchAll(selectiveImportPattern)].map((match) => match[0]);
-    assert.ok(
-      imports.length > 0,
-      `${locale} iOS migration guide must show selective utils/components imports`,
-    );
-    for (const importPath of imports) {
-      const relativeCss = `${importPath.slice('@rdlabo/ionic-theme-ios26/'.length)}.css`;
-      await access(
-        new URL(`../node_modules/@rdlabo/ionic-theme-ios26/${relativeCss}`, import.meta.url),
-        constants.F_OK,
-      );
-    }
-    assert.doesNotMatch(markdown, /dist\/css\/components\/ion-breadcrumbs(?!\.css)/);
+  assert.doesNotMatch(usingDocJa, /^# /m);
+  assert.match(usingDoc, /wrap its items in `ion-item-group`/);
+  for (const markdown of [iosMigration, iosMigrationJa]) {
+    assert.match(markdown, /\.header-item-group/);
+    assert.match(markdown, /\.item-group-header/);
   }
 });
 
@@ -552,7 +526,7 @@ test('imports the remaining rdlabo utility READMEs from exact public releases', 
     ['capacitor-brotherprint', ['@rdlabo/capacitor-brotherprint', '8.1.1', 'capacitor-plugins']],
     [
       'ionic-angular-collect-icons',
-      ['@rdlabo/ionic-angular-collect-icons', '2.1.0', 'frontend-tools'],
+      ['@rdlabo/ionic-angular-collect-icons', '3.0.0', 'frontend-tools'],
     ],
   ] as const);
   const packageJson = JSON.parse(
