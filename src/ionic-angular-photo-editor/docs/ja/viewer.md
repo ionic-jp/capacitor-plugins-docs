@@ -7,16 +7,18 @@ scrollActiveLine: []
 Ionic モーダルで `PhotoViewerPage` を表示します。[インストール](/docs/readme#インストール) のあとで呼び出します。
 
 ```typescript
-import { PhotoViewerPage, IPhotoViewerDismiss } from '@rdlabo/ionic-angular-photo-editor';
+import { PhotoViewerPage, IPhotoViewerDismiss, PhotoViewerProps } from '@rdlabo/ionic-angular-photo-editor';
 
 (async () => {
+  const componentProps = {
+    imageUrls: ['https://picsum.photos/200/300', 'https://picsum.photos/200/300'],
+    index: 0,
+    isCircle: false,
+    headerButtonColorScheme: 'dark',
+  } satisfies PhotoViewerProps;
   const modal = await this.modalCtrl.create({
     component: PhotoViewerPage,
-    componentProps: {
-      imageUrls: ['https://picsum.photos/200/300', 'https://picsum.photos/200/300'],
-      index: 0,
-      isCircle: false,
-    },
+    componentProps,
   });
   await modal.present();
   const { data } = await modal.onWillDismiss<IPhotoViewerDismiss>();
@@ -53,3 +55,7 @@ true の場合、iOS 向けにフッターのセーフエリアを有効にし�
 設定すると、ラベルが上書きされます。
 
 一覧は[こちら](https://github.com/rdlabo-dev/ionic-angular-library/blob/v21.6.2/projects/photo-editor/src/lib/dictionaries.ts)です。
+
+#### headerButtonColorScheme: 'light' | 'dark'
+
+必須です。`ion-toolbar` が暗色または黒色の場合は `dark`、明色または白色の場合は `light` を選択してください。ツールバーの外観はCSS、半透明コンテンツ、実行時のテーマ上書きによって変わるため、ライブラリ側では判定できません。
