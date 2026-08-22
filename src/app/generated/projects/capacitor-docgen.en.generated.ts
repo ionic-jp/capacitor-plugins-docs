@@ -185,7 +185,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-docgen/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-docgen/docs/api.md"
     }
   ]
 } as const;

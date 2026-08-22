@@ -56,7 +56,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-brotherprint/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-brotherprint/docs/ja/readme.md"
     },
     {
       "title": "インストール",
@@ -105,7 +105,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-brotherprint/docs/ja/installation.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-brotherprint/docs/ja/installation.md"
     },
     {
       "title": "Search",
@@ -169,7 +169,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-brotherprint/docs/ja/search.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-brotherprint/docs/ja/search.md"
     },
     {
       "title": "Print",
@@ -193,7 +193,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-brotherprint/docs/ja/print.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-brotherprint/docs/ja/print.md"
     },
     {
       "title": "Events",
@@ -242,7 +242,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-brotherprint/docs/ja/events.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-brotherprint/docs/ja/events.md"
     },
     {
       "title": "API",

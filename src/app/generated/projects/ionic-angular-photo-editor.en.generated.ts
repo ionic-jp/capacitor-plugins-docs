@@ -316,7 +316,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-photo-editor/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-photo-editor/docs/api.md"
     }
   ]
 } as const;

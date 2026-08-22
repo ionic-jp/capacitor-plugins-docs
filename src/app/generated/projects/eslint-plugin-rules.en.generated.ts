@@ -191,7 +191,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/eslint-plugin-rules/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/eslint-plugin-rules/docs/api.md"
     },
     {
       "title": "component-property-use-readonly",

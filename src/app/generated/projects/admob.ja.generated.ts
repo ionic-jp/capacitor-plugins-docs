@@ -100,7 +100,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/readme.md"
     },
     {
       "title": "初期化",
@@ -124,7 +124,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/configuration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/configuration.md"
     },
     {
       "title": "同意管理",
@@ -208,7 +208,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/consent.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/consent.md"
     },
     {
       "title": "バナー広告",
@@ -267,7 +267,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/banner.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/banner.md"
     },
     {
       "title": "インタースティシャル広告",
@@ -301,7 +301,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/interstitial.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/interstitial.md"
     },
     {
       "title": "リワード広告",
@@ -375,7 +375,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/rewarded.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/rewarded.md"
     },
     {
       "title": "アプリ起動時広告",
@@ -409,7 +409,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/app-open.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/app-open.md"
     },
     {
       "title": "広告イベント",
@@ -653,7 +653,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/events.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/events.md"
     },
     {
       "title": "テスト",
@@ -712,7 +712,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/testing.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/testing.md"
     },
     {
       "title": "移行",
@@ -751,7 +751,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/admob/docs/ja/migration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/admob/docs/ja/migration.md"
     },
     {
       "title": "API",

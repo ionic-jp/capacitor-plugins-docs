@@ -66,7 +66,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/readme.md"
     },
     {
       "title": "ion-item-groupの使用方法",
@@ -95,7 +95,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/using-ion-item-group.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/using-ion-item-group.md"
     },
     {
       "title": "機能",
@@ -134,7 +134,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/features.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/features.md"
     },
     {
       "title": "特別なマークアップとクラス",
@@ -183,7 +183,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/special-markup.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/special-markup.md"
     },
     {
       "title": "実験的なアニメーション",
@@ -207,7 +207,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/experimental-animation.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/experimental-animation.md"
     },
     {
       "title": "iOS 18",
@@ -226,7 +226,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/ios-18.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/ios-18.md"
     },
     {
       "title": "移行",
@@ -280,7 +280,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/migration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/migration.md"
     },
     {
       "title": "API",
@@ -359,7 +359,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-ios26/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-ios26/docs/ja/api.md"
     }
   ]
 } as const;

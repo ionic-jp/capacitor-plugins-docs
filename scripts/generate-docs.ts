@@ -34,7 +34,7 @@ import {
 } from './package-markdown';
 
 const root = resolve(process.cwd());
-const docsRepositoryUrl = 'https://github.com/rdlabo-dev/docs';
+const docsRepositoryUrl = 'https://github.com/rdlabo-dev/website';
 
 const stripHtml = (value: string) => value.replace(/<\/?code>/g, '`').replace(/<[^>]+>/g, '');
 const tagText = (tags: any[], name: string) => tags?.find((tag) => tag.name === name)?.text ?? '';

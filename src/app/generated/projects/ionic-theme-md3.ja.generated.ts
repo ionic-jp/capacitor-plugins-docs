@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-md3/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-md3/docs/ja/readme.md"
     },
     {
       "title": "特別なマークアップ",
@@ -105,7 +105,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-md3/docs/ja/special-markup.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-md3/docs/ja/special-markup.md"
     },
     {
       "title": "ion-item-groupの使用方法",
@@ -129,7 +129,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-md3/docs/ja/using-ion-item-group.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-md3/docs/ja/using-ion-item-group.md"
     },
     {
       "title": "移行",
@@ -153,7 +153,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-md3/docs/ja/migration.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-md3/docs/ja/migration.md"
     },
     {
       "title": "API",
@@ -177,7 +177,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-theme-md3/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-theme-md3/docs/ja/api.md"
     }
   ]
 } as const;

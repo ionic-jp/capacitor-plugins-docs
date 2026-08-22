@@ -8,7 +8,7 @@ export interface RepositoryCoordinates {
   repo: string;
 }
 
-export const CANONICAL_DOCS_PORTAL_REPOSITORY_URL = 'https://github.com/rdlabo-dev/docs';
+export const CANONICAL_DOCS_PORTAL_REPOSITORY_URL = 'https://github.com/rdlabo-dev/website';
 export const DOCS_PORTAL_REPOSITORY_URL =
   process.env['RDLABO_DOCS_REPOSITORY_URL'] ?? CANONICAL_DOCS_PORTAL_REPOSITORY_URL;
 

@@ -61,7 +61,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-printer/docs/ja/readme.md"
     },
     {
       "title": "PDF",
@@ -85,7 +85,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/ja/pdf.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-printer/docs/ja/pdf.md"
     },
     {
       "title": "Web",
@@ -109,7 +109,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/capacitor-printer/docs/ja/web.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/capacitor-printer/docs/ja/web.md"
     },
     {
       "title": "API",

@@ -71,7 +71,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/ja/readme.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-scroll-header/docs/ja/readme.md"
     },
     {
       "title": "IonContent",
@@ -84,7 +84,7 @@ export const PROJECT = {
       "headings": [],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/ja/ion-content.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-scroll-header/docs/ja/ion-content.md"
     },
     {
       "title": "Virtual Scroll",
@@ -103,7 +103,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/ja/virtual-scroll.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-scroll-header/docs/ja/virtual-scroll.md"
     },
     {
       "title": "Safe Area",
@@ -127,7 +127,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/ja/safe-area.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-scroll-header/docs/ja/safe-area.md"
     },
     {
       "title": "API",
@@ -161,7 +161,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ionic-angular-scroll-header/docs/ja/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ionic-angular-scroll-header/docs/ja/api.md"
     }
   ]
 } as const;

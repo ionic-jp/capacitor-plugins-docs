@@ -204,7 +204,7 @@ export const PROJECT = {
       ],
       "codes": [],
       "scrollMap": [],
-      "editUrl": "https://github.com/rdlabo-dev/docs/edit/main/src/ngx-cdk-scroll-strategies/docs/api.md"
+      "editUrl": "https://github.com/rdlabo-dev/website/edit/main/src/ngx-cdk-scroll-strategies/docs/api.md"
     }
   ]
 } as const;
