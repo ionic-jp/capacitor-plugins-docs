@@ -55,8 +55,11 @@ test('builds raw and source labels for repository docs', () => {
     repositorySourceLabel(repositoryUrl, 'main', 'README.md'),
     'capacitor-community/admob@main/README.md',
   );
-  assert.equal(DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/docs');
   assert.equal(CANONICAL_DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/docs');
+  assert.equal(
+    DOCS_PORTAL_REPOSITORY_URL,
+    process.env['RDLABO_DOCS_REPOSITORY_URL'] ?? CANONICAL_DOCS_PORTAL_REPOSITORY_URL,
+  );
   assert.ok(DOCS_PORTAL_REF);
 });
 
