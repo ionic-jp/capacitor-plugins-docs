@@ -3,7 +3,34 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
-import { generateArticles } from './generate-articles';
+import { JSDOM } from 'jsdom';
+import { generateArticles, normalizeFootnoteIds } from './generate-articles';
+
+test('normalizes random Zenn footnote ids to stable article-scoped ids', () => {
+  const rendered = new JSDOM(`
+    <sup class="footnote-ref"><a href="#fn-a1b2-1" id="fnref-a1b2-1">[1]</a></sup>
+    <li class="footnote-item" id="fn-a1b2-1">
+      Footnote <a href="#fnref-a1b2-1" class="footnote-backref">↩︎</a>
+    </li>
+  `);
+
+  normalizeFootnoteIds(rendered.window.document, 'example-article');
+
+  assert.ok(rendered.window.document.getElementById('fnref-example-article-1'));
+  assert.ok(rendered.window.document.getElementById('fn-example-article-1'));
+  assert.equal(
+    rendered.window.document
+      .querySelector<HTMLAnchorElement>('.footnote-ref a')
+      ?.getAttribute('href'),
+    '#fn-example-article-1',
+  );
+  assert.equal(
+    rendered.window.document
+      .querySelector<HTMLAnchorElement>('.footnote-backref')
+      ?.getAttribute('href'),
+    '#fnref-example-article-1',
+  );
+});
 
 test('a stale note revision aborts before generated outputs are changed', async () => {
   const root = await mkdtemp(join(tmpdir(), 'note-revision-'));

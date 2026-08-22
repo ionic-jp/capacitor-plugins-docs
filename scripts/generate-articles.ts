@@ -153,6 +153,24 @@ function renderEmbeddedFrames(document: Document): void {
   }
 }
 
+export function normalizeFootnoteIds(document: Document, documentId: string): void {
+  const replacements = new Map<string, string>();
+  for (const element of Array.from(
+    document.querySelectorAll<HTMLElement>('[id^="fn-"], [id^="fnref-"]'),
+  )) {
+    const match = /^(fn|fnref)-[a-f0-9]{4}-(\d+(?::\d+)?)$/.exec(element.id);
+    if (!match) continue;
+    const replacement = `${match[1]}-${documentId}-${match[2]}`;
+    replacements.set(element.id, replacement);
+    element.id = replacement;
+  }
+
+  for (const link of Array.from(document.querySelectorAll<HTMLAnchorElement>('a[href^="#fn"]'))) {
+    const target = replacements.get(link.hash.slice(1));
+    if (target) link.setAttribute('href', `#${target}`);
+  }
+}
+
 async function writeIfChanged(path: string, content: string): Promise<void> {
   let current: string | undefined;
   try {
@@ -266,6 +284,7 @@ export async function generateArticles(options: GenerateArticlesOptions = {}): P
     }
     renderArticleLinkCards(rendered.window.document);
     renderEmbeddedFrames(rendered.window.document);
+    normalizeFootnoteIds(rendered.window.document, slug);
     const headings = Array.from(
       rendered.window.document.querySelectorAll<HTMLHeadingElement>('h2, h3'),
     )
