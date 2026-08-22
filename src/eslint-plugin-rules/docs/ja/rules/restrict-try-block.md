@@ -4,73 +4,186 @@ title: restrict-try-block
 
 # @rdlabo/rules/restrict-try-block
 
-> tryブロック内のPromise・RxJS・Angular Signalコンテキスト、`Promise.resolve()` による逃げ道、物理行数を制限する。
+> tryブロック内のPromise、RxJS、Angular Signal context、`Promise.resolve()` による逃げ道、物理コード行数を制限する。
 >
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 
-`try` ブロック内の非同期/リアクティブ処理と物理コード行数を制限します。
+`try/catch` は、実際にthrowする可能性がある小さな同期処理を保護するために使用してください。非同期処理、長いblock、reactive callbackを `try` 内に置くとerror boundaryが不明瞭になり、errorを握りつぶしたり誤った経路へ送ったりする可能性があります。このルールは、それらを制限します。
 
 ## ルール詳細
 
-このルールは `try` を同期例外向けの小さな境界として保ちます。デフォルトでは次を報告します。
+すべての `try` blockを検査し、デフォルトでは次を報告します。
 
-- `await`、およびTypeScript型がPromiseライクな式
-- `Promise.resolve()` 呼び出し全般。同期例外をPromise rejectionへ変換するチェーンも含む
-- 型または基底型が `rxjs` パッケージで宣言された式。`Observable` と `Subject` の派生を含む
-- Angularの `computed()` および `effect()` コールバック内の `try` 文
-- 物理コード行が3行を超える `try` 本体
+- `try` 内の `await` またはその他のPromise/thenable使用
+- 逃げ道としての、`try` の外も含むすべての `Promise.resolve()`
+- `try` 内のRxJS型または操作
+- `computed()` または `effect()` callback内の `try` block
+- 物理コード行が3行を超える `try` block
 
-`try` 固有の検査では `try` 本体だけを見ます。`catch` と `finally` は対象外です。ネストした関数・クラス・ネストした `try` は別の実行境界であり、外側の `try` には帰属しません。`Promise.resolve()` の検査はファイル全体に適用されます。
+`try` に限定した検査では `try` 本体だけを調べ、`catch` と `finally` clauseは除外します。ネストした関数、class、`try` 文はそれぞれ別の実行境界であり、外側のblockには帰属しません。`Promise.resolve()` の検査はファイル全体に適用されます。
 
-Promiseのrejectionは通常、`.catch()` のようなPromiseエラー境界で扱うべきです。同期失敗をrejectionチャネルへ移すために `Promise.resolve()` でその境界を作り出さないでください。
-
-```ts
-// incorrect
-Promise.resolve()
-  .then(() => fallibleSynchronousWork())
-  .catch(handleError);
-```
-
-同期の `try` 境界は小さく保ち、その失敗を扱う責務のある層に置きます。`Promise.resolve(value)` で正規化するのではなく、値または既存のPromiseをそのまま返します。
-
-RxJSのエラーは、`catchError()` や明示的なsubscriberのエラーハンドラなど、Observableのエラーチャネルで扱います。
-
-PromiseライクとRxJSの型検出は、利用可能な場合にTypeScriptの型情報を使います。typed lintingがない場合、型依存の検査はESLintを止めずにスキップされ、構文ベースの `await`、`Promise.resolve()`、Angular Signalコンテキスト、`maxLines` の検査は引き続き動作します。完全な強制にはtyped lintingを設定します。例えば次のとおりです。
-
-```js
-languageOptions: {
-  parserOptions: {
-    projectService: true,
-    tsconfigRootDir: __dirname,
-  },
-},
-```
+Promise-likeとRxJSの検出には、利用可能な場合TypeScript型情報を使用します。typed lintingがない場合、それらの検査はESLintを停止せずskipされますが、構文ベースの `await`、`Promise.resolve()`、Angular Signal context、行数検査は引き続き実行されます。完全に強制するには `parserOptions.projectService` を設定してください。
 
 ## オプション
 
-```js
+```json
 {
-  allowPromise: false,
-  allowPromiseResolve: false,
-  allowRxjs: false,
-  allowInSignal: false,
-  maxLines: 3,
+  "rules": {
+    "@rdlabo/rules/restrict-try-block": [
+      "error",
+      {
+        "allowPromise": false,
+        "allowPromiseResolve": false,
+        "allowRxjs": false,
+        "allowInSignal": false,
+        "maxLines": 3
+      }
+    ]
+  }
 }
 ```
 
-- `allowPromise`: `try` 内のPromiseライク処理と `await` を許可する。
-- `allowPromiseResolve`: ファイル全体の専用 `Promise.resolve()` 検査を無効化する。`try` 本体内では、呼び出しが独立してPromiseライク処理でもあるため、`allowPromise: true` も必要になる。
-- `allowRxjs`: `rxjs` で宣言された型に裏打ちされた値と操作を許可する。`Observable`、`Subject`、およびそのサブクラスを含む。
-- `allowInSignal`: インラインのAngular `computed()` / `effect()` コールバック内の `try` を許可する。`@angular/core` からのエイリアスと名前空間importを認識する。ネストした関数・クラス本体は別の実行境界である。
-- `maxLines`: `try` 本体の最大物理コード行数。サイズ検査を無効にする場合は `false`。
+### `allowPromise`
 
-`allowPromise: false` と `allowRxjs: false` は、typed lintingが設定されているときに完全に強制されます。型情報がない場合、それらのカテゴリでは `await` のような構文ベースの検査だけが残ります。
+- 型: `boolean`
+- デフォルト: `false`
 
-`Promise.resolve()` の検査は、シャドウされていないグローバル `Promise` と明示的な `globalThis.Promise`（静的ブラケット記法を含む）を認識します。エイリアスは意図的に追いません。ローカル宣言・importされた `Promise` という名前の値や、ローカルでシャドウされた `globalThis` は組み込みAPIとしては扱いません。
+`try` 内でPromise/thenableを使用できるようにします。
 
-`maxLines` では、外側の波括弧・コメント・空行を除外します。その他のトークンを含む一意の物理行を1回だけ数えます。内側の波括弧と複数行トークンは数えるため、フォーマットは意図的に結果へ影響します。境界を論理的にも見た目にも小さく保つためです。
+### `allowPromiseResolve`
+
+- 型: `boolean`
+- デフォルト: `false`
+
+ファイル全体の `Promise.resolve()` 検査を無効にします。`try` 本体内では、その呼び出しが独立してPromise-like処理でもあるため、`allowPromise: true` も必要です。
+
+### `allowRxjs`
+
+- 型: `boolean`
+- デフォルト: `false`
+
+`try` 内でRxJSを使用できるようにします。
+
+### `allowInSignal`
+
+- 型: `boolean`
+- デフォルト: `false`
+
+`computed()` または `effect()` callback内で `try` blockを使用できるようにします。
+
+### `maxLines`
+
+- 型: `number | false`
+- デフォルト: `3`
+
+`try` block内の物理コード行数の上限です。サイズ検査を無効にするには `false` を指定します。外側の波括弧、comment、空行は除外され、それ以外のtokenを含む一意の行を1回数えます。
+
+## 例
+
+### 誤り
+
+```ts
+async function run() {
+  try {
+    await work();
+  } catch {}
+}
+```
+
+```ts
+try {
+  Promise.resolve(1).catch(() => 0);
+} catch {}
+```
+
+```ts
+import { of } from 'rxjs';
+
+try {
+  of(1).pipe().subscribe();
+} catch {}
+```
+
+```ts
+import { computed } from '@angular/core';
+
+const value = computed(() => {
+  try {
+    return JSON.parse('1');
+  } catch {
+    return 0;
+  }
+});
+```
+
+```ts
+try {
+  first();
+  second();
+  third();
+  fourth();
+} catch {}
+```
+
+### 正しい
+
+```ts
+function parse(source: string) {
+  try {
+    return JSON.parse(source);
+  } catch {
+    return null;
+  }
+}
+```
+
+```ts
+async function run() {
+  try {
+    doWork();
+  } catch {
+    await recover();
+  } finally {
+    cleanup();
+  }
+}
+```
+
+```ts
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+of(1)
+  .pipe(catchError(() => of(0)))
+  .subscribe();
+```
+
+### 検査を緩和する
+
+```json
+{
+  "rules": {
+    "@rdlabo/rules/restrict-try-block": [
+      "error",
+      {
+        "allowPromise": true,
+        "allowPromiseResolve": true,
+        "allowRxjs": true,
+        "allowInSignal": true,
+        "maxLines": false
+      }
+    ]
+  }
+}
+```
+
+## 有効にする場合
+
+`try/catch` を小さく明示的なerror boundaryとして維持したいすべてのプロジェクトで有効にしてください。Angular Signal codeや、Promise/RxJS中心のerror handlingから移行するときに特に有効です。
+
+`Promise.resolve()` の検査は、shadowされていないglobal `Promise` と、静的bracket notationを含む明示的な `globalThis.Promise` を認識します。aliasは意図的に追跡しません。ローカルで宣言またはimportされた `Promise` や、shadowされた `globalThis` は組み込みAPIとして扱いません。
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/restrict-try-block.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/restrict-try-block.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/restrict-try-block.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/restrict-try-block.ts)

@@ -8,21 +8,58 @@ title: require-viewmodel
 >
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 
-Ionic AngularのComponent / ViewModel分割を1つのルールで強制します。同居するクラス名のデフォルトは `ViewModel` です。
-
-| 検査               | 要件                                                                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Component所有      | すべての `@Component` が `new ViewModel(this)` で初期化されたフィールドを持つ                                                                    |
-| 構築               | 第1引数は `this` でなければならない                                                                                                              |
-| ホスト境界         | ViewModelは `ViewModelStore<ComponentType, Keys>` を継承する。`Keys` は任意で、明示的な非SignalのComponentプロパティを公開する                   |
-| Constructor / host | ViewModelはデフォルトで両者を継承する。任意のconstructorは `super(host)` で `host` を転送しなければならない                                      |
-| View API           | `viewChild` / `viewChildren` / `contentChild` / `contentChildren` / `effect` / `computed` / 描画lifecycle APIは `ViewModel` 内に現れてはならない |
-
-所有検査では `@Component` 以外のクラスは無視します。`@rdlabo/rules/no-component-method-except-lifecycle` と併用します。
+ViewModel architecture patternを強制します。Angular Componentは `new ViewModel(this)` で初期化したViewModelを所有しなければなりません。少なくとも1つの一致するpropertyを要求しますが、追加のViewModel instanceは拒否しません。ViewModelは `ViewModelStore<ComponentType>` を継承し、`host` を再宣言したり、`viewChild`、`effect`、`computed`、`afterNextRender` などのView固有APIを含めたりしないでください。
 
 ## ルール詳細
 
-✅ Signalとoutputホストのみ
+次の3つを検査します。
+
+### 1. ComponentはViewModelを所有する
+
+`@Component` classには `new ViewModel(this)` で初期化したpropertyが必要です。constructor呼び出しの第1引数は `this` でなければなりません。
+
+### 2. ViewModelは `ViewModelStore<ComponentType>` を継承する
+
+`ViewModel`（または設定した `viewModelClassName`）というclassは、`ViewModelStore<...>`、名前が `ViewModel` で終わるbase、または `ModelSearch` を継承しなければなりません。最初のgeneric引数はhost Component型でなければなりません。中間classのgeneric defaultも解決します。
+
+- `ViewModelStore<ExamplePage, 'model' | 'form'>` を使う場合、第2引数以降の型引数が許可されます。
+- `ViewModelStore` を直接継承するときに型引数が2つを超えると報告されます。
+- host型はViewModelを所有するComponentと一致する必要があります。
+
+### 3. ViewModelにView APIを含めない
+
+ViewModel classでは次のAPIを呼び出せません。
+
+`viewChild`, `viewChildren`, `contentChild`, `contentChildren`, `effect`, `computed`, `afterNextRender`, `afterEveryRender`, `afterRenderEffect`.
+
+この一覧は `bannedApis` optionで変更できます。`viewChild()` のような直接呼び出しと、`viewChild.required()` のような `.required()` variantを認識します。namespace prefix付き呼び出しは解決しません。
+
+## 例
+
+### 誤り
+
+```ts
+@Component({ selector: 'app-example', template: '' })
+export class ExamplePage {
+  readonly title = 'x'; // no ViewModel
+}
+```
+
+```ts
+@Component({ selector: 'app-example', template: '' })
+export class ExamplePage {
+  readonly vm = new ViewModel(); // missing `this`
+}
+```
+
+```ts
+@Component({ selector: 'app-example', template: '' })
+export class ExamplePage {
+  readonly vm = new ViewModel(this);
+}
+
+class ViewModel extends StoreModel {} // wrong base class
+```
 
 ```ts
 @Component({ selector: 'app-example', template: '' })
@@ -31,140 +68,109 @@ export class ExamplePage {
 }
 
 class ViewModel extends ViewModelStore<ExamplePage> {
-  save(): void {
-    this.host.saved.emit();
-  }
+  readonly el = viewChild('host'); // View API in ViewModel
 }
 ```
 
-`ViewModelStore` がconstructorを所有し、Componentオブジェクトを保持します。公開の `host` は `@rdlabo/ionic-angular-kit` の `ViewModelHost<T, K>` 型を使うため、クラスフィールド初期化時にコピーされるのではなく、ViewModel method実行時に値が読まれます。基底constructorはホストの絞り込みと一度きりの描画フックを、kitの `mountViewModel()` ヘルパーへ委譲します。
-
-✅ 明示的な非Signal依存
+### 正しい
 
 ```ts
-class ViewModel extends ViewModelStore<EntryPage, 'entryForm' | 'inventoryModel'> {
-  save(): void {
-    this.host.entryForm.save();
+import { Component, computed, effect, viewChild } from '@angular/core';
+
+@Component({ selector: 'app-example', template: '' })
+export class ExamplePage {
+  readonly vm = new ViewModel(this);
+  readonly title = computed(() => this.vm.label());
+  readonly el = viewChild('host');
+
+  constructor() {
+    effect(() => this.vm.label());
   }
 }
+
+class ViewModel extends ViewModelStore<ExamplePage> {
+  readonly label = signal('hello');
+}
 ```
-
-第2型引数は任意です。TypeScriptはそのキーがComponentに属することを検査します。ハードプライベートなComponentフィールドは `Pick` で公開できないため、ViewModelが必要な場合は公開の `readonly` 境界プロパティを使います。
-
-✅ 共有ViewModel基底
-
-```ts
-class ViewModel extends MainViewModel<FoodsPage> {}
-class ViewModel extends ListViewModel<WineListPage> {}
-class ViewModel extends ModelSearch<SearchPage, SearchCondition> {}
-```
-
-名前が `ViewModel` で終わる中間基底と、確立された `ModelSearch` 基底は、第1型引数が所有Componentと一致するときに受け入れられます。中間基底自体は `ViewModelStore` を継承している必要があります。
-
-ジェネリックなViewModelはデフォルトのComponentホストを使えます。所有検査にはそのデフォルトが使われます。
-
-```ts
-class ViewModel<THost = MainPage> extends ViewModelStore<THost> {}
-```
-
-ハードプライベートなViewModel所有も問題ありません。
-
-```ts
-readonly #vm = new ViewModel(this);
-```
-
-❌ ViewModelなし、または `this` なしのComponent
 
 ```ts
 @Component({ selector: 'app-example', template: '' })
 export class ExamplePage {
-  readonly title = 'x'; // error: missingViewModel
+  readonly vm = new ViewModel(this);
 }
 
-readonly vm = new ViewModel();
-readonly vm = new ViewModel(other);
-```
-
-❌ 旧来のViewModelごとのhostパターン
-
-```ts
-class ViewModel extends StoreModel {
-  readonly host: ReactiveHost<ExamplePage>; // error
-
-  constructor(host: ExamplePage) {
-    super();
-    this.host = host;
-  }
-}
-```
-
-`extends ViewModelStore<ExamplePage>` を使い、hostメンバーを削除します。ViewModelのconstructorで `host.someProperty` をキャッシュしないでください。`vm` より後に宣言されたComponentクラスフィールドは、まだ初期化されていません。
-
-通常、constructorは不要です。Componentの初期化後に待つ必要があるセットアップには `onMount()` を優先します。既存の即時constructor副作用を残す必要がある場合は、同じ型のhostを転送する必要があります。
-
-```ts
 class ViewModel extends ViewModelStore<ExamplePage, 'inventoryModel'> {
-  protected override onMount(): void {
-    this.host.inventoryModel.initialize();
-  }
+  readonly inventoryModel = signal<Inventory | null>(null);
 }
 ```
-
-互換のために即時constructorも有効です。
 
 ```ts
-class ViewModel extends ViewModelStore<ExamplePage> {
-  constructor(host: ExamplePage) {
-    super(host);
-    registerCleanup();
-  }
+@Component({ selector: 'app-example', template: '' })
+export class FoodsPage {
+  readonly vm = new ViewModel(this);
 }
+
+class ViewModel extends MainViewModel<FoodsPage> {}
 ```
-
-❌ ViewModel上のView API
-
-```ts
-class ViewModel extends ViewModelStore<ExamplePage> {
-  readonly el = viewChild('host'); // error
-  readonly label = computed(() => 'x'); // error
-}
-```
-
-`viewChild.required(...)` も禁止されます。`afterNextRender` / `afterEveryRender` / `afterRenderEffect` は個別のViewModelではなく、kitの `mountViewModel()` ヘルパーまたはComponentに属します。
 
 ## オプション
 
-```ts
+```json
 {
-  // Class name treated as the ViewModel. default: 'ViewModel'
-  viewModelClassName?: string;
-
-  // Required base-class name. default: 'ViewModelStore'
-  viewModelStoreClassName?: string;
-
-  // Call expressions banned inside ViewModel.
-  // default also denies afterNextRender / afterEveryRender / afterRenderEffect
-  bannedApis?: string[];
+  "rules": {
+    "@rdlabo/rules/require-viewmodel": [
+      "error",
+      {
+        "viewModelClassName": "ViewModel",
+        "viewModelStoreClassName": "ViewModelStore",
+        "bannedApis": [
+          "viewChild",
+          "viewChildren",
+          "contentChild",
+          "contentChildren",
+          "effect",
+          "computed",
+          "afterNextRender",
+          "afterEveryRender",
+          "afterRenderEffect"
+        ]
+      }
+    ]
+  }
 }
 ```
 
-```js
-'@rdlabo/rules/require-viewmodel': 'error';
-```
+### `viewModelClassName`
 
-カスタム名:
+- 型: `string`
+- デフォルト: `"ViewModel"`
 
-```js
-[
-  'error',
-  {
-    viewModelClassName: 'PageState',
-    viewModelStoreClassName: 'HostedStore',
-  },
-];
-```
+Component内で検索するclass名です。`PageState` など別の命名規則を使うプロジェクトで指定します。
+
+### `viewModelStoreClassName`
+
+- 型: `string`
+- デフォルト: `"ViewModelStore"`
+
+ViewModelが継承すべきbase class名、または名前が `ViewModel` で終わる中間base class名です。
+
+### `bannedApis`
+
+- 型: `string[]`
+- デフォルト: 上記の一覧
+
+ViewModel内で許可しないAPIです。直接呼び出しと `.required(...)` の使用を検出します。namespace prefix付き呼び出しは解決しません。
+
+## 有効にする場合
+
+`@rdlabo/ionic-angular-kit` または同様のarchitectureでViewModel patternを採用するプロジェクトで有効にしてください。[`@rdlabo/rules/no-component-writable-signal`](./no-component-writable-signal.md) と組み合わせると、Component stateをread-only、ViewModel stateをwritableに保てます。
+
+## 関連項目
+
+- [`@rdlabo/rules/no-component-writable-signal`](./no-component-writable-signal.md)
+- [`@rdlabo/rules/no-component-method-except-lifecycle`](./no-component-method-except-lifecycle.md)
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/require-viewmodel.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/require-viewmodel.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/require-viewmodel.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/require-viewmodel.ts)

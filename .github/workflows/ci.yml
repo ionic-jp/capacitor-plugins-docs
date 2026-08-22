@@ -13,6 +13,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RDLABO_DOCS_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+      RDLABO_DOCS_REPOSITORY_URL: ${{ github.event.pull_request.head.repo.html_url || 'https://github.com/rdlabo-dev/docs' }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -25,4 +28,6 @@ jobs:
       - run: npm run fmt:check
       - run: npm run lint
       - run: npm test
+      - run: git diff --exit-code -- src/app/generated public/sitemap.xml
       - run: npm run build
+      - run: git diff --exit-code -- src/app/generated public/sitemap.xml

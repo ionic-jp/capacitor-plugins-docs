@@ -9,11 +9,37 @@ title: component-property-use-readonly
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 > - ✒️ [コマンドライン](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)の `--fix` オプションで、このルールが報告する問題の一部を自動修正できます。
 
-このルールは、不変であるべきAngularコンポーネントのプロパティに `readonly` 修飾子の使用を強制します。予期しない変更を防ぎ、コンポーネントの状態管理をより安全にします。
+このルールは、Angular Componentで宣言された関数以外のプロパティに `readonly` 修飾子を要求します。初期化済み・未初期化・static・computed・decorator付き・soft private・hard privateの各プロパティを報告し、`readonly` を自動的に追加できます。
 
 ## ルール詳細
 
-❌ 誤り: `readonly` 修飾子のないプロパティ
+`@Component()` で装飾されたクラスだけを検査します。method、getter、setter、arrow functionプロパティ、function expressionプロパティ、すでに `readonly` のプロパティ、および他のクラスのプロパティは無視します。
+
+## オプション
+
+```json
+{
+  "rules": {
+    "@rdlabo/rules/component-property-use-readonly": [
+      "error",
+      {
+        "ignorePrivateProperties": true
+      }
+    ]
+  }
+}
+```
+
+### `ignorePrivateProperties`
+
+- 型: `boolean`
+- デフォルト: `false`
+
+`true` の場合、TypeScriptの `private` 修飾子を指定したプロパティとECMAScriptの `#` privateプロパティを無視します。public、protected、staticプロパティは引き続き検査します。
+
+## 例
+
+### 誤り
 
 ```ts
 @Component({
@@ -33,7 +59,7 @@ export class ExampleComponent {
 }
 ```
 
-✅ 正しい: `readonly` 修飾子付きのプロパティ
+### 正しい
 
 ```ts
 @Component({
@@ -53,62 +79,9 @@ export class ExampleComponent {
 }
 ```
 
-## ルール設定
-
-```json
-{
-  "rules": {
-    "@rdlabo/rules/component-property-use-readonly": [
-      "error",
-      {
-        "ignorePrivateProperties": true
-      }
-    ]
-  }
-}
-```
-
-## オプション
+`ignorePrivateProperties: true` の場合、privateプロパティは書き込み可能なままでも構いません。
 
 ```ts
-const options: {
-  ignorePrivateProperties?: boolean; // Whether to ignore private properties (default: false)
-};
-```
-
-### ignorePrivateProperties
-
-`true` にすると、ソフトプライベートプロパティ（`private` 修飾子）とハードプライベートプロパティ（`#` 接頭辞）の両方を無視します。プライベートプロパティは通常コンポーネント外からアクセスされないため、`readonly` 修飾子の重要度が下がる場合に有用です。
-
-❌ 誤り: `ignorePrivateProperties: true` なしのプライベートプロパティ
-
-```ts
-@Component({
-  selector: 'app-example',
-  template: '<div>example</div>',
-})
-export class ExampleComponent {
-  private privateProp = 1; // error
-  #secretProp = 2; // error
-}
-```
-
-✅ 正しい: `ignorePrivateProperties: true` ありのプライベートプロパティ
-
-```ts
-// .eslintrc.json
-{
-  "rules": {
-    "@rdlabo/rules/component-property-use-readonly": [
-      "error",
-      {
-        "ignorePrivateProperties": true
-      }
-    ]
-  }
-}
-
-// Component code
 @Component({
   selector: 'app-example',
   template: '<div>example</div>',
@@ -116,11 +89,15 @@ export class ExampleComponent {
 export class ExampleComponent {
   private privateProp = 1; // no error
   #secretProp = 2; // no error
-  public publicProp = 3; // still requires readonly
+  public readonly publicProp = 3;
 }
 ```
 
+## 有効にする場面
+
+Componentプロパティに安定した参照を公開させ、書き込み可能な状態をSignalsまたはViewModelで管理する場合に、このルールを有効にします。
+
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/component-property-use-readonly.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/component-property-use-readonly.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/component-property-use-readonly.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/component-property-use-readonly.ts)

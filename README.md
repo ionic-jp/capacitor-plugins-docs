@@ -52,6 +52,10 @@ npm run docs:generate
 ```
 
 `prestart`, `prebuild`, and `pretest` run the generator automatically.
+On a local feature branch, push the current commit before generating so portal-hosted English can
+be read from that commit on GitHub. CI selects the pull request head repository and commit
+automatically, including for fork-based pull requests.
+When generating locally from a fork, set `RDLABO_DOCS_REPOSITORY_URL` to that fork's GitHub URL.
 
 ## Canonical routes
 

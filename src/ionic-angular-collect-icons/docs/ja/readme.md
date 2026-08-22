@@ -4,8 +4,6 @@ code: []
 scrollActiveLine: []
 ---
 
-## 概要
-
 ## これは何ですか？
 
 このライブラリは、プロジェクト内の ionIcons を一意にまとめ、エクスポート用の ionIcons ファイルを生成するために使います。小さなプロジェクトでは、毎回 `addIcons()` を管理するのが難しいため、自動化しました。
@@ -19,8 +17,12 @@ scrollActiveLine: []
 
 ## 要件
 
-- Node.js >= 20
-- ionicons >= 6.0.0
+- Node.js >= 22
+- Ionic Angular >= 9.0.0
+- Angular >= 18.0.0
+- TypeScript >= 5.4.0
+- ionicons >= 8.0.0
+- @angular-eslint/template-parser 21 または 22
 
 
 ## クイックスタート
@@ -33,11 +35,25 @@ npx @rdlabo/ionic-angular-collect-icons --initialize true
 
 詳細は [初期化](/docs/initialize) と [使い方](/docs/usage) です。
 
+## Ionic Angular 8からの移行
+
+アプリケーションの変更をcommitしてから、アプリケーションrootでIonic公式のmigration toolを実行します。
+
+```bash
+npx @ionic/migrate
+```
+
+安全に自動化できる変更が適用され、手動確認が必要な項目が表示されます。完了後にこのpackageを更新し、残りの確認事項は[Ionic Angular 9への移行](/docs/migration)を参照してください。
+
 ## インストール
 
 ```bash
-npm install @rdlabo/ionic-angular-collect-icons --save-dev
+npm install --save-dev \
+  @rdlabo/ionic-angular-collect-icons \
+  @angular-eslint/template-parser@^21
 ```
+
+Angular ESLint 22を使うprojectでは、代わりに `@angular-eslint/template-parser@^22` を指定してください。parserはpeer dependencyのため、collectorはアプリケーションと同じ世代のAngular template parserを使います。
 
 ## ドキュメント
 
@@ -45,5 +61,6 @@ npm install @rdlabo/ionic-angular-collect-icons --save-dev
 
 - [初期化](/docs/initialize) — `addIcons` の自動または手動配線。
 - [使い方](/docs/usage) — 本番ビルド前のコレクター実行。
+- [移行](/docs/migration) — 既存projectをIonic Angular 9へ移行する。
 - [CLI オプション](/docs/options) — `--dry-run`、`--initialize`、パス。
 - [FAQ](/docs/faq) — テスト、バインディング、`main.ts`。

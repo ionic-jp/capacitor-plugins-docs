@@ -4,96 +4,114 @@ title: deny-overlay-create
 
 # @rdlabo/rules/deny-overlay-create
 
-> ModalController / PopoverController の `.create()` を禁止し、launcher経由でoverlayを開く。
+> ModalController / PopoverControllerの `.create()` を禁止し、launcher経由でoverlayを開く。
 >
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 
-Ionicアプリでは、modalとpopoverは共有ヘルパー（`presentModal`）とエクスポートした `launch*` 関数経由で開くべきであり、`ModalController.create()` / `PopoverController.create()` を直接呼んではいけません。
-
-次のルールと併用します。
-
-- `@rdlabo/rules/deny-element` — テンプレート内のインライン `<ion-modal>` / `<ion-popover>` を禁止する
-- `@rdlabo/rules/prefer-modal-launcher` — `presentModal` を `launch*` 内に置くことを要求する
-
-`LoadingController`、`AlertController`、`ToastController`、`ActionSheetController` はデフォルトで許可されたままです。`ModalController` の `dismiss()` も許可されます。
+このルールは、controllerの `.create()` 呼び出しによるIonic overlayの直接生成を防ぎます。rdlabo architectureでは、overlayはlauncher functionと共有の `presentModal` / `presentPopover` helperを通じて開きます。これによりoverlay logicを一元化し、呼び出し側をcontroller APIから分離できます。
 
 ## ルール詳細
 
-❌ 誤り: controller経由でmodal / popoverをcreateする
+receiverが `ModalController`、`PopoverController`（または設定した他のcontroller）である `.create()` 呼び出しを検出します。次のような複数のpatternからcontrollerを解決します。
 
-```ts
-import { inject } from '@angular/core';
-import { ModalController } from '@ionic/angular/standalone';
+- `this.modalCtrl.create()`
+- `modalCtrl.create()`（`modalCtrl` が `inject(ModalController)` の場合）
+- `inject(ModalController).create()`
+- constructor parameter `constructor(private modalCtrl: ModalController)`
+- `ModalController` 型のclass property
 
-export class ExamplePage {
-  readonly #modalCtrl = inject(ModalController);
-
-  async open() {
-    await this.#modalCtrl.create({ component: OtherPage }); // error
-  }
-}
-```
-
-次も同様です。
-
-- `this.modalCtrl.create(...)`
-- `inject(ModalController).create(...)`
-- `ModalController` / `PopoverController` 型のパラメータ
-
-✅ 正しい: launcher経由で開き、`ModalController` はdismiss用にだけ持つ
-
-```ts
-export const launchOtherPage = (helper: HelperService, props: OtherProps) => {
-  return helper.presentModal(OtherPage, props, { watchKeyboard: false });
-};
-
-export class ExamplePage {
-  readonly #modalCtrl = inject(ModalController);
-  readonly helper = inject(HelperService);
-
-  async open() {
-    await launchOtherPage(this.helper, {});
-  }
-
-  dismiss() {
-    this.#modalCtrl.dismiss();
-  }
-}
-```
-
-✅ 正しい: Loading / Alert / Toast / ActionSheet のcreate
-
-```ts
-readonly #loadingCtrl = inject(LoadingController);
-await this.#loadingCtrl.create({ message: '...' });
-```
+`LoadingController`、`AlertController`、`ToastController`、`ActionSheetController` など、その他のoverlay controllerは直接使うことが意図されている場合があるため、デフォルトでは禁止しません。
 
 ## オプション
 
+```json
+{
+  "rules": {
+    "@rdlabo/rules/deny-overlay-create": [
+      "error",
+      {
+        "deny": ["ModalController", "PopoverController"]
+      }
+    ]
+  }
+}
+```
+
+### `deny`
+
+- 型: `string[]`
+- デフォルト: `["ModalController", "PopoverController"]`
+
+`.create()` 呼び出しを禁止するcontroller class nameです。空の配列を指定するとルールを無効にできます。
+
+## 例
+
+### 誤り
+
 ```ts
-{
-  // Controllers whose `.create()` is denied.
-  // default: ['ModalController', 'PopoverController']
-  deny?: string[];
+export class ExamplePage {
+  readonly #modalCtrl = inject(ModalController);
+
+  async open() {
+    await this.#modalCtrl.create({ component: OtherPage });
+  }
 }
 ```
 
-```js
-'@rdlabo/rules/deny-overlay-create': [
-  'error',
-  { deny: ['ModalController', 'PopoverController'] },
-],
-```
-
-alertのcreateも禁止するには次のようにします。
-
-```js
-{
-  deny: ['ModalController', 'PopoverController', 'AlertController'];
+```ts
+export async function open(modalCtrl: ModalController) {
+  await modalCtrl.create({ component: OtherPage });
 }
 ```
+
+```ts
+export class ExamplePage {
+  constructor(private modalCtrl: ModalController) {}
+
+  async open() {
+    await this.modalCtrl.create({ component: OtherPage });
+  }
+}
+```
+
+### 正しい
+
+```ts
+export const launchOtherPage = (overlay: Helper, props: Props) => {
+  return overlay.presentModal(OtherPage, props);
+};
+```
+
+```ts
+export class ExamplePage {
+  readonly #loadingCtrl = inject(LoadingController);
+
+  async showLoading() {
+    await this.#loadingCtrl.create({ message: '...' });
+  }
+}
+```
+
+```ts
+export class ExamplePage {
+  readonly #modalCtrl = inject(ModalController);
+
+  dismiss(data?: unknown) {
+    this.#modalCtrl.dismiss(data);
+  }
+}
+```
+
+## 有効にする場面
+
+launcher patternと共有overlay helperを使うIonicプロジェクトで、このルールを有効にします。[`@rdlabo/rules/prefer-modal-launcher`](./prefer-modal-launcher.md)および[`@rdlabo/rules/deny-element`](./deny-element.md)と組み合わせて使います。
+
+## 関連項目
+
+- [`@rdlabo/rules/prefer-modal-launcher`](./prefer-modal-launcher.md)
+- [`@rdlabo/rules/deny-element`](./deny-element.md)
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/deny-overlay-create.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/deny-overlay-create.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/deny-overlay-create.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/deny-overlay-create.ts)

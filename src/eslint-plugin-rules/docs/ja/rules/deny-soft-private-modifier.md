@@ -14,22 +14,28 @@ title: deny-soft-private-modifier
 ❌ 誤り: クラスフィールドに `private` 修飾子を使う
 
 ```ts
-@Component({})
-export class SigninPage {
-  private platform = inject(Platform);
+class TokenStore {
+  private token = '';
+
+  private refresh() {
+    this.token = 'new-token';
+  }
 }
 ```
 
 ✅ 正しい: ハードプライベートフィールド構文（#）を使う
 
 ```ts
-@Component({})
-export class SigninPage {
-  #platform = inject(Platform);
+class TokenStore {
+  #token = '';
+
+  #refresh() {
+    this.#token = 'new-token';
+  }
 }
 ```
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/deny-soft-private-modifier.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/deny-soft-private-modifier.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/deny-soft-private-modifier.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/deny-soft-private-modifier.ts)

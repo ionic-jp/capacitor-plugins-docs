@@ -2,7 +2,7 @@
 title: CLI API
 ---
 
-Command reference for `@rdlabo/ionic-angular-collect-icons` v2.1.0.
+Command reference for `@rdlabo/ionic-angular-collect-icons` v3.0.0.
 
 ## Command
 

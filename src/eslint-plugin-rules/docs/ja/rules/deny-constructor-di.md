@@ -6,43 +6,65 @@ title: deny-constructor-di
 
 > このプラグインはconstructor内のDependency Injectionを禁止します。
 
-このルールは `inject` 関数を使う、現代的なAngularの依存性注入の作法を促します。
+このルールは、`constructor(private readonly auth: AuthService)` のようにDependency Injectionに使われるconstructor parameter propertyを報告します。Angularの `inject()` 関数は、standalone Componentやserviceで依存関係を取得する現代的な方法です。constructorの定型コードをなくし、DIを明示的にします。
 
 ## ルール詳細
 
-❌ 誤り: constructorベースの依存性注入を使う
+クラスのconstructorを検査し、`TSParameterProperty`（`public`、`private`、`readonly` などの修飾子を持つparameter）を報告します。これらはクラスフィールドになり、DIに使われるparameterです。
+
+- 修飾子のない通常のconstructor parameterは許可されます。
+- このルールは自動修正しません。constructor DIを手動で `inject()` に置き換える必要があります。
+
+## 例
+
+### 誤り
 
 ```ts
 @Component({
-  selector: 'app-confirm',
-  templateUrl: './confirm.page.html',
-  styleUrls: ['./confirm.page.scss'],
+  selector: 'app-signin',
+  templateUrl: './signin.page.html',
 })
 export class SigninPage {
-  constructor(public platform: Platform) {}
+  constructor(
+    private store: Store<IApp>,
+    public readonly navCtrl: NavController,
+  ) {}
 }
 ```
 
-✅ 正しい: 依存性注入に `inject` 関数を使う
+### 正しい
 
 ```ts
+import { inject } from '@angular/core';
+
 @Component({
-  selector: 'app-confirm',
-  templateUrl: './confirm.page.html',
-  styleUrls: ['./confirm.page.scss'],
+  selector: 'app-signin',
+  templateUrl: './signin.page.html',
 })
 export class SigninPage {
-  public platform = inject(Platform);
+  private readonly store = inject(Store<IApp>);
+  private readonly navCtrl = inject(NavController);
+}
+```
 
-  constructor() {}
+```ts
+// Non-DI constructor parameters are allowed
+export class LogManager {
+  constructor(logDomain: string) {
+    this.logDomain = logDomain;
+  }
 }
 ```
 
 ## オプション
 
-オプションなし。
+このルールにオプションはありません。
+
+## 有効にする場面
+
+constructor parameter propertyではなく `inject()` でAngularの依存関係を取得することをプロジェクトで要求する場合に、このopt-inルールを有効にします。このルールは `TSParameterProperty` nodeだけを報告するため、通常のconstructor parameterは引き続き許可されます。
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/deny-constructor-di.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/deny-costructor-di.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/deny-constructor-di.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/deny-constructor-di.ts)

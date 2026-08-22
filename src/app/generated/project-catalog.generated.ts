@@ -420,7 +420,7 @@ export const PROJECTS_EN = [
     "repositoryUrl": "https://github.com/rdlabo-dev/ionic-theme-ios26",
     "category": "frontend-tools",
     "icon": "theme",
-    "version": "2.3.2",
+    "version": "3.0.0",
     "description": "iOS 26 design styling for Ionic applications.",
     "headline": "Bring iOS 26 design to Ionic apps",
     "overview": "Apply iOS 26 CSS, transitions, and Liquid Glass interactions to Ionic components, with dark mode and selective migration support.",
@@ -463,6 +463,13 @@ export const PROJECTS_EN = [
         "path": "/projects/ionic-theme-ios26/docs/features"
       },
       {
+        "title": "Special markup and classes",
+        "navTitle": "Special markup and classes",
+        "slug": "special-markup",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-ios26/docs/special-markup"
+      },
+      {
         "title": "Experimental Animation",
         "navTitle": "Experimental Animation",
         "slug": "experimental-animation",
@@ -501,7 +508,7 @@ export const PROJECTS_EN = [
     "repositoryUrl": "https://github.com/rdlabo-dev/ionic-theme-md3",
     "category": "frontend-tools",
     "icon": "theme",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "description": "Material Design 3 styling for Ionic applications.",
     "headline": "Bring Material Design 3 to Ionic apps",
     "overview": "Apply Material Design 3 styling to Ionic while keeping markup compatible with the iOS 26 theme and shared transition animations.",
@@ -530,6 +537,27 @@ export const PROJECTS_EN = [
         "path": "/projects/ionic-theme-md3/docs/readme"
       },
       {
+        "title": "Special markup",
+        "navTitle": "Special markup",
+        "slug": "special-markup",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-md3/docs/special-markup"
+      },
+      {
+        "title": "Using ion-item-group",
+        "navTitle": "Using ion-item-group",
+        "slug": "using-ion-item-group",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-md3/docs/using-ion-item-group"
+      },
+      {
+        "title": "Migration",
+        "navTitle": "Migration",
+        "slug": "migration",
+        "section": "Guides",
+        "path": "/projects/ionic-theme-md3/docs/migration"
+      },
+      {
         "title": "API",
         "navTitle": "API",
         "slug": "api",
@@ -547,7 +575,7 @@ export const PROJECTS_EN = [
     "repositoryUrl": "https://github.com/rdlabo-dev/ionic-angular-collect-icons",
     "category": "frontend-tools",
     "icon": "app",
-    "version": "2.1.0",
+    "version": "3.0.0",
     "description": "Automate ionIcons collection and export for Ionic Angular projects.",
     "headline": "Collect used ionIcons before production builds",
     "overview": "Group unique ionIcons in a project and generate an export file—register all icons during development, then collect icons used in templates before production builds.",
@@ -602,6 +630,13 @@ export const PROJECTS_EN = [
         "slug": "faq",
         "section": "Guides",
         "path": "/projects/ionic-angular-collect-icons/docs/faq"
+      },
+      {
+        "title": "Migration",
+        "navTitle": "Migration",
+        "slug": "migration",
+        "section": "Guides",
+        "path": "/projects/ionic-angular-collect-icons/docs/migration"
       },
       {
         "title": "CLI API",
@@ -699,7 +734,7 @@ export const PROJECTS_EN = [
     "repositoryUrl": "https://github.com/rdlabo-dev/eslint-plugin-rules",
     "category": "developer-tools",
     "icon": "lint",
-    "version": "21.3.0",
+    "version": "22.0.0",
     "description": "Opinionated Angular, Ionic, and TypeScript rules for maintainable applications.",
     "headline": "Keep Angular and Ionic architecture consistent",
     "overview": "Adopt a flat-config preset or select individual rules for Signals, component boundaries, Ionic overlays, forms, and safe asynchronous code.",
@@ -739,6 +774,13 @@ export const PROJECTS_EN = [
         "path": "/projects/eslint-plugin-rules/docs/configuration"
       },
       {
+        "title": "Migration",
+        "navTitle": "Migration",
+        "slug": "migration",
+        "section": "Guide",
+        "path": "/projects/eslint-plugin-rules/docs/migration"
+      },
+      {
         "title": "Rules",
         "navTitle": "Rules",
         "slug": "rules",
@@ -772,13 +814,6 @@ export const PROJECTS_EN = [
         "slug": "rules/deny-element",
         "section": "Rules",
         "path": "/projects/eslint-plugin-rules/docs/rules/deny-element"
-      },
-      {
-        "title": "deny-import-from-ionic-module",
-        "navTitle": "deny-import-from-ionic-module",
-        "slug": "rules/deny-import-from-ionic-module",
-        "section": "Rules",
-        "path": "/projects/eslint-plugin-rules/docs/rules/deny-import-from-ionic-module"
       },
       {
         "title": "deny-overlay-create",
@@ -844,11 +879,25 @@ export const PROJECTS_EN = [
         "path": "/projects/eslint-plugin-rules/docs/rules/prefer-disable-handler"
       },
       {
+        "title": "prefer-ionic-standalone",
+        "navTitle": "prefer-ionic-standalone",
+        "slug": "rules/prefer-ionic-standalone",
+        "section": "Rules",
+        "path": "/projects/eslint-plugin-rules/docs/rules/prefer-ionic-standalone"
+      },
+      {
         "title": "prefer-modal-launcher",
         "navTitle": "prefer-modal-launcher",
         "slug": "rules/prefer-modal-launcher",
         "section": "Rules",
         "path": "/projects/eslint-plugin-rules/docs/rules/prefer-modal-launcher"
+      },
+      {
+        "title": "require-ion-item-group",
+        "navTitle": "require-ion-item-group",
+        "slug": "rules/require-ion-item-group",
+        "section": "Rules",
+        "path": "/projects/eslint-plugin-rules/docs/rules/require-ion-item-group"
       },
       {
         "title": "require-viewmodel",
@@ -1970,7 +2019,7 @@ export const PROJECTS_JA = [
     "repositoryUrl": "https://github.com/rdlabo-dev/ionic-theme-ios26",
     "category": "frontend-tools",
     "icon": "theme",
-    "version": "2.3.2",
+    "version": "3.0.0",
     "description": "Ionicアプリ向けのiOS 26デザインスタイル。",
     "headline": "IonicアプリにiOS 26デザインを取り入れる",
     "overview": "IonicコンポーネントへiOS 26のCSS、トランジション、Liquid Glassインタラクションを適用し、ダークモードと段階的な移行にも対応します。",
@@ -2013,6 +2062,13 @@ export const PROJECTS_JA = [
         "path": "/projects/ionic-theme-ios26/docs/features"
       },
       {
+        "title": "特別なマークアップとクラス",
+        "navTitle": "特別なマークアップとクラス",
+        "slug": "special-markup",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-ios26/docs/special-markup"
+      },
+      {
         "title": "実験的なアニメーション",
         "navTitle": "実験的なアニメーション",
         "slug": "experimental-animation",
@@ -2051,7 +2107,7 @@ export const PROJECTS_JA = [
     "repositoryUrl": "https://github.com/rdlabo-dev/ionic-theme-md3",
     "category": "frontend-tools",
     "icon": "theme",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "description": "Ionicアプリ向けのMaterial Design 3スタイル。",
     "headline": "IonicアプリにMaterial Design 3を取り入れる",
     "overview": "iOS 26テーマと共通のマークアップ互換性を保ちつつ、IonicへMaterial Design 3スタイルとトランジションアニメーションを適用します。",
@@ -2080,6 +2136,27 @@ export const PROJECTS_JA = [
         "path": "/projects/ionic-theme-md3/docs/readme"
       },
       {
+        "title": "特別なマークアップ",
+        "navTitle": "特別なマークアップ",
+        "slug": "special-markup",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-md3/docs/special-markup"
+      },
+      {
+        "title": "ion-item-groupの使用方法",
+        "navTitle": "ion-item-groupの使用方法",
+        "slug": "using-ion-item-group",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-md3/docs/using-ion-item-group"
+      },
+      {
+        "title": "移行",
+        "navTitle": "移行",
+        "slug": "migration",
+        "section": "ガイド",
+        "path": "/projects/ionic-theme-md3/docs/migration"
+      },
+      {
         "title": "API",
         "navTitle": "API",
         "slug": "api",
@@ -2097,7 +2174,7 @@ export const PROJECTS_JA = [
     "repositoryUrl": "https://github.com/rdlabo-dev/ionic-angular-collect-icons",
     "category": "frontend-tools",
     "icon": "app",
-    "version": "2.1.0",
+    "version": "3.0.0",
     "description": "Ionic Angularプロジェクト向けのionIcons収集・エクスポート自動化。",
     "headline": "本番ビルド前に使用中のionIconsを収集する",
     "overview": "プロジェクト内のionIconsを一意にまとめエクスポート用ファイルを生成します。開発時は全アイコンを登録し、本番ビルド前にテンプレートで使われているアイコンを収集します。",
@@ -2152,6 +2229,13 @@ export const PROJECTS_JA = [
         "slug": "faq",
         "section": "ガイド",
         "path": "/projects/ionic-angular-collect-icons/docs/faq"
+      },
+      {
+        "title": "移行",
+        "navTitle": "移行",
+        "slug": "migration",
+        "section": "ガイド",
+        "path": "/projects/ionic-angular-collect-icons/docs/migration"
       },
       {
         "title": "CLI API",
@@ -2249,7 +2333,7 @@ export const PROJECTS_JA = [
     "repositoryUrl": "https://github.com/rdlabo-dev/eslint-plugin-rules",
     "category": "developer-tools",
     "icon": "lint",
-    "version": "21.3.0",
+    "version": "22.0.0",
     "description": "保守しやすいアプリケーションのためのAngular・Ionic・TypeScript向けESLintルール集。",
     "headline": "Angular・Ionicの設計規約を一貫させる",
     "overview": "Flat Configプリセットまたは個別ルールを使い、Signal、Component境界、Ionic Overlay、フォーム、非同期コードの規約を自動検査します。",
@@ -2289,6 +2373,13 @@ export const PROJECTS_JA = [
         "path": "/projects/eslint-plugin-rules/docs/configuration"
       },
       {
+        "title": "移行",
+        "navTitle": "移行",
+        "slug": "migration",
+        "section": "ガイド",
+        "path": "/projects/eslint-plugin-rules/docs/migration"
+      },
+      {
         "title": "ルール一覧",
         "navTitle": "ルール一覧",
         "slug": "rules",
@@ -2322,13 +2413,6 @@ export const PROJECTS_JA = [
         "slug": "rules/deny-element",
         "section": "ルール",
         "path": "/projects/eslint-plugin-rules/docs/rules/deny-element"
-      },
-      {
-        "title": "deny-import-from-ionic-module",
-        "navTitle": "deny-import-from-ionic-module",
-        "slug": "rules/deny-import-from-ionic-module",
-        "section": "ルール",
-        "path": "/projects/eslint-plugin-rules/docs/rules/deny-import-from-ionic-module"
       },
       {
         "title": "deny-overlay-create",
@@ -2394,11 +2478,25 @@ export const PROJECTS_JA = [
         "path": "/projects/eslint-plugin-rules/docs/rules/prefer-disable-handler"
       },
       {
+        "title": "prefer-ionic-standalone",
+        "navTitle": "prefer-ionic-standalone",
+        "slug": "rules/prefer-ionic-standalone",
+        "section": "ルール",
+        "path": "/projects/eslint-plugin-rules/docs/rules/prefer-ionic-standalone"
+      },
+      {
         "title": "prefer-modal-launcher",
         "navTitle": "prefer-modal-launcher",
         "slug": "rules/prefer-modal-launcher",
         "section": "ルール",
         "path": "/projects/eslint-plugin-rules/docs/rules/prefer-modal-launcher"
+      },
+      {
+        "title": "require-ion-item-group",
+        "navTitle": "require-ion-item-group",
+        "slug": "rules/require-ion-item-group",
+        "section": "ルール",
+        "path": "/projects/eslint-plugin-rules/docs/rules/require-ion-item-group"
       },
       {
         "title": "require-viewmodel",

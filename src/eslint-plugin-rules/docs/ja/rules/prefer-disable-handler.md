@@ -4,112 +4,137 @@ title: prefer-disable-handler
 
 # @rdlabo/rules/prefer-disable-handler
 
-> 設定した要素/イベントバインディングで、非同期処理中の二重タップを防ぐwrapper method（デフォルト: disableHandler($event, work)）を要求する
+> 非同期処理中の二重タップを防ぐため、設定した要素とイベントのバインディングにwrapper method（デフォルト: disableHandler($event, work)）を要求する
 >
 > - ⭐️ このルールは `plugin:@rdlabo/rules/recommended` プリセットに含まれます。
 
-`disableHandler`（`@rdlabo/ionic-angular-kit` 由来）は、非同期操作の実行中にきっかけとなったコントロールを無効化し、Promiseがsettledしたときに復元します。同期処理に使っても害はありません。コントロールは一瞬無効化されて戻され、無効化可能な対象が見つからない場合は何もしません。
-
-要素名・イベント名・wrapper method名はすべて設定可能なので、フリート共通のデフォルトと、リポジトリ固有のバインディング（例: `(ionComplete)`）の両方を同じルールでカバーできます。
-
-`recommended` でこのルールを有効にすると、wrapperなしで非同期処理を呼ぶ既存テンプレートが指摘されます。プラグインを上げるときは移行パスを見込んでください。
+非同期処理を開始するbuttonをユーザーがtapしたら、処理がsettleするまでcontrolを無効にする必要があります。そうしなければ、2回目のtapで同じactionが再実行される可能性があります。このルールは、設定した `(event)` bindingにwrapper呼び出し構文を強制します。UIの無効化とwork値の適切な処理はwrapper実装の責務です。
 
 ## ルール詳細
 
-❌ 誤り（デフォルト）
+Angularテンプレートを検査します。設定対象に一致する各 `BoundEvent` のhandler expressionは、2つ以上の引数を持つwrapper method呼び出しでなければなりません。
+
+1. event parameter（デフォルトは `$event`）。
+2. wrapperへ渡すwork expression。
+
+たとえば `(click)="vm.disableHandler($event, vm.save())"` は有効です。`(click)="vm.save()"` は報告されます。第2引数の型やPromiseを返すかどうかは検査しません。
+
+`$event.stopPropagation()` や `$event.preventDefault()` のようなevent methodの単独呼び出しも許可します（`allowEventMethods` で設定可能）。
+
+デフォルトの対象は次のとおりです。
+
+- `<ion-button>` と `<button>` の `click`
+- すべての要素の `submit`
+
+`.spec.html` ファイルは無視します。
+
+## オプション
+
+```json
+{
+  "rules": {
+    "@rdlabo/rules/prefer-disable-handler": [
+      "error",
+      {
+        "method": "disableHandler",
+        "eventParam": "$event",
+        "targets": [{ "events": ["click"], "elements": ["ion-button", "button"] }, { "events": ["submit"] }],
+        "allowEventMethods": ["stopPropagation", "preventDefault"]
+      }
+    ]
+  }
+}
+```
+
+### `method`
+
+- 型: `string`
+- デフォルト: `"disableHandler"`
+
+handler expressionに要求するwrapper method名です。
+
+### `eventParam`
+
+- 型: `string`
+- デフォルト: `"$event"`
+
+wrapper methodの第1引数として渡す必要がある値です。
+
+### `targets`
+
+- 型: `Target[]`
+- デフォルト: `[{ events: ['click'], elements: ['ion-button', 'button'] }, { events: ['submit'] }]`
+
+各targetはwrapperを要求するeventと要素を指定します。`elements` は任意で、省略するとそのeventを持つすべての要素に適用されます。
+
+### `allowEventMethods`
+
+- 型: `string[]`
+- デフォルト: `["stopPropagation", "preventDefault"]`
+
+wrapperなしで許可するevent methodです。たとえば `(click)="$event.stopPropagation()"` は有効です。
+
+## 例
+
+### 誤り
 
 ```html
 <ion-button (click)="vm.save()">Save</ion-button>
+```
+
+```html
 <form (submit)="vm.save()"></form>
 ```
 
-次も誤りです。wrapperは `$event` と第2引数の `work` を受け取る必要があります。
-
 ```html
-<ion-button (click)="vm.disableHandler($event)">Save</ion-button> <ion-button (click)="vm.disableHandler(vm.save())">Save</ion-button>
+<ion-button (click)="vm.disableHandler(vm.save())">missing $event</ion-button>
 ```
 
-✅ 正しい（デフォルト）
+### 正しい
 
 ```html
 <ion-button (click)="vm.disableHandler($event, vm.save())">Save</ion-button>
-<form (submit)="vm.disableHandler($event, vm.save())"></form>
 ```
 
-wrapperなしで許可（イベントのみ、デフォルト）:
+```html
+<form (submit)="vm.disableHandler($event, vm.save())">
+  <ion-button type="submit">Save</ion-button>
+</form>
+```
 
 ```html
 <ion-button (click)="$event.stopPropagation()"></ion-button>
 ```
 
-```html
-<ion-button (click)="$event.preventDefault()"></ion-button>
-```
-
-デフォルトでは対象外（`targets.elements` に未掲載）:
+### カスタム設定
 
 ```html
-<ion-chip (click)="vm.toggle()"></ion-chip>
+<ion-input (ionComplete)="vm.disableHandler($event, vm.join())"></ion-input>
 ```
 
-```html
-<ion-item [button]="true" (click)="vm.open()"></ion-item>
-```
-
-## オプション
-
-```ts
+```json
 {
-  method?: string; // default: 'disableHandler'
-  eventParam?: string; // default: '$event'
-  targets?: Array<{
-    events: string[]; // e.g. ['click'], ['submit'], ['ionComplete']
-    elements?: string[]; // omit / [] = any element for those events
-  }>;
-  allowEventMethods?: string[]; // default: ['stopPropagation', 'preventDefault']
+  "rules": {
+    "@rdlabo/rules/prefer-disable-handler": [
+      "error",
+      {
+        "targets": [{ "events": ["ionComplete"], "elements": ["ion-input"] }]
+      }
+    ]
+  }
 }
 ```
 
-**`targets` はデフォルト一覧を完全に置き換えます**（マージしません）。click/submitを維持しつつ追加する場合は、デフォルトを再掲したうえで追加分を足します。
+## 有効にする場合
 
-### デフォルト
+API呼び出し、navigation、modal表示などの非同期処理をユーザー操作から開始するIonic/Angularプロジェクトで有効にしてください。[`@rdlabo/rules/prefer-modal-launcher`](./prefer-modal-launcher.md) および [`@rdlabo/rules/deny-element`](./deny-element.md) と組み合わせることで、overlay logicを一元化できます。
 
-```ts
-{
-  method: 'disableHandler',
-  eventParam: '$event',
-  targets: [
-    { events: ['click'], elements: ['ion-button', 'button'] },
-    { events: ['submit'] }, // any element
-  ],
-  allowEventMethods: ['stopPropagation', 'preventDefault'],
-}
-```
+## 関連項目
 
-### 例
-
-カスタムwrapper名を要求する:
-
-```js
-'@rdlabo/rules/prefer-disable-handler': ['error', { method: 'guardClick' }]
-```
-
-`ion-input` の `(ionComplete)` も強制する（デフォルトのtargetsを**再掲**する）:
-
-```js
-'@rdlabo/rules/prefer-disable-handler': [
-  'error',
-  {
-    targets: [
-      { events: ['click'], elements: ['ion-button', 'button'] },
-      { events: ['submit'] },
-      { events: ['ionComplete'], elements: ['ion-input'] },
-    ],
-  },
-]
-```
+- [`@rdlabo/rules/prefer-modal-launcher`](./prefer-modal-launcher.md)
+- [`@rdlabo/rules/deny-element`](./deny-element.md)
 
 ## 実装
 
-- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/src/rules/prefer-disable-handler.ts)
-- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v21.3.0/tests/rules/prefer-disable-handler.ts)
+- [Rule source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/src/rules/prefer-disable-handler.ts)
+- [Test source](https://github.com/rdlabo-dev/eslint-plugin-rules/blob/v22.0.0/tests/rules/prefer-disable-handler.ts)

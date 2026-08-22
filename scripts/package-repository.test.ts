@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  CANONICAL_DOCS_PORTAL_REPOSITORY_URL,
   DOCS_PORTAL_REPOSITORY_URL,
   DOCS_PORTAL_REF,
+  canonicalizePortalSource,
+  pinPackageSourceLinks,
   parseRepositoryUrl,
   repositoryRawUrl,
   repositorySourceLabel,
@@ -19,6 +22,29 @@ test('parses GitHub repository URLs', () => {
   });
 });
 
+test('pins only source links that belong to the package repository', async () => {
+  const project = {
+    repositoryUrl: 'https://github.com/rdlabo-dev/capacitor-docgen',
+    packageName: '@rdlabo/capacitor-docgen',
+  };
+  const markdown = [
+    '[fork](https://github.com/rdlabo-dev/capacitor-docgen/tree/main/src) [upstream](https://github.com/ionic-team/capacitor-docgen/tree/v0.3.1/src)',
+    '[blob](https://github.com/rdlabo-dev/capacitor-docgen/blob/next/docs/api.md)',
+    '![raw](https://raw.githubusercontent.com/rdlabo-dev/capacitor-docgen/main/image.png)',
+    '[pinned](https://github.com/rdlabo-dev/capacitor-docgen/blob/v0.4.1/README.md)',
+  ].join('\n');
+
+  assert.equal(
+    await pinPackageSourceLinks(project, markdown),
+    [
+      '[fork](https://github.com/rdlabo-dev/capacitor-docgen/tree/v0.4.1/src) [upstream](https://github.com/ionic-team/capacitor-docgen/tree/v0.3.1/src)',
+      '[blob](https://github.com/rdlabo-dev/capacitor-docgen/blob/v0.4.1/docs/api.md)',
+      '![raw](https://raw.githubusercontent.com/rdlabo-dev/capacitor-docgen/v0.4.1/image.png)',
+      '[pinned](https://github.com/rdlabo-dev/capacitor-docgen/blob/v0.4.1/README.md)',
+    ].join('\n'),
+  );
+});
+
 test('builds raw and source labels for repository docs', () => {
   const repositoryUrl = 'https://github.com/capacitor-community/admob';
   assert.equal(
@@ -29,6 +55,27 @@ test('builds raw and source labels for repository docs', () => {
     repositorySourceLabel(repositoryUrl, 'main', 'README.md'),
     'capacitor-community/admob@main/README.md',
   );
-  assert.equal(DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/docs');
-  assert.equal(DOCS_PORTAL_REF, 'main');
+  assert.equal(CANONICAL_DOCS_PORTAL_REPOSITORY_URL, 'https://github.com/rdlabo-dev/docs');
+  assert.equal(
+    DOCS_PORTAL_REPOSITORY_URL,
+    process.env['RDLABO_DOCS_REPOSITORY_URL'] ?? CANONICAL_DOCS_PORTAL_REPOSITORY_URL,
+  );
+  assert.ok(DOCS_PORTAL_REF);
+});
+
+test('keeps fork-fetched portal pages editable in the canonical repository', () => {
+  assert.deepEqual(
+    canonicalizePortalSource({
+      content: '# API',
+      repositoryPath: 'src/example/docs/api.md',
+      repositoryRef: 'fork-head-sha',
+      repositoryUrl: 'https://github.com/contributor/docs',
+    }),
+    {
+      content: '# API',
+      repositoryPath: 'src/example/docs/api.md',
+      repositoryRef: 'main',
+      repositoryUrl: 'https://github.com/rdlabo-dev/docs',
+    },
+  );
 });

@@ -4,62 +4,83 @@ code: []
 scrollActiveLine: []
 ---
 
-段階的な移行のために、テーマ全体のファイルではなく個別コンポーネントをインポートして、iOS26テーマを選択的に適用できます。
+アップグレード対象のversionに対応するsectionを参照してください。各sectionには、アプリケーションのコードまたは設定の変更が必要な項目のみを記載しています。
 
-```css
-@import '@rdlabo/ionic-theme-ios26/dist/css/utils/translucent';
-@import '@rdlabo/ionic-theme-ios26/dist/css/components/ion-action-sheet';
-@import '@rdlabo/ionic-theme-ios26/dist/css/components/ion-alert';
-@import '@rdlabo/ionic-theme-ios26/dist/css/components/ion-button';
-...
+## 3.0.0への移行
+
+### `.header-item-group` を `.item-group-header` に変更する
+
+section headerとして使う `ion-item-group` のclass名を、対象elementとの一貫性を保つため変更しました。アプリケーションのtemplateとstyleにある `.header-item-group` をすべて置き換えてください。
+
+```diff
+- <ion-item-group class="header-item-group">
++ <ion-item-group class="item-group-header">
+    ...
+  </ion-item-group>
 ```
 
-### 個別コンポーネントでのダークモード
+旧classはthemeでstyleされなくなりました。この変更は、`@rdlabo/ionic-theme-md3` と共有するmarkupにも適用されます。
 
-個別コンポーネントをダークモード対応でインポートする場合は、CSSではなくSCSSを使います。`Always`、`System`、`Class` モードでセレクタが異なるためです。
+## 2.0.0への移行
 
-> **Note**: 現時点では、`ion-button` にのみ個別のダークモードスタイルが適用されています。
+### `iosTransitionAnimation` を設定する
 
-Always（常時ダークモード）:
+version 2ではpackageのnavigation transitionが必要です。このtransitionは、Large Titleをback buttonのlabelへ動かしていた古い `animateBackButton()` の挙動を除き、Ionicのdefault iOS transitionに従います。
 
-```scss
-@use '@rdlabo/ionic-theme-ios26/src/styles/utils/theme-dark';
+```ts
+import { isPlatform } from '@ionic/core'; // or @ionic/angular/standalone, @ionic/react, @ionic/vue
+import { iosTransitionAnimation } from '@rdlabo/ionic-theme-ios26';
 
-:root {
-  @include theme-dark.default-variables;
-}
-@include theme-dark.ion-button;
-@include theme-dark.ion-fab;
-@include theme-dark.ion-tabs;
-@include theme-dark.ion-segment;
+// Angular
+provideIonicAngular({
+  // ...
+  navAnimation: isPlatform('ios') ? iosTransitionAnimation : undefined,
+});
+
+// React
+setupIonicReact({
+  // ...
+  navAnimation: isPlatform('ios') ? iosTransitionAnimation : undefined,
+});
+
+// Vue
+createApp(App).use(IonicVue, {
+  // ...
+  navAnimation: isPlatform('ios') ? iosTransitionAnimation : undefined,
+});
 ```
 
-System（システム設定に追従）:
+このtransitionを設定すると、旧animationによる不要なtransitionの副作用なしに `<ion-buttons><ion-back-button></ion-back-button></ion-buttons>` を利用できます。
 
-```scss
-@use '@rdlabo/ionic-theme-ios26/src/styles/utils/theme-dark';
+## 1.0.0への移行
 
-@media (prefers-color-scheme: dark) {
+### SCSSのimport pathを更新する
+
+JavaScript fileがpackageに追加された際、source fileは `src/styles` 以下へ移動しました。
+
+```diff
+- @import '@rdlabo/ionic-theme-ios26/src/default-variables.scss';
++ @import '@rdlabo/ionic-theme-ios26/src/styles/default-variables.scss';
+```
+
+`dist` 以下の生成済みCSS pathは変更されていません。
+
+### `--ios26-color-background-rgb` の名前を変更する
+
+```diff
   :root {
-    @include theme-dark.default-variables;
+-   --ios26-color-background-rgb: 255, 255, 255;
++   --ios26-content-box-shadow-rgb: 255, 255, 255;
   }
-  @include theme-dark.ion-button;
-  @include theme-dark.ion-fab;
-  @include theme-dark.ion-tabs;
-  @include theme-dark.ion-segment;
-}
 ```
 
-Class（CSSクラスで切り替え）:
+### brightness変数の名前を変更する
 
-```scss
-@use '@rdlabo/ionic-theme-ios26/src/styles/utils/theme-dark';
+各 `--ion-color-*-brightness-rgb` 変数を `--ion-color-*-brightness` に置き換え、RGB channel listではなくcolor valueを指定してください。
 
-.ion-palette-dark {
-  @include theme-dark.default-variables;
-  @include theme-dark.ion-button;
-  @include theme-dark.ion-fab;
-  @include theme-dark.ion-tabs;
-  @include theme-dark.ion-segment;
-}
+```diff
+  :root {
+-   --ion-color-primary-brightness-rgb: 130, 255, 255;
++   --ion-color-primary-brightness: #96feff;
+  }
 ```

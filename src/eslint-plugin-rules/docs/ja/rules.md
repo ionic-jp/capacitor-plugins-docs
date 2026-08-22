@@ -2,14 +2,13 @@
 title: ルール一覧
 ---
 
-パッケージは18個のルールを公開します。「推奨」がYesのルールは `rdlabo.configs.recommended` で有効になり、それ以外は個別に設定します。
+パッケージは19個のルールを公開します。「推奨」がYesのルールは `rdlabo.configs.recommended` で有効になり、それ以外は個別に設定します。
 
 | ルール                                                                                                         | 目的                                                                  | Fix | 推奨 |
 | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | :-: | :--: |
 | [`component-property-use-readonly`](/eslint-plugin-rules/docs/rules/component-property-use-readonly)           | Angular Componentの不変プロパティに `readonly` を要求する。           | Yes | Yes  |
 | [`deny-constructor-di`](/eslint-plugin-rules/docs/rules/deny-constructor-di)                                   | constructor DIを禁止する。`inject()`を推奨する非推奨ルール。          | No  |  No  |
 | [`deny-element`](/eslint-plugin-rules/docs/rules/deny-element)                                                 | インラインIonic Overlayなど、設定したHTML要素を禁止する。             | No  | Yes  |
-| [`deny-import-from-ionic-module`](/eslint-plugin-rules/docs/rules/deny-import-from-ionic-module)               | `@ionic/angular`からの誤importをstandalone importへ置換する。         | Yes | Yes  |
 | [`deny-overlay-create`](/eslint-plugin-rules/docs/rules/deny-overlay-create)                                   | Modal・Popover Controllerの直接 `.create()` を禁止する。              | No  | Yes  |
 | [`deny-soft-private-modifier`](/eslint-plugin-rules/docs/rules/deny-soft-private-modifier)                     | TypeScriptの `private` をハードプライベート `#` へ置換する。          | Yes | Yes  |
 | [`implements-ionic-lifecycle`](/eslint-plugin-rules/docs/rules/implements-ionic-lifecycle)                     | Angular・Ionic lifecycle methodに対応するinterfaceを要求する。        | Yes | Yes  |
@@ -19,7 +18,9 @@ title: ルール一覧
 | [`no-reactive-forms`](/eslint-plugin-rules/docs/rules/no-reactive-forms)                                       | Reactive Formsを禁止し、Angular Signal Formsへ移行する。              | No  |  No  |
 | [`no-template-driven-forms`](/eslint-plugin-rules/docs/rules/no-template-driven-forms)                         | 許可した相互運用要素を除きtemplate-driven formsを禁止する。           | No  |  No  |
 | [`prefer-disable-handler`](/eslint-plugin-rules/docs/rules/prefer-disable-handler)                             | 非同期操作の二重実行を防ぐwrapperを要求する。                         | No  | Yes  |
+| [`prefer-ionic-standalone`](/eslint-plugin-rules/docs/rules/prefer-ionic-standalone)                           | Ionic 9 standalone importを優先し、`IonicModule` を禁止する。         | Yes | Yes  |
 | [`prefer-modal-launcher`](/eslint-plugin-rules/docs/rules/prefer-modal-launcher)                               | `presentModal` 呼び出しを `launch*` 関数に限定する。                  | No  | Yes  |
+| [`require-ion-item-group`](/eslint-plugin-rules/docs/rules/require-ion-item-group)                             | iOS 26・MD3向けにIonic list itemのgroup化を要求する。                 | Yes | Yes  |
 | [`require-viewmodel`](/eslint-plugin-rules/docs/rules/require-viewmodel)                                       | Component所有と `ViewModelStore` 境界を検査する。                     | No  | Yes  |
 | [`restrict-try-block`](/eslint-plugin-rules/docs/rules/restrict-try-block)                                     | `try` を短く保ち、Promise・RxJS・Signal contextをポリシーで制限する。 | No  | Yes  |
 | [`signal-use-as-signal-template`](/eslint-plugin-rules/docs/rules/signal-use-as-signal-template)               | テンプレートでSignalを読むときに `()` を要求する。                    | No  | Yes  |
@@ -27,7 +28,7 @@ title: ルール一覧
 
 ## ルール別ドキュメント
 
-各ルールページに詳細・オプション・正誤例があります。上の表はv21.3.0を反映しています。
+各ルールページに詳細・オプション・正誤例があります。
 
 ## 型情報を使うルール
 
